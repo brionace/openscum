@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     if (query) {
       whereClause.OR = [
         { description: { contains: query, mode: "insensitive" } },
-        { phoneNumber: { contains: query } },
+        { phoneNumber: { contains: query } }, // no mode here
         { email: { contains: query, mode: "insensitive" } },
         { website: { contains: query, mode: "insensitive" } },
       ];
@@ -89,6 +89,7 @@ export async function GET(request: NextRequest) {
         where: whereClause,
         include: {
           scamType: true,
+          // REMOVE: tags: true,
           _count: {
             select: {
               comments: true,

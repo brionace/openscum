@@ -139,7 +139,7 @@ export function ReportCard({
               )}
               {report.reportCount > 1 && report.scamType?.id && (
                 <Link
-                  href={`/type/${report.scamType.id}`}
+                  href={`/types/${report.scamType.id}`}
                   className="underline text-blue-700"
                 >
                   <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">

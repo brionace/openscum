@@ -432,24 +432,44 @@ const scamReports = [
 
 // Seeding function
 async function main() {
+  // Ensure all scam types exist
+  const uniqueTypeNames = Array.from(
+    new Set(scamReports.map((r) => (r as any).scamTypeName).filter(Boolean))
+  );
+  for (const name of uniqueTypeNames) {
+    await prisma.scamType.upsert({
+      where: { name },
+      update: {},
+      create: { name },
+    });
+  }
   // Get all scam types from the DB
   const scamTypes = await prisma.scamType.findMany();
   for (const report of scamReports) {
     // Find scamTypeId by name if present
     let scamTypeId: string | undefined = undefined;
+    let mainType: any = undefined;
     if ((report as any).scamTypeName) {
-      const found = scamTypes.find(
+      mainType = scamTypes.find(
         (t) =>
           t.name.toLowerCase() === (report as any).scamTypeName.toLowerCase()
       );
-      if (found) scamTypeId = found.id;
+      if (mainType) scamTypeId = mainType.id;
     }
+    // Pick 1-3 random scam types (excluding the main one) as additional types/tags
+    const otherTypes = scamTypes.filter(
+      (t) => !mainType || t.id !== mainType.id
+    );
+    const tagCount = Math.max(1, Math.floor(Math.random() * 3));
+    const shuffled = otherTypes.sort(() => 0.5 - Math.random());
+    const additionalTypeIds = shuffled.slice(0, tagCount).map((t) => t.id);
     // Remove scamTypeName from report data
     const { scamTypeName, ...reportData } = report as any;
     const createdReport = await prisma.scamReport.create({
       data: {
         ...reportData,
         scamTypeId,
+        // No tags field, but you can store additionalTypeIds in a custom field or ignore for now
       },
     });
     // Add a random number (1-5) of helpful votes for each report

@@ -31,8 +31,9 @@ import { MapPin, AlertTriangle, DollarSign } from "lucide-react";
 import currencies from "country-json/src/country-by-currency-code.json";
 import flags from "country-json/src/country-by-flag.json";
 import capitals from "country-json/src/country-by-capital-city.json";
-import cities from "country-json/src/country-by-cities.json";
+import cities from "country-json/src/country-by-capital-city.json";
 import { countryCodeAndName, countryCity } from "@/lib/country";
+import { TypeDropdown } from "@/components/ui/type-dropdown";
 
 const reportSchema = z.object({
   description: z.string().min(20, "Description must be at least 20 characters"),
@@ -47,6 +48,7 @@ const reportSchema = z.object({
   reporterEmail: z.string().email().optional().or(z.literal("")),
   anonymous: z.boolean().default(true),
   scamTypeId: z.string().min(1, "Please select a scam type"),
+  tags: z.array(z.string()).optional(), // <-- add tags as array of string IDs
   city: z.string().optional(),
   country: z.string().optional(),
 });
@@ -76,15 +78,14 @@ export function ReportForm({
   prefill,
 }: ReportFormProps) {
   const [captchaToken, setCaptchaToken] = useState<string>("");
-  const [scamTypes, setScamTypes] = useState<{ id: string; name: string }[]>(
-    []
-  );
-  const [scamTypeSearch, setScamTypeSearch] = useState("");
-  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+  const [scamTypeOptions, setScamTypeOptions] = useState<
+    { id: string; name: string }[]
+  >([]);
   const [selectedScamType, setSelectedScamType] = useState<{
     id: string;
     name: string;
   } | null>(null);
+  const [scamTypeSearch, setScamTypeSearch] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [currencySearch, setCurrencySearch] = useState("");
   const [currencyOptions, setCurrencyOptions] = useState(countryCodeAndName());
@@ -157,9 +158,10 @@ export function ReportForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefill]);
 
+  // --- Scam Type Dropdown logic ---
   useEffect(() => {
-    if (scamTypeSearch.length === 0) {
-      setScamTypes([]);
+    if (!scamTypeSearch) {
+      setScamTypeOptions([]);
       return;
     }
     fetch(`/api/scam-types?q=${encodeURIComponent(scamTypeSearch)}`)
@@ -173,27 +175,23 @@ export function ReportForm({
           return [];
         }
       })
-      .then(setScamTypes)
-      .catch(() => setScamTypes([]));
+      .then(setScamTypeOptions);
   }, [scamTypeSearch]);
 
-  // When the form value changes (e.g., on load or reset), ensure selectedScamType is in sync
+  // --- Tag Dropdown logic ---
+  const [tagOptions, setTagOptions] = useState<{ id: string; name: string }[]>(
+    []
+  );
+  const [selectedTags, setSelectedTags] = useState<
+    { id: string; name: string }[]
+  >([]);
+  const [tagSearch, setTagSearch] = useState("");
   useEffect(() => {
-    const scamTypeId = form.watch("scamTypeId");
-    if (!scamTypeId) {
-      setSelectedScamType(null);
+    if (!tagSearch) {
+      setTagOptions([]);
       return;
     }
-    // If already set, don't refetch
-    if (selectedScamType && selectedScamType.id === scamTypeId) return;
-    // Try to find in current scamTypes
-    const found = scamTypes.find((t) => t.id === scamTypeId);
-    if (found) {
-      setSelectedScamType(found);
-      return;
-    }
-    // Otherwise, fetch it directly
-    fetch(`/api/scam-types?q=`)
+    fetch(`/api/scam-types?q=${encodeURIComponent(tagSearch)}`)
       .then(async (res) => {
         if (!res.ok) return [];
         const text = await res.text();
@@ -204,91 +202,10 @@ export function ReportForm({
           return [];
         }
       })
-      .then((allTypes) => {
-        const match = allTypes.find((t: any) => t.id === scamTypeId);
-        if (match) setSelectedScamType(match);
-      })
-      .catch(() => {});
-  }, [form, scamTypes, selectedScamType]);
+      .then(setTagOptions);
+  }, [tagSearch]);
 
-  // Memoize all cities/countries
-  const allLocations = useMemo(() => countryCity(), []);
-
-  // Debounce the search input
-  const [debouncedLocationSearch, setDebouncedLocationSearch] =
-    useState(locationSearch);
-  useEffect(() => {
-    const handler = setTimeout(
-      () => setDebouncedLocationSearch(locationSearch),
-      200
-    );
-    return () => clearTimeout(handler);
-  }, [locationSearch]);
-
-  // Filter and limit results
-  useEffect(() => {
-    if (!debouncedLocationSearch) {
-      setLocationOptions([]);
-      return;
-    }
-    const searchLower = debouncedLocationSearch.toLowerCase();
-    const matches: { city: string; country: string }[] = [];
-    for (const { name: country, cities } of allLocations) {
-      // Match country
-      if (country.toLowerCase().includes(searchLower)) {
-        matches.push({ city: "", country });
-      }
-      // Match cities
-      for (const city of cities) {
-        if (city && city.toLowerCase().includes(searchLower)) {
-          matches.push({ city, country });
-        }
-      }
-    }
-    // Deduplicate by city+country key
-    const seen = new Set<string>();
-    const uniqueMatches = matches.filter(({ city, country }) => {
-      const key = `${city},${country}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-    setLocationOptions(uniqueMatches.slice(0, 20)); // Limit to 20 results
-  }, [debouncedLocationSearch, allLocations]);
-
-  // Build city-country options for search
-  useEffect(() => {
-    if (!locationSearch) {
-      setLocationOptions([]);
-      return;
-    }
-    const all = countryCity();
-    const searchLower = locationSearch.toLowerCase();
-    const matches: { city: string; country: string }[] = [];
-    for (const { name: country, cities } of all) {
-      // Match country
-      if (country.toLowerCase().includes(searchLower)) {
-        matches.push({ city: "", country });
-      }
-      // Match cities
-      for (const city of cities) {
-        if (city && city.toLowerCase().includes(searchLower)) {
-          matches.push({ city, country });
-        }
-      }
-    }
-    // Deduplicate by city+country key
-    const seen = new Set<string>();
-    const uniqueMatches = matches.filter(({ city, country }) => {
-      const key = `${city},${country}`;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-    setLocationOptions(uniqueMatches);
-  }, [locationSearch]);
-
-  // Update handleSubmit to include location fields with correct keys
+  // Update handleSubmit to include tags
   const handleSubmit = async (data: ReportFormData) => {
     // In development, skip CAPTCHA validation
     if (isProduction && !captchaToken) {
@@ -297,6 +214,8 @@ export function ReportForm({
     }
     await onSubmit({
       ...data,
+      scamTypeId: selectedScamType ? selectedScamType.id : "",
+      tags: selectedTags.map((t) => t.id),
       captchaToken: captchaToken || "dev-bypass",
       city: selectedLocation?.city || "",
       country: selectedLocation?.country || "",
@@ -319,155 +238,36 @@ export function ReportForm({
           >
             {/* Scam Type */}
             <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="scamTypeId"
-                render={({ field }: { field: any }) => {
-                  const filteredTypes =
-                    scamTypeSearch.length > 0
-                      ? scamTypes.filter((type) =>
-                          type.name
-                            .toLowerCase()
-                            .includes(scamTypeSearch.toLowerCase())
-                        )
-                      : [];
-                  return (
-                    <FormItem>
-                      <FormLabel htmlFor="scam-type-input">
-                        Scam Type *
-                      </FormLabel>
-                      <div>
-                        {selectedScamType ? (
-                          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
-                            <span>{selectedScamType.name}</span>
-                            <button
-                              type="button"
-                              aria-label="Remove selected scam type"
-                              className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
-                              onClick={() => {
-                                setSelectedScamType(null);
-                                field.onChange("");
-                                setScamTypeSearch("");
-                                setScamTypes([]);
-                              }}
-                            >
-                              ×
-                            </button>
-                          </div>
-                        ) : (
-                          <Input
-                            id="scam-type-input"
-                            placeholder="Type to search scam types..."
-                            value={scamTypeSearch}
-                            onChange={(e) => {
-                              setScamTypeSearch(e.target.value);
-                              setSelectedScamType(null);
-                              field.onChange("");
-                            }}
-                            className="mb-2"
-                            autoComplete="off"
-                            onKeyDown={(e) => {
-                              if (!filteredTypes.length) return;
-                              if (e.key === "ArrowDown") {
-                                e.preventDefault();
-                                setHighlightedIndex((prev) =>
-                                  prev < filteredTypes.length - 1 ? prev + 1 : 0
-                                );
-                              } else if (e.key === "ArrowUp") {
-                                e.preventDefault();
-                                setHighlightedIndex((prev) =>
-                                  prev > 0 ? prev - 1 : filteredTypes.length - 1
-                                );
-                              } else if (e.key === "Enter") {
-                                e.preventDefault();
-                                if (
-                                  highlightedIndex >= 0 &&
-                                  highlightedIndex < filteredTypes.length
-                                ) {
-                                  const type = filteredTypes[highlightedIndex];
-                                  setSelectedScamType(type);
-                                  field.onChange(type.id);
-                                  setScamTypeSearch("");
-                                }
-                              }
-                            }}
-                          />
-                        )}
-                      </div>
-                      {/* Show dropdown only if user has typed something and not selected */}
-                      {!selectedScamType && scamTypeSearch.length > 0 && (
-                        <div className="border rounded p-2 max-h-40 overflow-y-auto bg-white z-10 absolute w-full">
-                          {filteredTypes
-                            .filter(
-                              (type) => type.name !== "Other (not on the list)"
-                            )
-                            .map((type, idx) => (
-                              <div
-                                key={type.id}
-                                className={`cursor-pointer px-2 py-1 rounded ${
-                                  highlightedIndex === idx
-                                    ? "bg-blue-200"
-                                    : field.value === type.id
-                                    ? "bg-blue-100"
-                                    : "hover:bg-gray-100"
-                                }`}
-                                onMouseEnter={() => setHighlightedIndex(idx)}
-                                onMouseDown={(e) => {
-                                  e.preventDefault();
-                                  setSelectedScamType(type);
-                                  field.onChange(type.id);
-                                  setScamTypeSearch("");
-                                }}
-                              >
-                                {type.name}
-                              </div>
-                            ))}
-                          {/* Always show 'Other (not on the list)' at the end if available */}
-                          {(() => {
-                            const otherType = scamTypes.find(
-                              (t) => t.name === "Other (not on the list)"
-                            );
-                            if (!otherType) return null;
-                            const otherIdx = filteredTypes.length;
-                            return (
-                              <div
-                                key={otherType.id}
-                                className={`cursor-pointer px-2 py-1 rounded ${
-                                  highlightedIndex === otherIdx
-                                    ? "bg-blue-200"
-                                    : field.value === otherType.id
-                                    ? "bg-blue-100"
-                                    : "hover:bg-gray-100"
-                                }`}
-                                onMouseEnter={() =>
-                                  setHighlightedIndex(otherIdx)
-                                }
-                                onMouseDown={(e) => {
-                                  e.preventDefault();
-                                  setSelectedScamType(otherType);
-                                  field.onChange(otherType.id);
-                                  setScamTypeSearch("");
-                                }}
-                              >
-                                Other (not on the list)
-                              </div>
-                            );
-                          })()}
-                          {filteredTypes.length === 0 &&
-                            !scamTypes.find(
-                              (t) => t.name === "Other (not on the list)"
-                            ) && (
-                              <div className="text-gray-400 px-2 py-1">
-                                No results
-                              </div>
-                            )}
-                        </div>
-                      )}
-                      <FormMessage />
-                    </FormItem>
-                  );
-                }}
-              />
+              <FormItem>
+                <FormLabel>Scam Type *</FormLabel>
+                <TypeDropdown
+                  value={selectedScamType}
+                  onChange={(val) => {
+                    setSelectedScamType(val as any);
+                  }}
+                  options={scamTypeOptions}
+                  onSearch={setScamTypeSearch}
+                  placeholder="Type to search scam types..."
+                  multi={false}
+                />
+                <FormMessage />
+              </FormItem>
+              {/* Tags field (multi-select) */}
+              <FormItem>
+                <FormLabel>Additional Scam Types (Tags)</FormLabel>
+                <TypeDropdown
+                  value={selectedTags}
+                  onChange={(val) => setSelectedTags(val as any)}
+                  options={tagOptions}
+                  onSearch={setTagSearch}
+                  placeholder="Type to search scam types..."
+                  multi={true}
+                />
+                <FormDescription>
+                  Add additional scam types/tags to help others find this
+                  report.
+                </FormDescription>
+              </FormItem>
             </div>
 
             {/* Basic Information */}

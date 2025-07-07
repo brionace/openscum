@@ -56,9 +56,15 @@ export default function Home() {
       const offset = reports.length;
       const response = await fetch(`/api/reports?limit=10&offset=${offset}`);
       const data = await response.json();
+      console.log("Fetched reports data:", data); // DEBUG LOG
       if (data.success) {
-        setReports((prev) => [...prev, ...data.data.reports]);
+        if (!Array.isArray(data.data.reports)) {
+          console.warn("No reports array in response:", data);
+        }
+        setReports((prev) => [...prev, ...(data.data.reports || [])]);
         setHasMore(data.data.hasMore);
+      } else {
+        console.error("API returned error:", data.error);
       }
     } catch (error) {
       console.error("Failed to load reports:", error);
