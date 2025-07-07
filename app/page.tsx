@@ -167,7 +167,7 @@ export default function Home() {
                     ...r._count,
                     votes: data.votes,
                     comments:
-                      typeof r._count.comments === "number"
+                      typeof r._count?.comments === "number"
                         ? r._count.comments
                         : 0,
                   } as { votes: number; comments: number },

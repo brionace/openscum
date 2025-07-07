@@ -3,6 +3,7 @@ import { ReportModal } from "@/components/report-modal";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
 import * as nextAuthReact from "next-auth/react";
+import { Session } from "next-auth";
 
 global.fetch = jest.fn((url, opts) => {
   if (typeof url === "string" && url.includes("comments")) {
@@ -77,6 +78,9 @@ jest.spyOn(nextAuthReact, "useSession").mockReturnValue({
     expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
   },
   status: "authenticated",
+  update: function (data?: any): Promise<Session | null> {
+    throw new Error("Function not implemented.");
+  }
 });
 
 describe("ReportModal", () => {

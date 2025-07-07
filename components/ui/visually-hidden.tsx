@@ -2,18 +2,24 @@
 
 import React from "react";
 
-const VisuallyHidden = ({ children, ...delegated }) => {
+import type { ReactNode, HTMLAttributes } from "react";
+
+interface VisuallyHiddenProps extends HTMLAttributes<HTMLSpanElement> {
+  children: ReactNode;
+}
+
+const VisuallyHidden = ({ children, ...delegated }: VisuallyHiddenProps) => {
   const [forceShow, setForceShow] = React.useState(false);
 
   React.useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
-      const handleKeyDown = (ev) => {
+      const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(true);
         }
       };
 
-      const handleKeyUp = (ev) => {
+      const handleKeyUp = (ev: KeyboardEvent) => {
         if (ev.key === "Alt") {
           setForceShow(false);
         }
