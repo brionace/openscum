@@ -1,0 +1,132 @@
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+// Usage
+// npx tsx prisma/seed-types.ts
+
+async function main() {
+  // Most common scam types
+  const scamTypes = [
+    "Fake Tech Support",
+    "Crypto Investment Scam",
+    "Romance Scam",
+    "Online Shopping Scam",
+    "Rental Scam",
+    "Government Impersonation",
+    "Lottery Scam",
+    "Charity Scam",
+    "Employment Scam",
+    "Phishing (Email/SMS)",
+    "Social Media Scam",
+    "Fake Website",
+    "Advance Fee Fraud",
+    "Business Email Compromise",
+    "Impersonation Scam",
+    "Investment Scam",
+    "Fake Invoices",
+    "Utility Scam",
+    "Travel Scam",
+    "Medical Scam",
+    "Courier Fraud",
+    "Banking Scam",
+    "HMRC Scam",
+    "PayPal Scam",
+    "Amazon Scam",
+    "eBay Scam",
+    "Facebook Marketplace Scam",
+    "WhatsApp Scam",
+    "Instagram Scam",
+    "Fake Delivery Scam",
+    "Mobile Phone Scam",
+    "Pension Scam",
+    "Ticket Scam",
+    "Loan Scam",
+    "Insurance Scam",
+    "Fake Charity Collection",
+    "Fake Police Scam",
+    "Fake Bailiff Scam",
+    "Fake Solicitor Scam",
+    "Fake Job Offer",
+    "Fake Rental Property",
+    "Fake Investment Opportunity",
+    "Fake Prize Draw",
+    "Fake Survey Scam",
+    "Fake Refund Scam",
+    "Fake Tax Rebate",
+    "Fake Bank Call",
+    "Fake Bank Email",
+    "Fake Bank Text",
+    "Fake Utility Bill",
+    "Fake Council Tax",
+    "Fake NHS Scam",
+    "Fake TV Licence",
+    "Fake DVLA Scam",
+    "Fake Parcel Delivery",
+    "Fake Dating Profile",
+    "Fake Pet Sale",
+    "Fake Holiday Rental",
+    "Fake Charity Appeal",
+    "Fake Invoice",
+    "Fake Subscription",
+    "Fake Subscription Trap",
+    "Fake Debt Collection",
+    "Fake Investment Platform",
+    "Fake Cryptocurrency",
+    "Fake Trading Platform",
+    "Fake Loan Offer",
+    "Fake Grant Offer",
+    "Fake Compensation Offer",
+    "Fake Legal Threat",
+    "Fake Immigration Scam",
+    "Fake Student Loan",
+    "Fake Scholarship",
+    "Fake University Offer",
+    "Fake Exam Fee",
+    "Fake School Fee",
+    "Fake Utility Provider",
+    "Fake Broadband Provider",
+    "Fake Mobile Provider",
+    "Fake Tech Gadget",
+    "Fake Concert Ticket",
+    "Fake Sporting Event Ticket",
+    "Fake Airline Ticket",
+    "Fake Hotel Booking",
+    "Fake Car Sale",
+    "Fake Vehicle Logbook",
+    "Fake MOT",
+    "Fake Car Insurance",
+    "Fake Breakdown Cover",
+    "Fake Parking Fine",
+    "Fake Charity Shop",
+    "Fake Fundraiser",
+    "Fake Crowdfunding",
+    "Fake GoFundMe",
+    "Fake JustGiving",
+    "Fake eBay Buyer",
+    "Fake eBay Seller",
+    "Fake Gumtree Listing",
+    "Fake Shpock Listing",
+    "Fake Vinted Listing",
+    "Fake Depop Listing",
+    "Fake Amazon Seller",
+    "Fake Amazon Buyer",
+    "Other (not on the list)",
+  ];
+
+  for (const name of scamTypes) {
+    await prisma.scamType.upsert({
+      where: { name },
+      update: {},
+      create: { name },
+    });
+  }
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

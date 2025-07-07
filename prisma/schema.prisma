@@ -1,0 +1,186 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model ScamReport {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  aiSummaryId String? // Nullable, links to AIScamReport if reviewed
+
+  // Report Details
+  description String
+
+  // Contact Information (what was used in the scam)
+  phoneNumber String?
+  email       String?
+  website     String?
+  socialMedia String?
+
+  // Location Data
+  city      String?
+  country   String?
+  region    String?
+  ipHash    String? // Hashed IP for privacy
+  latitude  Float?
+  longitude Float?
+
+  // Verification & Trust
+  verified    Boolean @default(false)
+  trustScore  Int     @default(1)
+  reportCount Int     @default(1)
+
+  // Reporter Info (optional)
+  reporterName  String?
+  reporterEmail String?
+  anonymous     Boolean @default(true)
+
+  // Financial Impact
+  moneyLost      Float?
+  moneyRequested Float?
+
+  // Severity (added back)
+  severity String? // LOW, MEDIUM, HIGH, CRITICAL
+
+  // Additional Data (stored as JSON strings)
+  screenshots String? // JSON array of image URLs
+  evidence    String? // JSON array of evidence URLs
+
+  // Relations
+  comments Comment[]
+  votes    Vote[]
+  scamType ScamType? @relation(fields: [scamTypeId], references: [id])
+  flags    Flag[]
+
+  // New fields for Scam Type
+  scamTypeId String?
+
+  @@index([phoneNumber])
+  @@index([email])
+  @@index([website])
+  @@index([country, city])
+  @@index([createdAt])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  content   String
+  author    String?
+
+  reportId String
+  report   ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  parentId String?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+
+  // New fields for user reference
+  userId   String?
+  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([reportId])
+  @@index([parentId])
+}
+
+model Vote {
+  id       String     @id @default(cuid())
+  reportId String
+  report   ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+
+  voterIp  String
+  voteType String // Changed from enum to String
+
+  @@unique([reportId, voterIp])
+  @@index([reportId])
+}
+
+model WikiPage {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title    String  @unique
+  slug     String  @unique
+  content  String // Markdown content
+  category String
+  country  String? // Country-specific content
+
+  views    Int     @default(0)
+  featured Boolean @default(false)
+
+  @@index([category])
+  @@index([country])
+  @@index([featured])
+}
+
+model SearchCache {
+  id          String   @id @default(cuid())
+  query       String   @unique
+  results     String // JSON cached results
+  lastUpdated DateTime @default(now())
+  hitCount    Int      @default(1)
+
+  @@index([query])
+  @@index([lastUpdated])
+}
+
+model AIScamReport {
+  id                     String   @id @default(cuid())
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  summary                String
+  averageRiskLevel       String
+  averageFinancialImpact Float
+  category               String // moved here from ScamReport
+}
+
+model ScamType {
+  id      String       @id @default(cuid())
+  name    String       @unique
+  reports ScamReport[]
+}
+
+model Flag {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  reportId  String
+  report    ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  userId    String? // Optional: for logged-in users
+  ip        String? // For anonymous flagging
+  reason    String?
+
+  @@index([reportId])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  name      String?
+  image     String?
+  notificationSettings String  @default("{}")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comments  Comment[]
+  notifications Notification[]
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  data      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
