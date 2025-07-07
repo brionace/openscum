@@ -28,6 +28,7 @@ interface ReportCardProps {
   onCommentsClick?: (reportId: string) => void; // NEW
   onFlag?: (reportId: string, flagged: boolean) => Promise<void>; // NEW
   flagged?: boolean; // <-- add flagged prop
+  hideTypeLink?: boolean; // <-- add hideTypeLink prop
 }
 
 const severityColors = {
@@ -44,6 +45,7 @@ export function ReportCard({
   onCommentsClick,
   onFlag,
   flagged = false, // <-- use flagged prop, default false
+  hideTypeLink = false, // <-- use hideTypeLink prop, default false
 }: ReportCardProps) {
   const [flagLoading, setFlagLoading] = useState(false);
 
@@ -108,10 +110,15 @@ export function ReportCard({
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 mb-2 items-center">
               {/* Scam Type Name */}
-              {report.scamType?.name && (
-                <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  {report.scamType.name}
-                </span>
+              {!hideTypeLink && report.scamType?.name && (
+                <Link
+                  href={`/types/${report.scamType.id}`}
+                  className="underline text-blue-700"
+                >
+                  <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+                    {report.scamType.name}
+                  </span>
+                </Link>
               )}
               {/* Severity */}
               {(report.severity === "HIGH" ||
@@ -122,14 +129,9 @@ export function ReportCard({
                 </span>
               )}
               {report.reportCount > 1 && report.scamType?.id && (
-                <Link
-                  href={`/type/${report.scamType.id}`}
-                  className="underline text-blue-700"
-                >
-                  <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">
-                    {report.reportCount} reports
-                  </span>
-                </Link>
+                <span className="text-xs font-semibold">
+                  {report.reportCount} reports
+                </span>
               )}
             </div>
           </div>
