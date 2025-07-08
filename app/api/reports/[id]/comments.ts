@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { supabase } from "@/lib/supabaseClient";
 
 export async function GET(
   request: NextRequest,
@@ -70,11 +69,22 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  // Require authentication
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user || !session.user.id) {
+  // Require Supabase authentication
+  const authHeader = request.headers.get("authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json(
       { success: false, error: "Authentication required" },
+      { status: 401 }
+    );
+  }
+  const jwt = authHeader.replace("Bearer ", "");
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser(jwt);
+  if (userError || !user) {
+    return NextResponse.json(
+      { success: false, error: "Invalid or expired token" },
       { status: 401 }
     );
   }
@@ -115,8 +125,7 @@ export async function POST(
         );
       }
     }
-    const user = session.user;
-    const username = user.username || user.name || user.email || user.id;
+    const username = user.user_metadata?.username || user.email || user.id;
     const comment = await prisma.comment.create({
       data: {
         reportId,
@@ -133,7 +142,7 @@ export async function POST(
           id: comment.id,
           content: comment.content,
           createdAt: comment.createdAt,
-          author: comment.author, // use author, not userId
+          author: comment.author,
           parentId: comment.parentId,
         },
       },

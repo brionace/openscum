@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageCircle } from "lucide-react";
 import { ScamReport } from "@/lib/types";
-import { useSession, signIn } from "next-auth/react";
+import { supabase } from "@/lib/supabaseClient";
 import VisuallyHidden from "./ui/visually-hidden";
 
 interface Comment {
@@ -45,16 +45,25 @@ export function ReportModal({
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyText, setReplyText] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const { data: session, status } = useSession();
-  const isAuthenticated = !!session?.user;
+  // Supabase auth state
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user || null);
+    };
+    getUser();
+  }, []);
+  const isAuthenticated = !!user;
 
   useEffect(() => {
     if (open) {
-      fetchReport();
-      fetchComments();
       setTimeout(() => {
         inputRef.current?.focus();
       }, 300);
+      fetchReport();
+      fetchComments();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, reportId]);
@@ -201,7 +210,12 @@ export function ReportModal({
                 <p className="text-gray-500 text-sm">
                   You must be signed in to comment or reply.
                 </p>
-                <Button onClick={() => signIn()} size="sm">
+                <Button
+                  onClick={() =>
+                    supabase.auth.signInWithOAuth({ provider: "google" })
+                  }
+                  size="sm"
+                >
                   Sign in
                 </Button>
               </div>

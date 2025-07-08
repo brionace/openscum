@@ -1,9 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { ReportModal } from "@/components/report-modal";
 import React from "react";
-import { SessionProvider } from "next-auth/react";
-import * as nextAuthReact from "next-auth/react";
-import { Session } from "next-auth";
 
 global.fetch = jest.fn((url, opts) => {
   if (typeof url === "string" && url.includes("comments")) {
@@ -67,29 +64,9 @@ global.fetch = jest.fn((url, opts) => {
   });
 }) as jest.Mock;
 
-// Mock useSession to always return authenticated user
-jest.spyOn(nextAuthReact, "useSession").mockReturnValue({
-  data: {
-    user: {
-      id: "user1",
-      name: "Test User",
-      email: "testuser@example.com",
-    },
-    expires: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
-  },
-  status: "authenticated",
-  update: function (data?: any): Promise<Session | null> {
-    throw new Error("Function not implemented.");
-  }
-});
-
 describe("ReportModal", () => {
   it("renders modal and form", async () => {
-    render(
-      <SessionProvider session={null}>
-        <ReportModal reportId="1" open={true} onOpenChange={() => {}} />
-      </SessionProvider>
-    );
+    render(<ReportModal reportId="1" open={true} onOpenChange={() => {}} />);
     expect(
       await screen.findByText("Test scam report description")
     ).toBeInTheDocument();
@@ -98,11 +75,7 @@ describe("ReportModal", () => {
   });
 
   it("submits report comment", async () => {
-    render(
-      <SessionProvider session={null}>
-        <ReportModal reportId="1" open={true} onOpenChange={() => {}} />
-      </SessionProvider>
-    );
+    render(<ReportModal reportId="1" open={true} onOpenChange={() => {}} />);
     const textarea = await screen.findByLabelText("Write a comment");
     fireEvent.change(textarea, { target: { value: "A new comment" } });
     const postBtn = screen.getByText("Post Comment");
