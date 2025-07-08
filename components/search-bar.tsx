@@ -34,6 +34,7 @@ export function SearchBar({
   const router = useRouter();
   const rootRef = React.useRef<HTMLInputElement>(null);
   const resultsRef = React.useRef<HTMLDivElement>(null);
+  const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     // Load recent searches from cache
@@ -168,6 +169,12 @@ export function SearchBar({
     setHighlightedIndex(-1);
   };
 
+  useEffect(() => {
+    if (highlightedIndex >= 0 && itemRefs.current[highlightedIndex]) {
+      itemRefs.current[highlightedIndex]?.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlightedIndex]);
+
   return (
     <div ref={rootRef} className={`relative ${className}`}>
       <form onSubmit={handleSubmit} className="relative">
@@ -243,6 +250,7 @@ export function SearchBar({
               searchResults.map((result, idx) => (
                 <div
                   key={result.id}
+                  ref={(el) => (itemRefs.current[idx] = el)}
                   className={`px-3 py-2 rounded cursor-pointer flex flex-col gap-0.5 hover:bg-blue-50 ${
                     highlightedIndex === idx ? "bg-blue-100" : ""
                   }`}
