@@ -27,12 +27,12 @@ export function SearchBar({
 }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const [clickedInSearchBar, setClickedInSearchBar] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [searchResults, setSearchResults] = useState<ScamReport[]>([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const router = useRouter();
-  const searchBarRef = React.useRef<HTMLInputElement>(null);
+  const rootRef = React.useRef<HTMLInputElement>(null);
   const resultsRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,18 +73,17 @@ export function SearchBar({
     return () => clearTimeout(handler);
   }, [query, reports]);
 
+  // Click outside to close
   useEffect(() => {
-    if (clickedInSearchBar) return;
+    if (!showDropdown) return;
     function handleClick(e: MouseEvent) {
-      if (searchBarRef.current !== e.target) {
-        setClickedInSearchBar(false);
-      } else {
-        setClickedInSearchBar(true);
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
       }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [clickedInSearchBar]);
+  }, [showDropdown]);
 
   const handleSearch = (searchQuery: string) => {
     if (!searchQuery.trim()) return;
@@ -170,7 +169,7 @@ export function SearchBar({
   };
 
   return (
-    <div ref={searchBarRef} className={`relative ${className}`}>
+    <div ref={rootRef} className={`relative ${className}`}>
       <form onSubmit={handleSubmit} className="relative">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
@@ -180,6 +179,7 @@ export function SearchBar({
             }
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setShowDropdown(true)}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             className="pl-12 pr-20 py-4 text-lg rounded-xl border-2 focus:border-blue-500 shadow-lg"
@@ -214,7 +214,7 @@ export function SearchBar({
       </form>
 
       {/* Dropdown: Recent searches (horizontal scroll) + search results */}
-      {(clickedInSearchBar || query) && (
+      {showDropdown && query.length > 0 && (
         <div className="absolute w-full mt-2 bg-white rounded-lg shadow-md border p-2 z-50">
           {recentSearches.length > 0 && (
             <div>
