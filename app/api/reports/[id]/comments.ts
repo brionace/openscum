@@ -35,7 +35,7 @@ export async function GET(
       const { id, content, createdAt, author, parentId } = c;
       const commentObj = {
         id,
-        text: content,
+        content, // use 'content' instead of 'text' for consistency
         createdAt,
         author,
         parentId,
@@ -131,9 +131,9 @@ export async function POST(
       data: {
         comment: {
           id: comment.id,
-          text: comment.content,
+          content: comment.content,
           createdAt: comment.createdAt,
-          author: comment.userId, // now userId
+          author: comment.author, // use author, not userId
           parentId: comment.parentId,
         },
       },

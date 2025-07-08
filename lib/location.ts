@@ -20,11 +20,11 @@ export async function getLocationFromIP(ip?: string): Promise<LocationData> {
     ) {
       console.log("Skipping location lookup for reserved/private IP:", ip);
       return {
-        city: null,
-        country: null,
-        region: null,
-        latitude: null,
-        longitude: null,
+        city: undefined,
+        country: undefined,
+        region: undefined,
+        latitude: undefined,
+        longitude: undefined,
         ip: ip,
       };
     }
@@ -48,11 +48,11 @@ export async function getLocationFromIP(ip?: string): Promise<LocationData> {
         `IP location lookup failed: HTTP ${response.status}: ${response.statusText}`
       );
       return {
-        city: null,
-        country: null,
-        region: null,
-        latitude: null,
-        longitude: null,
+        city: undefined,
+        country: undefined,
+        region: undefined,
+        latitude: undefined,
+        longitude: undefined,
         ip: ip,
       };
     }
@@ -64,11 +64,11 @@ export async function getLocationFromIP(ip?: string): Promise<LocationData> {
         `Non-JSON response from IP lookup: ${text.substring(0, 100)}`
       );
       return {
-        city: null,
-        country: null,
-        region: null,
-        latitude: null,
-        longitude: null,
+        city: undefined,
+        country: undefined,
+        region: undefined,
+        latitude: undefined,
+        longitude: undefined,
         ip: ip,
       };
     }
@@ -78,11 +78,11 @@ export async function getLocationFromIP(ip?: string): Promise<LocationData> {
     if (data.error) {
       console.warn("IP location API error:", data.reason || "Unknown error");
       return {
-        city: null,
-        country: null,
-        region: null,
-        latitude: null,
-        longitude: null,
+        city: undefined,
+        country: undefined,
+        region: undefined,
+        latitude: undefined,
+        longitude: undefined,
         ip: ip,
       };
     }
@@ -104,11 +104,11 @@ export async function getLocationFromIP(ip?: string): Promise<LocationData> {
     );
     // Return default data with the IP but no location info
     return {
-      city: null,
-      country: null,
-      region: null,
-      latitude: null,
-      longitude: null,
+      city: undefined,
+      country: undefined,
+      region: undefined,
+      latitude: undefined,
+      longitude: undefined,
       ip: ip,
     };
   }

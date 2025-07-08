@@ -12,16 +12,16 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     // Add more providers here
   ],
   session: {
-    strategy: "jwt",
+    strategy: 'jwt' as const,
   },
   callbacks: {
-    async session({ session, user, token }) {
+    async session({ session, user, token }: { session: any; user?: any; token: any }) {
       if (session.user) {
         session.user.id = user?.id || token.sub;
         session.user.username = user?.username || token.username;

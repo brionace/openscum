@@ -1,6 +1,7 @@
 import currencies_code from "country-json/src/country-by-currency-code.json";
 import currencies_name from "country-json/src/country-by-currency-name.json";
-import flags from "country-json/src/country-by-flag.json";
+import flagsRaw from "country-json/src/country-by-flag.json";
+const flags = flagsRaw as Array<{ country: string; flag_base64: string }>;
 import capitals from "country-json/src/country-by-capital-city.json";
 import cities from "country-json/src/country-by-cities.json";
 
@@ -37,7 +38,7 @@ export function countryData(): {
 
     return {
       name: cur.country,
-      currency_code: cur.currency_code,
+      currency_code: cur.currency_code ?? "",
       cities: allCities,
       flag: flagObj?.flag_base64 || "",
     };
@@ -84,6 +85,7 @@ export function countryCodeAndName(): {
 
   for (const codeObj of currencies_code) {
     const { country, currency_code } = codeObj;
+    if (!currency_code) continue; // Skip if currency_code is null or undefined
     const currency_name = nameMap.get(country) || "";
 
     if (codeMap.has(currency_code)) {
