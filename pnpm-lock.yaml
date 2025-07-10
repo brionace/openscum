@@ -116,9 +116,6 @@ importers:
       '@types/react-dom':
         specifier: 18.2.7
         version: 18.2.7
-      '@types/react-google-recaptcha':
-        specifier: ^2.1.9
-        version: 2.1.9
       autoprefixer:
         specifier: 10.4.15
         version: 10.4.15(postcss@8.4.30)
@@ -182,9 +179,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-      react-google-recaptcha:
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.2.0)
+      react-google-recaptcha-v3:
+        specifier: ^1.11.0
+        version: 1.11.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-hook-form:
         specifier: ^7.58.1
         version: 7.58.1(react@18.2.0)
@@ -2028,9 +2025,6 @@ packages:
 
   '@types/react-dom@18.2.7':
     resolution: {integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA==}
-
-  '@types/react-google-recaptcha@2.1.9':
-    resolution: {integrity: sha512-nT31LrBDuoSZJN4QuwtQSF3O89FVHC4jLhM+NtKEmVF5R1e8OY0Jo4//x2Yapn2aNHguwgX5doAq8Zo+Ehd0ug==}
 
   '@types/react@18.2.22':
     resolution: {integrity: sha512-60fLTOLqzarLED2O3UQImc/lsNRgG0jE/a1mPW9KjMemY0LMITWEsbS4VvZ4p6rorEHd5YKxxmMKSDK505GHpA==}
@@ -3997,11 +3991,6 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-async-script@1.2.0:
-    resolution: {integrity: sha512-bCpkbm9JiAuMGhkqoAiC0lLkb40DJ0HOEJIku+9JDjxX3Rcs+ztEOG13wbrOskt3n2DTrjshhaQ/iay+SnGg5Q==}
-    peerDependencies:
-      react: '>=16.4.1'
-
   react-day-picker@8.10.1:
     resolution: {integrity: sha512-TMx7fNbhLk15eqcMt+7Z7S2KF7mfTId/XJDjKE8f+IUcFn0l08/kI4FiYTL/0yuOLmEcbR4Fwe3GJf/NiiMnPA==}
     peerDependencies:
@@ -4013,10 +4002,11 @@ packages:
     peerDependencies:
       react: ^18.2.0
 
-  react-google-recaptcha@3.1.0:
-    resolution: {integrity: sha512-cYW2/DWas8nEKZGD7SCu9BSuVz8iOcOLHChHyi7upUuVhkpkhYG/6N3KDiTQ3XAiZ2UAZkfvYKMfAHOzBOcGEg==}
+  react-google-recaptcha-v3@1.11.0:
+    resolution: {integrity: sha512-kLQqpz/77m8+trpBwzqcxNtvWZYoZ/YO6Vm2cVTHW8hs80BWUfDpC7RDwuAvpswwtSYApWfaSpIDFWAIBNIYxQ==}
     peerDependencies:
-      react: '>=16.4.1'
+      react: ^16.3 || ^17.0 || ^18.0 || ^19.0
+      react-dom: ^17.0 || ^18.0 || ^19.0
 
   react-hook-form@7.58.1:
     resolution: {integrity: sha512-Lml/KZYEEFfPhUVgE0RdCVpnC4yhW+PndRhbiTtdvSlQTL8IfVR+iQkBjLIvmmc6+GGoVeM11z37ktKFPAb0FA==}
@@ -6890,10 +6880,6 @@ snapshots:
     dependencies:
       '@types/react': 18.2.22
 
-  '@types/react-google-recaptcha@2.1.9':
-    dependencies:
-      '@types/react': 18.2.22
-
   '@types/react@18.2.22':
     dependencies:
       '@types/prop-types': 15.7.15
@@ -9246,12 +9232,6 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-async-script@1.2.0(react@18.2.0):
-    dependencies:
-      hoist-non-react-statics: 3.3.2
-      prop-types: 15.8.1
-      react: 18.2.0
-
   react-day-picker@8.10.1(date-fns@3.6.0)(react@18.2.0):
     dependencies:
       date-fns: 3.6.0
@@ -9263,11 +9243,11 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.2
 
-  react-google-recaptcha@3.1.0(react@18.2.0):
+  react-google-recaptcha-v3@1.11.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      prop-types: 15.8.1
+      hoist-non-react-statics: 3.3.2
       react: 18.2.0
-      react-async-script: 1.2.0(react@18.2.0)
+      react-dom: 18.2.0(react@18.2.0)
 
   react-hook-form@7.58.1(react@18.2.0):
     dependencies:

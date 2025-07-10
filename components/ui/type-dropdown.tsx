@@ -29,6 +29,7 @@ export function TypeDropdown({
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlighted, setHighlighted] = useState(-1);
   const rootRef = useRef<HTMLDivElement>(null);
+  const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Click outside to close
   useEffect(() => {
@@ -41,6 +42,13 @@ export function TypeDropdown({
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [showDropdown]);
+
+  // Scroll highlighted option into view
+  useEffect(() => {
+    if (highlighted >= 0 && optionRefs.current[highlighted]) {
+      optionRefs.current[highlighted]?.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlighted]);
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -55,6 +63,8 @@ export function TypeDropdown({
       e.preventDefault();
       if (highlighted >= 0 && highlighted < options.length) {
         selectOption(options[highlighted]);
+      } else if (options.length === 1) {
+        selectOption(options[0]);
       }
     }
   };
@@ -140,6 +150,7 @@ export function TypeDropdown({
             options.map((option, idx) => (
               <div
                 key={option.id}
+                ref={(el) => (optionRefs.current[idx] = el)}
                 className={`cursor-pointer px-2 py-1 rounded ${
                   highlighted === idx
                     ? "bg-blue-200"

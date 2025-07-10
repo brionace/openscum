@@ -25,11 +25,15 @@ export default function RootLayout({
         <meta name="theme-color" content="#ef4444" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Scamlist" />
+        <meta name="apple-mobile-web-app-title" content="openscum" />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="frame-ancestors 'self' https://www.google.com/"
+        />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className={inter.className}>
-          <div id="app">{children}</div>
+        <div id="app">{children}</div>
       </body>
     </html>
   );
