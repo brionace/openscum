@@ -30,7 +30,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { MapPin, AlertTriangle, DollarSign } from "lucide-react";
+import {
+  MapPin,
+  AlertTriangle,
+  DollarSign,
+  Shield,
+  Phone,
+  Users,
+} from "lucide-react";
 import currencies from "country-json/src/country-by-currency-code.json";
 import flags from "country-json/src/country-by-flag.json";
 import capitals from "country-json/src/country-by-capital-city.json";
@@ -251,12 +258,9 @@ export function ReportForm({
         "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
       }
     >
-      <Card className="w-full max-w-2xl mx-auto">
+      <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-            Report a Scam
-          </CardTitle>
+          <CardTitle>Report a Scam</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Show all validation errors at the top */}
@@ -274,334 +278,278 @@ export function ReportForm({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-6"
+              className="space-y-8"
             >
-              {/* Scam Type */}
-              <div className="space-y-4">
-                <FormItem>
-                  <FormLabel>Scam Type *</FormLabel>
-                  <TypeDropdown
-                    value={selectedScamType}
-                    onChange={(val) => {
-                      // If multi is false, val is Option or null
-                      setSelectedScamType(val as { id: string; name: string } | null);
-                      form.setValue("scamTypeId", val && "id" in val ? val.id : "");
-                      if (val) form.clearErrors("scamTypeId");
-                    }}
-                    options={scamTypeOptions}
-                    onSearch={setScamTypeSearch}
-                    placeholder="Type to search scam types..."
-                    multi={false}
-                  />
-                  {/* Hidden input to keep scamTypeId in form state for zod validation */}
-                  <input type="hidden" {...form.register("scamTypeId")} />
-                  <FormMessage />
-                </FormItem>
-                {/* Tags field (multi-select) */}
-                <FormItem>
-                  <FormLabel>Additional Scam Types (Tags)</FormLabel>
-                  <TypeDropdown
-                    value={selectedTags}
-                    onChange={(val) => setSelectedTags(val as any)}
-                    options={tagOptions}
-                    onSearch={setTagSearch}
-                    placeholder="Type to search scam types..."
-                    multi={true}
-                  />
-                  <FormDescription>
-                    Add additional scam types/tags to help others find this
-                    report.
-                  </FormDescription>
-                </FormItem>
-              </div>
-
-              {/* Basic Information */}
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
+              {/* Scam Type Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <AlertTriangle className="h-6 w-6 text-red-500" /> Scam Type
+                </h3>
+                <div className="space-y-4">
+                  {/* Scam Type */}
+                  <div className="space-y-4">
                     <FormItem>
-                      <FormLabel>Detailed Description *</FormLabel>
-                      <div className="flex items-center gap-2">
-                        <FormControl>
-                          <Textarea
-                            placeholder="Describe what happened, how the scam works, and any other relevant details"
-                            rows={4}
-                            {...field}
-                            className="text-base"
-                            onChange={(e) => {
-                              field.onChange(e);
-                              // Update sessionStorage with the latest user input
-                              sessionStorage.setItem(
-                                "originalDescription",
-                                e.target.value
-                              );
-                            }}
-                          />
-                        </FormControl>
-                        <Button
-                          type="button"
-                          variant="secondary"
-                          className="h-10"
-                          disabled={
-                            !field.value || isSubmitting || paraphrasing
-                          }
-                          onClick={async () => {
-                            setParaphrasing(true);
-                            setParaphraseError("");
-                            try {
-                              // Use the original description from sessionStorage if available
-                              let original = sessionStorage.getItem(
-                                "originalDescription"
-                              );
-                              if (!original) {
-                                original = field.value;
+                      <FormLabel>Scam Type *</FormLabel>
+                      <TypeDropdown
+                        value={selectedScamType}
+                        onChange={(val) => {
+                          // If multi is false, val is Option or null
+                          setSelectedScamType(
+                            val as { id: string; name: string } | null
+                          );
+                          form.setValue(
+                            "scamTypeId",
+                            val && "id" in val ? val.id : ""
+                          );
+                          if (val) form.clearErrors("scamTypeId");
+                        }}
+                        options={scamTypeOptions}
+                        onSearch={setScamTypeSearch}
+                        placeholder="Type to search scam types..."
+                        multi={false}
+                      />
+                      {/* Hidden input to keep scamTypeId in form state for zod validation */}
+                      <input type="hidden" {...form.register("scamTypeId")} />
+                      <FormMessage />
+                    </FormItem>
+                    {/* Tags field (multi-select) */}
+                    <FormItem>
+                      <FormLabel>Additional Scam Types (Tags)</FormLabel>
+                      <TypeDropdown
+                        value={selectedTags}
+                        onChange={(val) => setSelectedTags(val as any)}
+                        options={tagOptions}
+                        onSearch={setTagSearch}
+                        placeholder="Type to search scam types..."
+                        multi={true}
+                      />
+                      <FormDescription>
+                        Add additional scam types/tags to help others find this
+                        report.
+                      </FormDescription>
+                    </FormItem>
+                  </div>
+                </div>
+              </div>
+              {/* Description Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Shield className="h-6 w-6 text-blue-500" /> Description
+                </h3>
+                <div className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Detailed Description *</FormLabel>
+                        <div className="flex flex-col items-center gap-2">
+                          <FormControl>
+                            <Textarea
+                              placeholder="Describe what happened, how the scam works, and any other relevant details"
+                              rows={4}
+                              {...field}
+                              className="text-base"
+                              onChange={(e) => {
+                                field.onChange(e);
+                                // Update sessionStorage with the latest user input
                                 sessionStorage.setItem(
                                   "originalDescription",
-                                  original
+                                  e.target.value
                                 );
-                              }
-                              const res = await fetch("/api/ai-paraphrase", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ description: original }),
-                              });
-                              if (!res.ok)
-                                throw new Error("Failed to paraphrase");
-                              const data = await res.json();
-                              if (data?.paraphrased) {
-                                field.onChange(data.paraphrased);
-                              } else {
-                                throw new Error("No paraphrased text returned");
-                              }
-                            } catch (e) {
-                              setParaphraseError(
-                                e instanceof Error ? e.message : "Error"
-                              );
-                            } finally {
-                              setParaphrasing(false);
-                            }
-                          }}
-                        >
-                          {paraphrasing
-                            ? "Paraphrasing..."
-                            : "Paraphrase with AI"}
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="h-10"
-                          disabled={
-                            paraphrasing ||
-                            !sessionStorage.getItem("originalDescription") ||
-                            field.value ===
-                              sessionStorage.getItem("originalDescription")
-                          }
-                          onClick={() => {
-                            const original = sessionStorage.getItem(
-                              "originalDescription"
-                            );
-                            if (original) field.onChange(original);
-                          }}
-                        >
-                          Revert
-                        </Button>
-                      </div>
-                      {paraphraseError && (
-                        <div className="text-red-500 text-xs mt-1">
-                          {paraphraseError}
-                        </div>
-                      )}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="severity"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="severity-select">
-                          Risk Level
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          value={field.value}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger
-                              className="text-base py-3"
-                              id="severity-select"
-                            >
-                              <SelectValue />
-                            </SelectTrigger>
+                              }}
+                            />
                           </FormControl>
-                          <SelectContent>
-                            {severityOptions.map((option) => (
-                              <SelectItem
-                                key={option.value}
-                                value={option.value}
-                              >
-                                {option.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              {/* Contact Information */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">
-                  Scammer Contact Information
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="phoneNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="+1-555-123-4567"
-                            {...field}
-                            className="text-base py-3"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel htmlFor="email-input">
-                          Email Address
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            id="email-input"
-                            placeholder="scammer@example.com"
-                            {...field}
-                            className="text-base py-3"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                <FormField
-                  control={form.control}
-                  name="website"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Website/URL</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="https://fake-website.com"
-                          {...field}
-                          className="text-base py-3"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="socialMedia"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Social Media Profile</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Social media username or profile URL"
-                          {...field}
-                          className="text-base py-3"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Financial Impact */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <DollarSign className="h-5 w-5" />
-                  Financial Impact
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Currency Searchable Selector */}
-                  <div className="relative">
-                    <FormLabel>Currency</FormLabel>
-                    <div className="mt-2">
-                      {currency ? (
-                        <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
-                          <span>
-                            {(() => {
-                              const found = countryCodeAndName().find(
-                                (c) => c.currency_code === currency
-                              );
-                              if (!found) return currency;
-                              return `${found.currency_code} - ${found.currency_name}`;
-                            })()}
-                          </span>
-                          <button
-                            type="button"
-                            aria-label="Remove selected currency"
-                            className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
-                            onClick={() => setCurrency("")}
-                          >
-                            ×
-                          </button>
+                          <div>
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              className="h-10"
+                              disabled={
+                                !field.value || isSubmitting || paraphrasing
+                              }
+                              onClick={async () => {
+                                setParaphrasing(true);
+                                setParaphraseError("");
+                                try {
+                                  // Use the original description from sessionStorage if available
+                                  let original = sessionStorage.getItem(
+                                    "originalDescription"
+                                  );
+                                  if (!original) {
+                                    original = field.value;
+                                    sessionStorage.setItem(
+                                      "originalDescription",
+                                      original
+                                    );
+                                  }
+                                  const res = await fetch(
+                                    "/api/ai-paraphrase",
+                                    {
+                                      method: "POST",
+                                      headers: {
+                                        "Content-Type": "application/json",
+                                      },
+                                      body: JSON.stringify({
+                                        description: original,
+                                      }),
+                                    }
+                                  );
+                                  if (!res.ok)
+                                    throw new Error("Failed to paraphrase");
+                                  const data = await res.json();
+                                  if (data?.paraphrased) {
+                                    field.onChange(data.paraphrased);
+                                  } else {
+                                    throw new Error(
+                                      "No paraphrased text returned"
+                                    );
+                                  }
+                                } catch (e) {
+                                  setParaphraseError(
+                                    e instanceof Error ? e.message : "Error"
+                                  );
+                                } finally {
+                                  setParaphrasing(false);
+                                }
+                              }}
+                            >
+                              {paraphrasing
+                                ? "Paraphrasing..."
+                                : "Paraphrase with AI"}
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              className="h-10"
+                              disabled={
+                                paraphrasing ||
+                                !sessionStorage.getItem(
+                                  "originalDescription"
+                                ) ||
+                                field.value ===
+                                  sessionStorage.getItem("originalDescription")
+                              }
+                              onClick={() => {
+                                const original = sessionStorage.getItem(
+                                  "originalDescription"
+                                );
+                                if (original) field.onChange(original);
+                              }}
+                            >
+                              Revert
+                            </Button>
+                          </div>
                         </div>
-                      ) : (
-                        <CurrencySearchInput
-                          onSelect={(code) => setCurrency(code)}
-                        />
+                        {paraphraseError && (
+                          <div className="text-red-500 text-xs mt-1">
+                            {paraphraseError}
+                          </div>
+                        )}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="severity"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="severity-select">
+                            Risk Level
+                          </FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger
+                                className="text-base py-3"
+                                id="severity-select"
+                              >
+                                <SelectValue />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {severityOptions.map((option) => (
+                                <SelectItem
+                                  key={option.value}
+                                  value={option.value}
+                                >
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
                       )}
-                    </div>
+                    />
                   </div>
-                  <div></div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              </div>
+
+              {/* Contact Information Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Phone className="h-6 w-6 text-green-500" /> Scammer Contact
+                  Information
+                </h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="phoneNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="+1-555-123-4567"
+                              {...field}
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="email-input">
+                            Email Address
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              id="email-input"
+                              placeholder="scammer@example.com"
+                              {...field}
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
                   <FormField
                     control={form.control}
-                    name="moneyLost"
+                    name="website"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Money Lost ({currency || "Currency"})
-                        </FormLabel>
+                        <FormLabel>Website/URL</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            placeholder="0.00"
+                            placeholder="https://fake-website.com"
                             {...field}
-                            onChange={(e) =>
-                              field.onChange(
-                                parseFloat(e.target.value) || undefined
-                              )
-                            }
                             className="text-base py-3"
                           />
                         </FormControl>
@@ -612,24 +560,14 @@ export function ReportForm({
 
                   <FormField
                     control={form.control}
-                    name="moneyRequested"
+                    name="socialMedia"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>
-                          Money Requested ({currency || "Currency"})
-                        </FormLabel>
+                        <FormLabel>Social Media Profile</FormLabel>
                         <FormControl>
                           <Input
-                            type="number"
-                            step="0.01"
-                            min="0"
-                            placeholder="0.00"
+                            placeholder="Social media username or profile URL"
                             {...field}
-                            onChange={(e) =>
-                              field.onChange(
-                                parseFloat(e.target.value) || undefined
-                              )
-                            }
                             className="text-base py-3"
                           />
                         </FormControl>
@@ -640,10 +578,112 @@ export function ReportForm({
                 </div>
               </div>
 
-              {/* Reporter Information */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">
-                  Your Information (Optional)
+              {/* Financial Impact Section */}
+              <div className="mb-6 p-6 rounded-lg bg-yellow-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <DollarSign className="h-6 w-6 text-yellow-600" /> Financial
+                  Impact
+                </h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Currency Searchable Selector */}
+                    <div className="relative">
+                      <FormLabel>Currency</FormLabel>
+                      <div className="mt-2">
+                        {currency ? (
+                          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
+                            <span>
+                              {(() => {
+                                const found = countryCodeAndName().find(
+                                  (c) => c.currency_code === currency
+                                );
+                                if (!found) return currency;
+                                return `${found.currency_code} - ${found.currency_name}`;
+                              })()}
+                            </span>
+                            <button
+                              type="button"
+                              aria-label="Remove selected currency"
+                              className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
+                              onClick={() => setCurrency("")}
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <CurrencySearchInput
+                            onSelect={(code: string) => setCurrency(code)}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div></div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="moneyLost"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Money Lost ({currency || "Currency"})
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              step="0.01"
+                              min="0"
+                              placeholder="0.00"
+                              {...field}
+                              onChange={(e) =>
+                                field.onChange(
+                                  parseFloat(e.target.value) || undefined
+                                )
+                              }
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="moneyRequested"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Money Requested ({currency || "Currency"})
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              step="0.01"
+                              min="0"
+                              placeholder="0.00"
+                              {...field}
+                              onChange={(e) =>
+                                field.onChange(
+                                  parseFloat(e.target.value) || undefined
+                                )
+                              }
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Reporter Information Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Users className="h-6 w-6 text-purple-500" /> Your Information
+                  (Optional)
                 </h3>
 
                 <FormField
@@ -653,6 +693,7 @@ export function ReportForm({
                     <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                       <FormControl>
                         <Checkbox
+                          id="anonymous-checkbox"
                           checked={field.value}
                           onCheckedChange={field.onChange}
                         />
@@ -701,51 +742,59 @@ export function ReportForm({
                 )}
               </div>
 
-              {/* Location Field */}
-              <div className="space-y-4">
-                <FormLabel>Location (where scam took place)</FormLabel>
-                <div>
-                  {selectedLocation ? (
-                    <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
-                      <span>
-                        {selectedLocation.city
-                          ? `${selectedLocation.city}, ${selectedLocation.country}`
-                          : selectedLocation.country}
-                      </span>
-                      <button
-                        type="button"
-                        aria-label="Remove selected location"
-                        className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
-                        onClick={() => setSelectedLocation(null)}
-                      >
-                        ×
-                      </button>
+              {/* Location Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <MapPin className="h-6 w-6 text-pink-500" /> Location
+                </h3>
+                <div className="space-y-4">
+                  {/* Location (where scam took place) */}
+                  <div className="space-y-4">
+                    <FormLabel>Location (where scam took place)</FormLabel>
+                    <div>
+                      {selectedLocation ? (
+                        <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
+                          <span>
+                            {selectedLocation.city
+                              ? `${selectedLocation.city}, ${selectedLocation.country}`
+                              : selectedLocation.country}
+                          </span>
+                          <button
+                            type="button"
+                            aria-label="Remove selected location"
+                            className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
+                            onClick={() => setSelectedLocation(null)}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ) : (
+                        <LocationSearchInput
+                          search={locationSearch}
+                          setSearch={setLocationSearch}
+                          options={locationOptions}
+                          highlightedIndex={highlightedLocationIndex}
+                          setHighlightedIndex={setHighlightedLocationIndex}
+                          onSelect={(loc: {
+                            city: string;
+                            country: string;
+                          }) => {
+                            setSelectedLocation(loc);
+                            setLocationSearch("");
+                            setLocationOptions([]);
+                          }}
+                        />
+                      )}
                     </div>
-                  ) : (
-                    <LocationSearchInput
-                      search={locationSearch}
-                      setSearch={setLocationSearch}
-                      options={locationOptions}
-                      highlightedIndex={highlightedLocationIndex}
-                      setHighlightedIndex={setHighlightedLocationIndex}
-                      onSelect={(loc) => {
-                        setSelectedLocation(loc);
-                        setLocationSearch("");
-                        setLocationOptions([]);
-                      }}
-                    />
-                  )}
+                  </div>
                 </div>
               </div>
 
               {/* CAPTCHA - Only in production */}
               {isProduction && <RecaptchaV3 onVerify={setCaptchaToken} />}
-              {/* {process.env.NODE_ENV !== "production" && (
-                <pre>{JSON.stringify(form.formState.errors, null, 2)}</pre>
-              )} */}
               <Button
                 type="submit"
-                className="w-full py-4 text-lg"
+                className="w-full py-4 text-lg mt-4"
                 disabled={isSubmitting || (isProduction && !captchaToken)}
               >
                 {isSubmitting ? "Submitting Report..." : "Submit Scam Report"}
@@ -759,7 +808,7 @@ export function ReportForm({
 }
 
 // --- CurrencySearchInput component ---
-function CurrencySearchInput({
+export function CurrencySearchInput({
   onSelect,
 }: {
   onSelect: (code: string) => void;
@@ -868,7 +917,7 @@ function CurrencySearchInput({
 }
 
 // --- LocationSearchInput component ---
-function LocationSearchInput({
+export function LocationSearchInput({
   search,
   setSearch,
   options,

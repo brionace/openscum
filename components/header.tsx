@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { SearchBar } from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
-import { Shield, AlertTriangle, Menu } from "lucide-react";
+import { Shield, AlertTriangle, EllipsisVertical } from "lucide-react";
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FeaturesBar } from "@/components/features-bar";
@@ -27,27 +27,27 @@ export function Header({ onReportClick, reports }: HeaderProps) {
           <Shield className="h-7 w-7" />
           <span className="hidden lg:inline">Openscum</span>
         </Link>
+        {/* Mobile: Sidebar Drawer Trigger */}
+        {!isDesktop && (
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <EllipsisVertical className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="p-0 w-80 max-w-full">
+              <FeaturesBar />
+            </SheetContent>
+          </Sheet>
+        )}
         {/* Center: SearchBar */}
         <div className="flex-1 flex justify-center">
           <div className="w-full max-w-lg">
             <SearchBar placeholder="Search scams..." reports={reports} />
           </div>
         </div>
-        {/* Mobile: Sidebar Drawer Trigger */}
-        {!isDesktop && (
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="mr-1">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="p-0 w-80 max-w-full">
-              <FeaturesBar />
-            </SheetContent>
-          </Sheet>
-        )}
         {/* Right: Report button */}
-        <Button onClick={onReportClick} className="ml-2" size="lg">
+        <Button onClick={onReportClick} size="lg">
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-6 w-6" />
             <span className="hidden lg:inline">Report Scam</span>
