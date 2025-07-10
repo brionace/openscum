@@ -97,9 +97,7 @@ export async function GET(request: NextRequest) {
             },
           },
         },
-        orderBy: [
-          { createdAt: "desc" }
-        ],
+        orderBy: [{ createdAt: "desc" }],
         take: limit * 3, // fetch extra to ensure enough after filtering
         skip: offset,
       });
