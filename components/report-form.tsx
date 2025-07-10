@@ -259,6 +259,18 @@ export function ReportForm({
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {/* Show all validation errors at the top */}
+          {Object.keys(form.formState.errors).length > 0 && (
+            <div className="mb-4">
+              <ul className="text-red-600 text-sm space-y-1">
+                {Object.entries(form.formState.errors).map(([field, error]) =>
+                  error && typeof error === "object" && "message" in error ? (
+                    <li key={field}>{error.message as string}</li>
+                  ) : null
+                )}
+              </ul>
+            </div>
+          )}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
