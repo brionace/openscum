@@ -94,15 +94,18 @@ export function SearchBar({
     ].slice(0, 5);
     setRecentSearches(updated);
     cache.set("recent-searches", updated);
+    // Only call onSearch if provided, do not navigate
     if (onSearch) {
       onSearch(searchQuery);
-    } else {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
+    // Do not navigate to /search here
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Instead of navigating, just show dropdown
+    setShowDropdown(true);
+    // Optionally, update results if needed
     handleSearch(query);
   };
 
@@ -126,6 +129,8 @@ export function SearchBar({
         if (onResultClick) onResultClick(selected);
         else window.location.hash = `#/reports/${selected.id}`;
       } else {
+        // Instead of navigating, just show dropdown
+        setShowDropdown(true);
         handleSearch(query);
       }
     }
