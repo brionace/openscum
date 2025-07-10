@@ -283,8 +283,9 @@ export function ReportForm({
                   <TypeDropdown
                     value={selectedScamType}
                     onChange={(val) => {
-                      setSelectedScamType(val as any);
-                      form.setValue("scamTypeId", val ? val.id : "");
+                      // If multi is false, val is Option or null
+                      setSelectedScamType(val as { id: string; name: string } | null);
+                      form.setValue("scamTypeId", val && "id" in val ? val.id : "");
                       if (val) form.clearErrors("scamTypeId");
                     }}
                     options={scamTypeOptions}
