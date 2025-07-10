@@ -251,6 +251,24 @@ export function ReportForm({
     });
   };
 
+  // Initialize locationOptions with all country/city pairs on mount
+  useEffect(() => {
+    const raw = countryCity();
+    if (!Array.isArray(raw)) return;
+    setLocationOptions(
+      raw.flatMap(({ name, cities }) =>
+        name
+          ? [
+              { city: "", country: name },
+              ...(Array.isArray(cities)
+                ? cities.map((city) => ({ city, country: name }))
+                : []),
+            ]
+          : []
+      )
+    );
+  }, []);
+
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={
@@ -770,19 +788,14 @@ export function ReportForm({
                         </div>
                       ) : (
                         <LocationSearchInput
-                          search={locationSearch}
-                          setSearch={setLocationSearch}
                           options={locationOptions}
-                          highlightedIndex={highlightedLocationIndex}
-                          setHighlightedIndex={setHighlightedLocationIndex}
-                          onSelect={(loc: {
-                            city: string;
-                            country: string;
-                          }) => {
+                          value={selectedLocation}
+                          onChange={(loc) => {
                             setSelectedLocation(loc);
                             setLocationSearch("");
-                            setLocationOptions([]);
+                            // Do NOT clear locationOptions here
                           }}
+                          placeholder="Type city or country..."
                         />
                       )}
                     </div>
@@ -918,93 +931,127 @@ export function CurrencySearchInput({
 
 // --- LocationSearchInput component ---
 export function LocationSearchInput({
-  search,
-  setSearch,
   options,
-  highlightedIndex,
-  setHighlightedIndex,
-  onSelect,
+  value,
+  onChange,
+  placeholder = "Type city or country...",
 }: {
-  search: string;
-  setSearch: (s: string) => void;
   options: { city: string; country: string }[];
-  highlightedIndex: number;
-  setHighlightedIndex: React.Dispatch<React.SetStateAction<number>>;
-  onSelect: (loc: { city: string; country: string }) => void;
+  value: { city: string; country: string } | null;
+  onChange: (val: { city: string; country: string }) => void;
+  placeholder?: string;
 }) {
+  const [search, setSearch] = React.useState("");
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [highlighted, setHighlighted] = React.useState(0);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const optionRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  // Debounce search input
+  const [debouncedSearch, setDebouncedSearch] = React.useState(search);
+  React.useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearch(search), 150);
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  // Filter options live as user types, limit to 20 results
+  const filteredOptions = debouncedSearch
+    ? options
+        .filter(
+          (opt) =>
+            opt.city.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+            opt.country.toLowerCase().includes(debouncedSearch.toLowerCase())
+        )
+        .slice(0, 20)
+    : [];
+
   // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!options.length) return;
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setHighlightedIndex((prev: number) =>
-        prev < options.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setHighlightedIndex((prev: number) =>
-        prev > 0 ? prev - 1 : options.length - 1
-      );
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (highlightedIndex >= 0 && highlightedIndex < options.length) {
-        onSelect(options[highlightedIndex]);
+  React.useEffect(() => {
+    if (dropdownOpen && optionRefs.current[highlighted]) {
+      optionRefs.current[highlighted]?.scrollIntoView({ block: "nearest" });
+    }
+  }, [highlighted, dropdownOpen, filteredOptions.length]);
+
+  // Close dropdown on outside click
+  React.useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
       }
     }
-  };
-
-  // Click outside to close
-  const [showDropdown, setShowDropdown] = React.useState(false);
-  React.useEffect(() => {
-    if (search.length > 0) setShowDropdown(true);
-    else setShowDropdown(false);
-  }, [search]);
-  React.useEffect(() => {
-    if (!showDropdown) return;
-    const handler = (e: MouseEvent) => {
-      if (!(e.target as HTMLElement).closest(".location-search-root")) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [showDropdown]);
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    }
+  }, [dropdownOpen]);
 
   return (
-    <div className="location-search-root relative">
-      <Input
-        placeholder="Type country or city..."
+    <div className="relative">
+      <input
+        ref={inputRef}
         value={search}
+        onFocus={() => setDropdownOpen(false)} // Only open on typing
         onChange={(e) => {
           setSearch(e.target.value);
-          setHighlightedIndex(-1);
+          setDropdownOpen(e.target.value.length > 0);
+          setHighlighted(0);
         }}
-        onFocus={() => search.length > 0 && setShowDropdown(true)}
-        onKeyDown={handleKeyDown}
-        className="mb-2"
+        onKeyDown={(e) => {
+          if (!dropdownOpen) return;
+          if (e.key === "ArrowDown") {
+            setHighlighted((h) => Math.min(h + 1, filteredOptions.length - 1));
+            e.preventDefault();
+          } else if (e.key === "ArrowUp") {
+            setHighlighted((h) => Math.max(h - 1, 0));
+            e.preventDefault();
+          } else if (e.key === "Enter" && filteredOptions[highlighted]) {
+            onChange(filteredOptions[highlighted]);
+            setSearch(
+              filteredOptions[highlighted].city
+                ? `${filteredOptions[highlighted].city}, ${filteredOptions[highlighted].country}`
+                : filteredOptions[highlighted].country
+            );
+            setDropdownOpen(false);
+            e.preventDefault();
+          } else if (e.key === "Escape") {
+            setDropdownOpen(false);
+          }
+        }}
+        placeholder={placeholder}
+        className="input w-full"
         autoComplete="off"
       />
-      {showDropdown && options.length > 0 && (
-        <div className="border rounded p-2 max-h-48 overflow-y-auto bg-white z-20 absolute w-full shadow-lg">
-          {options.map((loc, idx) => (
-            <div
-              key={loc.city ? `${loc.city},${loc.country}` : loc.country}
-              className={`cursor-pointer px-2 py-1 rounded flex flex-col ${
-                highlightedIndex === idx ? "bg-blue-200" : "hover:bg-gray-100"
-              }`}
-              onMouseEnter={() => setHighlightedIndex(idx)}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                onSelect(loc);
-              }}
-            >
-              <span className="font-medium">
-                {loc.city ? `${loc.city}, ${loc.country}` : loc.country}
-              </span>
-            </div>
-          ))}
-          {options.length === 0 && (
-            <div className="text-gray-400 px-2 py-1">No results</div>
+      {dropdownOpen && (
+        <div className="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto bg-white border rounded shadow">
+          {filteredOptions.length === 0 ? (
+            <div className="p-2 text-gray-500">No results</div>
+          ) : (
+            filteredOptions.map((opt, idx) => (
+              <div
+                key={`${opt.city || "country"}-${opt.country}-${idx}`}
+                ref={(el) => (optionRefs.current[idx] = el)}
+                className={`cursor-pointer px-4 py-2 ${
+                  idx === highlighted ? "bg-blue-100" : ""
+                }`}
+                onMouseDown={() => {
+                  onChange(opt);
+                  setSearch(
+                    opt.city ? `${opt.city}, ${opt.country}` : opt.country
+                  );
+                  setDropdownOpen(false);
+                }}
+                onMouseEnter={() => setHighlighted(idx)}
+              >
+                {opt.city ? (
+                  <span>
+                    <span className="font-medium">{opt.city}</span>,{" "}
+                    <span className="text-gray-600">{opt.country}</span>
+                  </span>
+                ) : (
+                  <span className="font-medium">{opt.country}</span>
+                )}
+              </div>
+            ))
           )}
         </div>
       )}
