@@ -89,7 +89,6 @@ export async function GET(request: NextRequest) {
         where: whereClause,
         include: {
           scamType: true,
-          // REMOVE: tags: true,
           _count: {
             select: {
               comments: true,
@@ -99,9 +98,7 @@ export async function GET(request: NextRequest) {
           },
         },
         orderBy: [
-          { trustScore: "desc" },
-          { reportCount: "desc" },
-          { createdAt: "desc" },
+          { createdAt: "desc" }
         ],
         take: limit * 3, // fetch extra to ensure enough after filtering
         skip: offset,
