@@ -146,9 +146,6 @@ importers:
       flexsearch:
         specifier: ^0.7.43
         version: 0.7.43
-      husky:
-        specifier: ^9.1.7
-        version: 9.1.7
       input-otp:
         specifier: ^1.2.4
         version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -243,6 +240,9 @@ importers:
       babel-jest:
         specifier: ^30.0.4
         version: 30.0.4(@babel/core@7.28.0)
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       jest:
         specifier: '29'
         version: 29.7.0(@types/node@20.6.2)
