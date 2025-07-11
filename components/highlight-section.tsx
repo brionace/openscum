@@ -31,7 +31,7 @@ export function HighlightSection({
           </div>
         ) : (
           reports.map((report) => (
-            <ReportCard key={report.id} report={report} />
+            <ReportCard key={report.id} report={report} outcomeTypes={[]} />
           ))
         )}
       </CardContent>

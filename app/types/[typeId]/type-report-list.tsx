@@ -71,7 +71,7 @@ export default function TypeReportList({ typeId }: TypeReportListProps) {
         <div className="text-gray-400">No reports found for this type.</div>
       )}
       {reports.map((report) => (
-        <ReportCard key={report.id} report={report} hideTypeLink />
+        <ReportCard key={report.id} report={report} hideTypeLink outcomeTypes={[]} />
       ))}
       <div ref={loader} />
       {loading && <div className="text-center py-4">Loading...</div>}
