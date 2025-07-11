@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -25,6 +25,7 @@ export function QuickReportButton({
   open,
   onOpenChange,
 }: QuickReportButtonProps) {
+  const modalContentRef = useRef<HTMLDivElement>(null);
   const isControlled =
     typeof open === "boolean" && typeof onOpenChange === "function";
   const [internalOpen, setInternalOpen] = useState(false);
@@ -70,11 +71,15 @@ export function QuickReportButton({
           </div>
         </Button>
       </DialogTrigger> */}
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent
+        ref={modalContentRef}
+        className="max-w-3xl mx-auto max-h-full overflow-y-auto"
+      >
         <VisuallyHidden>
           <DialogTitle></DialogTitle>
         </VisuallyHidden>
         <ReportForm
+          modalContentRef={modalContentRef}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
           prefill={prefill}

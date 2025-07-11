@@ -46,6 +46,7 @@ export default function Home() {
   const [flaggedReports, setFlaggedReports] = useState<{
     [id: string]: boolean;
   }>({});
+  const [outcomeTypes, setOutcomeTypes] = useState<any[]>([]);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   // Fetch paginated reports
@@ -55,8 +56,12 @@ export default function Home() {
     try {
       const offset = reports.length;
       const response = await fetch(`/api/reports?limit=10&offset=${offset}`);
+      if (!response.ok) {
+        const text = await response.text();
+        console.error("API response not OK:", response.status, text);
+        throw new Error(`API error: ${response.status}`);
+      }
       const data = await response.json();
-      console.log("Fetched reports data:", data); // DEBUG LOG
       if (data.success) {
         if (!Array.isArray(data.data.reports)) {
           console.warn("No reports array in response:", data);
@@ -245,19 +250,23 @@ export default function Home() {
     window.location.hash = `#/reports/${reportId}`;
   };
 
+  useEffect(() => {
+    fetch("/api/outcome-types")
+      .then((res) => res.json())
+      .then((data) => setOutcomeTypes(data));
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-red-50">
       <Header
         onReportClick={() => setReportModalOpen(true)}
         reports={reports}
       />
-      <div className="max-w-6xl mx-auto px-2 md:px-4 py-6 flex flex-col lg:flex-row gap-8">
+      <div className="max-w-6xl mx-auto px-2 md:px-4 py-6 flex flex-col lg:flex-row items-start gap-8">
         {/* Sidebar (desktop only) */}
         {isDesktop && (
-          <aside className="sticky top-[61px] w-80 shrink-0 hidden lg:block">
-            <div className="h-full max-h-[80vh] overflow-y-auto scrollbar-none">
-              <FeaturesBar />
-            </div>
+          <aside className="sticky top-20 w-80 shrink-0 hidden lg:block">
+            <FeaturesBar />
           </aside>
         )}
         {/* Timeline Feed */}
@@ -303,11 +312,11 @@ export default function Home() {
                 <ReportCard
                   key={report.id}
                   report={report}
+                  outcomeTypes={outcomeTypes}
                   onVote={doVote}
                   onFlag={doFlag}
-                  flagged={flaggedReports[report.id] || false} // Pass down
+                  flagged={flaggedReports[report.id] || false}
                   onCommentsClick={handleCommentsClick}
-                  // onShare={handleShareClick}
                 />
               ))
             )}

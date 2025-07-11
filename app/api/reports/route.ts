@@ -89,6 +89,7 @@ export async function GET(request: NextRequest) {
         where: whereClause,
         include: {
           scamType: true,
+          // outcome is a JSON field, no need to include
           _count: {
             select: {
               comments: true,
@@ -98,7 +99,7 @@ export async function GET(request: NextRequest) {
           },
         },
         orderBy: [{ createdAt: "desc" }],
-        take: limit * 3, // fetch extra to ensure enough after filtering
+        take: limit * 3,
         skip: offset,
       });
       // Filter out flagged reports in JS
@@ -154,18 +155,16 @@ export async function POST(request: NextRequest) {
       email,
       website,
       socialMedia,
-      moneyLost,
-      moneyRequested,
       reporterName,
       reporterEmail,
       anonymous = true,
       city,
       country,
       captchaToken,
-      severity, // <-- add severity
+      severity,
+      scamTypeId,
+      outcome, // <-- Accept outcome instead of outcomes
     } = body;
-
-    const { scamTypeId } = body;
 
     // Verify CAPTCHA only in production
     if (process.env.NODE_ENV === "production") {
@@ -332,18 +331,16 @@ export async function POST(request: NextRequest) {
         ipHash: locationData.ip ? hashIP(locationData.ip) : null,
         latitude: locationData.latitude,
         longitude: locationData.longitude,
-        verified: false, // default
-        trustScore: 1, // default
-        reportCount: 1, // default
+        verified: false,
+        trustScore: 1,
+        reportCount: 1,
         reporterName: anonymous ? null : cleanReporterName,
         reporterEmail: anonymous ? null : cleanReporterEmail,
         anonymous,
-        moneyLost,
-        moneyRequested,
-        severity: typeof severity === "string" ? severity : undefined, // <-- add severity safely
         screenshots: JSON.stringify([]),
         evidence: JSON.stringify([]),
         scamTypeId,
+        outcome, // <-- store outcome as JSON
       },
       include: {
         scamType: true,

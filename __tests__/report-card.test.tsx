@@ -19,14 +19,20 @@ const mockReport = {
   reporterName: "John Doe",
   reporterEmail: "john@example.com",
   anonymous: false,
-  moneyLost: 100,
-  moneyRequested: 200,
   screenshots: [],
   evidence: [],
   scamType: { id: "type1", name: "Phishing" },
   tags: [],
   severity: "HIGH",
   _count: { comments: 3, votes: 5 },
+  outcome: [
+    {
+      outcomeType: "FINANCIAL",
+      moneyLost: 100,
+      moneyRequested: 200,
+      currency: "$",
+    },
+  ],
 };
 
 describe("ReportCard", () => {

@@ -44,28 +44,29 @@ import capitals from "country-json/src/country-by-capital-city.json";
 import cities from "country-json/src/country-by-capital-city.json";
 import { countryCodeAndName, countryCity } from "@/lib/country";
 import { TypeDropdown } from "@/components/ui/type-dropdown";
+import OutcomeSection from "@/components/outcome-section";
 
 const reportSchema = z.object({
   description: z.string().min(20, "Description must be at least 20 characters"),
   severity: z.string().default("MEDIUM"),
   phoneNumber: z.string().optional(),
-  email: z.string().email().optional().or(z.literal("")),
-  website: z.string().url().optional().or(z.literal("")),
+  email: z.string().optional(),
+  website: z.string().optional(),
   socialMedia: z.string().optional(),
-  moneyLost: z.number().min(0).optional(),
-  moneyRequested: z.number().min(0).optional(),
   reporterName: z.string().optional(),
-  reporterEmail: z.string().email().optional().or(z.literal("")),
+  reporterEmail: z.string().optional(),
   anonymous: z.boolean().default(true),
   scamTypeId: z.string().min(1, "Please select a scam type"),
-  tags: z.array(z.string()).optional(), // <-- add tags as array of string IDs
+  tags: z.array(z.string()).optional(),
   city: z.string().optional(),
   country: z.string().optional(),
+  outcome: z.array(z.any()).optional(), // Modular outcome array
 });
 
 type ReportFormData = z.infer<typeof reportSchema>;
 
 interface ReportFormProps {
+  modalContentRef: React.RefObject<HTMLDivElement>;
   onSubmit: (data: ReportFormData & { captchaToken: string }) => Promise<void>;
   isSubmitting?: boolean;
   prefill?: {
@@ -95,6 +96,7 @@ function RecaptchaV3({ onVerify }: { onVerify: (token: string) => void }) {
 }
 
 export function ReportForm({
+  modalContentRef,
   onSubmit,
   isSubmitting = false,
   prefill,
@@ -132,6 +134,7 @@ export function ReportForm({
   } | null>(null);
   const [paraphrasing, setParaphrasing] = useState(false);
   const [paraphraseError, setParaphraseError] = useState("");
+  const [outcome, setOutcome] = useState<any[]>([]);
   const isProduction = process.env.NODE_ENV === "production";
 
   const form = useForm<ReportFormData>({
@@ -143,11 +146,11 @@ export function ReportForm({
       email: prefill?.email || "",
       website: prefill?.website || "",
       socialMedia: "",
-      moneyLost: undefined,
-      moneyRequested: undefined,
       reporterName: "",
       reporterEmail: "",
       anonymous: true,
+      scamTypeId: "",
+      outcome: [],
     },
   });
 
@@ -234,13 +237,15 @@ export function ReportForm({
       alert("Please complete the CAPTCHA verification");
       return;
     }
-    if (!selectedScamType) {
-      form.setError("scamTypeId", {
-        type: "manual",
-        message: "Please select a scam type",
-      });
-      return;
-    }
+    // if (!selectedScamType) {
+    //   form.setError("scamTypeId", {
+    //     type: "manual",
+    //     message: "Please select a scam type",
+    //   });
+    //   // Scroll to top if error
+    //   modalContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    //   return;
+    // }
     await onSubmit({
       ...data,
       scamTypeId: selectedScamType ? selectedScamType.id : "",
@@ -248,8 +253,16 @@ export function ReportForm({
       captchaToken: captchaToken || "dev-bypass",
       city: selectedLocation?.city || "",
       country: selectedLocation?.country || "",
+      outcome,
     });
   };
+
+  // Scroll to top on submit if there are validation errors
+  useEffect(() => {
+    if (Object.keys(form.formState.errors).length > 0) {
+      modalContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [form.formState.submitCount]);
 
   // Initialize locationOptions with all country/city pairs on mount
   useEffect(() => {
@@ -306,30 +319,46 @@ export function ReportForm({
                 <div className="space-y-4">
                   {/* Scam Type */}
                   <div className="space-y-4">
-                    <FormItem>
-                      <FormLabel>Scam Type *</FormLabel>
-                      <TypeDropdown
-                        value={selectedScamType}
-                        onChange={(val) => {
-                          // If multi is false, val is Option or null
-                          setSelectedScamType(
-                            val as { id: string; name: string } | null
-                          );
-                          form.setValue(
-                            "scamTypeId",
-                            val && "id" in val ? val.id : ""
-                          );
-                          if (val) form.clearErrors("scamTypeId");
-                        }}
-                        options={scamTypeOptions}
-                        onSearch={setScamTypeSearch}
-                        placeholder="Type to search scam types..."
-                        multi={false}
-                      />
-                      {/* Hidden input to keep scamTypeId in form state for zod validation */}
-                      <input type="hidden" {...form.register("scamTypeId")} />
-                      <FormMessage />
-                    </FormItem>
+                    <FormField
+                      control={form.control}
+                      name="scamTypeId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Scam Type *</FormLabel>
+                          <TypeDropdown
+                            value={selectedScamType}
+                            onChange={(val) => {
+                              if (!val) {
+                                setSelectedScamType(null);
+                                form.setValue("scamTypeId", "");
+                                field.onChange(""); // <-- Add this
+                                form.clearErrors("scamTypeId");
+                                return;
+                              }
+                              setSelectedScamType(
+                                val as { id: string; name: string } | null
+                              );
+                              form.setValue(
+                                "scamTypeId",
+                                val && "id" in val ? val.id : ""
+                              );
+                              field.onChange(val && "id" in val ? val.id : ""); // <-- Add this
+                              if (val) form.clearErrors("scamTypeId");
+                            }}
+                            options={scamTypeOptions}
+                            onSearch={setScamTypeSearch}
+                            placeholder="Type to search scam types..."
+                            multi={false}
+                          />
+                          {/* Hidden input to keep scamTypeId in form state for zod validation */}
+                          <input
+                            {...form.register("scamTypeId")}
+                            type="hidden"
+                          />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     {/* Tags field (multi-select) */}
                     <FormItem>
                       <FormLabel>Additional Scam Types (Tags)</FormLabel>
@@ -354,159 +383,158 @@ export function ReportForm({
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                   <Shield className="h-6 w-6 text-blue-500" /> Description
                 </h3>
-                <div className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Detailed Description *</FormLabel>
-                        <div className="flex flex-col items-center gap-2">
-                          <FormControl>
-                            <Textarea
-                              placeholder="Describe what happened, how the scam works, and any other relevant details"
-                              rows={4}
-                              {...field}
-                              className="text-base"
-                              onChange={(e) => {
-                                field.onChange(e);
-                                // Update sessionStorage with the latest user input
-                                sessionStorage.setItem(
-                                  "originalDescription",
-                                  e.target.value
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Detailed Description *</FormLabel>
+                      <div className="flex flex-col gap-2">
+                        <FormControl>
+                          <Textarea
+                            placeholder="Describe what happened, how the scam works, and any other relevant details"
+                            rows={4}
+                            {...field}
+                            className="text-base"
+                            onChange={(e) => {
+                              field.onChange(e);
+                              // Update sessionStorage with the latest user input
+                              sessionStorage.setItem(
+                                "originalDescription",
+                                e.target.value
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                        <div>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            className="h-10"
+                            disabled={
+                              !field.value || isSubmitting || paraphrasing
+                            }
+                            onClick={async () => {
+                              setParaphrasing(true);
+                              setParaphraseError("");
+                              try {
+                                // Use the original description from sessionStorage if available
+                                let original = sessionStorage.getItem(
+                                  "originalDescription"
                                 );
-                              }}
-                            />
-                          </FormControl>
-                          <div>
-                            <Button
-                              type="button"
-                              variant="secondary"
-                              className="h-10"
-                              disabled={
-                                !field.value || isSubmitting || paraphrasing
-                              }
-                              onClick={async () => {
-                                setParaphrasing(true);
-                                setParaphraseError("");
-                                try {
-                                  // Use the original description from sessionStorage if available
-                                  let original = sessionStorage.getItem(
-                                    "originalDescription"
+                                if (!original) {
+                                  original = field.value;
+                                  sessionStorage.setItem(
+                                    "originalDescription",
+                                    original
                                   );
-                                  if (!original) {
-                                    original = field.value;
-                                    sessionStorage.setItem(
-                                      "originalDescription",
-                                      original
-                                    );
-                                  }
-                                  const res = await fetch(
-                                    "/api/ai-paraphrase",
-                                    {
-                                      method: "POST",
-                                      headers: {
-                                        "Content-Type": "application/json",
-                                      },
-                                      body: JSON.stringify({
-                                        description: original,
-                                      }),
-                                    }
-                                  );
-                                  if (!res.ok)
-                                    throw new Error("Failed to paraphrase");
-                                  const data = await res.json();
-                                  if (data?.paraphrased) {
-                                    field.onChange(data.paraphrased);
-                                  } else {
-                                    throw new Error(
-                                      "No paraphrased text returned"
-                                    );
-                                  }
-                                } catch (e) {
-                                  setParaphraseError(
-                                    e instanceof Error ? e.message : "Error"
-                                  );
-                                } finally {
-                                  setParaphrasing(false);
                                 }
-                              }}
-                            >
-                              {paraphrasing
-                                ? "Paraphrasing..."
-                                : "Paraphrase with AI"}
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              className="h-10"
-                              disabled={
-                                paraphrasing ||
-                                !sessionStorage.getItem(
-                                  "originalDescription"
-                                ) ||
-                                field.value ===
-                                  sessionStorage.getItem("originalDescription")
-                              }
-                              onClick={() => {
-                                const original = sessionStorage.getItem(
-                                  "originalDescription"
+                                const res = await fetch("/api/ai-paraphrase", {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    description: original,
+                                  }),
+                                });
+                                if (!res.ok)
+                                  throw new Error("Failed to paraphrase");
+                                const data = await res.json();
+                                if (data?.paraphrased) {
+                                  field.onChange(data.paraphrased);
+                                } else {
+                                  throw new Error(
+                                    "No paraphrased text returned"
+                                  );
+                                }
+                              } catch (e) {
+                                setParaphraseError(
+                                  e instanceof Error ? e.message : "Error"
                                 );
-                                if (original) field.onChange(original);
-                              }}
-                            >
-                              Revert
-                            </Button>
-                          </div>
+                              } finally {
+                                setParaphrasing(false);
+                              }
+                            }}
+                          >
+                            {paraphrasing
+                              ? "Paraphrasing..."
+                              : "Paraphrase with AI"}
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className="h-10"
+                            disabled={
+                              paraphrasing ||
+                              !sessionStorage.getItem("originalDescription") ||
+                              field.value ===
+                                sessionStorage.getItem("originalDescription")
+                            }
+                            onClick={() => {
+                              const original = sessionStorage.getItem(
+                                "originalDescription"
+                              );
+                              if (original) field.onChange(original);
+                            }}
+                          >
+                            Revert
+                          </Button>
                         </div>
                         {paraphraseError && (
                           <div className="text-red-500 text-xs mt-1">
                             {paraphraseError}
                           </div>
                         )}
+                      </div>
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Risk Level Section */}
+              <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Shield className="h-6 w-6 text-blue-500" /> Risk Level
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="severity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="severity-select">
+                          Select Risk Level
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger
+                              className="text-base py-3"
+                              id="severity-select"
+                            >
+                              <SelectValue />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {severityOptions.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="severity"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor="severity-select">
-                            Risk Level
-                          </FormLabel>
-                          <Select
-                            onValueChange={field.onChange}
-                            value={field.value}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger
-                                className="text-base py-3"
-                                id="severity-select"
-                              >
-                                <SelectValue />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {severityOptions.map((option) => (
-                                <SelectItem
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -596,106 +624,8 @@ export function ReportForm({
                 </div>
               </div>
 
-              {/* Financial Impact Section */}
-              <div className="mb-6 p-6 rounded-lg bg-yellow-50 shadow">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <DollarSign className="h-6 w-6 text-yellow-600" /> Financial
-                  Impact
-                </h3>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Currency Searchable Selector */}
-                    <div className="relative">
-                      <FormLabel>Currency</FormLabel>
-                      <div className="mt-2">
-                        {currency ? (
-                          <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-900 rounded-full px-3 py-1 mb-2">
-                            <span>
-                              {(() => {
-                                const found = countryCodeAndName().find(
-                                  (c) => c.currency_code === currency
-                                );
-                                if (!found) return currency;
-                                return `${found.currency_code} - ${found.currency_name}`;
-                              })()}
-                            </span>
-                            <button
-                              type="button"
-                              aria-label="Remove selected currency"
-                              className="ml-1 text-blue-700 hover:text-red-600 focus:outline-none"
-                              onClick={() => setCurrency("")}
-                            >
-                              ×
-                            </button>
-                          </div>
-                        ) : (
-                          <CurrencySearchInput
-                            onSelect={(code: string) => setCurrency(code)}
-                          />
-                        )}
-                      </div>
-                    </div>
-                    <div></div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="moneyLost"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Money Lost ({currency || "Currency"})
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              step="0.01"
-                              min="0"
-                              placeholder="0.00"
-                              {...field}
-                              onChange={(e) =>
-                                field.onChange(
-                                  parseFloat(e.target.value) || undefined
-                                )
-                              }
-                              className="text-base py-3"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="moneyRequested"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Money Requested ({currency || "Currency"})
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              step="0.01"
-                              min="0"
-                              placeholder="0.00"
-                              {...field}
-                              onChange={(e) =>
-                                field.onChange(
-                                  parseFloat(e.target.value) || undefined
-                                )
-                              }
-                              className="text-base py-3"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
+              {/* Outcome Section (modular, supports multiple outcomes) */}
+              <OutcomeSection outcomes={outcome} setOutcomes={setOutcome} />
 
               {/* Reporter Information Section */}
               <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">

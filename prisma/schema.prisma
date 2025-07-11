@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
+  provider = "sqlite"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -43,12 +43,8 @@ model ScamReport {
   reporterEmail String?
   anonymous     Boolean @default(true)
 
-  // Financial Impact
-  moneyLost      Float?
-  moneyRequested Float?
-
-  // Severity (added back)
-  severity String? // LOW, MEDIUM, HIGH, CRITICAL
+  // Outcome (JSON array)
+  outcome     Json?
 
   // Additional Data (stored as JSON strings)
   screenshots String? // JSON array of image URLs
@@ -182,4 +178,12 @@ model Notification {
   data      String?
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model OutcomeType {
+  id        String   @id @default(cuid())
+  value     String   @unique
+  label     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

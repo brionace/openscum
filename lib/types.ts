@@ -47,6 +47,41 @@ export interface Tag {
   name: string;
 }
 
+// Outcome interface for detailed report outcomes
+export interface Outcome {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  outcomeType: string;
+  // Financial
+  moneyLost?: number | null;
+  moneyRequested?: number | null;
+  currency?: string | null;
+  paymentMethod?: string | null;
+  accountDetails?: string | null;
+  // Social Media
+  socialMediaPlatform?: string | null;
+  accountUsername?: string | null;
+  accountEmail?: string | null;
+  accountRecovered?: boolean | null;
+  // Phone
+  phoneBrand?: string | null;
+  phoneModel?: string | null;
+  phoneRecovered?: boolean | null;
+  // Vehicle
+  vehicleBrand?: string | null;
+  vehicleModel?: string | null;
+  vehiclePlate?: string | null;
+  vehicleRecovered?: boolean | null;
+  // Household
+  propertyType?: string | null;
+  propertyDescription?: string | null;
+  propertyValue?: number | null;
+  propertyRecovered?: boolean | null;
+  // Other
+  otherOutcomeDetails?: string | null;
+}
+
 // ScamReport interface for consistent typing
 export interface ScamReport {
   id: string;
@@ -77,6 +112,7 @@ export interface ScamReport {
   scamType?: ScamType;
   tags?: Tag[];
   severity?: string | null;
+  outcome?: Outcome[];
   _count?: {
     comments: number;
     votes: number;
