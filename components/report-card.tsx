@@ -13,6 +13,7 @@ import {
   Globe,
   Share2,
   Flag,
+  ArrowRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -157,10 +158,11 @@ export function ReportCard({
               variant="ghost"
               size="sm"
               className="shrink-0"
-              onClick={handleShare}
+              // onClick={handleShare}
+              onClick={() => onCommentsClick?.(report.id)}
               aria-label="Share report"
             >
-              <Share2 className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
