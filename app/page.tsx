@@ -135,15 +135,34 @@ export default function Home() {
       }
     };
     window.addEventListener("hashchange", checkHash);
-    // Only check hash on mount, not on every render
     checkHash();
     return () => window.removeEventListener("hashchange", checkHash);
   }, []);
 
-  // Only clear hash when modal is closed by user action
+  // If reports load after mount and hash is present, re-check hash to open modal
   useEffect(() => {
-    if (!commentModalOpen && window.location.hash.startsWith("#/reports/")) {
-      // Remove the hash entirely (including the #)
+    if (reports.length > 0 && window.location.hash.startsWith("#/reports/")) {
+      const match = window.location.hash.match(/^#\/reports\/(.+)$/);
+      if (match) {
+        setActiveReportId(match[1]);
+        setCommentModalOpen(true);
+      }
+    }
+  }, [reports.length]);
+
+  // Only clear hash if the user closes the modal for the current report
+  const didMountRef = React.useRef(false);
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    // Only clear hash if the modal is being closed and the hash matches the active report
+    if (
+      !commentModalOpen &&
+      activeReportId &&
+      window.location.hash === `#/reports/${activeReportId}`
+    ) {
       if (window.history.replaceState) {
         window.history.replaceState(
           null,
@@ -154,7 +173,7 @@ export default function Home() {
         window.location.hash = "";
       }
     }
-  }, [commentModalOpen]);
+  }, [commentModalOpen, activeReportId]);
 
   // Handle voting
   const doVote = async (

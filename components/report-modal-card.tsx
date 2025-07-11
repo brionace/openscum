@@ -43,7 +43,7 @@ export function ReportCard({
   onVote,
   onCommentsClick,
   onFlag,
-  flagged = false, // <-- use flagged prop, default false
+  flagged = false,
 }: ReportCardProps) {
   const [flagLoading, setFlagLoading] = useState(false);
 
@@ -51,9 +51,12 @@ export function ReportCard({
   const [votes, setVotes] = useState(report._count?.votes || 0);
   const [voting, setVoting] = useState(false);
 
+  // Reset all local state when report changes
   React.useEffect(() => {
     setVotes(report._count?.votes || 0);
-  }, [report._count?.votes]);
+    setVoting(false);
+    setFlagLoading(false);
+  }, [report]);
 
   const handleShare = () => {
     const shareUrl = `${window.location.origin}/report/${report.id}`;

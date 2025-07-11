@@ -73,8 +73,9 @@ export function ReportModal({
     try {
       const res = await fetch(`/api/reports?id=${reportId}`);
       const data = await res.json();
-      if (data.success && data.data.reports.length > 0) {
-        setReport(data.data.reports[0]);
+      if (data.success && Array.isArray(data.data.reports)) {
+        const found = data.data.reports.find((r: any) => r.id === reportId);
+        if (found) setReport(found);
       }
     } finally {
       setLoading(false);
@@ -156,7 +157,7 @@ export function ReportModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         aria-describedby="modal-desc"
-        className="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-0"
+        className="lg:max-w-3xl mx-auto h-full max-h-full overflow-y-auto p-0"
       >
         <div id="modal-desc" className="p-12">
           <VisuallyHidden>

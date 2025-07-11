@@ -7,7 +7,10 @@ const provider = process.env.PRISMA_PROVIDER || "sqlite";
 const schemaPath = path.join(__dirname, "../prisma/schema.prisma");
 
 let schema = fs.readFileSync(schemaPath, "utf8");
-// Replace the provider line in the datasource block
-schema = schema.replace(/provider\s*=\s*"[^"]+"/, `provider = "${provider}"`);
+// Only replace the provider in the datasource db block
+schema = schema.replace(
+  /(datasource db[\s\S]*?provider\s*=\s*")[^"]+("[\s\S]*?{)/,
+  `$1${provider}$2`
+);
 fs.writeFileSync(schemaPath, schema);
 console.log(`Prisma provider set to: ${provider}`);

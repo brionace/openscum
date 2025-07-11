@@ -1,8 +1,5 @@
-import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
-
-// Lazy load the report list
-const TypeReportList = React.lazy(() => import("./type-report-list"));
+import TypeReportList from "./type-report-list";
 
 export default async function TypePage({
   params,
@@ -23,9 +20,7 @@ export default async function TypePage({
       {type.description && (
         <p className="mb-6 text-gray-600">{type.description}</p>
       )}
-      <Suspense fallback={<div>Loading reports...</div>}>
-        <TypeReportList typeId={params.typeId} />
-      </Suspense>
+      <TypeReportList typeId={params.typeId} />
     </div>
   );
 }

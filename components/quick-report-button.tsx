@@ -73,7 +73,7 @@ export function QuickReportButton({
       </DialogTrigger> */}
       <DialogContent
         ref={modalContentRef}
-        className="max-w-3xl mx-auto max-h-full overflow-y-auto p-0"
+        className="lg:max-w-3xl mx-auto h-full max-h-full overflow-y-auto p-0"
       >
         <VisuallyHidden>
           <DialogTitle></DialogTitle>

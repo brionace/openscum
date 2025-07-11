@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "if [ \"$NODE_ENV\" != \"local\" ]; then PRISMA_PROVIDER=$PRISMA_PROVIDER node scripts/set-prisma-provider.js; fi",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
