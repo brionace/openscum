@@ -309,7 +309,7 @@ export default function Home() {
                 {stats.activeUsers.toLocaleString()}
               </div>
               <div className="text-sm text-gray-600">Active Users</div>
-            </div>
+            </div>Failed to submit report. Please try again.
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <div className="text-2xl font-bold text-purple-600 mb-1">
                 <Badge variant="outline" className="text-sm">

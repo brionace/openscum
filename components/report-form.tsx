@@ -47,7 +47,7 @@ import { TypeDropdown } from "@/components/ui/type-dropdown";
 import OutcomeSection from "@/components/outcome-section";
 
 const reportSchema = z.object({
-  description: z.string().min(20, "Description must be at least 20 characters"),
+  description: z.string().optional(),
   severity: z.string().default("MEDIUM"),
   phoneNumber: z.string().optional(),
   email: z.string().optional(),
@@ -56,7 +56,7 @@ const reportSchema = z.object({
   reporterName: z.string().optional(),
   reporterEmail: z.string().optional(),
   anonymous: z.boolean().default(true),
-  scamTypeId: z.string().min(1, "Please select a scam type"),
+  scamTypeId: z.string().optional(),
   tags: z.array(z.string()).optional(),
   city: z.string().optional(),
   country: z.string().optional(),
@@ -232,20 +232,48 @@ export function ReportForm({
 
   // Update handleSubmit to include tags
   const handleSubmit = async (data: ReportFormData) => {
+    // If all fields are empty, fail silently and close modal
+    const allEmpty =
+      !data.description &&
+      !data.severity &&
+      !data.phoneNumber &&
+      !data.email &&
+      !data.website &&
+      !data.socialMedia &&
+      !data.reporterName &&
+      !data.reporterEmail &&
+      !data.scamTypeId &&
+      (!data.tags || data.tags.length === 0) &&
+      !data.city &&
+      !data.country &&
+      (!data.outcome || data.outcome.length === 0);
+    if (allEmpty) {
+      // Close modal silently
+      if (modalContentRef.current) {
+        // Try to find the closest dialog/modal and close it
+        const modal = modalContentRef.current.closest(
+          '[role="dialog"], .modal, .DialogRoot'
+        );
+        if (modal) {
+          // Try to find a close button
+          const closeBtn = modal.querySelector(
+            '[data-close], [aria-label="Close"], .close, .DialogClose'
+          );
+          if (closeBtn && closeBtn instanceof HTMLElement) {
+            closeBtn.click();
+          } else {
+            // Fallback: hide modal
+            (modal as HTMLElement).style.display = "none";
+          }
+        }
+      }
+      return;
+    }
     // In development, skip CAPTCHA validation
     if (isProduction && !captchaToken) {
       alert("Please complete the CAPTCHA verification");
       return;
     }
-    // if (!selectedScamType) {
-    //   form.setError("scamTypeId", {
-    //     type: "manual",
-    //     message: "Please select a scam type",
-    //   });
-    //   // Scroll to top if error
-    //   modalContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-    //   return;
-    // }
     await onSubmit({
       ...data,
       scamTypeId: selectedScamType ? selectedScamType.id : "",
@@ -324,14 +352,14 @@ export function ReportForm({
                       name="scamTypeId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Scam Type *</FormLabel>
+                          <FormLabel>Scam Type (Optional)</FormLabel>
                           <TypeDropdown
                             value={selectedScamType}
                             onChange={(val) => {
                               if (!val) {
                                 setSelectedScamType(null);
                                 form.setValue("scamTypeId", "");
-                                field.onChange(""); // <-- Add this
+                                field.onChange("");
                                 form.clearErrors("scamTypeId");
                                 return;
                               }
@@ -342,7 +370,7 @@ export function ReportForm({
                                 "scamTypeId",
                                 val && "id" in val ? val.id : ""
                               );
-                              field.onChange(val && "id" in val ? val.id : ""); // <-- Add this
+                              field.onChange(val && "id" in val ? val.id : "");
                               if (val) form.clearErrors("scamTypeId");
                             }}
                             options={scamTypeOptions}
@@ -388,7 +416,7 @@ export function ReportForm({
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Detailed Description *</FormLabel>
+                      <FormLabel>Detailed Description (Optional)</FormLabel>
                       <div className="flex flex-col gap-2">
                         <FormControl>
                           <Textarea

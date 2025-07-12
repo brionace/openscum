@@ -52,7 +52,9 @@ export function QuickReportButton({
       }
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Failed to submit report. Please try again.");
+      alert(
+        "Failed to submit report. Check the content is added correctly and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
