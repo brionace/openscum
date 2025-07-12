@@ -452,7 +452,7 @@ export function ReportForm({
                                   "originalDescription"
                                 );
                                 if (!original) {
-                                  original = field.value;
+                                  original = field.value ?? "";
                                   sessionStorage.setItem(
                                     "originalDescription",
                                     original
