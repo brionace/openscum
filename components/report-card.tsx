@@ -13,7 +13,7 @@ import {
   Globe,
   Share2,
   Flag,
-  ArrowRight,
+  ChevronRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -124,7 +124,7 @@ export function ReportCard({
     // } hover:shadow-lg transition-shadow`}
     >
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 mb-2 items-center">
               {/* Scam Type Name */}
@@ -162,7 +162,7 @@ export function ReportCard({
               onClick={() => onCommentsClick?.(report.id)}
               aria-label="Share report"
             >
-              <ArrowRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -264,20 +264,22 @@ export function ReportCard({
         )}
 
         {/* Meta Information */}
-        <div className="flex items-start justify-between gap-3 text-xs text-muted-foreground pt-3 border-t">
+        <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground pt-3 border-t">
           <div className="flex flex-wrap items-center gap-2 col-span-1">
             <div className="flex items-center gap-1">
-              <Calendar className="h-3 w-3" />
+              {/* <Calendar className="h-3 w-3" /> */}
               <span>
+                Posted{" "}
                 {formatDistanceToNow(new Date(report.createdAt), {
                   addSuffix: true,
                 })}
               </span>
             </div>
+            <span>&middot;</span>
             {/* Location info */}
             {(report.city || report.country) && (
               <div className="flex items-center gap-1">
-                <MapPin className="h-3 w-3 text-blue-500" />
+                {/* <MapPin className="h-3 w-3 text-blue-500" /> */}
                 <span>
                   {report.city
                     ? `${report.city}, ${report.country}`

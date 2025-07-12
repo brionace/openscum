@@ -66,12 +66,17 @@ export default function TypeReportList({ typeId }: TypeReportListProps) {
   }, [hasMore, loading, fetchReports]);
 
   return (
-    <div>
+    <div className="space-y-4">
       {reports.length === 0 && !loading && (
         <div className="text-gray-400">No reports found for this type.</div>
       )}
       {reports.map((report) => (
-        <ReportCard key={report.id} report={report} hideTypeLink outcomeTypes={[]} />
+        <ReportCard
+          key={report.id}
+          report={report}
+          hideTypeLink
+          outcomeTypes={[]}
+        />
       ))}
       <div ref={loader} />
       {loading && <div className="text-center py-4">Loading...</div>}
