@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSupabaseUser } from "@/components/SupabaseUserContext";
 import { ScamReport } from "@/lib/types";
 import {
   AlertTriangle,
@@ -21,6 +22,9 @@ import { formatDistanceToNow } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
+import { ReportOutcome } from "./report-outcome";
+import { ReportMeta } from "./report-meta";
+import { ReportScammerDetails } from "./report-scammer-details";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -51,6 +55,7 @@ export function ReportCard({
   hideTypeLink = false,
 }: ReportCardProps) {
   const [flagLoading, setFlagLoading] = useState(false);
+  const { user, session, signIn } = useSupabaseUser();
   // Build lookup maps for outcomeType labels and values
   const outcomeTypeLabels = outcomeTypes.reduce(
     (acc: Record<string, string>, t: any) => {
@@ -84,19 +89,71 @@ export function ReportCard({
     onShare?.(report);
   };
 
-  const handleVote = (voteType: "helpful" | "not_helpful") => {
-    if (onVote) {
-      onVote(report.id, voteType);
+  const handleVote = async (voteType: "helpful" | "not_helpful") => {
+    if (!user || !session) {
+      toast({
+        title: "Login required",
+        description: "Please log in to vote on this report.",
+        variant: "destructive",
+      });
+      return;
+    }
+    try {
+      const res = await fetch(`/api/reports/${report.id}/vote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ voteType }),
+      });
+      const result = await res.json();
+      if (!result.success) {
+        toast({
+          title: "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      } else {
+        toast({ title: "Vote submitted" });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to vote.",
+        variant: "destructive",
+      });
     }
   };
 
   const handleFlag = async () => {
+    if (!user || !session) {
+      toast({
+        title: "Login required",
+        description: "Please log in to flag this report.",
+        variant: "destructive",
+      });
+      return;
+    }
     if (flagLoading) return;
     setFlagLoading(true);
     try {
-      if (typeof onFlag === "function") {
-        await onFlag(report.id, !flagged);
-        // REMOVE: setFlagged(!flagged); // Parent will update flagged prop
+      const res = await fetch(`/api/reports/${report.id}/flag`, {
+        method: flagged ? "DELETE" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: flagged ? undefined : JSON.stringify({}),
+      });
+      const result = await res.json();
+      if (!result.success) {
+        toast({
+          title: "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      } else {
         toast({
           title: !flagged ? "Flagged" : "Flag removed",
           description: !flagged
@@ -168,197 +225,30 @@ export function ReportCard({
         </div>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
           {report.description}
         </p>
 
         {/* Scammer Details */}
-        {report.scammerDetails && (
-          <div className="space-y-2 mb-4">
-            {report.scammerDetails.phoneNumber && (
-              <div className="flex items-center gap-2 text-sm">
-                <Phone className="h-4 w-4 text-red-500" />
-                <span className="font-mono">
-                  {report.scammerDetails.phoneNumber}
-                </span>
-              </div>
-            )}
-            {report.scammerDetails.email && (
-              <div className="flex items-center gap-2 text-sm">
-                <Mail className="h-4 w-4 text-orange-500" />
-                <span className="font-mono">{report.scammerDetails.email}</span>
-              </div>
-            )}
-            {report.scammerDetails.website && (
-              <div className="flex items-center gap-2 text-sm">
-                <Globe className="h-4 w-4 text-blue-500" />
-                <span className="font-mono break-all">
-                  {report.scammerDetails.website}
-                </span>
-              </div>
-            )}
-            {report.scammerDetails.socialMedia && (
-              <div className="flex items-center gap-2 text-sm">
-                <Globe className="h-4 w-4 text-green-500" />
-                <span className="font-mono break-all">
-                  {report.scammerDetails.socialMedia}
-                </span>
-              </div>
-            )}
-            {report.scammerDetails.name && (
-              <div className="flex items-center gap-2 text-sm">
-                <span className="font-semibold">Name:</span>
-                <span className="font-mono">{report.scammerDetails.name}</span>
-              </div>
-            )}
-          </div>
-        )}
+        <ReportScammerDetails scammerDetails={report.scammerDetails} />
 
         {/* Outcome(s) */}
         {Array.isArray(report.outcome) && report.outcome.length > 0 && (
           <div className="mb-4">
-            {report.outcome.map((outcome: Record<string, any>, idx: number) => {
-              const hasValues = Object.entries(outcome).some(
-                ([key, value]) =>
-                  key !== "outcomeType" &&
-                  value !== null &&
-                  value !== undefined &&
-                  value !== ""
-              );
-              if (!hasValues) return null;
-              const typeLabel =
-                outcomeTypeLabels[outcome.outcomeType] || "Outcome";
-              const typeValue = outcomeTypeValues[outcome.outcomeType];
-              return (
-                <div
-                  key={idx}
-                  className={`border rounded-lg p-3 mb-2 ${
-                    typeValue === "FINANCIAL"
-                      ? "bg-yellow-50 border-yellow-400"
-                      : "bg-gray-50 border-gray-300"
-                  }`}
-                >
-                  <div
-                    className={`font-semibold mb-1 ${
-                      typeValue === "FINANCIAL"
-                        ? "text-yellow-700"
-                        : "text-gray-800"
-                    }`}
-                  >
-                    {typeLabel}
-                  </div>
-                  {Object.entries(outcome).map(([key, value]) => {
-                    if (key === "outcomeType") return null;
-                    if (value === null || value === undefined || value === "")
-                      return null;
-                    if (
-                      typeValue === "FINANCIAL" &&
-                      (key === "moneyLost" || key === "moneyRequested")
-                    ) {
-                      return (
-                        <div key={key} className="text-yellow-900">
-                          {key === "moneyLost"
-                            ? "Money Lost:"
-                            : "Money Requested:"}{" "}
-                          <span className="font-semibold">
-                            {outcome.currency || "$"}
-                            {value}
-                          </span>
-                        </div>
-                      );
-                    }
-                    return (
-                      <div key={key} className="text-yellow-900">
-                        {key
-                          .replace(/([A-Z])/g, " $1")
-                          .replace(/^./, (str) => str.toUpperCase())}
-                        : <span className="font-semibold">{String(value)}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+            <ReportOutcome outcome={report.outcome} />
           </div>
         )}
 
         {/* Meta Information */}
-        <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground pt-3 border-t">
-          <div className="flex flex-wrap items-center gap-2 col-span-1">
-            <div className="flex items-center gap-1">
-              {/* <Calendar className="h-3 w-3" /> */}
-              <span>
-                Posted{" "}
-                {formatDistanceToNow(new Date(report.createdAt), {
-                  addSuffix: true,
-                })}
-              </span>
-            </div>
-            <span>&middot;</span>
-            {/* Location info */}
-            {(report.city || report.country) && (
-              <div className="flex items-center gap-1">
-                {/* <MapPin className="h-3 w-3 text-blue-500" /> */}
-                <span>
-                  {report.city
-                    ? `${report.city}, ${report.country}`
-                    : report.country}
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="flex items-center gap-3 text-xs">
-            {/* <Button
-              variant="ghost"
-              size="sm"
-              className={`h-6 px-2 text-xs ${flagged ? "text-red-500" : ""}`}
-              onClick={handleFlag}
-              disabled={flagged || flagLoading}
-              aria-label="Flag as inappropriate"
-            >
-              <AlertTriangle className="h-3 w-3 mr-1" />
-              {flagged ? "Flagged" : "Flag"}
-            </Button> */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0"
-              onClick={handleFlag}
-              aria-label={flagged ? "Unflag report" : "Flag report"}
-              disabled={flagLoading}
-            >
-              <Flag className={`h-3 w-3 ${flagged ? "text-red-500" : ""}`} />
-              <span className="sr-only">{flagged ? "Unflag" : "Flag"}</span>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex items-center gap-1 shrink-0"
-              onClick={() => onCommentsClick?.(report.id)}
-              aria-label="View comments"
-            >
-              <MessageCircle className="h-3 w-3" />
-              {report._count &&
-              typeof report._count?.comments === "number" &&
-              report._count.comments > 0 ? (
-                <span>{report._count.comments}</span>
-              ) : null}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0"
-              onClick={() => handleVote("helpful")}
-              aria-label="Thumbs up"
-            >
-              <ThumbsUp className="h-3 w-3 mr-1" />
-              {report._count && typeof report._count?.votes === "number"
-                ? report._count.votes
-                : null}
-            </Button>
-          </div>
-        </div>
+        <ReportMeta
+          report={report}
+          flagged={flagged}
+          flagLoading={flagLoading}
+          onVote={handleVote}
+          onFlag={handleFlag}
+          onCommentsClick={onCommentsClick}
+        />
       </CardContent>
     </Card>
   );

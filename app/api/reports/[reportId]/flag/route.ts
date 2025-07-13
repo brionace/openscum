@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export async function POST(
   request: NextRequest,
@@ -7,11 +8,25 @@ export async function POST(
 ) {
   try {
     const { reason } = await request.json();
-    // Use IP for anonymous flagging
-    const ip = request.headers.get("x-forwarded-for") || request.ip || null;
-    // Prevent duplicate flag from same IP for same report
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const { data, error } = await supabaseAdmin.auth.getUser(token);
+    if (error || !data?.user) {
+      return NextResponse.json(
+        { success: false, error: "Invalid user" },
+        { status: 401 }
+      );
+    }
+    const userId = data.user.id;
+    // Prevent duplicate flag from same user for same report
     const existing = await prisma.flag.findFirst({
-      where: { reportId: params.reportId, ip },
+      where: { reportId: params.reportId, userId },
     });
     if (existing) {
       return NextResponse.json(
@@ -22,7 +37,7 @@ export async function POST(
     const flag = await prisma.flag.create({
       data: {
         reportId: params.reportId,
-        ip,
+        userId,
         reason: reason || null,
       },
     });
@@ -40,9 +55,24 @@ export async function DELETE(
   { params }: { params: { reportId: string } }
 ) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.ip || null;
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const { data, error } = await supabaseAdmin.auth.getUser(token);
+    if (error || !data?.user) {
+      return NextResponse.json(
+        { success: false, error: "Invalid user" },
+        { status: 401 }
+      );
+    }
+    const userId = data.user.id;
     const deleted = await prisma.flag.deleteMany({
-      where: { reportId: params.reportId, ip },
+      where: { reportId: params.reportId, userId },
     });
     return NextResponse.json({ success: true, deleted });
   } catch (error) {
@@ -58,9 +88,24 @@ export async function GET(
   { params }: { params: { reportId: string } }
 ) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.ip || null;
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) {
+      return NextResponse.json(
+        { flagged: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+    const token = authHeader.replace("Bearer ", "");
+    const { data, error } = await supabaseAdmin.auth.getUser(token);
+    if (error || !data?.user) {
+      return NextResponse.json(
+        { flagged: false, error: "Invalid user" },
+        { status: 401 }
+      );
+    }
+    const userId = data.user.id;
     const existing = await prisma.flag.findFirst({
-      where: { reportId: params.reportId, ip },
+      where: { reportId: params.reportId, userId },
     });
     return NextResponse.json({ flagged: !!existing });
   } catch (error) {

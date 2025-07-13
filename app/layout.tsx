@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { SupabaseUserProvider } from "@/components/SupabaseUserContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className={inter.className}>
-        <div id="app">{children}</div>
+        <SupabaseUserProvider>
+          <div id="app">{children}</div>
+        </SupabaseUserProvider>
       </body>
     </html>
   );

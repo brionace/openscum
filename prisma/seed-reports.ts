@@ -139,6 +139,18 @@ async function main() {
   }
   const outcomeTypeId = financialOutcomeType.id;
 
+  // Ensure at least one user exists for comments
+  let user = await prisma.user.findFirst();
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: `seeduser@example.com`,
+        username: `seeduser`,
+        name: `Seed User`,
+      },
+    });
+  }
+
   for (const report of scamReports) {
     // Find scamTypeId by name if present
     let scamTypeId: string | undefined = undefined;
@@ -170,12 +182,12 @@ async function main() {
       },
     });
 
-    // Add a random comment for each report
+    // Add a random comment for each report, using the seeded user
     await prisma.comment.create({
       data: {
         reportId: createdReport.id,
         content: `This is a seed comment for report ${createdReport.id}`,
-        author: `user${Math.floor(Math.random() * 1000)}`,
+        userId: user.id,
       },
     });
   }

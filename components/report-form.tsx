@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
+import { useSupabaseUser } from "@/components/SupabaseUserContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // ...recaptcha imports removed...
@@ -97,6 +98,8 @@ export function ReportForm({
   isSubmitting = false,
   prefill,
 }: ReportFormProps) {
+  const { user, session, loading, signIn } = useSupabaseUser();
+  const [loginPrompt, setLoginPrompt] = useState(false);
   // ...captchaToken state removed...
   const [scamTypeOptions, setScamTypeOptions] = useState<
     { id: string; name: string }[]
@@ -285,6 +288,11 @@ export function ReportForm({
       }
       return;
     }
+    // Require Supabase login for comment submission (protected action)
+    if (!user || !session) {
+      setLoginPrompt(true);
+      return;
+    }
     await onSubmit({
       ...data,
       scamTypeId: selectedScamType ? selectedScamType.id : "",
@@ -292,6 +300,7 @@ export function ReportForm({
       city: selectedLocation?.city || "",
       country: selectedLocation?.country || "",
       outcome,
+      accessToken: session.access_token,
     });
   };
 
@@ -300,7 +309,7 @@ export function ReportForm({
     if (Object.keys(form.formState.errors).length > 0) {
       modalContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [form.formState.submitCount]);
+  }, [form.formState.submitCount, form.formState.errors, modalContentRef]);
 
   // Initialize locationOptions with all country/city pairs on mount
   useEffect(() => {
@@ -322,6 +331,24 @@ export function ReportForm({
 
   return (
     <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
+      {loginPrompt && (
+        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+          <div className="font-semibold mb-2">Login required</div>
+          <div className="mb-2">
+            You must be logged in to submit a report or comment.
+          </div>
+          <Button
+            type="button"
+            onClick={async () => {
+              setLoginPrompt(false);
+              // Optionally, you could show a login modal or redirect
+            }}
+            className="mt-2"
+          >
+            Close
+          </Button>
+        </div>
+      )}
       <CardHeader>
         <CardTitle>Report a Scam</CardTitle>
       </CardHeader>
