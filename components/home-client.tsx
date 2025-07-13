@@ -143,6 +143,19 @@ export function HomeClient({
     setReportModalOpen(true);
   };
 
+  const handleCommentModalChange = (open: boolean) => {
+    setCommentModalOpen(open);
+    if (!open) {
+      // Remove the hash from the URL when closing the modal
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+      setActiveReportId(null);
+    }
+  };
+
   const handleCommentsClick = (reportId: string) => {
     setActiveReportId(reportId);
     setCommentModalOpen(true);
@@ -264,7 +277,7 @@ export function HomeClient({
         <ReportModal
           reportId={activeReportId}
           open={commentModalOpen}
-          onOpenChange={setCommentModalOpen}
+          onOpenChange={handleCommentModalChange}
           onVote={doVote}
           onFlag={doFlag}
           flagged={flaggedReports[activeReportId] || false}
