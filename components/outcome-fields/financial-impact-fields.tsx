@@ -126,6 +126,8 @@ export default function FinancialImpactFields({
         value={value.moneyLost || ""}
         onChange={(e) => onChange({ moneyLost: parseFloat(e.target.value) })}
         className="border rounded px-2 py-1 w-full"
+        placeholder="Enter amount lost"
+        title="Money Lost"
       />
       <label>Money Requested</label>
       <input
@@ -135,6 +137,7 @@ export default function FinancialImpactFields({
           onChange({ moneyRequested: parseFloat(e.target.value) })
         }
         className="border rounded px-2 py-1 w-full"
+        placeholder="Enter amount requested"
       />
       <label>Currency</label>
       <CurrencySearchInput
@@ -147,6 +150,7 @@ export default function FinancialImpactFields({
         value={value.paymentMethod || ""}
         onChange={(e) => onChange({ paymentMethod: e.target.value })}
         className="border rounded px-2 py-1 w-full"
+        placeholder="Enter payment method"
       />
       <label>Account Details</label>
       <input
@@ -154,6 +158,7 @@ export default function FinancialImpactFields({
         value={value.accountDetails || ""}
         onChange={(e) => onChange({ accountDetails: e.target.value })}
         className="border rounded px-2 py-1 w-full"
+        placeholder="Enter account details"
       />
     </div>
   );

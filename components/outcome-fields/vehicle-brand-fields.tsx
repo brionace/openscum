@@ -34,11 +34,13 @@ export default function VehicleBrandFields({
         className="border rounded px-2 py-1 w-full"
         placeholder="ABC-123"
       />
-      <label>Vehicle Recovered</label>
+      <label htmlFor="vehicleRecovered">Vehicle Recovered</label>
       <input
+        id="vehicleRecovered"
         type="checkbox"
         checked={!!value.vehicleRecovered}
         onChange={(e) => onChange({ vehicleRecovered: e.target.checked })}
+        title="Vehicle Recovered"
       />
     </div>
   );

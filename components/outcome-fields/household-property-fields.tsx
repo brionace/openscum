@@ -41,6 +41,7 @@ export default function HouseholdPropertyFields({
         type="checkbox"
         checked={!!value.propertyRecovered}
         onChange={(e) => onChange({ propertyRecovered: e.target.checked })}
+        title="Property Recovered"
       />
     </div>
   );

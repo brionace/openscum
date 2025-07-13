@@ -31,6 +31,8 @@ export default function PhoneBrandFields({
         type="checkbox"
         checked={!!value.phoneRecovered}
         onChange={(e) => onChange({ phoneRecovered: e.target.checked })}
+        title="Phone Recovered"
+        placeholder="Phone Recovered"
       />
     </div>
   );

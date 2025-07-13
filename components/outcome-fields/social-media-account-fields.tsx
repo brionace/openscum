@@ -39,6 +39,7 @@ export default function SocialMediaAccountFields({
         type="checkbox"
         checked={!!value.accountRecovered}
         onChange={(e) => onChange({ accountRecovered: e.target.checked })}
+        title="Account Recovered"
       />
     </div>
   );
