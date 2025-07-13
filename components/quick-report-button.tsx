@@ -84,7 +84,7 @@ export function QuickReportButton({
           modalContentRef={modalContentRef}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
-          prefill={prefill}
+          prefill={prefill ? { scammerDetails: prefill } : undefined}
         />
       </DialogContent>
     </Dialog>

@@ -62,7 +62,7 @@ const reportSchema = z.object({
   tags: z.array(z.string()).optional(),
   city: z.string().optional(),
   country: z.string().optional(),
-  outcome: z.array(z.any()).optional(), // Modular outcome array
+  outcome: z.array(z.any()).optional(),
 });
 
 type ReportFormData = z.infer<typeof reportSchema>;
@@ -251,17 +251,18 @@ export function ReportForm({
     const allEmpty =
       !data.description &&
       !data.severity &&
-      !data.phoneNumber &&
-      !data.email &&
-      !data.website &&
-      !data.socialMedia &&
       !data.reporterName &&
       !data.reporterEmail &&
       !data.scamTypeId &&
       (!data.tags || data.tags.length === 0) &&
       !data.city &&
       !data.country &&
-      (!data.outcome || data.outcome.length === 0);
+      (!data.outcome || data.outcome.length === 0) &&
+      (!data.scammerDetails ||
+        Object.values(data.scammerDetails).every(
+          (v) => v === undefined || v === ""
+        ));
+
     if (allEmpty) {
       // Close modal silently
       if (modalContentRef.current) {

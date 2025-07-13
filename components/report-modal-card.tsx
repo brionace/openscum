@@ -171,46 +171,112 @@ export function ReportCard({
           {report.description}
         </p>
 
-        {/* Contact Information */}
-        <div className="space-y-2 mb-4">
-          {report.phoneNumber && (
-            <div className="flex items-center gap-2 text-sm">
-              <Phone className="h-4 w-4 text-red-500" />
-              <span className="font-mono">{report.phoneNumber}</span>
-            </div>
-          )}
-          {report.email && (
-            <div className="flex items-center gap-2 text-sm">
-              <Mail className="h-4 w-4 text-orange-500" />
-              <span className="font-mono">{report.email}</span>
-            </div>
-          )}
-          {report.website && (
-            <div className="flex items-center gap-2 text-sm">
-              <Globe className="h-4 w-4 text-blue-500" />
-              <span className="font-mono break-all">{report.website}</span>
-            </div>
-          )}
-        </div>
+        {/* Scammer Details */}
+        {report.scammerDetails && (
+          <div className="space-y-2 mb-4">
+            {report.scammerDetails.phoneNumber && (
+              <div className="flex items-center gap-2 text-sm">
+                <Phone className="h-4 w-4 text-red-500" />
+                <span className="font-mono">
+                  {report.scammerDetails.phoneNumber}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.email && (
+              <div className="flex items-center gap-2 text-sm">
+                <Mail className="h-4 w-4 text-orange-500" />
+                <span className="font-mono">{report.scammerDetails.email}</span>
+              </div>
+            )}
+            {report.scammerDetails.website && (
+              <div className="flex items-center gap-2 text-sm">
+                <Globe className="h-4 w-4 text-blue-500" />
+                <span className="font-mono break-all">
+                  {report.scammerDetails.website}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.socialMedia && (
+              <div className="flex items-center gap-2 text-sm">
+                <Globe className="h-4 w-4 text-green-500" />
+                <span className="font-mono break-all">
+                  {report.scammerDetails.socialMedia}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.name && (
+              <div className="flex items-center gap-2 text-sm">
+                <span className="font-semibold">Name:</span>
+                <span className="font-mono">{report.scammerDetails.name}</span>
+              </div>
+            )}
+          </div>
+        )}
 
-        {/* Financial Impact */}
-        {(report.moneyLost || report.moneyRequested) && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
-            <div className="text-sm font-medium text-red-800 mb-1">
-              Financial Impact
-            </div>
-            {report.moneyLost && (
-              <div className="text-sm text-red-700">
-                Money Lost:{" "}
-                <span className="font-semibold">${report.moneyLost}</span>
-              </div>
-            )}
-            {report.moneyRequested && (
-              <div className="text-sm text-red-700">
-                Money Requested:{" "}
-                <span className="font-semibold">${report.moneyRequested}</span>
-              </div>
-            )}
+        {/* Outcome(s) */}
+        {Array.isArray(report.outcome) && report.outcome.length > 0 && (
+          <div className="mb-4">
+            {report.outcome.map((outcome: Record<string, any>, idx: number) => {
+              const hasValues = Object.entries(outcome).some(
+                ([key, value]) =>
+                  key !== "outcomeType" &&
+                  value !== null &&
+                  value !== undefined &&
+                  value !== ""
+              );
+              if (!hasValues) return null;
+              return (
+                <div
+                  key={idx}
+                  className={`border rounded-lg p-3 mb-2 ${
+                    outcome.outcomeType === "FINANCIAL"
+                      ? "bg-yellow-50 border-yellow-400"
+                      : "bg-gray-50 border-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`font-semibold mb-1 ${
+                      outcome.outcomeType === "FINANCIAL"
+                        ? "text-yellow-700"
+                        : "text-gray-800"
+                    }`}
+                  >
+                    {outcome.outcomeType === "FINANCIAL"
+                      ? "Financial Impact"
+                      : outcome.outcomeType}
+                  </div>
+                  {Object.entries(outcome).map(([key, value]) => {
+                    if (key === "outcomeType") return null;
+                    if (value === null || value === undefined || value === "")
+                      return null;
+                    if (
+                      outcome.outcomeType === "FINANCIAL" &&
+                      (key === "moneyLost" || key === "moneyRequested")
+                    ) {
+                      return (
+                        <div key={key} className="text-yellow-900">
+                          {key === "moneyLost"
+                            ? "Money Lost:"
+                            : "Money Requested:"}{" "}
+                          <span className="font-semibold">
+                            {outcome.currency || "$"}
+                            {value}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div key={key} className="text-yellow-900">
+                        {key
+                          .replace(/([A-Z])/g, " $1")
+                          .replace(/^./, (str) => str.toUpperCase())}
+                        : <span className="font-semibold">{String(value)}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         )}
 

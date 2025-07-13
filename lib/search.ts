@@ -27,11 +27,10 @@ export function initializeSearchIndex(reports: ScamReport[]) {
   reports.forEach((report) => {
     const searchText = [
       report.description,
-      report.phoneNumber,
-      report.email,
-      report.website,
       report.city,
       report.country,
+      report.scammerDetails ? JSON.stringify(report.scammerDetails) : "",
+      report.outcome ? JSON.stringify(report.outcome) : "",
     ]
       .filter(Boolean)
       .join(" ");
@@ -68,13 +67,26 @@ function calculateRelevanceScore(report: ScamReport, query: string): number {
   let score = 0;
   const queryLower = query.toLowerCase();
 
-  // Exact matches get higher scores
-  if (report.phoneNumber?.includes(query)) score += 10;
-  if (report.email?.toLowerCase().includes(queryLower)) score += 10;
-  if (report.website?.toLowerCase().includes(queryLower)) score += 10;
+  // Partial matches in description
+  if (
+    report.description &&
+    report.description.toLowerCase().includes(queryLower)
+  )
+    score += 3;
 
-  // Partial matches
-  if (report.description.toLowerCase().includes(queryLower)) score += 3;
+  // Partial matches in scammerDetails
+  if (
+    report.scammerDetails &&
+    JSON.stringify(report.scammerDetails).toLowerCase().includes(queryLower)
+  )
+    score += 2;
+
+  // Partial matches in outcome
+  if (
+    report.outcome &&
+    JSON.stringify(report.outcome).toLowerCase().includes(queryLower)
+  )
+    score += 2;
 
   // Recent reports get slight boost
   const daysSinceReport =
