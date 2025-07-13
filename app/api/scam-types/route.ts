@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const q = searchParams.get("q");
   const where = q
-    ? { name: { contains: q, mode: Prisma.QueryMode.insensitive } }
+    ? { name: { contains: q, mode: "insensitive" as const } }
     : undefined;
   const types = await prisma.scamType.findMany({
     where,
