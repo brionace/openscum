@@ -40,7 +40,6 @@ export default function Home() {
     website?: string;
   }>({});
   const [processing, setProcessing] = useState(false);
-  const [showAIBatchButton, setShowAIBatchButton] = useState(false);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [activeReportId, setActiveReportId] = useState<string | null>(null);
   const [flaggedReports, setFlaggedReports] = useState<{
@@ -102,24 +101,6 @@ export default function Home() {
     setHasMore(true);
     setTimeout(() => loadMoreReports(), 100);
     // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      setShowAIBatchButton(true);
-      return;
-    }
-    fetch("/api/location")
-      .then((res) => res.json())
-      .then((data) => {
-        const adminIps = (process.env.NEXT_PUBLIC_ADMIN_IPS || "")
-          .split(",")
-          .map((ip) => ip.trim());
-        if (data?.ip && adminIps.includes(data.ip)) {
-          setShowAIBatchButton(true);
-        }
-      })
-      .catch(() => {});
   }, []);
 
   // Handle deep-linking for #/reports/[id]
