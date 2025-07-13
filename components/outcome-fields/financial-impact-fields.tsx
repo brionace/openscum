@@ -1,4 +1,5 @@
 import React from "react";
+import { Outcome } from "@/lib/types";
 import { countryCodeAndName } from "@/lib/country";
 
 function CurrencySearchInput({
@@ -114,8 +115,8 @@ export default function FinancialImpactFields({
   value,
   onChange,
 }: {
-  value: any;
-  onChange: (data: any) => void;
+  value: Partial<Outcome>;
+  onChange: (data: Partial<Outcome>) => void;
 }) {
   return (
     <div className="space-y-2">

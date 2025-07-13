@@ -74,7 +74,9 @@ export function ReportModal({
       const res = await fetch(`/api/reports?id=${reportId}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.data.reports)) {
-        const found = data.data.reports.find((r: any) => r.id === reportId);
+        const found = data.data.reports.find(
+          (r: ScamReport) => r.id === reportId
+        );
         if (found) setReport(found);
       }
     } finally {

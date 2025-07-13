@@ -27,6 +27,9 @@ const mockReport = {
   _count: { comments: 3, votes: 5 },
   outcome: [
     {
+      id: "outcome1",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       outcomeType: "FINANCIAL",
       moneyLost: 100,
       moneyRequested: 200,

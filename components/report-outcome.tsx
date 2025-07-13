@@ -1,7 +1,9 @@
+import { Outcome } from "@/lib/types";
+
 export function ReportOutcome({
   outcome,
 }: {
-  outcome: any | null | undefined;
+  outcome: Outcome[] | null | undefined;
 }): JSX.Element[] | null {
   // Ensure outcome is an array before mapping
   if (!outcome || !Array.isArray(outcome)) {
@@ -9,7 +11,7 @@ export function ReportOutcome({
   }
 
   return outcome
-    .map((outcome: Record<string, string>, idx: number) => {
+    .map((outcome: Outcome, idx: number) => {
       const hasValues = Object.entries(outcome).some(
         ([key, value]) =>
           key !== "outcomeType" &&

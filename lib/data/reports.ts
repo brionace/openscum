@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { ScamReport, PrismaWhereInput } from "@/lib/types";
 
 export interface GetReportsParams {
   query?: string | null;
@@ -9,7 +10,7 @@ export interface GetReportsParams {
 }
 
 export interface GetReportsResult {
-  reports: any[];
+  reports: ScamReport[];
   total: number;
   hasMore: boolean;
 }
@@ -21,7 +22,7 @@ export async function getReports({
   ai = "0",
   latestByType = false,
 }: GetReportsParams): Promise<GetReportsResult> {
-  let whereClause: any = {};
+  let whereClause: PrismaWhereInput = {};
   if (query) {
     // For PostgreSQL, use JSON filter syntax for JSON fields
     whereClause.OR = [
@@ -57,13 +58,9 @@ export async function getReports({
           },
           orderBy: [{ createdAt: "desc" }],
         })) as
-          | (typeof prisma.scamReport extends {
-              findFirst: (...args: any) => Promise<infer T>;
-            }
-              ? T & {
-                  _count: { comments: number; votes: number; flags: number };
-                }
-              : any)
+          | (ScamReport & {
+              _count: { comments: number; votes: number; flags: number };
+            })
           | null;
         // Only include if under threshold
         if (report && report._count && report._count.flags < 3) {
@@ -113,18 +110,16 @@ export async function getReports({
       skip: offset,
     });
     // Filter out flagged reports in JS
-    const filtered = rawReports.filter(
-      (r: any) => r._count && r._count.flags < 3
-    );
+    const filtered = rawReports.filter((r) => r._count && r._count.flags < 3);
     reports = filtered.slice(0, limit);
     total = filtered.length;
   }
 
   // Remove flagged property if present (defensive, not needed if never added)
-  reports = reports.map((r: any) => {
-    const { flagged, ...rest } = r;
+  reports = reports.map((r) => {
+    const { flagged, ...rest } = r as any;
     return rest;
-  });
+  }) as ScamReport[];
 
   return {
     reports,

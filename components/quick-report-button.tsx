@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { ReportFormData } from "@/lib/types";
 import { AlertTriangle, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -34,6 +35,7 @@ export function QuickReportButton({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (data: any) => {
+    // TODO: Fix type mismatch with ReportForm interface
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/reports", {

@@ -145,8 +145,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Sanitize all optional string fields
-    const clean = (val: any) =>
-      typeof val === "string" && val.trim() === "" ? null : val;
+    const clean = (val: unknown): string | null =>
+      typeof val === "string" && val.trim() !== "" ? val.trim() : null;
     const cleanScammerDetails =
       scammerDetails && typeof scammerDetails === "object"
         ? Object.fromEntries(

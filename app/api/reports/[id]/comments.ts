@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { supabase } from "@/lib/supabaseClient";
+import { Comment } from "@/lib/types";
 
 export async function GET(
   request: NextRequest,
@@ -33,14 +34,14 @@ export async function GET(
     });
 
     // Group comments by parentId
-    const topLevel: any[] = [];
-    const repliesMap: Record<string, any[]> = {};
+    const topLevel: Comment[] = [];
+    const repliesMap: Record<string, Comment[]> = {};
     for (const c of comments) {
       const { id, content, createdAt, user, parentId } = c;
-      const commentObj = {
+      const commentObj: Comment = {
         id,
         content, // use 'content' instead of 'text' for consistency
-        createdAt,
+        createdAt: createdAt.toISOString(),
         author: user?.username || "Anonymous",
         parentId,
       };

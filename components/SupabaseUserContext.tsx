@@ -1,10 +1,11 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { User, Session } from "@supabase/supabase-js";
 
 interface SupabaseUserContextValue {
-  user: any;
-  session: any;
+  user: User | null;
+  session: Session | null;
   loading: boolean;
   signIn: (opts: { email: string; password: string }) => Promise<any>;
   signOut: () => Promise<void>;

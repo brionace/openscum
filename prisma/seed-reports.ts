@@ -154,7 +154,7 @@ async function main() {
   for (const report of scamReports) {
     // Find scamTypeId by name if present
     let scamTypeId: string | undefined = undefined;
-    let mainType: any = undefined;
+    let mainType: { id: string; name: string } | undefined = undefined;
     if ((report as any).scamTypeName) {
       mainType = scamTypes.find(
         (t) =>

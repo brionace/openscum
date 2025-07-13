@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Outcome, OutcomeType } from "@/lib/types";
 import FinancialImpactFields from "./outcome-fields/financial-impact-fields";
 import SocialMediaAccountFields from "./outcome-fields/social-media-account-fields";
 import PhoneBrandFields from "./outcome-fields/phone-brand-fields";
@@ -12,10 +13,10 @@ export default function OutcomeSection({
   outcomes,
   setOutcomes,
 }: {
-  outcomes: any[];
-  setOutcomes: (outcomes: any[]) => void;
+  outcomes: Partial<Outcome>[];
+  setOutcomes: (outcomes: Partial<Outcome>[]) => void;
 }) {
-  const [outcomeTypes, setOutcomeTypes] = useState<any[]>([]);
+  const [outcomeTypes, setOutcomeTypes] = useState<OutcomeType[]>([]);
 
   useEffect(() => {
     fetch("/api/outcome-types")
@@ -27,7 +28,7 @@ export default function OutcomeSection({
     setOutcomes([...outcomes, { outcomeType: outcomeTypes[0]?.id || "" }]);
   const removeOutcome = (idx: number) =>
     setOutcomes(outcomes.filter((_, i) => i !== idx));
-  const updateOutcome = (idx: number, data: any) =>
+  const updateOutcome = (idx: number, data: Partial<Outcome>) =>
     setOutcomes(outcomes.map((o, i) => (i === idx ? { ...o, ...data } : o)));
 
   return (
@@ -53,7 +54,7 @@ export default function OutcomeSection({
                 title="Outcome Type"
               >
                 {Array.isArray(outcomeTypes)
-                  ? outcomeTypes.map((type: any) => (
+                  ? outcomeTypes.map((type: OutcomeType) => (
                       <option key={type.id} value={type.id}>
                         {type.label}
                       </option>

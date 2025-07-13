@@ -95,7 +95,7 @@ export interface ScamReport {
     website?: string;
     socialMedia?: string;
     name?: string;
-    [key: string]: any;
+    [key: string]: string | undefined;
   } | null;
   city?: string | null;
   country?: string | null;
@@ -114,7 +114,7 @@ export interface ScamReport {
   scamType?: ScamType;
   tags?: Tag[];
   severity?: string | null;
-  outcome?: any[]; // Use Outcome[] if always structured
+  outcome?: Outcome[]; // Use Outcome[] for structured outcomes
   _count?: {
     comments: number;
     votes: number;
@@ -130,4 +130,65 @@ export interface AIScamReport {
   averageRiskLevel: string;
   averageFinancialImpact: number;
   category: string;
+}
+
+// Additional type definitions for components
+
+export interface OutcomeType {
+  id: string;
+  label: string;
+  value: string;
+}
+
+export interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  author: string;
+  parentId?: string | null;
+  replies?: Comment[];
+}
+
+export interface ReportFormData {
+  description: string;
+  severity: string;
+  scammerDetails: {
+    phoneNumber?: string;
+    email?: string;
+    website?: string;
+    socialMedia?: string;
+    name?: string;
+  };
+  reporterName: string;
+  reporterEmail: string;
+  anonymous: boolean;
+  scamTypeId: string;
+  outcome: Outcome[];
+}
+
+export interface User {
+  id: string;
+  email: string;
+  username?: string;
+  name?: string;
+}
+
+export interface Session {
+  access_token: string;
+  user: User;
+}
+
+export interface LocationOption {
+  city: string;
+  country: string;
+}
+
+export interface CurrencyOption {
+  currency_code: string;
+  currency_name: string;
+  countries: string[];
+}
+
+export interface PrismaWhereInput {
+  [key: string]: unknown;
 }

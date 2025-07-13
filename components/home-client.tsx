@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ScamReport } from "@/lib/types";
+import { ScamReport, OutcomeType } from "@/lib/types";
 import { StatsData } from "@/lib/data/stats";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Header } from "@/components/header";
@@ -18,7 +18,7 @@ interface HomeClientProps {
   initialReports: ScamReport[];
   initialStats: StatsData;
   initialHasMore: boolean;
-  outcomeTypes: any[];
+  outcomeTypes: OutcomeType[];
 }
 
 export function HomeClient({

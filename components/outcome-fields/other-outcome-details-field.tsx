@@ -1,10 +1,12 @@
 import React from "react";
+import { Outcome } from "@/lib/types";
+
 export default function OtherOutcomeDetailsField({
   value,
   onChange,
 }: {
-  value: any;
-  onChange: (data: any) => void;
+  value: Partial<Outcome>;
+  onChange: (data: Partial<Outcome>) => void;
 }) {
   return (
     <div className="space-y-2">

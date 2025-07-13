@@ -151,6 +151,7 @@ export function SearchBar({
     };
 
     recognition.onresult = (event: any) => {
+      // WebkitSpeechRecognition event type not standardized
       const transcript = event.results[0][0].transcript;
       setQuery(transcript); // Only set the query, do not call handleSearch
       // Removed handleSearch(transcript) to prevent navigation

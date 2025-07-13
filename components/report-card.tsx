@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useSupabaseUser } from "@/components/SupabaseUserContext";
-import { ScamReport } from "@/lib/types";
+import { ScamReport, OutcomeType } from "@/lib/types";
 import {
   AlertTriangle,
   MapPin,
@@ -28,7 +28,7 @@ import { ReportScammerDetails } from "./report-scammer-details";
 
 interface ReportCardProps {
   report: ScamReport;
-  outcomeTypes: any[];
+  outcomeTypes: OutcomeType[];
   onShare?: (report: ScamReport) => void;
   onVote?: (reportId: string, voteType: "helpful" | "not_helpful") => void;
   onCommentsClick?: (reportId: string) => void;
@@ -58,14 +58,14 @@ export function ReportCard({
   const { user, session, signIn } = useSupabaseUser();
   // Build lookup maps for outcomeType labels and values
   const outcomeTypeLabels = outcomeTypes.reduce(
-    (acc: Record<string, string>, t: any) => {
+    (acc: Record<string, string>, t: OutcomeType) => {
       acc[t.id] = t.label;
       return acc;
     },
     {}
   );
   const outcomeTypeValues = outcomeTypes.reduce(
-    (acc: Record<string, string>, t: any) => {
+    (acc: Record<string, string>, t: OutcomeType) => {
       acc[t.id] = t.value;
       return acc;
     },
@@ -185,7 +185,7 @@ export function ReportCard({
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 mb-2 items-center">
               {/* Scam Type Name */}
-              {!hideTypeLink && report.scamType?.name && (
+              {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
                   href={`/types/${report.scamType.id}`}
                   className="underline text-blue-700"
@@ -194,7 +194,10 @@ export function ReportCard({
                     {report.scamType.name}
                   </span>
                 </Link>
-              )}
+              )} */}
+              <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+                {report.scamType?.name}
+              </span>
               {/* Severity */}
               {(report.severity === "HIGH" ||
                 report.severity === "CRITICAL") && (

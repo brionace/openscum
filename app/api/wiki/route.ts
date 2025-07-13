@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { PrismaWhereInput } from "@/lib/types";
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,7 +8,7 @@ export async function GET(request: NextRequest) {
     const country = searchParams.get("country");
     const featured = searchParams.get("featured") === "true";
 
-    let whereClause: any = {};
+    let whereClause: PrismaWhereInput = {};
 
     if (country) {
       whereClause.country = country;
