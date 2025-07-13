@@ -5,7 +5,10 @@ import userEvent from "@testing-library/user-event";
 
 describe("ReportForm", () => {
   it("renders form fields", () => {
-    render(<ReportForm onSubmit={jest.fn()} />);
+    const modalContentRef = React.createRef<HTMLDivElement>();
+    render(
+      <ReportForm modalContentRef={modalContentRef} onSubmit={jest.fn()} />
+    );
     expect(screen.getByText(/Report a Scam/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Scam Type/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
@@ -17,7 +20,10 @@ describe("ReportForm", () => {
 
   it("submits new report", async () => {
     const onSubmit = jest.fn(() => Promise.resolve());
-    render(<ReportForm onSubmit={onSubmit} />);
+    const modalContentRef = React.createRef<HTMLDivElement>();
+    render(
+      <ReportForm modalContentRef={modalContentRef} onSubmit={onSubmit} />
+    );
     await userEvent.type(
       screen.getByLabelText(/Description/i),
       "This is a test scam report with enough characters."

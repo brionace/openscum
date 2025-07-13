@@ -12,18 +12,17 @@ const mockReports: ScamReport[] = [
     city: "City1",
     country: "Country1",
     region: null,
-    phoneNumber: "123",
-    email: "a@b.com",
-    website: "site.com",
-    socialMedia: null,
+    scammerDetails: {
+      phoneNumber: "123",
+      email: "a@b.com",
+      website: "site.com",
+    },
     verified: false,
     trustScore: 1,
     reportCount: 1,
     reporterName: null,
     reporterEmail: null,
     anonymous: false,
-    moneyLost: null,
-    moneyRequested: null,
     screenshots: [],
     evidence: [],
     scamType: { id: "type1", name: "Phishing" },
@@ -39,18 +38,17 @@ const mockReports: ScamReport[] = [
     city: "City2",
     country: "Country2",
     region: null,
-    phoneNumber: "456",
-    email: "c@d.com",
-    website: "site2.com",
-    socialMedia: null,
+    scammerDetails: {
+      phoneNumber: "456",
+      email: "c@d.com",
+      website: "site2.com",
+    },
     verified: false,
     trustScore: 1,
     reportCount: 1,
     reporterName: null,
     reporterEmail: null,
     anonymous: false,
-    moneyLost: null,
-    moneyRequested: null,
     screenshots: [],
     evidence: [],
     scamType: { id: "type2", name: "Fraud" },
@@ -72,9 +70,7 @@ describe("SearchBar", () => {
     fireEvent.submit(input);
     fireEvent.change(input, { target: { value: "scam" } });
     // Use a robust matcher for the description (always returns boolean)
-    expect(
-      await screen.findByText("Test scam report 1")
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Test scam report 1")).toBeInTheDocument();
     expect(await screen.findByText("Another scam")).toBeInTheDocument();
   });
 

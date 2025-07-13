@@ -300,7 +300,6 @@ export function ReportForm({
       city: selectedLocation?.city || "",
       country: selectedLocation?.country || "",
       outcome,
-      accessToken: session.access_token,
     });
   };
 

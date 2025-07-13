@@ -37,7 +37,7 @@ const mockReport = {
 
 describe("ReportCard", () => {
   it("renders report details", () => {
-    render(<ReportCard report={mockReport} />);
+    render(<ReportCard report={mockReport} outcomeTypes={[]} />);
     expect(
       screen.getByText("Test scam report description")
     ).toBeInTheDocument();
@@ -51,14 +51,23 @@ describe("ReportCard", () => {
 
   it("handles voting", () => {
     const onVote = jest.fn();
-    render(<ReportCard report={mockReport} onVote={onVote} />);
+    render(
+      <ReportCard report={mockReport} outcomeTypes={[]} onVote={onVote} />
+    );
     fireEvent.click(screen.getAllByRole("button", { name: /thumbs up/i })[0]);
     expect(onVote).toHaveBeenCalledWith("1", "helpful");
   });
 
   it("handles flag toggle", async () => {
     const onFlag = jest.fn();
-    render(<ReportCard report={mockReport} onFlag={onFlag} flagged={false} />);
+    render(
+      <ReportCard
+        report={mockReport}
+        outcomeTypes={[]}
+        onFlag={onFlag}
+        flagged={false}
+      />
+    );
     const flagBtn = screen.getByLabelText(/flag report/i);
     fireEvent.click(flagBtn);
     await waitFor(() => expect(onFlag).toHaveBeenCalledWith("1", true));
@@ -67,7 +76,9 @@ describe("ReportCard", () => {
   it("handles share", () => {
     const onShare = jest.fn();
     Object.assign(navigator, { clipboard: { writeText: jest.fn() } });
-    render(<ReportCard report={mockReport} onShare={onShare} />);
+    render(
+      <ReportCard report={mockReport} outcomeTypes={[]} onShare={onShare} />
+    );
     fireEvent.click(screen.getByLabelText("Share report"));
     expect(onShare).toHaveBeenCalledWith(mockReport);
   });
@@ -75,7 +86,11 @@ describe("ReportCard", () => {
   it("handles comments click", () => {
     const onCommentsClick = jest.fn();
     render(
-      <ReportCard report={mockReport} onCommentsClick={onCommentsClick} />
+      <ReportCard
+        report={mockReport}
+        outcomeTypes={[]}
+        onCommentsClick={onCommentsClick}
+      />
     );
     fireEvent.click(screen.getByLabelText("View comments"));
     expect(onCommentsClick).toHaveBeenCalledWith("1");

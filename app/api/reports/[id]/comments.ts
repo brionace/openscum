@@ -22,7 +22,12 @@ export async function GET(
         id: true,
         content: true,
         createdAt: true,
-        author: true,
+        userId: true,
+        user: {
+          select: {
+            username: true,
+          },
+        },
         parentId: true,
       },
     });
@@ -31,12 +36,12 @@ export async function GET(
     const topLevel: any[] = [];
     const repliesMap: Record<string, any[]> = {};
     for (const c of comments) {
-      const { id, content, createdAt, author, parentId } = c;
+      const { id, content, createdAt, user, parentId } = c;
       const commentObj = {
         id,
         content, // use 'content' instead of 'text' for consistency
         createdAt,
-        author,
+        author: user?.username || "Anonymous",
         parentId,
       };
       if (!parentId) {
@@ -131,8 +136,14 @@ export async function POST(
         reportId,
         content,
         userId: user.id,
-        author: username,
         parentId: parentId || undefined, // parentId is optional
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+          },
+        },
       },
     });
     return NextResponse.json({
@@ -142,7 +153,7 @@ export async function POST(
           id: comment.id,
           content: comment.content,
           createdAt: comment.createdAt,
-          author: comment.author,
+          author: comment.user?.username || "Anonymous",
           parentId: comment.parentId,
         },
       },
