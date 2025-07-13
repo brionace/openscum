@@ -32,7 +32,7 @@ export function TrendingBar({ rowStyle = false }: { rowStyle?: boolean }) {
 
   if (rowStyle) {
     return (
-      <div className="space-y-2">
+      <div className="space-y-2 overflow-x-auto scrollbar-none">
         {trending.map((t) => (
           <div key={t.scamTypeId} className="flex items-center justify-between">
             <span>{t.name}</span>
