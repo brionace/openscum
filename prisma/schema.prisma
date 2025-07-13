@@ -19,11 +19,9 @@ model ScamReport {
   // Report Details
   description String
 
-  // Contact Information (what was used in the scam)
-  phoneNumber String?
-  email       String?
-  website     String?
-  socialMedia String?
+
+  // Scammer Details (JSON object: { phoneNumber, email, website, socialMedia, name })
+  scammerDetails Json?
 
   // Location Data
   city      String?
@@ -59,9 +57,7 @@ model ScamReport {
   // New fields for Scam Type
   scamTypeId String?
 
-  @@index([phoneNumber])
-  @@index([email])
-  @@index([website])
+  // Removed indexes for phoneNumber, email, website
   @@index([country, city])
   @@index([createdAt])
 }

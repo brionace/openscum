@@ -36,11 +36,48 @@ export async function GET(request: NextRequest) {
 
     let whereClause: any = {};
     if (query) {
+      // Search in description, scammerDetails (phoneNumber, email, website, socialMedia, name), scamType, and outcome
       whereClause.OR = [
         { description: { contains: query, mode: "insensitive" } },
-        { phoneNumber: { contains: query } }, // no mode here
-        { email: { contains: query, mode: "insensitive" } },
-        { website: { contains: query, mode: "insensitive" } },
+        {
+          scammerDetails: {
+            path: ["phoneNumber"],
+            string_contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          scammerDetails: {
+            path: ["email"],
+            string_contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          scammerDetails: {
+            path: ["website"],
+            string_contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          scammerDetails: {
+            path: ["socialMedia"],
+            string_contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          scammerDetails: {
+            path: ["name"],
+            string_contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          scamType: { is: { name: { contains: query, mode: "insensitive" } } },
+        },
+        { outcome: { array_contains: query } },
       ];
     }
 
@@ -151,56 +188,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       description,
-      phoneNumber,
-      email,
-      website,
-      socialMedia,
+      scammerDetails,
       reporterName,
       reporterEmail,
       anonymous = true,
       city,
       country,
-      captchaToken,
       severity,
       scamTypeId,
-      outcome, // <-- Accept outcome instead of outcomes
+      outcome,
     } = body;
 
-    // Verify CAPTCHA only in production
-    if (process.env.NODE_ENV === "production") {
-      if (!captchaToken || captchaToken === "dev-bypass") {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "CAPTCHA verification required",
-          },
-          { status: 400 }
-        );
-      }
-
-      const captchaResponse = await fetch(
-        "https://www.google.com/recaptcha/api/siteverify",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${captchaToken}`,
-        }
-      );
-
-      const captchaData = await captchaResponse.json();
-
-      if (!captchaData.success) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "CAPTCHA verification failed",
-          },
-          { status: 400 }
-        );
-      }
-    }
+    // (CAPTCHA logic removed)
 
     // Get client location for IP tracking (fallback if user doesn't provide location)
     const forwarded = request.headers.get("x-forwarded-for");
@@ -224,11 +223,21 @@ export async function POST(request: NextRequest) {
     };
 
     // Validate required fields
-    if (!description) {
+    if (!scamTypeId) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required field: description is required.",
+          error: "Scam Type is required.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!description && !scammerDetails) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please provide a description or scammer details.",
         },
         { status: 400 }
       );
@@ -273,58 +282,25 @@ export async function POST(request: NextRequest) {
     // Sanitize all optional string fields
     const clean = (val: any) =>
       typeof val === "string" && val.trim() === "" ? null : val;
-    const cleanEmail = clean(email);
-    const cleanWebsite = clean(website);
-    const cleanPhoneNumber = clean(phoneNumber);
-    const cleanSocialMedia = clean(socialMedia);
+    const cleanScammerDetails =
+      scammerDetails && typeof scammerDetails === "object"
+        ? Object.fromEntries(
+            Object.entries(scammerDetails).map(([k, v]) => [k, clean(v)])
+          )
+        : {};
     const cleanReporterName = clean(reporterName);
     const cleanReporterEmail = clean(reporterEmail);
     const cleanCity = clean(city);
     const cleanCountry = clean(country);
     // region is only from locationData, which is always string|null
 
-    // Check for existing report
-    const orConditions = [
-      cleanPhoneNumber ? { phoneNumber: cleanPhoneNumber } : null,
-      cleanEmail ? { email: cleanEmail } : null,
-      cleanWebsite ? { website: cleanWebsite } : null,
-    ].filter(Boolean);
-
-    const existingReport =
-      orConditions.length > 0
-        ? await prisma.scamReport.findFirst({
-            where: { OR: orConditions as any },
-          })
-        : null;
-
-    if (existingReport) {
-      // Update existing report
-      const updatedReport = await prisma.scamReport.update({
-        where: { id: existingReport.id },
-        data: {
-          email: cleanEmail,
-          website: cleanWebsite,
-          reportCount: { increment: 1 },
-          trustScore: { increment: 1 },
-          updatedAt: new Date(),
-        },
-      });
-
-      return NextResponse.json({
-        success: true,
-        data: updatedReport,
-        message: "Report updated with additional confirmation",
-      });
-    }
+    // No duplicate check for now (was based on removed fields)
 
     // Create new report
     const report = await prisma.scamReport.create({
       data: {
         description,
-        phoneNumber: cleanPhoneNumber,
-        email: cleanEmail,
-        website: cleanWebsite,
-        socialMedia: cleanSocialMedia,
+        scammerDetails: cleanScammerDetails,
         city: cleanCity || locationData.city,
         country: cleanCountry || locationData.country,
         region: locationData.region,

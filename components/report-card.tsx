@@ -173,27 +173,47 @@ export function ReportCard({
           {report.description}
         </p>
 
-        {/* Contact Information */}
-        <div className="space-y-2 mb-4">
-          {report.phoneNumber && (
-            <div className="flex items-center gap-2 text-sm">
-              <Phone className="h-4 w-4 text-red-500" />
-              <span className="font-mono">{report.phoneNumber}</span>
-            </div>
-          )}
-          {report.email && (
-            <div className="flex items-center gap-2 text-sm">
-              <Mail className="h-4 w-4 text-orange-500" />
-              <span className="font-mono">{report.email}</span>
-            </div>
-          )}
-          {report.website && (
-            <div className="flex items-center gap-2 text-sm">
-              <Globe className="h-4 w-4 text-blue-500" />
-              <span className="font-mono break-all">{report.website}</span>
-            </div>
-          )}
-        </div>
+        {/* Scammer Details */}
+        {report.scammerDetails && (
+          <div className="space-y-2 mb-4">
+            {report.scammerDetails.phoneNumber && (
+              <div className="flex items-center gap-2 text-sm">
+                <Phone className="h-4 w-4 text-red-500" />
+                <span className="font-mono">
+                  {report.scammerDetails.phoneNumber}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.email && (
+              <div className="flex items-center gap-2 text-sm">
+                <Mail className="h-4 w-4 text-orange-500" />
+                <span className="font-mono">{report.scammerDetails.email}</span>
+              </div>
+            )}
+            {report.scammerDetails.website && (
+              <div className="flex items-center gap-2 text-sm">
+                <Globe className="h-4 w-4 text-blue-500" />
+                <span className="font-mono break-all">
+                  {report.scammerDetails.website}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.socialMedia && (
+              <div className="flex items-center gap-2 text-sm">
+                <Globe className="h-4 w-4 text-green-500" />
+                <span className="font-mono break-all">
+                  {report.scammerDetails.socialMedia}
+                </span>
+              </div>
+            )}
+            {report.scammerDetails.name && (
+              <div className="flex items-center gap-2 text-sm">
+                <span className="font-semibold">Name:</span>
+                <span className="font-mono">{report.scammerDetails.name}</span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Outcome(s) */}
         {Array.isArray(report.outcome) && report.outcome.length > 0 && (

@@ -46,17 +46,22 @@ import { countryCodeAndName, countryCity } from "@/lib/country";
 import { TypeDropdown } from "@/components/ui/type-dropdown";
 import OutcomeSection from "@/components/outcome-section";
 
-const reportSchema = z.object({
-  description: z.string().optional(),
-  severity: z.string().default("MEDIUM"),
+const scammerDetailsSchema = z.object({
   phoneNumber: z.string().optional(),
   email: z.string().optional(),
   website: z.string().optional(),
   socialMedia: z.string().optional(),
+  name: z.string().optional(),
+});
+
+const reportSchema = z.object({
+  description: z.string().optional(),
+  severity: z.string().default("MEDIUM"),
+  scammerDetails: scammerDetailsSchema,
   reporterName: z.string().optional(),
   reporterEmail: z.string().optional(),
   anonymous: z.boolean().default(true),
-  scamTypeId: z.string().optional(),
+  scamTypeId: z.string().min(2, "Please select a Scam Type"),
   tags: z.array(z.string()).optional(),
   city: z.string().optional(),
   country: z.string().optional(),
@@ -70,9 +75,13 @@ interface ReportFormProps {
   onSubmit: (data: ReportFormData & { captchaToken: string }) => Promise<void>;
   isSubmitting?: boolean;
   prefill?: {
-    phoneNumber?: string;
-    email?: string;
-    website?: string;
+    scammerDetails?: {
+      phoneNumber?: string;
+      email?: string;
+      website?: string;
+      socialMedia?: string;
+      name?: string;
+    };
   };
 }
 
@@ -142,10 +151,13 @@ export function ReportForm({
     defaultValues: {
       description: "",
       severity: severityOptions[1].value, // Default to Medium Risk
-      phoneNumber: prefill?.phoneNumber || "",
-      email: prefill?.email || "",
-      website: prefill?.website || "",
-      socialMedia: "",
+      scammerDetails: {
+        phoneNumber: prefill?.scammerDetails?.phoneNumber || "",
+        email: prefill?.scammerDetails?.email || "",
+        website: prefill?.scammerDetails?.website || "",
+        socialMedia: prefill?.scammerDetails?.socialMedia || "",
+        name: prefill?.scammerDetails?.name || "",
+      },
       reporterName: "",
       reporterEmail: "",
       anonymous: true,
@@ -156,25 +168,41 @@ export function ReportForm({
 
   // Focus relevant input if prefill is present
   useEffect(() => {
-    if (prefill) {
-      if (prefill.phoneNumber) {
-        form.setValue("phoneNumber", prefill.phoneNumber);
+    if (prefill && prefill.scammerDetails) {
+      const { phoneNumber, email, website, socialMedia, name } =
+        prefill.scammerDetails;
+      if (phoneNumber) {
+        form.setValue("scammerDetails.phoneNumber", phoneNumber);
         const el = document.querySelector<HTMLInputElement>(
-          "input[name='phoneNumber']"
+          "input[name='scammerDetails.phoneNumber']"
         );
         el?.focus();
         el?.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else if (prefill.email) {
-        form.setValue("email", prefill.email);
+      } else if (email) {
+        form.setValue("scammerDetails.email", email);
         const el = document.querySelector<HTMLInputElement>(
-          "input[name='email']"
+          "input[name='scammerDetails.email']"
         );
         el?.focus();
         el?.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else if (prefill.website) {
-        form.setValue("website", prefill.website);
+      } else if (website) {
+        form.setValue("scammerDetails.website", website);
         const el = document.querySelector<HTMLInputElement>(
-          "input[name='website']"
+          "input[name='scammerDetails.website']"
+        );
+        el?.focus();
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (socialMedia) {
+        form.setValue("scammerDetails.socialMedia", socialMedia);
+        const el = document.querySelector<HTMLInputElement>(
+          "input[name='scammerDetails.socialMedia']"
+        );
+        el?.focus();
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (name) {
+        form.setValue("scammerDetails.name", name);
+        const el = document.querySelector<HTMLInputElement>(
+          "input[name='scammerDetails.name']"
         );
         el?.focus();
         el?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -352,7 +380,7 @@ export function ReportForm({
                       name="scamTypeId"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Scam Type (Optional)</FormLabel>
+                          <FormLabel>Scam Type *</FormLabel>
                           <TypeDropdown
                             value={selectedScamType}
                             onChange={(val) => {
@@ -566,17 +594,16 @@ export function ReportForm({
                 </div>
               </div>
 
-              {/* Contact Information Section */}
+              {/* Scammer Details Section (JSON) */}
               <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <Phone className="h-6 w-6 text-green-500" /> Scammer Contact
-                  Information
+                  <Phone className="h-6 w-6 text-green-500" /> Scammer Details
                 </h3>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
-                      name="phoneNumber"
+                      name="scammerDetails.phoneNumber"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Phone Number</FormLabel>
@@ -591,18 +618,14 @@ export function ReportForm({
                         </FormItem>
                       )}
                     />
-
                     <FormField
                       control={form.control}
-                      name="email"
+                      name="scammerDetails.email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel htmlFor="email-input">
-                            Email Address
-                          </FormLabel>
+                          <FormLabel>Email Address</FormLabel>
                           <FormControl>
                             <Input
-                              id="email-input"
                               placeholder="scammer@example.com"
                               {...field}
                               className="text-base py-3"
@@ -613,34 +636,51 @@ export function ReportForm({
                       )}
                     />
                   </div>
-
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="scammerDetails.website"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Website/URL</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="https://fake-website.com"
+                              {...field}
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="scammerDetails.socialMedia"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Social Media Profile</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Social media username or profile URL"
+                              {...field}
+                              className="text-base py-3"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   <FormField
                     control={form.control}
-                    name="website"
+                    name="scammerDetails.name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Website/URL</FormLabel>
+                        <FormLabel>Scammer Name</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="https://fake-website.com"
-                            {...field}
-                            className="text-base py-3"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="socialMedia"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Social Media Profile</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Social media username or profile URL"
+                            placeholder="Name of scammer (if known)"
                             {...field}
                             className="text-base py-3"
                           />
