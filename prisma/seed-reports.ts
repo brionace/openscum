@@ -8,65 +8,111 @@ const scamReportsRaw = [
       "Received a call from someone claiming to be from the IRS, demanding immediate payment via gift cards to avoid arrest.",
     city: "New York",
     country: "United States",
-    moneyLost: 500,
-    severity: "HIGH",
-    phoneNumber: "+1-202-555-0173",
-    website: "",
-    email: "",
-    socialMedia: "",
     anonymous: true,
     scamTypeName: "Government Impersonation",
+    scammerDetails: {
+      phoneNumber: "+1-202-555-0173",
+      email: "",
+      website: "",
+      socialMedia: "",
+      name: "",
+    },
+    outcome: [{ outcomeType: "FINANCIAL", moneyLost: 500, currency: "USD" }],
   },
   {
     description:
       "Contacted on a dating app, built trust over weeks, then asked for money to cover a fake emergency.",
     city: "Manchester",
     country: "United Kingdom",
-    moneyLost: 2000,
-    severity: "CRITICAL",
-    phoneNumber: "",
-    website: "",
-    email: "",
-    socialMedia: "https://www.facebook.com/fakeprofile.romance.scam/",
     anonymous: true,
     scamTypeName: "Romance Scam",
+    scammerDetails: {
+      phoneNumber: "",
+      email: "",
+      website: "",
+      socialMedia: "https://www.facebook.com/fakeprofile.romance.scam/",
+      name: "",
+    },
+    outcome: [{ outcomeType: "FINANCIAL", moneyLost: 2000, currency: "GBP" }],
   },
   {
     description:
       "Received an email claiming my PayPal account was compromised, with a link to a fake login page.",
     city: "Toronto",
     country: "Canada",
-    moneyLost: 0,
-    severity: "MEDIUM",
-    phoneNumber: "",
-    website: "https://paypal-resolutioncenter.com",
-    email: "service@paypal.com",
-    socialMedia: "",
     anonymous: true,
     scamTypeName: "PayPal Scam",
+    scammerDetails: {
+      phoneNumber: "",
+      email: "service@paypal.com",
+      website: "https://paypal-resolutioncenter.com",
+      socialMedia: "",
+      name: "",
+    },
+    outcome: [
+      {
+        outcomeType: "OTHER",
+        otherOutcomeDetails: "Phishing attempt, no money lost",
+      },
+    ],
+  },
+  {
+    description:
+      "Scammer posed as a landlord, requested deposit for unseen rental property.",
+    city: "Sydney",
+    country: "Australia",
+    anonymous: true,
+    scamTypeName: "Rental Scam",
+    scammerDetails: {
+      phoneNumber: "+61-2-5555-1234",
+      email: "fake.landlord@email.com",
+      website: "",
+      socialMedia: "",
+      name: "John Smith",
+    },
+    outcome: [{ outcomeType: "FINANCIAL", moneyLost: 1200, currency: "AUD" }],
+  },
+  {
+    description:
+      "Received a phishing SMS pretending to be from a delivery company, with a link to a fake tracking page.",
+    city: "Madrid",
+    country: "Spain",
+    anonymous: true,
+    scamTypeName: "Fake Delivery Scam",
+    scammerDetails: {
+      phoneNumber: "",
+      email: "",
+      website: "https://correos-tracking-es.com",
+      socialMedia: "",
+      name: "",
+    },
+    outcome: [
+      {
+        outcomeType: "OTHER",
+        otherOutcomeDetails: "No money lost, phishing link only",
+      },
+    ],
+  },
+  {
+    description:
+      "Scammer posed as tech support, took remote control of computer and demanded payment.",
+    city: "Mumbai",
+    country: "India",
+    anonymous: true,
+    scamTypeName: "Fake Tech Support",
+    scammerDetails: {
+      phoneNumber: "+91-44-7122-4000",
+      email: "",
+      website: "",
+      socialMedia: "",
+      name: "",
+    },
+    outcome: [{ outcomeType: "FINANCIAL", moneyLost: 150, currency: "INR" }],
   },
 ];
 
-// Transform all reports to use scammerDetails JSON field
-const scamReports = scamReportsRaw.map((r) => {
-  const {
-    phoneNumber = "",
-    email = "",
-    website = "",
-    socialMedia = "",
-    ...rest
-  } = r;
-  return {
-    ...rest,
-    scammerDetails: {
-      phoneNumber,
-      email,
-      website,
-      socialMedia,
-      name: "",
-    },
-  };
-});
+// No transformation needed, scamReportsRaw already uses scammerDetails and outcome as JSON fields
+const scamReports = scamReportsRaw;
 
 // Seeding function
 async function main() {
@@ -114,26 +160,24 @@ async function main() {
     // Remove scamTypeName from report data
     const { scamTypeName, moneyLost, moneyRequested, severity, ...reportData } =
       report as any;
-    // Build outcome array (Financial only for this seed)
-    const outcomes = [];
-    if (typeof moneyLost === "number" && moneyLost > 0) {
-      outcomes.push({
-        typeId: outcomeTypeId,
-        value: moneyLost.toString(),
-      });
-    }
     // Create the scam report
     const createdReport = await prisma.scamReport.create({
       data: {
         ...reportData,
         scammerDetails: report.scammerDetails,
         scamType: scamTypeId ? { connect: { id: scamTypeId } } : undefined,
-        outcome: {
-          create: outcomes,
-        },
+        outcome: report.outcome,
       },
     });
-    // Optionally, add comments/flags here if desired
+
+    // Add a random comment for each report
+    await prisma.comment.create({
+      data: {
+        reportId: createdReport.id,
+        content: `This is a seed comment for report ${createdReport.id}`,
+        author: `user${Math.floor(Math.random() * 1000)}`,
+      },
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { getLocationFromIP, hashIP } from "@/lib/location";
 
 export async function GET(request: NextRequest) {
@@ -11,74 +12,60 @@ export async function GET(request: NextRequest) {
     const ai = searchParams.get("ai") || "0";
     const latestByType = searchParams.get("latestByType") === "1";
 
-    // If ai=1, fetch from AIScamReport (AI-moderated summaries)
-    if (ai === "1") {
-      let whereClause: any = {};
-      if (query) {
-        whereClause.summary = { contains: query, mode: "insensitive" };
-      }
-      const reports = await prisma.aIScamReport.findMany({
-        where: whereClause,
-        orderBy: [{ createdAt: "desc" }],
-        take: limit,
-        skip: offset,
-      });
-      const total = await prisma.aIScamReport.count({ where: whereClause });
-      return NextResponse.json({
-        success: true,
-        data: {
-          reports,
-          total,
-          hasMore: offset + limit < total,
-        },
-      });
-    }
-
     let whereClause: any = {};
     if (query) {
-      // Search in description, scammerDetails (phoneNumber, email, website, socialMedia, name), scamType, and outcome
+      // OLD SEARCH LOGIC
+      // For PostgreSQL, use JSON filter syntax for JSON fields
       whereClause.OR = [
         { description: { contains: query, mode: "insensitive" } },
-        {
-          scammerDetails: {
-            path: ["phoneNumber"],
-            string_contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          scammerDetails: {
-            path: ["email"],
-            string_contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          scammerDetails: {
-            path: ["website"],
-            string_contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          scammerDetails: {
-            path: ["socialMedia"],
-            string_contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          scammerDetails: {
-            path: ["name"],
-            string_contains: query,
-            mode: "insensitive",
-          },
-        },
+        { scammerDetails: { contains: query } },
+        // { scammerDetails: { contains: { phoneNumber: query } } },
+        // { scammerDetails: { contains: { email: query } } },
+        // { scammerDetails: { contains: { website: query } } },
+        // { scammerDetails: { contains: { socialMedia: query } } },
+        // { scammerDetails: { contains: { name: query } } },
         {
           scamType: { is: { name: { contains: query, mode: "insensitive" } } },
         },
-        { outcome: { array_contains: query } },
+        { outcome: { contains: query } },
       ];
+
+      // NEW SEARCH LOGIC
+      // Use raw SQL for JSONB field search
+      //       const searchTerm = `%${query}%`;
+      //       const rawReports = await prisma.$queryRaw<any[]>(Prisma.sql`
+      //     SELECT *
+      //     FROM "ScamReport"
+      //     WHERE
+      //       description ILIKE ${searchTerm}
+      //      // OR scammerDetails::text ILIKE ${searchTerm}
+      //       OR scammerDetails->>'phoneNumber' ILIKE ${searchTerm}
+      // OR scammerDetails->>'email' ILIKE ${searchTerm}
+      // OR scammerDetails->>'website' ILIKE ${searchTerm}
+      // OR scammerDetails->>'socialMedia' ILIKE ${searchTerm}
+      // OR scammerDetails->>'name' ILIKE ${searchTerm}
+      //       OR outcome::text ILIKE ${searchTerm}
+      //       OR EXISTS (
+      //         SELECT 1 FROM "ScamType"
+      //         WHERE "ScamType"."id" = "ScamReport"."scamTypeId"
+      //         AND "ScamType"."name" ILIKE ${searchTerm}
+      //       )
+      //     ORDER BY "createdAt" DESC
+      //     LIMIT ${limit}
+      //     OFFSET ${offset}
+      //   `);
+
+      //       // You may want to count total as well
+      //       const total = rawReports.length;
+
+      //       return NextResponse.json({
+      //         success: true,
+      //         data: {
+      //           reports: rawReports,
+      //           total,
+      //           hasMore: offset + limit < total,
+      //         },
+      //       });
     }
 
     let reports;
@@ -124,9 +111,28 @@ export async function GET(request: NextRequest) {
       // Fetch reports with counts
       const rawReports = await prisma.scamReport.findMany({
         where: whereClause,
-        include: {
+        select: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          description: true,
+          scammerDetails: true,
+          city: true,
+          country: true,
+          region: true,
+          ipHash: true,
+          latitude: true,
+          longitude: true,
+          verified: true,
+          trustScore: true,
+          reportCount: true,
+          reporterName: true,
+          reporterEmail: true,
+          anonymous: true,
+          screenshots: true,
+          evidence: true,
+          outcome: true,
           scamType: true,
-          // outcome is a JSON field, no need to include
           _count: {
             select: {
               comments: true,

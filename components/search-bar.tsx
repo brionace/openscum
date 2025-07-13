@@ -57,9 +57,8 @@ export function SearchBar({
           r.city,
           r.country,
           r.scamType?.name,
-          r.phoneNumber,
-          r.email,
-          r.website,
+          r.scammerDetails ? JSON.stringify(r.scammerDetails) : "",
+          r.outcome ? JSON.stringify(r.outcome) : "",
         ]
           .filter(Boolean)
           .some((field) => field!.toLowerCase().includes(q))

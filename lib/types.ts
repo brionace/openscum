@@ -89,10 +89,14 @@ export interface ScamReport {
   updatedAt: string;
   aiSummaryId?: string | null;
   description: string;
-  phoneNumber?: string | null;
-  email?: string | null;
-  website?: string | null;
-  socialMedia?: string | null;
+  scammerDetails?: {
+    phoneNumber?: string;
+    email?: string;
+    website?: string;
+    socialMedia?: string;
+    name?: string;
+    [key: string]: any;
+  } | null;
   city?: string | null;
   country?: string | null;
   region?: string | null;
@@ -105,17 +109,16 @@ export interface ScamReport {
   reporterName?: string | null;
   reporterEmail?: string | null;
   anonymous: boolean;
-  moneyLost?: number | null;
-  moneyRequested?: number | null;
   screenshots: string[];
   evidence: string[];
   scamType?: ScamType;
   tags?: Tag[];
   severity?: string | null;
-  outcome?: Outcome[];
+  outcome?: any[]; // Use Outcome[] if always structured
   _count?: {
     comments: number;
     votes: number;
+    flags?: number;
   };
 }
 
