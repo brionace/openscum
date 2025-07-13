@@ -209,15 +209,23 @@ export function ReportModal({
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col gap-2 mb-6 items-center">
-                <p className="text-gray-500 text-sm">
-                  You must be signed in to comment or reply.
+              <div className="flex flex-col gap-2 mb-6 p-4 bg-gray-50 rounded-lg border">
+                <div className="flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4 text-gray-400" />
+                  <p className="text-gray-600 text-sm font-medium">
+                    Sign in to comment
+                  </p>
+                </div>
+                <p className="text-gray-500 text-xs">
+                  You can view all reports without signing in, but commenting,
+                  voting, and flagging require authentication.
                 </p>
                 <Button
                   onClick={() =>
                     supabase.auth.signInWithOAuth({ provider: "google" })
                   }
                   size="sm"
+                  className="w-fit"
                 >
                   Sign in
                 </Button>

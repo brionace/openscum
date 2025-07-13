@@ -99,7 +99,7 @@ export function ReportForm({
   prefill,
 }: ReportFormProps) {
   const { user, session, loading, signIn } = useSupabaseUser();
-  const [loginPrompt, setLoginPrompt] = useState(false);
+  // Removed loginPrompt state - no longer needed for anonymous reports
   // ...captchaToken state removed...
   const [scamTypeOptions, setScamTypeOptions] = useState<
     { id: string; name: string }[]
@@ -288,11 +288,7 @@ export function ReportForm({
       }
       return;
     }
-    // Require Supabase login for comment submission (protected action)
-    if (!user || !session) {
-      setLoginPrompt(true);
-      return;
-    }
+    // Allow anonymous reports - no authentication required
     await onSubmit({
       ...data,
       scamTypeId: selectedScamType ? selectedScamType.id : "",
@@ -330,28 +326,31 @@ export function ReportForm({
 
   return (
     <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
-      {loginPrompt && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
-          <div className="font-semibold mb-2">Login required</div>
-          <div className="mb-2">
-            You must be logged in to submit a report or comment.
-          </div>
-          <Button
-            type="button"
-            onClick={async () => {
-              setLoginPrompt(false);
-              // Optionally, you could show a login modal or redirect
-            }}
-            className="mt-2"
-          >
-            Close
-          </Button>
-        </div>
-      )}
       <CardHeader>
         <CardTitle>Report a Scam</CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Authentication Info */}
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="flex items-start gap-3">
+            <Shield className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+              <p className="font-medium text-blue-900 mb-1">
+                Anonymous Reports Welcome
+              </p>
+              <p className="text-blue-700">
+                You can submit reports anonymously without logging in.
+                {!user && (
+                  <span className="font-medium">
+                    {" "}
+                    To vote, flag, or comment on reports, you&apos;ll need to
+                    sign in.
+                  </span>
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
         {/* Show all validation errors at the top */}
         {Object.keys(form.formState.errors).length > 0 && (
           <div className="mb-4">

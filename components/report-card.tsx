@@ -92,9 +92,10 @@ export function ReportCard({
   const handleVote = async (voteType: "helpful" | "not_helpful") => {
     if (!user || !session) {
       toast({
-        title: "Login required",
-        description: "Please log in to vote on this report.",
-        variant: "destructive",
+        title: "Sign in required",
+        description:
+          "Please sign in to vote on reports. Report viewing is always free and anonymous.",
+        variant: "default",
       });
       return;
     }
@@ -129,9 +130,10 @@ export function ReportCard({
   const handleFlag = async () => {
     if (!user || !session) {
       toast({
-        title: "Login required",
-        description: "Please log in to flag this report.",
-        variant: "destructive",
+        title: "Sign in required",
+        description:
+          "Please sign in to flag reports. Report viewing is always free and anonymous.",
+        variant: "default",
       });
       return;
     }
