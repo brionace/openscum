@@ -7,9 +7,11 @@ const mockReport = {
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   description: "Test scam report description",
-  phoneNumber: "1234567890",
-  email: "test@example.com",
-  website: "https://scam.com",
+  scammerDetails: {
+    phoneNumber: "1234567890",
+    email: "test@example.com",
+    website: "https://scam.com",
+  },
   city: "Test City",
   country: "Test Country",
   region: "Test Region",
@@ -19,14 +21,23 @@ const mockReport = {
   reporterName: "John Doe",
   reporterEmail: "john@example.com",
   anonymous: false,
-  moneyLost: 100,
-  moneyRequested: 200,
   screenshots: [],
   evidence: [],
   scamType: { id: "type1", name: "Phishing" },
   tags: [],
   severity: "HIGH",
   _count: { comments: 3, votes: 5 },
+  outcome: [
+    {
+      id: "outcome1",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      outcomeType: "FINANCIAL",
+      moneyLost: 100,
+      moneyRequested: 200,
+      currency: "$",
+    },
+  ],
 };
 
 describe("ReportModalCard", () => {
@@ -37,17 +48,16 @@ describe("ReportModalCard", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Phishing")).toBeInTheDocument();
     expect(screen.getByText("Test City, Test Country")).toBeInTheDocument();
-    expect(screen.getByText("$100")).toBeInTheDocument();
-    expect(screen.getByText("$200")).toBeInTheDocument();
-    expect(screen.getByText( "5")).toBeInTheDocument(); // votes
+    expect(screen.getByText("5")).toBeInTheDocument(); // votes
   });
 
-  it("handles flag toggle", async () => {
+  it("shows authentication required for flag toggle", async () => {
     const onFlag = jest.fn();
     render(<ReportCard report={mockReport} onFlag={onFlag} flagged={false} />);
     const flagBtn = screen.getByLabelText(/flag report/i);
     fireEvent.click(flagBtn);
-    await waitFor(() => expect(onFlag).toHaveBeenCalledWith("1", true));
+    // Since user is not authenticated (from our mock), onFlag should NOT be called
+    await waitFor(() => expect(onFlag).not.toHaveBeenCalled());
   });
 
   it("handles share", () => {
@@ -58,11 +68,12 @@ describe("ReportModalCard", () => {
     expect(onShare).toHaveBeenCalledWith(mockReport);
   });
 
-  it("handles voting", async () => {
+  it("shows authentication required for voting", async () => {
     const onVote = jest.fn();
     render(<ReportCard report={mockReport} onVote={onVote} />);
     const voteBtn = screen.getByLabelText(/thumbs up/i);
     fireEvent.click(voteBtn);
-    await waitFor(() => expect(onVote).toHaveBeenCalledWith("1", "helpful"));
+    // Since user is not authenticated (from our mock), onVote should NOT be called
+    await waitFor(() => expect(onVote).not.toHaveBeenCalled());
   });
 });

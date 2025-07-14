@@ -1,3 +1,4 @@
+import React from "react";
 import { Outcome } from "@/lib/types";
 
 export function ReportOutcome({

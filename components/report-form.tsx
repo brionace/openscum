@@ -379,34 +379,36 @@ export function ReportForm({
                   <FormField
                     control={form.control}
                     name="scamTypeId"
-                    render={({ field }) => (
+                    render={({ field, fieldState, formState }) => (
                       <FormItem>
                         <FormLabel>Scam Type *</FormLabel>
-                        <TypeDropdown
-                          value={selectedScamType}
-                          onChange={(val) => {
-                            if (!val) {
-                              setSelectedScamType(null);
-                              form.setValue("scamTypeId", "");
-                              field.onChange("");
-                              form.clearErrors("scamTypeId");
-                              return;
-                            }
-                            setSelectedScamType(
-                              val as { id: string; name: string } | null
-                            );
-                            form.setValue(
-                              "scamTypeId",
-                              val && "id" in val ? val.id : ""
-                            );
-                            field.onChange(val && "id" in val ? val.id : "");
-                            if (val) form.clearErrors("scamTypeId");
-                          }}
-                          options={scamTypeOptions}
-                          onSearch={setScamTypeSearch}
-                          placeholder="Type to search scam types..."
-                          multi={false}
-                        />
+                        <FormControl>
+                          <TypeDropdown
+                            value={selectedScamType}
+                            onChange={(val) => {
+                              if (!val) {
+                                setSelectedScamType(null);
+                                form.setValue("scamTypeId", "");
+                                field.onChange("");
+                                form.clearErrors("scamTypeId");
+                                return;
+                              }
+                              setSelectedScamType(
+                                val as { id: string; name: string } | null
+                              );
+                              form.setValue(
+                                "scamTypeId",
+                                val && "id" in val ? val.id : ""
+                              );
+                              field.onChange(val && "id" in val ? val.id : "");
+                              if (val) form.clearErrors("scamTypeId");
+                            }}
+                            options={scamTypeOptions}
+                            onSearch={setScamTypeSearch}
+                            placeholder="Type to search scam types..."
+                            multi={false}
+                          />
+                        </FormControl>
                         {/* Hidden input to keep scamTypeId in form state for zod validation */}
                         <input {...form.register("scamTypeId")} type="hidden" />
                         <FormMessage />

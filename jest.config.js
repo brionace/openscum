@@ -11,7 +11,11 @@ module.exports = {
       { configFile: "./babel.config.test.js" },
     ],
   },
+  transformIgnorePatterns: ["node_modules/(?!(@supabase|isows|ws)/.*)"],
   testMatch: ["**/__tests__/**/*.test.(ts|tsx)"],
-  // Use custom Babel config for tests only
-  //   babelConfig: "./babel.config.test.js",
+  // Mock Supabase modules that cause issues
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+    "^@supabase/supabase-js$": "<rootDir>/__tests__/__mocks__/supabase.js",
+  },
 };

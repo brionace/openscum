@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outcome, OutcomeType } from "@/lib/types";
 import FinancialImpactFields from "./outcome-fields/financial-impact-fields";
 import SocialMediaAccountFields from "./outcome-fields/social-media-account-fields";

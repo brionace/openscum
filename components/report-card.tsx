@@ -117,6 +117,8 @@ export function ReportCard({
         });
       } else {
         toast({ title: "Vote submitted" });
+        // Call the parent onVote handler if provided
+        onVote?.(report.id, voteType);
       }
     } catch (error) {
       toast({
@@ -162,6 +164,8 @@ export function ReportCard({
             ? "Thank you for flagging this report. Our team will review it."
             : "You have removed your flag from this report.",
         });
+        // Call the parent onFlag handler if provided
+        await onFlag?.(report.id, !flagged);
       }
     } catch (error) {
       toast({
@@ -185,7 +189,7 @@ export function ReportCard({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap gap-2 mb-2 items-center">
+            <div className="flex flex-wrap gap-2 items-center">
               {/* Scam Type Name */}
               {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
@@ -220,9 +224,8 @@ export function ReportCard({
               variant="ghost"
               size="sm"
               className="shrink-0"
-              // onClick={handleShare}
               onClick={() => onCommentsClick?.(report.id)}
-              aria-label="Share report"
+              aria-label="View report details"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>

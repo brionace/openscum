@@ -42,8 +42,11 @@ describe("QuickReportButton", () => {
     fireEvent.change(screen.getByLabelText(/Detailed Description/i), {
       target: { value: "A test description with enough length." },
     });
-    // Type in scam type input
-    const scamTypeInput = screen.getByPlaceholderText(/Type to search scam types/i);
+    // Type in scam type input (get the first one - main scam type, not tags)
+    const scamTypeInputs = screen.getAllByPlaceholderText(
+      /Type to search scam types/i
+    );
+    const scamTypeInput = scamTypeInputs[0]; // First input is the main scam type
     fireEvent.change(scamTypeInput, { target: { value: "Phishing" } });
     // Wait for dropdown and click the option
     const option = await screen.findByText("Phishing (Email/SMS)");
