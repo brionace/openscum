@@ -14,7 +14,8 @@
     "db:reset": "prisma migrate reset --force",
     "db:seed:types": "npx tsx prisma/seed-types.ts && npx tsx prisma/seed-outcome-types.ts",
     "db:seed:reports": "npx tsx prisma/seed-reports.ts ",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "prepare": "husky"
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
@@ -99,10 +100,5 @@
     "jest": "29",
     "prisma": "^6.10.1",
     "ts-jest": "^29.4.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "pnpm build"
-    }
   }
 }
