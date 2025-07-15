@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm run check:all && next build",
-    "build:fast": "next build",
+    "build": "prisma generate && pnpm run check:all && next build",
+    "build:fast": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -22,6 +22,7 @@
     "check:db": "prisma validate && prisma generate && node scripts/check-db-schema.js && node scripts/validate-trends-api.js",
     "check:api": "node scripts/check-api-health.js",
     "security:audit": "pnpm audit --audit-level moderate",
+    "postinstall": "prisma generate",
     "prepare": "husky"
   },
   "dependencies": {
