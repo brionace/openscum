@@ -134,6 +134,10 @@ export function ReportForm({
   const [paraphrasing, setParaphrasing] = useState(false);
   const [paraphraseError, setParaphraseError] = useState("");
   const [outcome, setOutcome] = useState<any[]>([]);
+  const [showCustomScamTypeModal, setShowCustomScamTypeModal] = useState(false);
+  const [showCustomTagModal, setShowCustomTagModal] = useState(false);
+  const [customScamTypeName, setCustomScamTypeName] = useState("");
+  const [customTagName, setCustomTagName] = useState("");
   const isProduction = process.env.NODE_ENV === "production";
 
   const form = useForm<ReportFormData>({
@@ -203,11 +207,12 @@ export function ReportForm({
 
   // --- Scam Type Dropdown logic ---
   useEffect(() => {
-    if (!scamTypeSearch) {
-      setScamTypeOptions([]);
-      return;
-    }
-    fetch(`/api/scam-types?q=${encodeURIComponent(scamTypeSearch)}`)
+    const query = scamTypeSearch.trim();
+    const endpoint = query
+      ? `/api/scam-types?q=${encodeURIComponent(query)}`
+      : "/api/scam-types"; // Load all when no search
+
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) return [];
         const text = await res.text();
@@ -230,11 +235,12 @@ export function ReportForm({
   >([]);
   const [tagSearch, setTagSearch] = useState("");
   useEffect(() => {
-    if (!tagSearch) {
-      setTagOptions([]);
-      return;
-    }
-    fetch(`/api/scam-types?q=${encodeURIComponent(tagSearch)}`)
+    const query = tagSearch.trim();
+    const endpoint = query
+      ? `/api/scam-types?q=${encodeURIComponent(query)}`
+      : "/api/scam-types"; // Load all when no search
+
+    fetch(endpoint)
       .then(async (res) => {
         if (!res.ok) return [];
         const text = await res.text();
@@ -247,6 +253,60 @@ export function ReportForm({
       })
       .then(setTagOptions);
   }, [tagSearch]);
+
+  // Handle custom scam type creation
+  const handleCustomScamType = async () => {
+    if (!customScamTypeName.trim()) return;
+
+    try {
+      const response = await fetch("/api/scam-types", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: customScamTypeName.trim() }),
+      });
+
+      if (response.ok) {
+        const newScamType = await response.json();
+        setSelectedScamType(newScamType);
+        form.setValue("scamTypeId", newScamType.id);
+        form.clearErrors("scamTypeId");
+
+        // Add to options list
+        setScamTypeOptions((prev) => [newScamType, ...prev]);
+      }
+    } catch (error) {
+      console.error("Failed to create custom scam type:", error);
+    }
+
+    setShowCustomScamTypeModal(false);
+    setCustomScamTypeName("");
+  };
+
+  // Handle custom tag creation
+  const handleCustomTag = async () => {
+    if (!customTagName.trim()) return;
+
+    try {
+      const response = await fetch("/api/scam-types", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: customTagName.trim() }),
+      });
+
+      if (response.ok) {
+        const newTag = await response.json();
+        setSelectedTags((prev) => [...prev, newTag]);
+
+        // Add to options list
+        setTagOptions((prev) => [newTag, ...prev]);
+      }
+    } catch (error) {
+      console.error("Failed to create custom tag:", error);
+    }
+
+    setShowCustomTagModal(false);
+    setCustomTagName("");
+  };
 
   // Update handleSubmit to include tags
   const handleSubmit = async (data: ReportFormData) => {
@@ -405,8 +465,12 @@ export function ReportForm({
                             }}
                             options={scamTypeOptions}
                             onSearch={setScamTypeSearch}
-                            placeholder="Type to search scam types..."
+                            onOtherSelected={() =>
+                              setShowCustomScamTypeModal(true)
+                            }
+                            placeholder="Type to search..."
                             multi={false}
+                            showAllOnFocus={true}
                           />
                         </FormControl>
                         {/* Hidden input to keep scamTypeId in form state for zod validation */}
@@ -417,14 +481,16 @@ export function ReportForm({
                   />
                   {/* Tags field (multi-select) */}
                   <FormItem>
-                    <FormLabel>Additional Scam Types (Tags)</FormLabel>
+                    <FormLabel>Tags</FormLabel>
                     <TypeDropdown
                       value={selectedTags}
                       onChange={(val) => setSelectedTags(val as any)}
                       options={tagOptions}
                       onSearch={setTagSearch}
-                      placeholder="Type to search scam types..."
+                      onOtherSelected={() => setShowCustomTagModal(true)}
+                      placeholder="Type to search..."
                       multi={true}
+                      showAllOnFocus={true}
                     />
                     <FormDescription>
                       Add additional scam types/tags to help others find this
@@ -805,6 +871,92 @@ export function ReportForm({
             </Button>
           </form>
         </Form>
+
+        {/* Custom Scam Type Modal */}
+        {showCustomScamTypeModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+              <h3 className="text-lg font-bold mb-4">Add Custom Scam Type</h3>
+              <Input
+                value={customScamTypeName}
+                onChange={(e) => setCustomScamTypeName(e.target.value)}
+                placeholder="Enter scam type name..."
+                className="mb-4"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleCustomScamType();
+                  } else if (e.key === "Escape") {
+                    setShowCustomScamTypeModal(false);
+                    setCustomScamTypeName("");
+                  }
+                }}
+                autoFocus
+              />
+              <div className="flex gap-2 justify-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setShowCustomScamTypeModal(false);
+                    setCustomScamTypeName("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleCustomScamType}
+                  disabled={!customScamTypeName.trim()}
+                >
+                  Add Scam Type
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Custom Tag Modal */}
+        {showCustomTagModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+              <h3 className="text-lg font-bold mb-4">Add Custom Tag</h3>
+              <Input
+                value={customTagName}
+                onChange={(e) => setCustomTagName(e.target.value)}
+                placeholder="Enter tag name..."
+                className="mb-4"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleCustomTag();
+                  } else if (e.key === "Escape") {
+                    setShowCustomTagModal(false);
+                    setCustomTagName("");
+                  }
+                }}
+                autoFocus
+              />
+              <div className="flex gap-2 justify-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setShowCustomTagModal(false);
+                    setCustomTagName("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleCustomTag}
+                  disabled={!customTagName.trim()}
+                >
+                  Add Tag
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

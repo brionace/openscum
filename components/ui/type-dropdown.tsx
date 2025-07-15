@@ -11,10 +11,12 @@ interface TypeDropdownProps {
   onChange: (val: Option | Option[] | null) => void;
   options: Option[];
   onSearch: (q: string) => void;
+  onOtherSelected?: () => void;
   placeholder?: string;
   multi?: boolean;
   label?: string;
   id?: string;
+  showAllOnFocus?: boolean;
 }
 
 export const TypeDropdown = React.forwardRef<
@@ -27,10 +29,12 @@ export const TypeDropdown = React.forwardRef<
       onChange,
       options,
       onSearch,
+      onOtherSelected,
       placeholder = "Type to search...",
       multi = false,
       label,
       id,
+      showAllOnFocus = true,
       ...props
     },
     ref
@@ -38,8 +42,44 @@ export const TypeDropdown = React.forwardRef<
     const [search, setSearch] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
     const [highlighted, setHighlighted] = useState(-1);
+    const [allOptions, setAllOptions] = useState<Option[]>([]);
     const rootRef = useRef<HTMLDivElement>(null);
     const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    // Load all options when component mounts (for showing on focus)
+    useEffect(() => {
+      if (showAllOnFocus && allOptions.length === 0) {
+        // Trigger loading all options
+        onSearch("");
+      }
+    }, [showAllOnFocus, allOptions.length, onSearch]);
+
+    // Update allOptions when options change and we have no search
+    useEffect(() => {
+      if (search.length === 0 && options.length > 0) {
+        setAllOptions(options);
+      }
+    }, [options, search.length]);
+
+    // Enhanced options logic: show all on focus, filtered when searching
+    const displayOptions = React.useMemo(() => {
+      let baseOptions: Option[];
+
+      if (search.length > 0) {
+        // When searching, use the filtered options from API
+        baseOptions = options;
+      } else if (showAllOnFocus) {
+        // When no search, show all available options
+        baseOptions = allOptions;
+      } else {
+        // Fallback to provided options
+        baseOptions = options;
+      }
+
+      // Always add "Other (not on list)" option at the end
+      const otherOption: Option = { id: "other", name: "Other (not on list)" };
+      return [...baseOptions, otherOption];
+    }, [search, options, allOptions, showAllOnFocus]);
 
     // Click outside to close
     useEffect(() => {
@@ -62,24 +102,42 @@ export const TypeDropdown = React.forwardRef<
 
     // Keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (!options.length) return;
+      if (!displayOptions.length) return;
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setHighlighted((prev) => (prev < options.length - 1 ? prev + 1 : 0));
+        setHighlighted((prev) =>
+          prev < displayOptions.length - 1 ? prev + 1 : 0
+        );
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
-        setHighlighted((prev) => (prev > 0 ? prev - 1 : options.length - 1));
+        setHighlighted((prev) =>
+          prev > 0 ? prev - 1 : displayOptions.length - 1
+        );
       } else if (e.key === "Enter") {
         e.preventDefault();
-        if (highlighted >= 0 && highlighted < options.length) {
-          selectOption(options[highlighted]);
-        } else if (options.length === 1) {
-          selectOption(options[0]);
+        if (highlighted >= 0 && highlighted < displayOptions.length) {
+          selectOption(displayOptions[highlighted]);
+        } else if (displayOptions.length === 1) {
+          selectOption(displayOptions[0]);
         }
+      } else if (e.key === "Escape") {
+        setShowDropdown(false);
+        setSearch("");
       }
     };
 
     const selectOption = (option: Option) => {
+      if (option.id === "other") {
+        // Handle "Other" selection
+        if (onOtherSelected) {
+          onOtherSelected();
+        }
+        setShowDropdown(false);
+        setSearch("");
+        return;
+      }
+
+      // Regular option selection logic
       if (multi) {
         const arr = Array.isArray(value) ? value : [];
         if (!arr.some((t) => t.id === option.id)) {
@@ -145,22 +203,29 @@ export const TypeDropdown = React.forwardRef<
             placeholder={placeholder}
             value={search}
             onChange={(e) => {
-              setSearch(e.target.value);
+              const newSearch = e.target.value;
+              setSearch(newSearch);
               setShowDropdown(true);
               setHighlighted(-1);
-              onSearch(e.target.value);
+              onSearch(newSearch);
             }}
-            onFocus={() => setShowDropdown(true)}
+            onFocus={() => {
+              setShowDropdown(true);
+              // If no search term and we want to show all, trigger loading
+              if (search.length === 0 && showAllOnFocus) {
+                onSearch("");
+              }
+            }}
             onKeyDown={handleKeyDown}
             className="mb-2"
             autoComplete="off"
             {...props}
           />
         )}
-        {showDropdown && search.length > 0 && (
-          <div className="border rounded p-2 max-h-40 overflow-y-auto bg-white z-10 absolute w-full">
-            {options.length > 0 ? (
-              options.map((option, idx) => (
+        {showDropdown && (
+          <div className="border rounded p-2 max-h-40 overflow-y-auto bg-white z-10 absolute w-full shadow-lg">
+            {displayOptions.length > 0 ? (
+              displayOptions.map((option, idx) => (
                 <div
                   key={option.id}
                   ref={(el) => (optionRefs.current[idx] = el)}
@@ -174,6 +239,10 @@ export const TypeDropdown = React.forwardRef<
                       : !multi && value && (value as Option).id === option.id
                       ? "bg-blue-100"
                       : "hover:bg-gray-100"
+                  } ${
+                    option.id === "other"
+                      ? "italic text-gray-600 border-t mt-1 pt-2"
+                      : ""
                   }`}
                   onMouseEnter={() => setHighlighted(idx)}
                   onMouseDown={(e) => {

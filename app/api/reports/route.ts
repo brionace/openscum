@@ -20,10 +20,20 @@ export async function GET(request: NextRequest) {
       latestByType,
     });
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: result,
     });
+
+    // Add cache control headers to prevent caching of fresh data
+    response.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, must-revalidate"
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+
+    return response;
   } catch (error) {
     // Enhanced error logging
     if (error instanceof Error) {

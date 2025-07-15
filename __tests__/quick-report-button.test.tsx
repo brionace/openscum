@@ -44,7 +44,7 @@ describe("QuickReportButton", () => {
     });
     // Type in scam type input (get the first one - main scam type, not tags)
     const scamTypeInputs = screen.getAllByPlaceholderText(
-      /Type to search scam types/i
+      /Type to search/i
     );
     const scamTypeInput = scamTypeInputs[0]; // First input is the main scam type
     fireEvent.change(scamTypeInput, { target: { value: "Phishing" } });

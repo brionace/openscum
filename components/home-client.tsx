@@ -134,6 +134,33 @@ export function HomeClient({
     loadStats();
   };
 
+  const handleRefresh = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/reports?limit=20&offset=0");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setReports(data.data.reports);
+          setHasMore(data.data.hasMore);
+          toast({
+            title: "Refreshed",
+            description: "Latest reports loaded successfully",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Failed to refresh:", error);
+      toast({
+        title: "Error",
+        description: "Failed to refresh reports",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleQuickReport = (data: {
     phoneNumber?: string;
     email?: string;
@@ -223,6 +250,33 @@ export function HomeClient({
     }
   };
 
+  // Auto-refresh mechanism to check for new posts every 30 seconds
+  useEffect(() => {
+    const refreshInterval = setInterval(async () => {
+      try {
+        const response = await fetch("/api/reports?limit=20&offset=0");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data.reports.length > 0) {
+            // Check if there are new reports (by comparing the first report ID)
+            if (
+              reports.length > 0 &&
+              data.data.reports[0].id !== reports[0].id
+            ) {
+              // Silently update the reports list with new data
+              setReports(data.data.reports);
+              setHasMore(data.data.hasMore);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Failed to refresh reports:", error);
+      }
+    }, 30000); // Refresh every 30 seconds
+
+    return () => clearInterval(refreshInterval);
+  }, [reports]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-red-50">
       <Header
@@ -240,6 +294,33 @@ export function HomeClient({
           {/* <TrendingBar /> */}
 
           <div className="space-y-6">
+            {/* <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Latest Reports
+              </h2>
+              <Button
+                variant="outline"
+                onClick={handleRefresh}
+                disabled={loading}
+                className="flex items-center gap-2"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+                {loading ? "Refreshing..." : "Refresh"}
+              </Button>
+            </div> */}
+
             <div className="grid gap-6">
               {reports.map((report) => (
                 <ReportCard
