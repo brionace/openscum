@@ -57,8 +57,6 @@ jobs:
       - name: Setup environment variables
         run: |
           echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/scamlist_test" >> $GITHUB_ENV
-          echo "NEXTAUTH_SECRET=test-secret-key-for-ci" >> $GITHUB_ENV
-          echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
 
       - name: Environment check
         run: pnpm check:env

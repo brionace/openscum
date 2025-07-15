@@ -2,7 +2,7 @@
 require("dotenv").config({ path: ".env.local" });
 require("dotenv").config({ path: ".env" });
 
-const requiredEnvVars = ["DATABASE_URL", "NEXTAUTH_SECRET", "NEXTAUTH_URL"];
+const requiredEnvVars = ["DATABASE_URL"];
 
 const optionalEnvVars = [
   "SUPABASE_URL",

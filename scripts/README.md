@@ -11,8 +11,6 @@ Validates that all required environment variables are present.
 **Required Variables:**
 
 - `DATABASE_URL` - Database connection string
-- `NEXTAUTH_SECRET` - NextAuth secret key
-- `NEXTAUTH_URL` - Application URL
 
 **Optional Variables:**
 
