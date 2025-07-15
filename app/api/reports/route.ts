@@ -108,16 +108,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!description && !scammerDetails) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Please provide a description or scammer details.",
-        },
-        { status: 400 }
-      );
-    }
-
     // If user didn't provide location, try to detect it
     if (!city && !country) {
       try {
@@ -160,7 +150,9 @@ export async function POST(request: NextRequest) {
     const cleanScammerDetails =
       scammerDetails && typeof scammerDetails === "object"
         ? Object.fromEntries(
-            Object.entries(scammerDetails).map(([k, v]) => [k, clean(v)])
+            Object.entries(scammerDetails)
+              .map(([k, v]) => [k, clean(v)])
+              .filter(([k, v]) => v !== null && v !== undefined) // ← Add this filter
           )
         : {};
     const cleanReporterName = clean(reporterName);
@@ -170,6 +162,18 @@ export async function POST(request: NextRequest) {
     // region is only from locationData, which is always string|null
 
     // No duplicate check for now (was based on removed fields)
+
+    // Validate required fields
+    const hasScammerDetails = Object.keys(cleanScammerDetails).length > 0;
+    if (!description && !hasScammerDetails) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please provide a description or scammer details.",
+        },
+        { status: 400 }
+      );
+    }
 
     // Create new report
     const report = await prisma.scamReport.create({

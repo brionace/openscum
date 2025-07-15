@@ -326,7 +326,21 @@ export function ReportForm({
           (v) => v === undefined || v === ""
         ));
 
-    if (allEmpty) {
+    const onlyHasScamType =
+      !data.description &&
+      !data.severity &&
+      !data.reporterName &&
+      !data.reporterEmail &&
+      (!data.tags || data.tags.length === 0) &&
+      !data.city &&
+      !data.country &&
+      (!data.outcome || data.outcome.length === 0) &&
+      (!data.scammerDetails ||
+        Object.values(data.scammerDetails).every(
+          (v) => v === undefined || v === ""
+        ));
+
+    if (allEmpty || onlyHasScamType) {
       // Close modal silently
       if (modalContentRef.current) {
         // Try to find the closest dialog/modal and close it

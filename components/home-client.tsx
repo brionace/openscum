@@ -294,7 +294,7 @@ export function HomeClient({
           {/* <TrendingBar /> */}
 
           <div className="space-y-6">
-            {/* <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">
                 Latest Reports
               </h2>
@@ -319,7 +319,7 @@ export function HomeClient({
                 </svg>
                 {loading ? "Refreshing..." : "Refresh"}
               </Button>
-            </div> */}
+            </div>
 
             <div className="grid gap-6">
               {reports.map((report) => (

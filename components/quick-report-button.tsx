@@ -49,6 +49,7 @@ export function QuickReportButton({
       if (result.success) {
         setIsOpen(false);
         onReportSubmitted?.();
+        window.location.reload();
       } else {
         alert(result.error || "Failed to submit report");
       }
