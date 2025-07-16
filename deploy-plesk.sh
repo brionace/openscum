@@ -37,12 +37,37 @@ if [ $? -eq 0 ]; then
     echo "Next steps:"
     echo "1. Set your environment variables in Plesk"
     echo "2. Run 'npm start' to start the application"
+elif [ $? -eq 137 ]; then
+    echo "❌ Build killed (exit code 137) - Memory limit exceeded"
+    echo "🔧 Trying ultra-minimal build with very low memory..."
+    
+    # Try ultra-minimal build for memory-constrained environments
+    NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size" npm run build:fast
+    
+    if [ $? -eq 0 ]; then
+        echo "✅ Ultra-minimal build completed!"
+    else
+        echo "❌ Ultra-minimal build also failed. Trying emergency build..."
+        
+        # Emergency build with absolute minimum memory
+        cp next.config.plesk-ultra.js next.config.js
+        NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size" npm run build:fast
+        
+        if [ $? -eq 0 ]; then
+            echo "✅ Emergency build completed!"
+        else
+            echo "❌ All build attempts failed."
+            echo "Your Plesk environment has severe memory constraints."
+            echo "Contact your hosting provider to increase memory limits."
+            exit 1
+        fi
+    fi
 else
     echo "❌ Build failed. Trying alternative build..."
     
     # Alternative build with even more constraints
     echo "🔧 Attempting minimal build..."
-    NODE_OPTIONS="--max-old-space-size=2048" npm run build:fast || {
+    NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk-minimal || {
         echo "❌ All build attempts failed."
         echo "Check your Plesk environment:"
         echo "- Ensure Node.js version is compatible"

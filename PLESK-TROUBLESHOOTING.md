@@ -9,19 +9,36 @@
 - Build process killed suddenly
 - "JavaScript heap out of memory"
 - Process exits without clear error
+- `Creating an optimized production build ...Killed`
+- `error Command failed with exit code 137`
 
 **Solutions:**
 
 ```bash
-# Option A: Use minimal build
+# Option A: Use ultra-minimal build (for exit code 137)
+NODE_OPTIONS="--max-old-space-size=1024" npm run build:fast
+
+# Option B: Use minimal build
 npm run build:plesk-minimal
 
-# Option B: Set memory limit manually
-NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk
+# Option C: Set very low memory limit
+NODE_OPTIONS="--max-old-space-size=512" npm run build:plesk
 
-# Option C: Use our deployment script
+# Option D: Use our deployment script with fallbacks
 chmod +x deploy-plesk.sh
 ./deploy-plesk.sh
+```
+
+**For exit code 137 specifically (memory kill):**
+
+```bash
+# Emergency ultra-low memory build
+export NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size"
+npm run build:fast
+
+# If that fails, try even lower
+export NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size"
+npm run build:fast
 ```
 
 ### 2. Node.js Engine Warnings
@@ -110,14 +127,33 @@ npm install --legacy-peer-deps --force --no-audit --no-fund --maxsockets 1
 NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk-minimal
 ```
 
-### Method 3: Ultra-Minimal (Last Resort)
+### Method 3: Ultra-Minimal (For Exit Code 137)
 
 ```bash
-# For very constrained environments
-export NODE_OPTIONS="--max-old-space-size=1024"
+# For very constrained environments with exit code 137
+export NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size"
 npm ci --production
 npx prisma generate
-npm run build:plesk-minimal
+npm run build:plesk-ultra
+
+# If that fails, try emergency mode
+export NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size"
+cp next.config.plesk-ultra.js next.config.js
+npm run build:fast
+```
+
+### Method 4: Emergency Build (Last Resort)
+
+```bash
+# Use the ultra-minimal config
+cp next.config.plesk-ultra.js next.config.js
+
+# Absolutely minimal memory
+export NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size --max-semi-space-size=1"
+npm run build:fast
+
+# If successful, restore original config
+cp next.config.js.backup next.config.js 2>/dev/null || echo "No backup found"
 ```
 
 ## Environment Variables for Plesk
@@ -151,7 +187,36 @@ SUPABASE_SERVICE_ROLE_KEY="your_service_key"
 5. **Try different build commands** in this order:
    - `npm run build:plesk`
    - `npm run build:plesk-minimal`
-   - `NODE_OPTIONS="--max-old-space-size=1024" npm run build:fast`
+   - `NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size" npm run build:plesk-ultra`
+   - `NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size" npm run build:fast`
+
+## Exit Code 137 (Memory Kill) - Specific Solution
+
+**Exit code 137 means your build process was killed by the system due to memory limits.**
+
+### Immediate Fix:
+
+```bash
+# Step 1: Use ultra-low memory settings
+export NODE_OPTIONS="--max-old-space-size=512 --optimize-for-size"
+
+# Step 2: Use the ultra-minimal config
+cp next.config.plesk-ultra.js next.config.js
+
+# Step 3: Build with minimal resources
+npm run build:fast
+
+# Step 4: If successful, you can restore the original config later
+# cp next.config.js.backup next.config.js
+```
+
+### If That Still Fails:
+
+```bash
+# Even lower memory limit
+export NODE_OPTIONS="--max-old-space-size=256 --optimize-for-size --max-semi-space-size=1"
+npm run build:fast
+```
 
 ## Build Success Verification
 
