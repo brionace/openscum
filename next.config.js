@@ -6,10 +6,10 @@ const nextConfig = {
   images: { unoptimized: true },
   experimental: {
     optimizePackageImports: [
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-popover',
-      '@radix-ui/react-select',
-      'lucide-react',
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-select",
+      "lucide-react",
     ],
   },
   webpack: (config, { isServer }) => {
@@ -21,8 +21,8 @@ const nextConfig = {
           ...config.optimization.splitChunks.cacheGroups,
           vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
+            name: "vendors",
+            chunks: "all",
             maxSize: 244 * 1024, // 244KB chunks
           },
         },

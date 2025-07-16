@@ -13,8 +13,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 
 // Lazy load heavy components
-const QuickReportButton = lazy(() => import("@/components/quick-report-button").then(m => ({ default: m.QuickReportButton })));
-const ReportModal = lazy(() => import("@/components/report-modal").then(m => ({ default: m.ReportModal })));
+const QuickReportButton = lazy(() =>
+  import("@/components/quick-report-button").then((m) => ({
+    default: m.QuickReportButton,
+  }))
+);
+const ReportModal = lazy(() =>
+  import("@/components/report-modal").then((m) => ({ default: m.ReportModal }))
+);
 
 interface HomeClientProps {
   initialReports: ScamReport[];
@@ -348,7 +354,11 @@ export function HomeClient({
         </main>
       </div>
 
-      <Suspense fallback={<div className="fixed bottom-6 right-6 w-14 h-14 bg-gray-200 rounded-full animate-pulse" />}>
+      <Suspense
+        fallback={
+          <div className="fixed bottom-6 right-6 w-14 h-14 bg-gray-200 rounded-full animate-pulse" />
+        }
+      >
         <QuickReportButton
           onReportSubmitted={handleReportSubmitted}
           prefill={reportPrefill}
@@ -359,7 +369,11 @@ export function HomeClient({
 
       {/* Modal for report details/comments */}
       {activeReportId && (
-        <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 animate-pulse" />}>
+        <Suspense
+          fallback={
+            <div className="fixed inset-0 bg-black bg-opacity-50 animate-pulse" />
+          }
+        >
           <ReportModal
             reportId={activeReportId}
             open={commentModalOpen}

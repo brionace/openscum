@@ -36,7 +36,11 @@ import {
   Phone,
   Users,
 } from "lucide-react";
-import { commonCountries, commonCurrencies, loadFullCountryData } from "@/lib/country-lite";
+import {
+  commonCountries,
+  commonCurrencies,
+  loadFullCountryData,
+} from "@/lib/country-lite";
 import { countryCodeAndName, countryCity } from "@/lib/country";
 import { TypeDropdown } from "@/components/ui/type-dropdown";
 import OutcomeSection from "@/components/outcome-section";

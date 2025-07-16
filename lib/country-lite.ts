@@ -18,14 +18,30 @@ export const commonCountries = [
 ];
 
 export const commonCurrencies = [
-  "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "CNY", "BRL", "MXN", "ZAR"
+  "USD",
+  "EUR",
+  "GBP",
+  "CAD",
+  "AUD",
+  "JPY",
+  "INR",
+  "CNY",
+  "BRL",
+  "MXN",
+  "ZAR",
 ];
 
 // Lazy load full country data only when needed
 export const loadFullCountryData = async () => {
-  const { default: currencies } = await import("country-json/src/country-by-currency-code.json");
-  const { default: flags } = await import("country-json/src/country-by-flag.json");
-  const { default: capitals } = await import("country-json/src/country-by-capital-city.json");
-  
+  const { default: currencies } = await import(
+    "country-json/src/country-by-currency-code.json"
+  );
+  const { default: flags } = await import(
+    "country-json/src/country-by-flag.json"
+  );
+  const { default: capitals } = await import(
+    "country-json/src/country-by-capital-city.json"
+  );
+
   return { currencies, flags, capitals };
 };

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "build:with-checks": "prisma generate && npm run check:all && next build",
     "build:vercel": "prisma generate && npm run check:env && npm run typecheck && npm run lint && next build",
     "build:fast": "prisma generate && next build",
