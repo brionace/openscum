@@ -628,7 +628,7 @@ export function ReportForm({
             </div>
 
             {/* Risk Level Section */}
-            <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
+            {/* <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
               <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Shield className="h-6 w-6 text-blue-500" /> Risk Level
               </h3>
@@ -667,7 +667,7 @@ export function ReportForm({
                   )}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Scammer Details Section (JSON) */}
             <div className="mb-6 p-6 rounded-lg bg-gray-50 shadow">
