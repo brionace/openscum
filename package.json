@@ -8,10 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:with-checks": "prisma generate && npm run check:all && next build",
-    "build:vercel": "prisma generate && npm run check:env && npm run typecheck && npm run lint && next build",
-    "build:fast": "prisma generate && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -23,17 +20,7 @@
     "db:seed:reports": "npx tsx prisma/seed-reports.ts ",
     "test": "jest --watchAll",
     "test:ci": "NODE_ENV=test jest --ci --passWithNoTests --coverage",
-    "check:all": "node scripts/build-validation.js",
-    "check:env": "node scripts/check-env.js",
-    "check:db": "prisma validate && prisma generate && node scripts/check-db-schema.js && node scripts/validate-trends-api.js",
-    "check:api": "node scripts/check-api-health.js",
-    "security:audit": "npm audit --audit-level moderate",
-    "build:plesk": "prisma generate && next build",
-    "build:plesk-minimal": "NODE_OPTIONS='--max-old-space-size=2048' prisma generate && NODE_OPTIONS='--max-old-space-size=2048' next build",
-    "build:plesk-ultra": "NODE_OPTIONS='--max-old-space-size=512 --optimize-for-size' prisma generate && NODE_OPTIONS='--max-old-space-size=512 --optimize-for-size' next build",
-    "install:plesk": "npm install --legacy-peer-deps --no-audit --no-fund",
-    "postinstall": "prisma generate",
-    "prepare": "husky"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",

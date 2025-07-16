@@ -1,51 +1,48 @@
-# 🚀 Plesk Deployment Guide
+# 🚀 Simple Plesk Deployment Guide
 
-## ⚠️ Build Crashes? Read PLESK-TROUBLESHOOTING.md
+## Standard Deployment (Recommended)
 
-**If your build is crashing on Plesk, check the troubleshooting guide first:**
-📖 [PLESK-TROUBLESHOOTING.md](./PLESK-TROUBLESHOOTING.md)
-
-## Quick Fix for Build Crashes
-
-**Most common issue is memory constraints. Try these commands:**
+For most Plesk environments, use these simple commands:
 
 ```bash
-# Option 1: Use our deployment script (handles everything)
-chmod +x deploy-plesk.sh
-./deploy-plesk.sh
+# 1. Clean install
+npm install
 
-# Option 2: Manual minimal build
-NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk-minimal
+# 2. Build
+npm run build
 
-# Option 3: Ultra-minimal for very constrained environments
-NODE_OPTIONS="--max-old-space-size=1024" npm run build:fast
+# 3. Start
+npm start
 ```
 
-## ⚠️ Node.js v23.x Issue Fix
+## If You Get Memory Issues (Exit Code 137)
 
-**If you're getting engine warnings (Node.js v23.11.1):**
-
-### Step 1: Clean Installation (Required for Node.js v23)
+Try with memory limit:
 
 ```bash
-# Force remove everything
-rm -rf node_modules
-find . -name "node_modules" -type d -exec rm -rf {} + 2>/dev/null || true
-rm -f package-lock.json
+# Build with memory limit
+NODE_OPTIONS="--max-old-space-size=2048" npm run build
 
-# Clear cache
-npm cache clean --force
-
-# Install with engine override
-npm install --legacy-peer-deps --force --no-audit --no-fund
+# If that still fails, try lower memory
+NODE_OPTIONS="--max-old-space-size=1024" npm run build
 ```
 
-### Step 2: Use Deployment Script
+## Environment Variables
+
+Create `.env` file:
 
 ```bash
-chmod +x deploy-plesk.sh
-./deploy-plesk.sh
+DATABASE_URL="your_database_url"
+NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your_key"
+SUPABASE_SERVICE_ROLE_KEY="your_service_key"
 ```
+
+## Troubleshooting
+
+1. **Engine warnings**: The `.npmrc` file handles this automatically
+2. **Memory issues**: Use the memory limit commands above
+3. **Build fails**: Make sure all environment variables are set
 
 ## Quick Setup (Alternative Methods)
 
