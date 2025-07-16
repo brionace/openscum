@@ -5,11 +5,13 @@
 ### 1. Memory Issues (Most Common)
 
 **Error symptoms:**
+
 - Build process killed suddenly
 - "JavaScript heap out of memory"
 - Process exits without clear error
 
 **Solutions:**
+
 ```bash
 # Option A: Use minimal build
 npm run build:plesk-minimal
@@ -25,10 +27,12 @@ chmod +x deploy-plesk.sh
 ### 2. Node.js Engine Warnings
 
 **Error symptoms:**
+
 - "engine" warnings during npm install
 - "Cannot read properties of null"
 
 **Solutions:**
+
 ```bash
 # Force install ignoring engine requirements
 npm install --legacy-peer-deps --force --no-audit --no-fund
@@ -40,10 +44,12 @@ npm install --legacy-peer-deps --force --no-audit --no-fund
 ### 3. Prisma Client Issues
 
 **Error symptoms:**
+
 - "Cannot find module '@prisma/client'"
 - Prisma generate fails
 
 **Solutions:**
+
 ```bash
 # Manual Prisma generation
 npx prisma generate
@@ -58,10 +64,12 @@ npx prisma generate
 ### 4. TypeScript Compilation Errors
 
 **Error symptoms:**
+
 - Type errors during build
 - "Property 'x' does not exist on type 'y'"
 
 **Solutions:**
+
 - The `next.config.js` now includes `ignoreBuildErrors: true`
 - This allows builds to succeed even with type errors
 - Fix types after deployment if needed
@@ -69,10 +77,12 @@ npx prisma generate
 ### 5. Webpack Bundle Issues
 
 **Error symptoms:**
+
 - "Cannot resolve module"
 - Bundle errors during build
 
 **Solutions:**
+
 - Updated `next.config.js` with better fallbacks
 - Externalized problematic dependencies
 - Improved bundle splitting
@@ -80,12 +90,14 @@ npx prisma generate
 ## Step-by-Step Plesk Deployment
 
 ### Method 1: Automated Script (Recommended)
+
 ```bash
 chmod +x deploy-plesk.sh
 ./deploy-plesk.sh
 ```
 
 ### Method 2: Manual Commands
+
 ```bash
 # 1. Clean everything
 rm -rf node_modules package-lock.json
@@ -99,6 +111,7 @@ NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk-minimal
 ```
 
 ### Method 3: Ultra-Minimal (Last Resort)
+
 ```bash
 # For very constrained environments
 export NODE_OPTIONS="--max-old-space-size=1024"
@@ -110,6 +123,7 @@ npm run build:plesk-minimal
 ## Environment Variables for Plesk
 
 Create `.env` file with minimal configuration:
+
 ```bash
 # Required
 DATABASE_URL="your_database_url"
@@ -142,6 +156,7 @@ SUPABASE_SERVICE_ROLE_KEY="your_service_key"
 ## Build Success Verification
 
 After successful build, you should see:
+
 ```
 ✓ Compiled successfully
 Route (app)                     Size    First Load JS
@@ -152,6 +167,7 @@ Route (app)                     Size    First Load JS
 ## Getting Help
 
 If none of these solutions work:
+
 1. Check the exact error message in Plesk logs
 2. Verify your Plesk Node.js version and settings
 3. Consider upgrading your Plesk hosting plan for more memory
@@ -159,4 +175,4 @@ If none of these solutions work:
 
 ---
 
-*Last updated: January 2025 - Optimized for Node.js v23.x and memory-constrained environments*
+_Last updated: January 2025 - Optimized for Node.js v23.x and memory-constrained environments_

@@ -35,7 +35,11 @@ const nextConfig = {
     };
 
     // Ignore optional dependencies that cause warnings
-    config.externals = [...(config.externals || []), 'bufferutil', 'utf-8-validate'];
+    config.externals = [
+      ...(config.externals || []),
+      "bufferutil",
+      "utf-8-validate",
+    ];
 
     // Optimize bundle splitting
     if (!isServer) {
