@@ -21,7 +21,7 @@ Validates that all required environment variables are present.
 **Usage:**
 
 ```bash
-pnpm check:env
+npm run check:env
 ```
 
 ### 🗃️ `check-db-schema.js`
@@ -71,7 +71,7 @@ Starts a development server and tests API endpoint health.
 **Usage:**
 
 ```bash
-pnpm check:api
+npm run check:api
 ```
 
 ### 🚀 `build-validation.js`
@@ -90,19 +90,19 @@ Comprehensive build validation that runs all checks in sequence.
 **Usage:**
 
 ```bash
-pnpm check:all
+npm run check:all
 ```
 
 ## Package.json Scripts
 
-| Script            | Description                   |
-| ----------------- | ----------------------------- |
-| `pnpm check:all`  | Run complete build validation |
-| `pnpm check:env`  | Check environment variables   |
-| `pnpm check:db`   | Validate database schema      |
-| `pnpm check:api`  | Test API endpoint health      |
-| `pnpm build`      | Full build with validation    |
-| `pnpm build:fast` | Build without validation      |
+| Script               | Description                   |
+| -------------------- | ----------------------------- |
+| `npm run check:all`  | Run complete build validation |
+| `npm run check:env`  | Check environment variables   |
+| `npm run check:db`   | Validate database schema      |
+| `npm run check:api`  | Test API endpoint health      |
+| `npm run build`      | Full build with validation    |
+| `npm run build:fast` | Build without validation      |
 
 ## Git Hooks
 
@@ -140,7 +140,7 @@ The `.github/workflows/ci.yml` workflow runs these validations on:
 
 - Ensure DATABASE_URL is correct
 - Check database is running
-- Run `pnpm prisma db push` to apply schema
+- Run `npx prisma db push` to apply schema
 
 **Missing Environment Variables:**
 
@@ -149,7 +149,7 @@ The `.github/workflows/ci.yml` workflow runs these validations on:
 
 **Build Failures:**
 
-- Run `pnpm check:all` to see detailed error messages
+- Run `npm run check:all` to see detailed error messages
 - Check individual validation steps
 
 **API Health Check Timeout:**

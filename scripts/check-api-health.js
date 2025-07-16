@@ -8,7 +8,7 @@ async function checkAPIHealth() {
 
   try {
     // Start the Next.js server in background
-    server = spawn("pnpm", ["dev"], {
+    server = spawn("npm", ["run", "dev"], {
       stdio: "pipe",
       env: { ...process.env, NODE_ENV: "test", PORT: "3333" },
       detached: false,

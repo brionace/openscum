@@ -32,58 +32,41 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Setup environment variables
         run: |
           echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/scamlist_test" >> $GITHUB_ENV
 
       - name: Environment check
-        run: pnpm check:env
+        run: npm run check:env
 
       - name: Type check
-        run: pnpm typecheck
+        run: npm run typecheck
 
       - name: Lint
-        run: pnpm lint
+        run: npm run lint
 
       - name: Database setup
         run: |
-          pnpm prisma generate
-          pnpm prisma db push
+          npm run db:generate
+          npx prisma db push
 
       - name: Database validation
-        run: pnpm check:db
+        run: npm run check:db
 
       - name: Run tests
-        run: pnpm test:ci
+        run: npm run test:ci
 
       - name: Security audit
-        run: pnpm security:audit
+        run: npm run security:audit
         continue-on-error: true
 
       - name: Build
-        run: pnpm build:fast
+        run: npm run build:fast
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3

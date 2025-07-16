@@ -43,13 +43,13 @@ async function runBuildValidation() {
     },
     {
       name: "📝 Type Checking",
-      command: "pnpm",
-      args: ["typecheck"],
+      command: "npm",
+      args: ["run", "typecheck"],
     },
     {
       name: "🔍 Linting",
-      command: "pnpm",
-      args: ["lint"],
+      command: "npm",
+      args: ["run", "lint"],
     },
     // Skip tests in production builds (Vercel) due to React act() limitations
     ...(isProduction
@@ -57,19 +57,19 @@ async function runBuildValidation() {
       : [
           {
             name: "🧪 Running Tests",
-            command: "pnpm",
-            args: ["test:ci"],
+            command: "npm",
+            args: ["run", "test:ci"],
           },
         ]),
     {
       name: "🗃️  Database Schema Validation",
-      command: "pnpm",
-      args: ["db:generate"],
+      command: "npm",
+      args: ["run", "db:generate"],
     },
     {
       name: "🏗️  Build Validation",
-      command: "pnpm",
-      args: ["build:fast"],
+      command: "npm",
+      args: ["run", "build:fast"],
     },
   ];
 

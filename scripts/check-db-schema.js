@@ -14,7 +14,7 @@ async function validateSchema() {
     const scamTypeCount = await prisma.scamType.count();
     if (scamTypeCount === 0) {
       console.warn(
-        "⚠️  No scam types found - consider running: pnpm prisma db seed"
+        "⚠️  No scam types found - consider running: npx prisma db seed"
       );
     } else {
       console.log(`📊 Found ${scamTypeCount} scam types in database`);
@@ -47,7 +47,7 @@ async function validateSchema() {
       );
     } else if (error.code === "P2021") {
       console.error(
-        '💡 Tip: Run "pnpm prisma db push" to apply schema changes'
+        '💡 Tip: Run "npx prisma db push" to apply schema changes'
       );
     }
 
