@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "@/lib/date-utils";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";

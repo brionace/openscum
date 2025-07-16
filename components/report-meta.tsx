@@ -4,7 +4,7 @@ import React from "react";
 import { ScamReport } from "@/lib/types";
 import { Calendar, MapPin, MessageCircle, ThumbsUp, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "@/lib/date-utils";
 
 interface ReportMetaProps {
   report: ScamReport;
@@ -34,9 +34,7 @@ export function ReportMeta({
           <Calendar className="h-3 w-3" />
           <span>
             Posted{" "}
-            {formatDistanceToNow(new Date(report.createdAt), {
-              addSuffix: true,
-            })}
+            {formatDistanceToNow(new Date(report.createdAt))}
           </span>
         </div>
         {/* Location info */}

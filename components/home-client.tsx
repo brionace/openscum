@@ -348,23 +348,27 @@ export function HomeClient({
         </main>
       </div>
 
-      <QuickReportButton
-        onReportSubmitted={handleReportSubmitted}
-        prefill={reportPrefill}
-        open={reportModalOpen}
-        onOpenChange={setReportModalOpen}
-      />
+      <Suspense fallback={<div className="fixed bottom-6 right-6 w-14 h-14 bg-gray-200 rounded-full animate-pulse" />}>
+        <QuickReportButton
+          onReportSubmitted={handleReportSubmitted}
+          prefill={reportPrefill}
+          open={reportModalOpen}
+          onOpenChange={setReportModalOpen}
+        />
+      </Suspense>
 
       {/* Modal for report details/comments */}
       {activeReportId && (
-        <ReportModal
-          reportId={activeReportId}
-          open={commentModalOpen}
-          onOpenChange={handleCommentModalChange}
-          onVote={doVote}
-          onFlag={doFlag}
-          flagged={flaggedReports[activeReportId] || false}
-        />
+        <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 animate-pulse" />}>
+          <ReportModal
+            reportId={activeReportId}
+            open={commentModalOpen}
+            onOpenChange={handleCommentModalChange}
+            onVote={doVote}
+            onFlag={doFlag}
+            flagged={flaggedReports[activeReportId] || false}
+          />
+        </Suspense>
       )}
     </div>
   );

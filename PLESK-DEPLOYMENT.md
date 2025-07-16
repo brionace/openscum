@@ -59,8 +59,6 @@ yarn build
 2. Update with your actual values:
    ```
    DATABASE_URL="your_database_url"
-   NEXTAUTH_SECRET="your_secret"
-   NEXTAUTH_URL="https://yourdomain.com"
    ```
 
 ### Step 4: Start Application
@@ -108,8 +106,6 @@ npm install --no-optional --legacy-peer-deps
 
 **Optional (for full features):**
 
-- `NEXTAUTH_SECRET` - Random string for auth
-- `NEXTAUTH_URL` - Your website URL
 - `NEXT_PUBLIC_SUPABASE_URL` - If using Supabase
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - If using Supabase
 
