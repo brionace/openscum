@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { ScamReport, OutcomeType } from "@/lib/types";
 import { StatsData } from "@/lib/data/stats";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -9,10 +9,12 @@ import { FeaturesBar } from "@/components/features-bar";
 import { TrendingBar } from "@/components/trending-bar";
 // import { HighlightSection } from "@/components/highlight-section";
 import { ReportCard } from "@/components/report-card";
-import { QuickReportButton } from "@/components/quick-report-button";
-import { ReportModal } from "@/components/report-modal";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+
+// Lazy load heavy components
+const QuickReportButton = lazy(() => import("@/components/quick-report-button").then(m => ({ default: m.QuickReportButton })));
+const ReportModal = lazy(() => import("@/components/report-modal").then(m => ({ default: m.ReportModal })));
 
 interface HomeClientProps {
   initialReports: ScamReport[];
