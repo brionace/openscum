@@ -46,9 +46,7 @@ async function validateSchema() {
         "💡 Tip: Make sure your database is running and DATABASE_URL is correct"
       );
     } else if (error.code === "P2021") {
-      console.error(
-        '💡 Tip: Run "npx prisma db push" to apply schema changes'
-      );
+      console.error('💡 Tip: Run "npx prisma db push" to apply schema changes');
     }
 
     process.exit(1);
