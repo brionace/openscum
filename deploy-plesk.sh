@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Plesk Deployment Script - Fixed for Node.js v23.x
-# Handles engine warnings and file system issues
+# Plesk Deployment Script - Fixed for Node.js v23.x and memory issues
+# Handles engine warnings, file system issues, and memory constraints
 
 echo "🚀 Starting Plesk deployment (Node.js v23.x compatible)..."
 
@@ -15,16 +15,41 @@ rm -f package-lock.json
 echo "🗑️ Clearing npm cache..."
 npm cache clean --force 2>/dev/null || echo "Cache clean skipped"
 
-# Step 3: Install with engine override
+# Step 3: Set memory limit for Node.js
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# Step 4: Install with engine override and memory considerations
 echo "📦 Installing dependencies (ignoring engine warnings)..."
-npm install --legacy-peer-deps --no-audit --no-fund --force --no-optional
+npm install --legacy-peer-deps --no-audit --no-fund --force --no-optional --maxsockets 1
 
-# Step 4: Simple build
-echo "🏗️ Building application..."
-npm run build:plesk
+# Step 5: Generate Prisma client with error handling
+echo "🔧 Generating Prisma client..."
+npx prisma generate || echo "Prisma generate failed, trying alternative..."
 
-echo "✅ Deployment complete!"
-echo ""
-echo "Next steps:"
-echo "1. Set your environment variables in Plesk"
-echo "2. Run 'npm start' to start the application"
+# Step 6: Simple build with memory limit
+echo "🏗️ Building application with memory optimization..."
+NODE_OPTIONS="--max-old-space-size=4096" npm run build:plesk
+
+# Check if build succeeded
+if [ $? -eq 0 ]; then
+    echo "✅ Deployment complete!"
+    echo ""
+    echo "Next steps:"
+    echo "1. Set your environment variables in Plesk"
+    echo "2. Run 'npm start' to start the application"
+else
+    echo "❌ Build failed. Trying alternative build..."
+    
+    # Alternative build with even more constraints
+    echo "🔧 Attempting minimal build..."
+    NODE_OPTIONS="--max-old-space-size=2048" npm run build:fast || {
+        echo "❌ All build attempts failed."
+        echo "Check your Plesk environment:"
+        echo "- Ensure Node.js version is compatible"
+        echo "- Check available memory"
+        echo "- Verify all environment variables are set"
+        exit 1
+    }
+    
+    echo "✅ Alternative build completed!"
+fi

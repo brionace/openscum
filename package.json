@@ -29,6 +29,7 @@
     "check:api": "node scripts/check-api-health.js",
     "security:audit": "npm audit --audit-level moderate",
     "build:plesk": "prisma generate && next build",
+    "build:plesk-minimal": "NODE_OPTIONS='--max-old-space-size=2048' prisma generate && NODE_OPTIONS='--max-old-space-size=2048' next build",
     "install:plesk": "npm install --legacy-peer-deps --no-audit --no-fund",
     "postinstall": "prisma generate",
     "prepare": "husky"

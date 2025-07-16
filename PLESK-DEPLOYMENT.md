@@ -1,5 +1,26 @@
 # 🚀 Plesk Deployment Guide
 
+## ⚠️ Build Crashes? Read PLESK-TROUBLESHOOTING.md
+
+**If your build is crashing on Plesk, check the troubleshooting guide first:**
+📖 [PLESK-TROUBLESHOOTING.md](./PLESK-TROUBLESHOOTING.md)
+
+## Quick Fix for Build Crashes
+
+**Most common issue is memory constraints. Try these commands:**
+
+```bash
+# Option 1: Use our deployment script (handles everything)
+chmod +x deploy-plesk.sh
+./deploy-plesk.sh
+
+# Option 2: Manual minimal build
+NODE_OPTIONS="--max-old-space-size=2048" npm run build:plesk-minimal
+
+# Option 3: Ultra-minimal for very constrained environments
+NODE_OPTIONS="--max-old-space-size=1024" npm run build:fast
+```
+
 ## ⚠️ Node.js v23.x Issue Fix
 
 **If you're getting engine warnings (Node.js v23.11.1):**
