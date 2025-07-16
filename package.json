@@ -2,11 +2,15 @@
   "name": "openscum",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "build:with-checks": "prisma generate && pnpm run check:all && next build",
-    "build:vercel": "prisma generate && pnpm run check:env && pnpm typecheck && pnpm lint && next build",
+    "build:with-checks": "prisma generate && npm run check:all && next build",
+    "build:vercel": "prisma generate && npm run check:env && npm run typecheck && npm run lint && next build",
     "build:fast": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
@@ -23,7 +27,7 @@
     "check:env": "node scripts/check-env.js",
     "check:db": "prisma validate && prisma generate && node scripts/check-db-schema.js && node scripts/validate-trends-api.js",
     "check:api": "node scripts/check-api-health.js",
-    "security:audit": "pnpm audit --audit-level moderate",
+    "security:audit": "npm audit --audit-level moderate",
     "postinstall": "prisma generate",
     "prepare": "husky"
   },
