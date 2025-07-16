@@ -36,10 +36,7 @@ import {
   Phone,
   Users,
 } from "lucide-react";
-import currencies from "country-json/src/country-by-currency-code.json";
-import flags from "country-json/src/country-by-flag.json";
-import capitals from "country-json/src/country-by-capital-city.json";
-import cities from "country-json/src/country-by-capital-city.json";
+import { commonCountries, commonCurrencies, loadFullCountryData } from "@/lib/country-lite";
 import { countryCodeAndName, countryCity } from "@/lib/country";
 import { TypeDropdown } from "@/components/ui/type-dropdown";
 import OutcomeSection from "@/components/outcome-section";
