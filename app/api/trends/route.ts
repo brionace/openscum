@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     // Get scam type names (filter out nulls)
     const scamTypeIds = trendingTypes
-      .map((t: { scamTypeId: string | null }) => t.scamTypeId)
+      .map((t: any) => t.scamTypeId)
       .filter((id): id is string => !!id);
     const scamTypes = await prisma.scamType.findMany({
       where: { id: { in: scamTypeIds } },
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
     // Attach names
     const trending = trendingTypes.map(
-      (t: { scamTypeId: string | null; _count: { scamTypeId: number } }) => ({
+      (t: any) => ({
         scamTypeId: t.scamTypeId,
         name: t.scamTypeId ? scamTypeMap[t.scamTypeId] || "Unknown" : "Unknown",
         count: t._count.scamTypeId,

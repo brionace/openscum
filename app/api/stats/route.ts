@@ -30,11 +30,12 @@ export async function GET() {
       take: 1,
     });
 
-    const topScamType =
-      categoryStats[0]?.category
-        ?.replace(/_/g, " ")
+    const topScamType = categoryStats.length > 0 && (categoryStats[0] as any).category
+      ? (categoryStats[0] as any).category
+        .replace(/_/g, " ")
         .toLowerCase()
-        .replace(/\b\w/g, (l: string) => l.toUpperCase()) || "Phone Call";
+        .replace(/\b\w/g, (l: string) => l.toUpperCase())
+      : "Phone Call";
 
     // Simulate active users (in a real app, you'd track this)
     const activeUsers = Math.floor(totalReports * 0.1) + 42;
