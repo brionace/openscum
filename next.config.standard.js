@@ -10,7 +10,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Simplified webpack config for better Plesk compatibility
+  // Remove complex webpack configurations that cause Plesk issues
   webpack: (config, { isServer }) => {
     // Only essential configurations
     config.externals = [
@@ -21,6 +21,8 @@ const nextConfig = {
 
     return config;
   },
+  // Disable experimental features that may cause compatibility issues
+  experimental: {},
   // Standard output for traditional hosting
   output: 'standalone',
   // Disable source maps in production to reduce memory usage
