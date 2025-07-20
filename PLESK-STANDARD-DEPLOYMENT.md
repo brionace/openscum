@@ -5,12 +5,14 @@ This project has been simplified for reliable deployment on Plesk hosting enviro
 ## Quick Deployment
 
 ### Option 1: Automated Script
+
 ```bash
 chmod +x deploy-plesk-standard.sh
 ./deploy-plesk-standard.sh
 ```
 
 ### Option 2: Manual Deployment
+
 ```bash
 # 1. Clean and install
 rm -rf .next node_modules/.cache
@@ -63,7 +65,9 @@ npm run db:seed:reports
 ## Troubleshooting
 
 ### Build Fails Due to Memory
+
 Try the lower memory build variants:
+
 ```bash
 npm run build:minimal
 # or
@@ -71,17 +75,20 @@ npm run build:fast
 ```
 
 ### Module Not Found Errors
+
 ```bash
 rm -rf node_modules package-lock.json
 npm install --legacy-peer-deps
 ```
 
 ### Database Issues
+
 Make sure your DATABASE_URL is correct and the database is accessible.
 
 ## What Changed
 
 This setup removes:
+
 - Cloudflare Workers integration
 - Complex webpack configurations
 - Memory-intensive build optimizations

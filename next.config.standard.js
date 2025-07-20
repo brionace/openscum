@@ -24,7 +24,7 @@ const nextConfig = {
   // Disable experimental features that may cause compatibility issues
   experimental: {},
   // Standard output for traditional hosting
-  output: 'standalone',
+  output: "standalone",
   // Disable source maps in production to reduce memory usage
   productionBrowserSourceMaps: false,
 };

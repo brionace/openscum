@@ -39,12 +39,12 @@ npm run build:plesk
 
 Choose the right build command for your Plesk environment:
 
-| Command | Memory Usage | Use Case |
-|---------|-------------|----------|
-| `npm run build` | Standard | Local development |
-| `npm run build:plesk` | 2GB | Standard Plesk hosting |
-| `npm run build:minimal` | 1GB | Limited memory Plesk |
-| `npm run build:fast` | 512MB | Very constrained environments |
+| Command                 | Memory Usage | Use Case                      |
+| ----------------------- | ------------ | ----------------------------- |
+| `npm run build`         | Standard     | Local development             |
+| `npm run build:plesk`   | 2GB          | Standard Plesk hosting        |
+| `npm run build:minimal` | 1GB          | Limited memory Plesk          |
+| `npm run build:fast`    | 512MB        | Very constrained environments |
 
 ## 🔧 Environment Variables
 
@@ -85,18 +85,21 @@ Your application will be available on the port specified by your Plesk configura
 ## 💡 Performance Optimizations Applied
 
 ### 1. Next.js Configuration
+
 - **Standalone output**: Optimized for hosting environments
 - **Disabled source maps**: Reduces memory usage during build
 - **Image optimization disabled**: Compatible with shared hosting
 - **External packages**: Excluded problematic dependencies
 
 ### 2. Bundle Optimizations
+
 - **Smart code splitting**: Reduced initial bundle size by 90%
 - **Lazy loading**: Components load on demand
 - **Tree shaking**: Only used code is included
 - **Optimized imports**: Radix UI and Lucide React imports optimized
 
 ### 3. Memory Management
+
 - **Build scripts**: Multiple memory limit options
 - **TypeScript**: Build errors ignored to prevent memory issues
 - **ESLint**: Disabled during builds to save memory
@@ -141,6 +144,7 @@ npm run check:all
 ```
 
 This runs:
+
 - Environment variable validation
 - Database schema validation
 - TypeScript compilation

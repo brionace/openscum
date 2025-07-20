@@ -22,7 +22,7 @@ const nextConfig = {
     return config;
   },
   // Standard output for traditional hosting
-  output: 'standalone',
+  output: "standalone",
   // Disable source maps in production to reduce memory usage
   productionBrowserSourceMaps: false,
 };
