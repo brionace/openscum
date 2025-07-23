@@ -28,7 +28,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="openscum" />
         <meta
-          http-equiv="Content-Security-Policy"
+          httpEquiv="Content-Security-Policy"
           content="frame-ancestors 'self' https://www.google.com/"
         />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
