@@ -292,7 +292,7 @@ export function HomeClient({
         reports={reports}
       />
 
-      <div className="container max-w-6xl mx-auto px-2 md:px-4 py-6 flex flex-col lg:flex-row items-start gap-8">
+      <div className="container max-w-6xl mx-auto md:px-4 py-6 flex flex-col lg:flex-row items-start gap-8">
         {isDesktop && (
           <aside className="sticky top-20 w-80 shrink-0 hidden lg:block">
             <FeaturesBar />
