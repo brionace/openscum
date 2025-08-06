@@ -2,7 +2,14 @@
 
 import React from "react";
 import { ScamReport } from "@/lib/types";
-import { Calendar, MapPin, MessageCircle, ThumbsUp, Flag } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  MessageCircle,
+  ThumbsUp,
+  Flag,
+  Share2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "@/lib/date-utils";
 
@@ -15,6 +22,7 @@ interface ReportMetaProps {
   onVote?: (voteType: "helpful" | "not_helpful") => void;
   onFlag?: () => void;
   onCommentsClick?: (reportId: string) => void;
+  onShare?: () => void;
 }
 
 export function ReportMeta({
@@ -26,6 +34,7 @@ export function ReportMeta({
   onVote,
   onFlag,
   onCommentsClick,
+  onShare,
 }: ReportMetaProps) {
   return (
     <div className="flex items-start justify-between gap-3 text-xs text-muted-foreground pt-3 border-t">
@@ -94,6 +103,19 @@ export function ReportMeta({
             ? report._count.votes
             : null}
         </Button>
+
+        {/* Share Button */}
+        {onShare && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            onClick={onShare}
+            aria-label="Share report"
+          >
+            <Share2 className="h-4 w-4" />
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { SearchBar } from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
-import { Shield, AlertTriangle, EllipsisVertical } from "lucide-react";
+import { Shield, Plus, EllipsisVertical } from "lucide-react";
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FeaturesBar } from "@/components/features-bar";
@@ -49,7 +49,7 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {/* Right: Report button */}
         <Button onClick={onReportClick} size="lg">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="h-6 w-6" />
+            <Plus className="h-6 w-6" />
             <span className="hidden lg:inline">Report Scam</span>
           </div>
         </Button>

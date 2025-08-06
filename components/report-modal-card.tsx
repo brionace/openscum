@@ -171,56 +171,43 @@ export function ReportCard({
   return (
     <Card className="w-full p-0 border-0">
       <CardHeader className="p-0 pb-3">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap gap-2 mb-2 items-center">
-              {/* Scam Type Name */}
-              {report.scamType?.name && (
-                <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  {report.scamType.name}
-                </span>
-              )}
-              {/* Severity */}
-              {(report.severity === "HIGH" ||
-                report.severity === "CRITICAL") && (
-                <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  <AlertTriangle className="h-3 w-3" />
-                  {/* {report.severity} */}
-                </span>
-              )}
-              {report.reportCount > 1 && report.scamType?.id && (
-                <Link
-                  href={`/types/${report.scamType.id}`}
-                  className="underline text-blue-700"
-                >
-                  <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">
-                    {report.reportCount} reports
-                  </span>
-                </Link>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-1 items-center">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0"
-              onClick={handleShare}
-              aria-label="Share report"
+        <div className="flex flex-wrap gap-2 mb-2 items-center">
+          {/* Scam Type Name */}
+          {report.scamType?.name && (
+            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+              {report.scamType.name}
+            </span>
+          )}
+          {/* Severity */}
+          {(report.severity === "HIGH" || report.severity === "CRITICAL") && (
+            <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
+              <AlertTriangle className="h-3 w-3" />
+              {/* {report.severity} */}
+            </span>
+          )}
+          {report.reportCount > 1 && report.scamType?.id && (
+            <Link
+              href={`/types/${report.scamType.id}`}
+              className="underline text-blue-700"
             >
-              <Share2 className="h-4 w-4" />
-            </Button>
-          </div>
+              <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">
+                {report.reportCount} reports
+              </span>
+            </Link>
+          )}
         </div>
       </CardHeader>
 
       <CardContent className="space-y-4 p-0">
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-muted-foreground mb-4 whitespace-pre-wrap break-words">
           {report.description}
         </p>
 
         {/* Scammer Details */}
-        <ReportScammerDetails scammerDetails={report.scammerDetails} />
+        {Array.isArray(report.scammerDetails) &&
+          report.scammerDetails.length > 0 && (
+            <ReportScammerDetails scammerDetails={report.scammerDetails} />
+          )}
 
         {/* Outcome(s) */}
         {Array.isArray(report.outcome) && report.outcome.length > 0 && (
@@ -238,6 +225,7 @@ export function ReportCard({
           voting={voting}
           onVote={handleVote}
           onFlag={handleFlag}
+          onShare={handleShare}
         />
       </CardContent>
     </Card>

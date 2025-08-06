@@ -239,7 +239,9 @@ export function ReportCard({
         </p>
 
         {/* Scammer Details */}
-        <ReportScammerDetails scammerDetails={report.scammerDetails} />
+        {Array.isArray(report.scammerDetails) && report.scammerDetails.length > 0 && (
+          <ReportScammerDetails scammerDetails={report.scammerDetails} />
+        )}
 
         {/* Outcome(s) */}
         {Array.isArray(report.outcome) && report.outcome.length > 0 && (

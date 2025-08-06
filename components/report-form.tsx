@@ -532,7 +532,7 @@ export function ReportForm({
                           placeholder="Describe what happened, how the scam works, and any other relevant details"
                           rows={4}
                           {...field}
-                          className="text-base"
+                          className="text-base whitespace-pre-wrap"
                           onChange={(e) => {
                             field.onChange(e);
                             // Update sessionStorage with the latest user input
