@@ -36,9 +36,9 @@ export async function getStats(): Promise<StatsData> {
     ]);
 
     let topScamType = "";
-    if (scamTypeCounts.length > 0 && scamTypeCounts[0].scamTypeId) {
+    if (scamTypeCounts.length > 0 && (scamTypeCounts[0] as any).scamTypeId) {
       const topScamTypeRecord = await prisma.scamType.findUnique({
-        where: { id: scamTypeCounts[0].scamTypeId },
+        where: { id: (scamTypeCounts[0] as any).scamTypeId },
       });
       topScamType = topScamTypeRecord?.name || "";
     }

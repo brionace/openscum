@@ -110,7 +110,7 @@ export async function getReports({
       skip: offset,
     });
     // Filter out flagged reports in JS
-    const filtered = rawReports.filter((r) => r._count && r._count.flags < 3);
+    const filtered = rawReports.filter((r: any) => r._count && r._count.flags < 3);
     reports = filtered.slice(0, limit);
     total = filtered.length;
   }
