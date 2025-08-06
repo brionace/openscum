@@ -39,3 +39,9 @@ next-env.d.ts
 # cloudflare worker
 /.open-next/
 /open-next.json
+
+# git
+/.git
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
