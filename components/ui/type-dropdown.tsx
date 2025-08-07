@@ -77,8 +77,9 @@ export const TypeDropdown = React.forwardRef<
       }
 
       // Always add "Other (not on list)" option at the end
-      const otherOption: Option = { id: "other", name: "Other (not on list)" };
-      return [...baseOptions, otherOption];
+      // const otherOption: Option = { id: "other", name: "Other (not on list)" };
+      // return [...baseOptions, otherOption];
+      return [...baseOptions];
     }, [search, options, allOptions, showAllOnFocus]);
 
     // Click outside to close

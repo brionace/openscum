@@ -573,7 +573,7 @@ export function ReportForm({
                     <div className="flex flex-col gap-2">
                       <FormControl>
                         <Textarea
-                          placeholder="Describe what happened, how the scam works, and any other relevant details"
+                          placeholder="Describe what happened, how the scam works, and any other relevant details or copy and paste any messages/emails you received."
                           rows={4}
                           {...field}
                           className="text-base whitespace-pre-wrap"
@@ -641,25 +641,27 @@ export function ReportForm({
                             ? "Paraphrasing..."
                             : "Paraphrase with AI"}
                         </Button>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="h-10"
-                          disabled={
-                            paraphrasing ||
-                            !sessionStorage.getItem("originalDescription") ||
-                            field.value ===
-                              sessionStorage.getItem("originalDescription")
-                          }
-                          onClick={() => {
-                            const original = sessionStorage.getItem(
-                              "originalDescription"
-                            );
-                            if (original) field.onChange(original);
-                          }}
-                        >
-                          Revert
-                        </Button>
+                        {sessionStorage.getItem("originalDescription") && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className="h-10"
+                            disabled={
+                              paraphrasing ||
+                              !sessionStorage.getItem("originalDescription") ||
+                              field.value ===
+                                sessionStorage.getItem("originalDescription")
+                            }
+                            onClick={() => {
+                              const original = sessionStorage.getItem(
+                                "originalDescription"
+                              );
+                              if (original) field.onChange(original);
+                            }}
+                          >
+                            Revert
+                          </Button>
+                        )}
                       </div>
                       {paraphraseError && (
                         <div className="text-red-500 text-xs mt-1">
