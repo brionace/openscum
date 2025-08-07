@@ -54,13 +54,13 @@ const scammerDetailsSchema = z.object({
 });
 
 const reportSchema = z.object({
-  description: z.string().optional(),
+  description: z.string().min(20, "Description is required"),
   severity: z.string().default("MEDIUM"),
   scammerDetails: scammerDetailsSchema,
   reporterName: z.string().optional(),
   reporterEmail: z.string().optional(),
   anonymous: z.boolean().default(true),
-  scamTypeId: z.string().min(2, "Please select a Scam Type"),
+  scamTypeId: z.string().optional(),
   tags: z.array(z.string()).optional(),
   city: z.string().optional(),
   country: z.string().optional(),
@@ -500,7 +500,7 @@ export function ReportForm({
                     name="scamTypeId"
                     render={({ field, fieldState, formState }) => (
                       <FormItem>
-                        <FormLabel>Scam Type *</FormLabel>
+                        <FormLabel>Scam Type</FormLabel>
                         <FormControl>
                           <TypeDropdown
                             value={selectedScamType}
@@ -569,7 +569,10 @@ export function ReportForm({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Detailed Description (Optional)</FormLabel>
+                    <FormLabel>
+                      Detailed Description{" "}
+                      <span className="text-red-600">*</span>
+                    </FormLabel>
                     <div className="flex flex-col gap-2">
                       <FormControl>
                         <Textarea
