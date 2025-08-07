@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
@@ -18,69 +15,47 @@ datasource db {
 }
 
 model ScamReport {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Report Details
-  description String
-
-  // Scammer Details (JSON object: { phoneNumber, email, website, socialMedia, name })
+  id             String    @id @default(cuid())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  description    String
   scammerDetails Json?
+  city           String?
+  country        String?
+  region         String?
+  ipHash         String?
+  latitude       Float?
+  longitude      Float?
+  verified       Boolean   @default(false)
+  trustScore     Int       @default(1)
+  reportCount    Int       @default(1)
+  reporterName   String?
+  reporterEmail  String?
+  anonymous      Boolean   @default(true)
+  outcome        Json?
+  screenshots    String?
+  evidence       String?
+  scamTypeId     String?
+  comments       Comment[]
+  flags          Flag[]
+  scamType       ScamType? @relation(fields: [scamTypeId], references: [id])
+  votes          Vote[]
 
-  // Location Data
-  city      String?
-  country   String?
-  region    String?
-  ipHash    String? // Hashed IP for privacy
-  latitude  Float?
-  longitude Float?
-
-  // Verification & Trust
-  verified    Boolean @default(false)
-  trustScore  Int     @default(1)
-  reportCount Int     @default(1)
-
-  // Reporter Info (optional)
-  reporterName  String?
-  reporterEmail String?
-  anonymous     Boolean @default(true)
-
-  // Outcome (JSON array)
-  outcome Json?
-
-  // Additional Data (stored as JSON strings)
-  screenshots String? // JSON array of image URLs
-  evidence    String? // JSON array of evidence URLs
-
-  // Relations
-  comments Comment[]
-  votes    Vote[]
-  scamType ScamType? @relation(fields: [scamTypeId], references: [id])
-  flags    Flag[]
-
-  // New fields for Scam Type
-  scamTypeId String?
-
-  // Removed indexes for phoneNumber, email, website
   @@index([country, city])
   @@index([createdAt])
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
   content   String
-
-  reportId String
-  report   ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
-
-  parentId String?
-  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
-  replies  Comment[] @relation("CommentReplies")
-
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  reportId  String
+  parentId  String?
+  userId    String?
+  parent    Comment?   @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[]  @relation("CommentReplies")
+  report    ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  user      User?      @relation(fields: [userId], references: [id])
 
   @@index([reportId])
   @@index([parentId])
@@ -89,11 +64,10 @@ model Comment {
 model Vote {
   id       String     @id @default(cuid())
   reportId String
-  report   ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
-
   userId   String
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   voteType String
+  report   ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([reportId, userId])
   @@index([reportId])
@@ -103,15 +77,13 @@ model WikiPage {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  title    String  @unique
-  slug     String  @unique
-  content  String // Markdown content
-  category String
-  country  String? // Country-specific content
-
-  views    Int     @default(0)
-  featured Boolean @default(false)
+  title     String   @unique
+  slug      String   @unique
+  content   String
+  category  String
+  country   String?
+  views     Int      @default(0)
+  featured  Boolean  @default(false)
 
   @@index([category])
   @@index([country])
@@ -121,7 +93,7 @@ model WikiPage {
 model SearchCache {
   id          String   @id @default(cuid())
   query       String   @unique
-  results     String // JSON cached results
+  results     String
   lastUpdated DateTime @default(now())
   hitCount    Int      @default(1)
 
@@ -136,23 +108,32 @@ model AIScamReport {
   summary                String
   averageRiskLevel       String
   averageFinancialImpact Float
-  category               String // moved here from ScamReport
+  category               String
 }
 
 model ScamType {
-  id      String       @id @default(cuid())
-  name    String       @unique
-  reports ScamReport[]
+  id            String       @id @default(cuid())
+  name          String       @unique
+  createdAt     DateTime     @default(now())
+  createdBy     String?
+  isApproved    Boolean      @default(false)
+  isUserCreated Boolean      @default(false)
+  moderatedAt   DateTime?
+  moderatedBy   String?
+  reports       ScamReport[]
+
+  @@index([isApproved])
+  @@index([isUserCreated])
 }
 
 model Flag {
   id        String     @id @default(cuid())
   createdAt DateTime   @default(now())
   reportId  String
-  report    ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
   userId    String
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   reason    String?
+  report    ScamReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([reportId, userId])
   @@index([reportId])
@@ -167,20 +148,23 @@ model User {
   notificationSettings String         @default("{}")
   createdAt            DateTime       @default(now())
   updatedAt            DateTime       @updatedAt
+  role                 String         @default("user")
   comments             Comment[]
+  flags                Flag[]
   notifications        Notification[]
   votes                Vote[]
-  flags                Flag[]
+
+  @@index([role])
 }
 
 model Notification {
   id        String   @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      String
   data      String?
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model OutcomeType {

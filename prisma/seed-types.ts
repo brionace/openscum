@@ -114,12 +114,31 @@ async function main() {
   ];
 
   for (const name of scamTypes) {
-    await prisma.scamType.upsert({
-      where: { name },
-      update: {},
-      create: { name },
-    });
+    try {
+      await prisma.scamType.upsert({
+        where: { name },
+        update: {},
+        create: {
+          name,
+          isApproved: true,
+          isUserCreated: false,
+        },
+      });
+      console.log(`✓ Processed: ${name}`);
+    } catch (error) {
+      console.error(`✗ Error with ${name}:`, error);
+    }
   }
+
+  console.log("\nSeed completed! Checking results...");
+
+  const totalCount = await prisma.scamType.count();
+  const approvedCount = await prisma.scamType.count({
+    where: { isApproved: true },
+  });
+
+  console.log(`Total scam types: ${totalCount}`);
+  console.log(`Approved scam types: ${approvedCount}`);
 }
 
 main()

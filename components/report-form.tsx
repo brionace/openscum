@@ -260,20 +260,42 @@ export function ReportForm({
     if (!customScamTypeName.trim()) return;
 
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      // Add authorization header if user is logged in
+      if (session?.access_token) {
+        headers["Authorization"] = `Bearer ${session.access_token}`;
+      }
+
       const response = await fetch("/api/scam-types", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ name: customScamTypeName.trim() }),
       });
 
       if (response.ok) {
         const newScamType = await response.json();
-        setSelectedScamType(newScamType);
-        form.setValue("scamTypeId", newScamType.id);
-        form.clearErrors("scamTypeId");
 
-        // Add to options list
-        setScamTypeOptions((prev) => [newScamType, ...prev]);
+        // Check if the scam type needs approval
+        if (newScamType.message && newScamType.message.includes("approval")) {
+          // Show message about pending approval
+          console.log("Scam type submitted for approval:", newScamType.message);
+          // TODO: Show toast notification to user
+        } else {
+          setSelectedScamType(newScamType);
+          form.setValue("scamTypeId", newScamType.id);
+          form.clearErrors("scamTypeId");
+
+          // Add to options list
+          setScamTypeOptions((prev) => [newScamType, ...prev]);
+        }
+      } else if (response.status === 202) {
+        // Scam type is pending approval
+        const result = await response.json();
+        console.log("Scam type pending approval:", result.error);
+        // TODO: Show toast notification to user
       }
     } catch (error) {
       console.error("Failed to create custom scam type:", error);
@@ -288,18 +310,40 @@ export function ReportForm({
     if (!customTagName.trim()) return;
 
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      // Add authorization header if user is logged in
+      if (session?.access_token) {
+        headers["Authorization"] = `Bearer ${session.access_token}`;
+      }
+
       const response = await fetch("/api/scam-types", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ name: customTagName.trim() }),
       });
 
       if (response.ok) {
         const newTag = await response.json();
-        setSelectedTags((prev) => [...prev, newTag]);
 
-        // Add to options list
-        setTagOptions((prev) => [newTag, ...prev]);
+        // Check if the scam type needs approval
+        if (newTag.message && newTag.message.includes("approval")) {
+          // Show message about pending approval
+          console.log("Scam type submitted for approval:", newTag.message);
+          // TODO: Show toast notification to user
+        } else {
+          setSelectedTags((prev) => [...prev, newTag]);
+          // Add to options list for future selections
+          setScamTypeOptions((prev) => [newTag, ...prev]);
+          setTagOptions((prev) => [newTag, ...prev]);
+        }
+      } else if (response.status === 202) {
+        // Scam type is pending approval
+        const result = await response.json();
+        console.log("Scam type pending approval:", result.error);
+        // TODO: Show toast notification to user
       }
     } catch (error) {
       console.error("Failed to create custom tag:", error);

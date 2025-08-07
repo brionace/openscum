@@ -1780,14 +1780,14 @@ export namespace Prisma {
 
   export type ScamReportCountOutputType = {
     comments: number
-    votes: number
     flags: number
+    votes: number
   }
 
   export type ScamReportCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | ScamReportCountOutputTypeCountCommentsArgs
-    votes?: boolean | ScamReportCountOutputTypeCountVotesArgs
     flags?: boolean | ScamReportCountOutputTypeCountFlagsArgs
+    votes?: boolean | ScamReportCountOutputTypeCountVotesArgs
   }
 
   // Custom InputTypes
@@ -1811,15 +1811,15 @@ export namespace Prisma {
   /**
    * ScamReportCountOutputType without action
    */
-  export type ScamReportCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VoteWhereInput
+  export type ScamReportCountOutputTypeCountFlagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlagWhereInput
   }
 
   /**
    * ScamReportCountOutputType without action
    */
-  export type ScamReportCountOutputTypeCountFlagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FlagWhereInput
+  export type ScamReportCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VoteWhereInput
   }
 
 
@@ -1891,16 +1891,16 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     comments: number
+    flags: number
     notifications: number
     votes: number
-    flags: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | UserCountOutputTypeCountCommentsArgs
+    flags?: boolean | UserCountOutputTypeCountFlagsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     votes?: boolean | UserCountOutputTypeCountVotesArgs
-    flags?: boolean | UserCountOutputTypeCountFlagsArgs
   }
 
   // Custom InputTypes
@@ -1924,6 +1924,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountFlagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlagWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
   }
@@ -1933,13 +1940,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VoteWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountFlagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FlagWhereInput
   }
 
 
@@ -2278,9 +2278,9 @@ export namespace Prisma {
     evidence?: boolean
     scamTypeId?: boolean
     comments?: boolean | ScamReport$commentsArgs<ExtArgs>
-    votes?: boolean | ScamReport$votesArgs<ExtArgs>
-    scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
     flags?: boolean | ScamReport$flagsArgs<ExtArgs>
+    scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
+    votes?: boolean | ScamReport$votesArgs<ExtArgs>
     _count?: boolean | ScamReportCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scamReport"]>
 
@@ -2361,9 +2361,9 @@ export namespace Prisma {
   export type ScamReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "description" | "scammerDetails" | "city" | "country" | "region" | "ipHash" | "latitude" | "longitude" | "verified" | "trustScore" | "reportCount" | "reporterName" | "reporterEmail" | "anonymous" | "outcome" | "screenshots" | "evidence" | "scamTypeId", ExtArgs["result"]["scamReport"]>
   export type ScamReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | ScamReport$commentsArgs<ExtArgs>
-    votes?: boolean | ScamReport$votesArgs<ExtArgs>
-    scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
     flags?: boolean | ScamReport$flagsArgs<ExtArgs>
+    scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
+    votes?: boolean | ScamReport$votesArgs<ExtArgs>
     _count?: boolean | ScamReportCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScamReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2377,9 +2377,9 @@ export namespace Prisma {
     name: "ScamReport"
     objects: {
       comments: Prisma.$CommentPayload<ExtArgs>[]
-      votes: Prisma.$VotePayload<ExtArgs>[]
-      scamType: Prisma.$ScamTypePayload<ExtArgs> | null
       flags: Prisma.$FlagPayload<ExtArgs>[]
+      scamType: Prisma.$ScamTypePayload<ExtArgs> | null
+      votes: Prisma.$VotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2798,9 +2798,9 @@ export namespace Prisma {
   export interface Prisma__ScamReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     comments<T extends ScamReport$commentsArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    votes<T extends ScamReport$votesArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    scamType<T extends ScamReport$scamTypeArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$scamTypeArgs<ExtArgs>>): Prisma__ScamTypeClient<$Result.GetResult<Prisma.$ScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     flags<T extends ScamReport$flagsArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scamType<T extends ScamReport$scamTypeArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$scamTypeArgs<ExtArgs>>): Prisma__ScamTypeClient<$Result.GetResult<Prisma.$ScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    votes<T extends ScamReport$votesArgs<ExtArgs> = {}>(args?: Subset<T, ScamReport$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3271,27 +3271,27 @@ export namespace Prisma {
   }
 
   /**
-   * ScamReport.votes
+   * ScamReport.flags
    */
-  export type ScamReport$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ScamReport$flagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Vote
+     * Select specific fields to fetch from the Flag
      */
-    select?: VoteSelect<ExtArgs> | null
+    select?: FlagSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Vote
+     * Omit specific fields from the Flag
      */
-    omit?: VoteOmit<ExtArgs> | null
+    omit?: FlagOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VoteInclude<ExtArgs> | null
-    where?: VoteWhereInput
-    orderBy?: VoteOrderByWithRelationInput | VoteOrderByWithRelationInput[]
-    cursor?: VoteWhereUniqueInput
+    include?: FlagInclude<ExtArgs> | null
+    where?: FlagWhereInput
+    orderBy?: FlagOrderByWithRelationInput | FlagOrderByWithRelationInput[]
+    cursor?: FlagWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: VoteScalarFieldEnum | VoteScalarFieldEnum[]
+    distinct?: FlagScalarFieldEnum | FlagScalarFieldEnum[]
   }
 
   /**
@@ -3314,27 +3314,27 @@ export namespace Prisma {
   }
 
   /**
-   * ScamReport.flags
+   * ScamReport.votes
    */
-  export type ScamReport$flagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ScamReport$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Flag
+     * Select specific fields to fetch from the Vote
      */
-    select?: FlagSelect<ExtArgs> | null
+    select?: VoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Flag
+     * Omit specific fields from the Vote
      */
-    omit?: FlagOmit<ExtArgs> | null
+    omit?: VoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FlagInclude<ExtArgs> | null
-    where?: FlagWhereInput
-    orderBy?: FlagOrderByWithRelationInput | FlagOrderByWithRelationInput[]
-    cursor?: FlagWhereUniqueInput
+    include?: VoteInclude<ExtArgs> | null
+    where?: VoteWhereInput
+    orderBy?: VoteOrderByWithRelationInput | VoteOrderByWithRelationInput[]
+    cursor?: VoteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: FlagScalarFieldEnum | FlagScalarFieldEnum[]
+    distinct?: VoteScalarFieldEnum | VoteScalarFieldEnum[]
   }
 
   /**
@@ -3528,9 +3528,9 @@ export namespace Prisma {
     reportId?: boolean
     parentId?: boolean
     userId?: boolean
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
     replies?: boolean | Comment$repliesArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
     _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
@@ -3542,8 +3542,8 @@ export namespace Prisma {
     reportId?: boolean
     parentId?: boolean
     userId?: boolean
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
@@ -3554,8 +3554,8 @@ export namespace Prisma {
     reportId?: boolean
     parentId?: boolean
     userId?: boolean
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
@@ -3570,29 +3570,29 @@ export namespace Prisma {
 
   export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "content" | "reportId" | "parentId" | "userId", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
     replies?: boolean | Comment$repliesArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
     _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
   }
   export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     parent?: boolean | Comment$parentArgs<ExtArgs>
+    report?: boolean | ScamReportDefaultArgs<ExtArgs>
     user?: boolean | Comment$userArgs<ExtArgs>
   }
 
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
-      report: Prisma.$ScamReportPayload<ExtArgs>
       parent: Prisma.$CommentPayload<ExtArgs> | null
       replies: Prisma.$CommentPayload<ExtArgs>[]
+      report: Prisma.$ScamReportPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3996,9 +3996,9 @@ export namespace Prisma {
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    report<T extends ScamReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScamReportDefaultArgs<ExtArgs>>): Prisma__ScamReportClient<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     parent<T extends Comment$parentArgs<ExtArgs> = {}>(args?: Subset<T, Comment$parentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     replies<T extends Comment$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Comment$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    report<T extends ScamReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScamReportDefaultArgs<ExtArgs>>): Prisma__ScamReportClient<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends Comment$userArgs<ExtArgs> = {}>(args?: Subset<T, Comment$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8755,16 +8755,34 @@ export namespace Prisma {
   export type ScamTypeMinAggregateOutputType = {
     id: string | null
     name: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    isApproved: boolean | null
+    isUserCreated: boolean | null
+    moderatedAt: Date | null
+    moderatedBy: string | null
   }
 
   export type ScamTypeMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    createdAt: Date | null
+    createdBy: string | null
+    isApproved: boolean | null
+    isUserCreated: boolean | null
+    moderatedAt: Date | null
+    moderatedBy: string | null
   }
 
   export type ScamTypeCountAggregateOutputType = {
     id: number
     name: number
+    createdAt: number
+    createdBy: number
+    isApproved: number
+    isUserCreated: number
+    moderatedAt: number
+    moderatedBy: number
     _all: number
   }
 
@@ -8772,16 +8790,34 @@ export namespace Prisma {
   export type ScamTypeMinAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
+    createdBy?: true
+    isApproved?: true
+    isUserCreated?: true
+    moderatedAt?: true
+    moderatedBy?: true
   }
 
   export type ScamTypeMaxAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
+    createdBy?: true
+    isApproved?: true
+    isUserCreated?: true
+    moderatedAt?: true
+    moderatedBy?: true
   }
 
   export type ScamTypeCountAggregateInputType = {
     id?: true
     name?: true
+    createdAt?: true
+    createdBy?: true
+    isApproved?: true
+    isUserCreated?: true
+    moderatedAt?: true
+    moderatedBy?: true
     _all?: true
   }
 
@@ -8860,6 +8896,12 @@ export namespace Prisma {
   export type ScamTypeGroupByOutputType = {
     id: string
     name: string
+    createdAt: Date
+    createdBy: string | null
+    isApproved: boolean
+    isUserCreated: boolean
+    moderatedAt: Date | null
+    moderatedBy: string | null
     _count: ScamTypeCountAggregateOutputType | null
     _min: ScamTypeMinAggregateOutputType | null
     _max: ScamTypeMaxAggregateOutputType | null
@@ -8882,6 +8924,12 @@ export namespace Prisma {
   export type ScamTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: boolean
+    moderatedBy?: boolean
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scamType"]>
@@ -8889,19 +8937,37 @@ export namespace Prisma {
   export type ScamTypeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: boolean
+    moderatedBy?: boolean
   }, ExtArgs["result"]["scamType"]>
 
   export type ScamTypeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: boolean
+    moderatedBy?: boolean
   }, ExtArgs["result"]["scamType"]>
 
   export type ScamTypeSelectScalar = {
     id?: boolean
     name?: boolean
+    createdAt?: boolean
+    createdBy?: boolean
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: boolean
+    moderatedBy?: boolean
   }
 
-  export type ScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["scamType"]>
+  export type ScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "createdBy" | "isApproved" | "isUserCreated" | "moderatedAt" | "moderatedBy", ExtArgs["result"]["scamType"]>
   export type ScamTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
@@ -8917,6 +8983,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      createdAt: Date
+      createdBy: string | null
+      isApproved: boolean
+      isUserCreated: boolean
+      moderatedAt: Date | null
+      moderatedBy: string | null
     }, ExtArgs["result"]["scamType"]>
     composites: {}
   }
@@ -9343,6 +9415,12 @@ export namespace Prisma {
   interface ScamTypeFieldRefs {
     readonly id: FieldRef<"ScamType", 'String'>
     readonly name: FieldRef<"ScamType", 'String'>
+    readonly createdAt: FieldRef<"ScamType", 'DateTime'>
+    readonly createdBy: FieldRef<"ScamType", 'String'>
+    readonly isApproved: FieldRef<"ScamType", 'Boolean'>
+    readonly isUserCreated: FieldRef<"ScamType", 'Boolean'>
+    readonly moderatedAt: FieldRef<"ScamType", 'DateTime'>
+    readonly moderatedBy: FieldRef<"ScamType", 'String'>
   }
     
 
@@ -10858,6 +10936,7 @@ export namespace Prisma {
     notificationSettings: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    role: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -10869,6 +10948,7 @@ export namespace Prisma {
     notificationSettings: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    role: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -10880,6 +10960,7 @@ export namespace Prisma {
     notificationSettings: number
     createdAt: number
     updatedAt: number
+    role: number
     _all: number
   }
 
@@ -10893,6 +10974,7 @@ export namespace Prisma {
     notificationSettings?: true
     createdAt?: true
     updatedAt?: true
+    role?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -10904,6 +10986,7 @@ export namespace Prisma {
     notificationSettings?: true
     createdAt?: true
     updatedAt?: true
+    role?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -10915,6 +10998,7 @@ export namespace Prisma {
     notificationSettings?: true
     createdAt?: true
     updatedAt?: true
+    role?: true
     _all?: true
   }
 
@@ -10999,6 +11083,7 @@ export namespace Prisma {
     notificationSettings: string
     createdAt: Date
     updatedAt: Date
+    role: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -11027,10 +11112,11 @@ export namespace Prisma {
     notificationSettings?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    role?: boolean
     comments?: boolean | User$commentsArgs<ExtArgs>
+    flags?: boolean | User$flagsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     votes?: boolean | User$votesArgs<ExtArgs>
-    flags?: boolean | User$flagsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -11043,6 +11129,7 @@ export namespace Prisma {
     notificationSettings?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    role?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11054,6 +11141,7 @@ export namespace Prisma {
     notificationSettings?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    role?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -11065,14 +11153,15 @@ export namespace Prisma {
     notificationSettings?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "name" | "image" | "notificationSettings" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "name" | "image" | "notificationSettings" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | User$commentsArgs<ExtArgs>
+    flags?: boolean | User$flagsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     votes?: boolean | User$votesArgs<ExtArgs>
-    flags?: boolean | User$flagsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11082,9 +11171,9 @@ export namespace Prisma {
     name: "User"
     objects: {
       comments: Prisma.$CommentPayload<ExtArgs>[]
+      flags: Prisma.$FlagPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       votes: Prisma.$VotePayload<ExtArgs>[]
-      flags: Prisma.$FlagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11095,6 +11184,7 @@ export namespace Prisma {
       notificationSettings: string
       createdAt: Date
       updatedAt: Date
+      role: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -11490,9 +11580,9 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    flags<T extends User$flagsArgs<ExtArgs> = {}>(args?: Subset<T, User$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     votes<T extends User$votesArgs<ExtArgs> = {}>(args?: Subset<T, User$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    flags<T extends User$flagsArgs<ExtArgs> = {}>(args?: Subset<T, User$flagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11530,6 +11620,7 @@ export namespace Prisma {
     readonly notificationSettings: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly role: FieldRef<"User", 'String'>
   }
     
 
@@ -11942,6 +12033,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.flags
+   */
+  export type User$flagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flag
+     */
+    select?: FlagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flag
+     */
+    omit?: FlagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlagInclude<ExtArgs> | null
+    where?: FlagWhereInput
+    orderBy?: FlagOrderByWithRelationInput | FlagOrderByWithRelationInput[]
+    cursor?: FlagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FlagScalarFieldEnum | FlagScalarFieldEnum[]
+  }
+
+  /**
    * User.notifications
    */
   export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11987,30 +12102,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VoteScalarFieldEnum | VoteScalarFieldEnum[]
-  }
-
-  /**
-   * User.flags
-   */
-  export type User$flagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Flag
-     */
-    select?: FlagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Flag
-     */
-    omit?: FlagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FlagInclude<ExtArgs> | null
-    where?: FlagWhereInput
-    orderBy?: FlagOrderByWithRelationInput | FlagOrderByWithRelationInput[]
-    cursor?: FlagWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FlagScalarFieldEnum | FlagScalarFieldEnum[]
   }
 
   /**
@@ -14203,7 +14294,13 @@ export namespace Prisma {
 
   export const ScamTypeScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    createdAt: 'createdAt',
+    createdBy: 'createdBy',
+    isApproved: 'isApproved',
+    isUserCreated: 'isUserCreated',
+    moderatedAt: 'moderatedAt',
+    moderatedBy: 'moderatedBy'
   };
 
   export type ScamTypeScalarFieldEnum = (typeof ScamTypeScalarFieldEnum)[keyof typeof ScamTypeScalarFieldEnum]
@@ -14228,7 +14325,8 @@ export namespace Prisma {
     image: 'image',
     notificationSettings: 'notificationSettings',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    role: 'role'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -14409,9 +14507,9 @@ export namespace Prisma {
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
     comments?: CommentListRelationFilter
-    votes?: VoteListRelationFilter
-    scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
     flags?: FlagListRelationFilter
+    scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
+    votes?: VoteListRelationFilter
   }
 
   export type ScamReportOrderByWithRelationInput = {
@@ -14437,9 +14535,9 @@ export namespace Prisma {
     evidence?: SortOrderInput | SortOrder
     scamTypeId?: SortOrderInput | SortOrder
     comments?: CommentOrderByRelationAggregateInput
-    votes?: VoteOrderByRelationAggregateInput
-    scamType?: ScamTypeOrderByWithRelationInput
     flags?: FlagOrderByRelationAggregateInput
+    scamType?: ScamTypeOrderByWithRelationInput
+    votes?: VoteOrderByRelationAggregateInput
   }
 
   export type ScamReportWhereUniqueInput = Prisma.AtLeast<{
@@ -14468,9 +14566,9 @@ export namespace Prisma {
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
     comments?: CommentListRelationFilter
-    votes?: VoteListRelationFilter
-    scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
     flags?: FlagListRelationFilter
+    scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
+    votes?: VoteListRelationFilter
   }, "id">
 
   export type ScamReportOrderByWithAggregationInput = {
@@ -14539,9 +14637,9 @@ export namespace Prisma {
     reportId?: StringFilter<"Comment"> | string
     parentId?: StringNullableFilter<"Comment"> | string | null
     userId?: StringNullableFilter<"Comment"> | string | null
-    report?: XOR<ScamReportScalarRelationFilter, ScamReportWhereInput>
     parent?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
     replies?: CommentListRelationFilter
+    report?: XOR<ScamReportScalarRelationFilter, ScamReportWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
@@ -14552,9 +14650,9 @@ export namespace Prisma {
     reportId?: SortOrder
     parentId?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
-    report?: ScamReportOrderByWithRelationInput
     parent?: CommentOrderByWithRelationInput
     replies?: CommentOrderByRelationAggregateInput
+    report?: ScamReportOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -14568,9 +14666,9 @@ export namespace Prisma {
     reportId?: StringFilter<"Comment"> | string
     parentId?: StringNullableFilter<"Comment"> | string | null
     userId?: StringNullableFilter<"Comment"> | string | null
-    report?: XOR<ScamReportScalarRelationFilter, ScamReportWhereInput>
     parent?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
     replies?: CommentListRelationFilter
+    report?: XOR<ScamReportScalarRelationFilter, ScamReportWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
@@ -14855,12 +14953,24 @@ export namespace Prisma {
     NOT?: ScamTypeWhereInput | ScamTypeWhereInput[]
     id?: StringFilter<"ScamType"> | string
     name?: StringFilter<"ScamType"> | string
+    createdAt?: DateTimeFilter<"ScamType"> | Date | string
+    createdBy?: StringNullableFilter<"ScamType"> | string | null
+    isApproved?: BoolFilter<"ScamType"> | boolean
+    isUserCreated?: BoolFilter<"ScamType"> | boolean
+    moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
+    moderatedBy?: StringNullableFilter<"ScamType"> | string | null
     reports?: ScamReportListRelationFilter
   }
 
   export type ScamTypeOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    isApproved?: SortOrder
+    isUserCreated?: SortOrder
+    moderatedAt?: SortOrderInput | SortOrder
+    moderatedBy?: SortOrderInput | SortOrder
     reports?: ScamReportOrderByRelationAggregateInput
   }
 
@@ -14870,12 +14980,24 @@ export namespace Prisma {
     AND?: ScamTypeWhereInput | ScamTypeWhereInput[]
     OR?: ScamTypeWhereInput[]
     NOT?: ScamTypeWhereInput | ScamTypeWhereInput[]
+    createdAt?: DateTimeFilter<"ScamType"> | Date | string
+    createdBy?: StringNullableFilter<"ScamType"> | string | null
+    isApproved?: BoolFilter<"ScamType"> | boolean
+    isUserCreated?: BoolFilter<"ScamType"> | boolean
+    moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
+    moderatedBy?: StringNullableFilter<"ScamType"> | string | null
     reports?: ScamReportListRelationFilter
   }, "id" | "name">
 
   export type ScamTypeOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrderInput | SortOrder
+    isApproved?: SortOrder
+    isUserCreated?: SortOrder
+    moderatedAt?: SortOrderInput | SortOrder
+    moderatedBy?: SortOrderInput | SortOrder
     _count?: ScamTypeCountOrderByAggregateInput
     _max?: ScamTypeMaxOrderByAggregateInput
     _min?: ScamTypeMinOrderByAggregateInput
@@ -14887,6 +15009,12 @@ export namespace Prisma {
     NOT?: ScamTypeScalarWhereWithAggregatesInput | ScamTypeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ScamType"> | string
     name?: StringWithAggregatesFilter<"ScamType"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ScamType"> | Date | string
+    createdBy?: StringNullableWithAggregatesFilter<"ScamType"> | string | null
+    isApproved?: BoolWithAggregatesFilter<"ScamType"> | boolean
+    isUserCreated?: BoolWithAggregatesFilter<"ScamType"> | boolean
+    moderatedAt?: DateTimeNullableWithAggregatesFilter<"ScamType"> | Date | string | null
+    moderatedBy?: StringNullableWithAggregatesFilter<"ScamType"> | string | null
   }
 
   export type FlagWhereInput = {
@@ -14960,10 +15088,11 @@ export namespace Prisma {
     notificationSettings?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    role?: StringFilter<"User"> | string
     comments?: CommentListRelationFilter
+    flags?: FlagListRelationFilter
     notifications?: NotificationListRelationFilter
     votes?: VoteListRelationFilter
-    flags?: FlagListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14975,10 +15104,11 @@ export namespace Prisma {
     notificationSettings?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    role?: SortOrder
     comments?: CommentOrderByRelationAggregateInput
+    flags?: FlagOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     votes?: VoteOrderByRelationAggregateInput
-    flags?: FlagOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14993,10 +15123,11 @@ export namespace Prisma {
     notificationSettings?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    role?: StringFilter<"User"> | string
     comments?: CommentListRelationFilter
+    flags?: FlagListRelationFilter
     notifications?: NotificationListRelationFilter
     votes?: VoteListRelationFilter
-    flags?: FlagListRelationFilter
   }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -15008,6 +15139,7 @@ export namespace Prisma {
     notificationSettings?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    role?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -15025,6 +15157,7 @@ export namespace Prisma {
     notificationSettings?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    role?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type NotificationWhereInput = {
@@ -15161,9 +15294,9 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
-    votes?: VoteCreateNestedManyWithoutReportInput
-    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
     flags?: FlagCreateNestedManyWithoutReportInput
+    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
+    votes?: VoteCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportUncheckedCreateInput = {
@@ -15189,8 +15322,8 @@ export namespace Prisma {
     evidence?: string | null
     scamTypeId?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
-    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
+    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportUpdateInput = {
@@ -15215,9 +15348,9 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
-    votes?: VoteUpdateManyWithoutReportNestedInput
-    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
+    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
+    votes?: VoteUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportUncheckedUpdateInput = {
@@ -15243,8 +15376,8 @@ export namespace Prisma {
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
-    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
+    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportCreateManyInput = {
@@ -15322,9 +15455,9 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     content: string
-    report: ScamReportCreateNestedOneWithoutCommentsInput
     parent?: CommentCreateNestedOneWithoutRepliesInput
     replies?: CommentCreateNestedManyWithoutParentInput
+    report: ScamReportCreateNestedOneWithoutCommentsInput
     user?: UserCreateNestedOneWithoutCommentsInput
   }
 
@@ -15342,9 +15475,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: StringFieldUpdateOperationsInput | string
-    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
     parent?: CommentUpdateOneWithoutRepliesNestedInput
     replies?: CommentUpdateManyWithoutParentNestedInput
+    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
     user?: UserUpdateOneWithoutCommentsNestedInput
   }
 
@@ -15649,40 +15782,82 @@ export namespace Prisma {
   export type ScamTypeCreateInput = {
     id?: string
     name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
     reports?: ScamReportCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateInput = {
     id?: string
     name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
     reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeCreateManyInput = {
     id?: string
     name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
   }
 
   export type ScamTypeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ScamTypeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FlagCreateInput = {
@@ -15748,10 +15923,11 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentCreateNestedManyWithoutUserInput
+    flags?: FlagCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     votes?: VoteCreateNestedManyWithoutUserInput
-    flags?: FlagCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15763,10 +15939,11 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    flags?: FlagUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput
-    flags?: FlagUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15778,10 +15955,11 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUpdateManyWithoutUserNestedInput
+    flags?: FlagUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     votes?: VoteUpdateManyWithoutUserNestedInput
-    flags?: FlagUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15793,10 +15971,11 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
-    flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15808,6 +15987,7 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -15819,6 +15999,7 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -15830,6 +16011,7 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type NotificationCreateInput = {
@@ -16047,10 +16229,10 @@ export namespace Prisma {
     none?: CommentWhereInput
   }
 
-  export type VoteListRelationFilter = {
-    every?: VoteWhereInput
-    some?: VoteWhereInput
-    none?: VoteWhereInput
+  export type FlagListRelationFilter = {
+    every?: FlagWhereInput
+    some?: FlagWhereInput
+    none?: FlagWhereInput
   }
 
   export type ScamTypeNullableScalarRelationFilter = {
@@ -16058,10 +16240,10 @@ export namespace Prisma {
     isNot?: ScamTypeWhereInput | null
   }
 
-  export type FlagListRelationFilter = {
-    every?: FlagWhereInput
-    some?: FlagWhereInput
-    none?: FlagWhereInput
+  export type VoteListRelationFilter = {
+    every?: VoteWhereInput
+    some?: VoteWhereInput
+    none?: VoteWhereInput
   }
 
   export type SortOrderInput = {
@@ -16073,11 +16255,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type VoteOrderByRelationAggregateInput = {
+  export type FlagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type FlagOrderByRelationAggregateInput = {
+  export type VoteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16279,14 +16461,14 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type ScamReportScalarRelationFilter = {
-    is?: ScamReportWhereInput
-    isNot?: ScamReportWhereInput
-  }
-
   export type CommentNullableScalarRelationFilter = {
     is?: CommentWhereInput | null
     isNot?: CommentWhereInput | null
+  }
+
+  export type ScamReportScalarRelationFilter = {
+    is?: ScamReportWhereInput
+    isNot?: ScamReportWhereInput
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -16496,6 +16678,17 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type ScamReportListRelationFilter = {
     every?: ScamReportWhereInput
     some?: ScamReportWhereInput
@@ -16509,16 +16702,48 @@ export namespace Prisma {
   export type ScamTypeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    isApproved?: SortOrder
+    isUserCreated?: SortOrder
+    moderatedAt?: SortOrder
+    moderatedBy?: SortOrder
   }
 
   export type ScamTypeMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    isApproved?: SortOrder
+    isUserCreated?: SortOrder
+    moderatedAt?: SortOrder
+    moderatedBy?: SortOrder
   }
 
   export type ScamTypeMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    createdAt?: SortOrder
+    createdBy?: SortOrder
+    isApproved?: SortOrder
+    isUserCreated?: SortOrder
+    moderatedAt?: SortOrder
+    moderatedBy?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type FlagReportIdUserIdCompoundUniqueInput = {
@@ -16569,6 +16794,7 @@ export namespace Prisma {
     notificationSettings?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -16580,6 +16806,7 @@ export namespace Prisma {
     notificationSettings?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -16591,6 +16818,7 @@ export namespace Prisma {
     notificationSettings?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    role?: SortOrder
   }
 
   export type NotificationCountOrderByAggregateInput = {
@@ -16651,11 +16879,11 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
-  export type VoteCreateNestedManyWithoutReportInput = {
-    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
-    createMany?: VoteCreateManyReportInputEnvelope
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+  export type FlagCreateNestedManyWithoutReportInput = {
+    create?: XOR<FlagCreateWithoutReportInput, FlagUncheckedCreateWithoutReportInput> | FlagCreateWithoutReportInput[] | FlagUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: FlagCreateOrConnectWithoutReportInput | FlagCreateOrConnectWithoutReportInput[]
+    createMany?: FlagCreateManyReportInputEnvelope
+    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
   }
 
   export type ScamTypeCreateNestedOneWithoutReportsInput = {
@@ -16664,11 +16892,11 @@ export namespace Prisma {
     connect?: ScamTypeWhereUniqueInput
   }
 
-  export type FlagCreateNestedManyWithoutReportInput = {
-    create?: XOR<FlagCreateWithoutReportInput, FlagUncheckedCreateWithoutReportInput> | FlagCreateWithoutReportInput[] | FlagUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: FlagCreateOrConnectWithoutReportInput | FlagCreateOrConnectWithoutReportInput[]
-    createMany?: FlagCreateManyReportInputEnvelope
-    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+  export type VoteCreateNestedManyWithoutReportInput = {
+    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
+    createMany?: VoteCreateManyReportInputEnvelope
+    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
   }
 
   export type CommentUncheckedCreateNestedManyWithoutReportInput = {
@@ -16678,18 +16906,18 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
-  export type VoteUncheckedCreateNestedManyWithoutReportInput = {
-    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
-    createMany?: VoteCreateManyReportInputEnvelope
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-  }
-
   export type FlagUncheckedCreateNestedManyWithoutReportInput = {
     create?: XOR<FlagCreateWithoutReportInput, FlagUncheckedCreateWithoutReportInput> | FlagCreateWithoutReportInput[] | FlagUncheckedCreateWithoutReportInput[]
     connectOrCreate?: FlagCreateOrConnectWithoutReportInput | FlagCreateOrConnectWithoutReportInput[]
     createMany?: FlagCreateManyReportInputEnvelope
     connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+  }
+
+  export type VoteUncheckedCreateNestedManyWithoutReportInput = {
+    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
+    createMany?: VoteCreateManyReportInputEnvelope
+    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16738,30 +16966,6 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
-  export type VoteUpdateManyWithoutReportNestedInput = {
-    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
-    upsert?: VoteUpsertWithWhereUniqueWithoutReportInput | VoteUpsertWithWhereUniqueWithoutReportInput[]
-    createMany?: VoteCreateManyReportInputEnvelope
-    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    update?: VoteUpdateWithWhereUniqueWithoutReportInput | VoteUpdateWithWhereUniqueWithoutReportInput[]
-    updateMany?: VoteUpdateManyWithWhereWithoutReportInput | VoteUpdateManyWithWhereWithoutReportInput[]
-    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
-  }
-
-  export type ScamTypeUpdateOneWithoutReportsNestedInput = {
-    create?: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
-    connectOrCreate?: ScamTypeCreateOrConnectWithoutReportsInput
-    upsert?: ScamTypeUpsertWithoutReportsInput
-    disconnect?: ScamTypeWhereInput | boolean
-    delete?: ScamTypeWhereInput | boolean
-    connect?: ScamTypeWhereUniqueInput
-    update?: XOR<XOR<ScamTypeUpdateToOneWithWhereWithoutReportsInput, ScamTypeUpdateWithoutReportsInput>, ScamTypeUncheckedUpdateWithoutReportsInput>
-  }
-
   export type FlagUpdateManyWithoutReportNestedInput = {
     create?: XOR<FlagCreateWithoutReportInput, FlagUncheckedCreateWithoutReportInput> | FlagCreateWithoutReportInput[] | FlagUncheckedCreateWithoutReportInput[]
     connectOrCreate?: FlagCreateOrConnectWithoutReportInput | FlagCreateOrConnectWithoutReportInput[]
@@ -16774,6 +16978,30 @@ export namespace Prisma {
     update?: FlagUpdateWithWhereUniqueWithoutReportInput | FlagUpdateWithWhereUniqueWithoutReportInput[]
     updateMany?: FlagUpdateManyWithWhereWithoutReportInput | FlagUpdateManyWithWhereWithoutReportInput[]
     deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
+  }
+
+  export type ScamTypeUpdateOneWithoutReportsNestedInput = {
+    create?: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutReportsInput
+    upsert?: ScamTypeUpsertWithoutReportsInput
+    disconnect?: ScamTypeWhereInput | boolean
+    delete?: ScamTypeWhereInput | boolean
+    connect?: ScamTypeWhereUniqueInput
+    update?: XOR<XOR<ScamTypeUpdateToOneWithWhereWithoutReportsInput, ScamTypeUpdateWithoutReportsInput>, ScamTypeUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type VoteUpdateManyWithoutReportNestedInput = {
+    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
+    upsert?: VoteUpsertWithWhereUniqueWithoutReportInput | VoteUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: VoteCreateManyReportInputEnvelope
+    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    update?: VoteUpdateWithWhereUniqueWithoutReportInput | VoteUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: VoteUpdateManyWithWhereWithoutReportInput | VoteUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
   }
 
   export type CommentUncheckedUpdateManyWithoutReportNestedInput = {
@@ -16790,20 +17018,6 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
-  export type VoteUncheckedUpdateManyWithoutReportNestedInput = {
-    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
-    upsert?: VoteUpsertWithWhereUniqueWithoutReportInput | VoteUpsertWithWhereUniqueWithoutReportInput[]
-    createMany?: VoteCreateManyReportInputEnvelope
-    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
-    update?: VoteUpdateWithWhereUniqueWithoutReportInput | VoteUpdateWithWhereUniqueWithoutReportInput[]
-    updateMany?: VoteUpdateManyWithWhereWithoutReportInput | VoteUpdateManyWithWhereWithoutReportInput[]
-    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
-  }
-
   export type FlagUncheckedUpdateManyWithoutReportNestedInput = {
     create?: XOR<FlagCreateWithoutReportInput, FlagUncheckedCreateWithoutReportInput> | FlagCreateWithoutReportInput[] | FlagUncheckedCreateWithoutReportInput[]
     connectOrCreate?: FlagCreateOrConnectWithoutReportInput | FlagCreateOrConnectWithoutReportInput[]
@@ -16818,10 +17032,18 @@ export namespace Prisma {
     deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
   }
 
-  export type ScamReportCreateNestedOneWithoutCommentsInput = {
-    create?: XOR<ScamReportCreateWithoutCommentsInput, ScamReportUncheckedCreateWithoutCommentsInput>
-    connectOrCreate?: ScamReportCreateOrConnectWithoutCommentsInput
-    connect?: ScamReportWhereUniqueInput
+  export type VoteUncheckedUpdateManyWithoutReportNestedInput = {
+    create?: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput> | VoteCreateWithoutReportInput[] | VoteUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: VoteCreateOrConnectWithoutReportInput | VoteCreateOrConnectWithoutReportInput[]
+    upsert?: VoteUpsertWithWhereUniqueWithoutReportInput | VoteUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: VoteCreateManyReportInputEnvelope
+    set?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    disconnect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    delete?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
+    update?: VoteUpdateWithWhereUniqueWithoutReportInput | VoteUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: VoteUpdateManyWithWhereWithoutReportInput | VoteUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
   }
 
   export type CommentCreateNestedOneWithoutRepliesInput = {
@@ -16837,6 +17059,12 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type ScamReportCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<ScamReportCreateWithoutCommentsInput, ScamReportUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: ScamReportCreateOrConnectWithoutCommentsInput
+    connect?: ScamReportWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutCommentsInput = {
     create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
@@ -16848,14 +17076,6 @@ export namespace Prisma {
     connectOrCreate?: CommentCreateOrConnectWithoutParentInput | CommentCreateOrConnectWithoutParentInput[]
     createMany?: CommentCreateManyParentInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type ScamReportUpdateOneRequiredWithoutCommentsNestedInput = {
-    create?: XOR<ScamReportCreateWithoutCommentsInput, ScamReportUncheckedCreateWithoutCommentsInput>
-    connectOrCreate?: ScamReportCreateOrConnectWithoutCommentsInput
-    upsert?: ScamReportUpsertWithoutCommentsInput
-    connect?: ScamReportWhereUniqueInput
-    update?: XOR<XOR<ScamReportUpdateToOneWithWhereWithoutCommentsInput, ScamReportUpdateWithoutCommentsInput>, ScamReportUncheckedUpdateWithoutCommentsInput>
   }
 
   export type CommentUpdateOneWithoutRepliesNestedInput = {
@@ -16880,6 +17100,14 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutParentInput | CommentUpdateWithWhereUniqueWithoutParentInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutParentInput | CommentUpdateManyWithWhereWithoutParentInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type ScamReportUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<ScamReportCreateWithoutCommentsInput, ScamReportUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: ScamReportCreateOrConnectWithoutCommentsInput
+    upsert?: ScamReportUpsertWithoutCommentsInput
+    connect?: ScamReportWhereUniqueInput
+    update?: XOR<XOR<ScamReportUpdateToOneWithWhereWithoutCommentsInput, ScamReportUpdateWithoutCommentsInput>, ScamReportUncheckedUpdateWithoutCommentsInput>
   }
 
   export type UserUpdateOneWithoutCommentsNestedInput = {
@@ -16956,6 +17184,10 @@ export namespace Prisma {
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type ScamReportUpdateManyWithoutScamTypeNestedInput = {
     create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
@@ -17019,6 +17251,13 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type FlagCreateNestedManyWithoutUserInput = {
+    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
+    createMany?: FlagCreateManyUserInputEnvelope
+    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+  }
+
   export type NotificationCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -17033,18 +17272,18 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
   }
 
-  export type FlagCreateNestedManyWithoutUserInput = {
-    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
-    createMany?: FlagCreateManyUserInputEnvelope
-    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-  }
-
   export type CommentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
     createMany?: CommentCreateManyUserInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type FlagUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
+    createMany?: FlagCreateManyUserInputEnvelope
+    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -17061,13 +17300,6 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[]
   }
 
-  export type FlagUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
-    createMany?: FlagCreateManyUserInputEnvelope
-    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-  }
-
   export type CommentUpdateManyWithoutUserNestedInput = {
     create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
@@ -17080,6 +17312,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type FlagUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
+    upsert?: FlagUpsertWithWhereUniqueWithoutUserInput | FlagUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FlagCreateManyUserInputEnvelope
+    set?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    disconnect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    delete?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    update?: FlagUpdateWithWhereUniqueWithoutUserInput | FlagUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FlagUpdateManyWithWhereWithoutUserInput | FlagUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
   }
 
   export type NotificationUpdateManyWithoutUserNestedInput = {
@@ -17110,20 +17356,6 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
   }
 
-  export type FlagUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
-    upsert?: FlagUpsertWithWhereUniqueWithoutUserInput | FlagUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FlagCreateManyUserInputEnvelope
-    set?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    disconnect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    delete?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    update?: FlagUpdateWithWhereUniqueWithoutUserInput | FlagUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FlagUpdateManyWithWhereWithoutUserInput | FlagUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
-  }
-
   export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
@@ -17136,6 +17368,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type FlagUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
+    upsert?: FlagUpsertWithWhereUniqueWithoutUserInput | FlagUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FlagCreateManyUserInputEnvelope
+    set?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    disconnect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    delete?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
+    update?: FlagUpdateWithWhereUniqueWithoutUserInput | FlagUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FlagUpdateManyWithWhereWithoutUserInput | FlagUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17164,20 +17410,6 @@ export namespace Prisma {
     update?: VoteUpdateWithWhereUniqueWithoutUserInput | VoteUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: VoteUpdateManyWithWhereWithoutUserInput | VoteUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[]
-  }
-
-  export type FlagUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput> | FlagCreateWithoutUserInput[] | FlagUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FlagCreateOrConnectWithoutUserInput | FlagCreateOrConnectWithoutUserInput[]
-    upsert?: FlagUpsertWithWhereUniqueWithoutUserInput | FlagUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FlagCreateManyUserInputEnvelope
-    set?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    disconnect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    delete?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    connect?: FlagWhereUniqueInput | FlagWhereUniqueInput[]
-    update?: FlagUpdateWithWhereUniqueWithoutUserInput | FlagUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FlagUpdateManyWithWhereWithoutUserInput | FlagUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FlagScalarWhereInput | FlagScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -17409,6 +17641,31 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type CommentCreateWithoutReportInput = {
     id?: string
     createdAt?: Date | string
@@ -17437,43 +17694,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type VoteCreateWithoutReportInput = {
-    id?: string
-    voteType: string
-    user: UserCreateNestedOneWithoutVotesInput
-  }
-
-  export type VoteUncheckedCreateWithoutReportInput = {
-    id?: string
-    userId: string
-    voteType: string
-  }
-
-  export type VoteCreateOrConnectWithoutReportInput = {
-    where: VoteWhereUniqueInput
-    create: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput>
-  }
-
-  export type VoteCreateManyReportInputEnvelope = {
-    data: VoteCreateManyReportInput | VoteCreateManyReportInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ScamTypeCreateWithoutReportsInput = {
-    id?: string
-    name: string
-  }
-
-  export type ScamTypeUncheckedCreateWithoutReportsInput = {
-    id?: string
-    name: string
-  }
-
-  export type ScamTypeCreateOrConnectWithoutReportsInput = {
-    where: ScamTypeWhereUniqueInput
-    create: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
-  }
-
   export type FlagCreateWithoutReportInput = {
     id?: string
     createdAt?: Date | string
@@ -17495,6 +17715,55 @@ export namespace Prisma {
 
   export type FlagCreateManyReportInputEnvelope = {
     data: FlagCreateManyReportInput | FlagCreateManyReportInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ScamTypeCreateWithoutReportsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+  }
+
+  export type ScamTypeUncheckedCreateWithoutReportsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+  }
+
+  export type ScamTypeCreateOrConnectWithoutReportsInput = {
+    where: ScamTypeWhereUniqueInput
+    create: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
+  }
+
+  export type VoteCreateWithoutReportInput = {
+    id?: string
+    voteType: string
+    user: UserCreateNestedOneWithoutVotesInput
+  }
+
+  export type VoteUncheckedCreateWithoutReportInput = {
+    id?: string
+    userId: string
+    voteType: string
+  }
+
+  export type VoteCreateOrConnectWithoutReportInput = {
+    where: VoteWhereUniqueInput
+    create: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput>
+  }
+
+  export type VoteCreateManyReportInputEnvelope = {
+    data: VoteCreateManyReportInput | VoteCreateManyReportInput[]
     skipDuplicates?: boolean
   }
 
@@ -17526,53 +17795,6 @@ export namespace Prisma {
     userId?: StringNullableFilter<"Comment"> | string | null
   }
 
-  export type VoteUpsertWithWhereUniqueWithoutReportInput = {
-    where: VoteWhereUniqueInput
-    update: XOR<VoteUpdateWithoutReportInput, VoteUncheckedUpdateWithoutReportInput>
-    create: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput>
-  }
-
-  export type VoteUpdateWithWhereUniqueWithoutReportInput = {
-    where: VoteWhereUniqueInput
-    data: XOR<VoteUpdateWithoutReportInput, VoteUncheckedUpdateWithoutReportInput>
-  }
-
-  export type VoteUpdateManyWithWhereWithoutReportInput = {
-    where: VoteScalarWhereInput
-    data: XOR<VoteUpdateManyMutationInput, VoteUncheckedUpdateManyWithoutReportInput>
-  }
-
-  export type VoteScalarWhereInput = {
-    AND?: VoteScalarWhereInput | VoteScalarWhereInput[]
-    OR?: VoteScalarWhereInput[]
-    NOT?: VoteScalarWhereInput | VoteScalarWhereInput[]
-    id?: StringFilter<"Vote"> | string
-    reportId?: StringFilter<"Vote"> | string
-    userId?: StringFilter<"Vote"> | string
-    voteType?: StringFilter<"Vote"> | string
-  }
-
-  export type ScamTypeUpsertWithoutReportsInput = {
-    update: XOR<ScamTypeUpdateWithoutReportsInput, ScamTypeUncheckedUpdateWithoutReportsInput>
-    create: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
-    where?: ScamTypeWhereInput
-  }
-
-  export type ScamTypeUpdateToOneWithWhereWithoutReportsInput = {
-    where?: ScamTypeWhereInput
-    data: XOR<ScamTypeUpdateWithoutReportsInput, ScamTypeUncheckedUpdateWithoutReportsInput>
-  }
-
-  export type ScamTypeUpdateWithoutReportsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ScamTypeUncheckedUpdateWithoutReportsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
   export type FlagUpsertWithWhereUniqueWithoutReportInput = {
     where: FlagWhereUniqueInput
     update: XOR<FlagUpdateWithoutReportInput, FlagUncheckedUpdateWithoutReportInput>
@@ -17600,6 +17822,116 @@ export namespace Prisma {
     reason?: StringNullableFilter<"Flag"> | string | null
   }
 
+  export type ScamTypeUpsertWithoutReportsInput = {
+    update: XOR<ScamTypeUpdateWithoutReportsInput, ScamTypeUncheckedUpdateWithoutReportsInput>
+    create: XOR<ScamTypeCreateWithoutReportsInput, ScamTypeUncheckedCreateWithoutReportsInput>
+    where?: ScamTypeWhereInput
+  }
+
+  export type ScamTypeUpdateToOneWithWhereWithoutReportsInput = {
+    where?: ScamTypeWhereInput
+    data: XOR<ScamTypeUpdateWithoutReportsInput, ScamTypeUncheckedUpdateWithoutReportsInput>
+  }
+
+  export type ScamTypeUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ScamTypeUncheckedUpdateWithoutReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VoteUpsertWithWhereUniqueWithoutReportInput = {
+    where: VoteWhereUniqueInput
+    update: XOR<VoteUpdateWithoutReportInput, VoteUncheckedUpdateWithoutReportInput>
+    create: XOR<VoteCreateWithoutReportInput, VoteUncheckedCreateWithoutReportInput>
+  }
+
+  export type VoteUpdateWithWhereUniqueWithoutReportInput = {
+    where: VoteWhereUniqueInput
+    data: XOR<VoteUpdateWithoutReportInput, VoteUncheckedUpdateWithoutReportInput>
+  }
+
+  export type VoteUpdateManyWithWhereWithoutReportInput = {
+    where: VoteScalarWhereInput
+    data: XOR<VoteUpdateManyMutationInput, VoteUncheckedUpdateManyWithoutReportInput>
+  }
+
+  export type VoteScalarWhereInput = {
+    AND?: VoteScalarWhereInput | VoteScalarWhereInput[]
+    OR?: VoteScalarWhereInput[]
+    NOT?: VoteScalarWhereInput | VoteScalarWhereInput[]
+    id?: StringFilter<"Vote"> | string
+    reportId?: StringFilter<"Vote"> | string
+    userId?: StringFilter<"Vote"> | string
+    voteType?: StringFilter<"Vote"> | string
+  }
+
+  export type CommentCreateWithoutRepliesInput = {
+    id?: string
+    createdAt?: Date | string
+    content: string
+    parent?: CommentCreateNestedOneWithoutRepliesInput
+    report: ScamReportCreateNestedOneWithoutCommentsInput
+    user?: UserCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    createdAt?: Date | string
+    content: string
+    reportId: string
+    parentId?: string | null
+    userId?: string | null
+  }
+
+  export type CommentCreateOrConnectWithoutRepliesInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type CommentCreateWithoutParentInput = {
+    id?: string
+    createdAt?: Date | string
+    content: string
+    replies?: CommentCreateNestedManyWithoutParentInput
+    report: ScamReportCreateNestedOneWithoutCommentsInput
+    user?: UserCreateNestedOneWithoutCommentsInput
+  }
+
+  export type CommentUncheckedCreateWithoutParentInput = {
+    id?: string
+    createdAt?: Date | string
+    content: string
+    reportId: string
+    userId?: string | null
+    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type CommentCreateOrConnectWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommentCreateManyParentInputEnvelope = {
+    data: CommentCreateManyParentInput | CommentCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScamReportCreateWithoutCommentsInput = {
     id?: string
     createdAt?: Date | string
@@ -17621,9 +17953,9 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
-    votes?: VoteCreateNestedManyWithoutReportInput
-    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
     flags?: FlagCreateNestedManyWithoutReportInput
+    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
+    votes?: VoteCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportUncheckedCreateWithoutCommentsInput = {
@@ -17648,64 +17980,13 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
-    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
+    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportCreateOrConnectWithoutCommentsInput = {
     where: ScamReportWhereUniqueInput
     create: XOR<ScamReportCreateWithoutCommentsInput, ScamReportUncheckedCreateWithoutCommentsInput>
-  }
-
-  export type CommentCreateWithoutRepliesInput = {
-    id?: string
-    createdAt?: Date | string
-    content: string
-    report: ScamReportCreateNestedOneWithoutCommentsInput
-    parent?: CommentCreateNestedOneWithoutRepliesInput
-    user?: UserCreateNestedOneWithoutCommentsInput
-  }
-
-  export type CommentUncheckedCreateWithoutRepliesInput = {
-    id?: string
-    createdAt?: Date | string
-    content: string
-    reportId: string
-    parentId?: string | null
-    userId?: string | null
-  }
-
-  export type CommentCreateOrConnectWithoutRepliesInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
-  }
-
-  export type CommentCreateWithoutParentInput = {
-    id?: string
-    createdAt?: Date | string
-    content: string
-    report: ScamReportCreateNestedOneWithoutCommentsInput
-    replies?: CommentCreateNestedManyWithoutParentInput
-    user?: UserCreateNestedOneWithoutCommentsInput
-  }
-
-  export type CommentUncheckedCreateWithoutParentInput = {
-    id?: string
-    createdAt?: Date | string
-    content: string
-    reportId: string
-    userId?: string | null
-    replies?: CommentUncheckedCreateNestedManyWithoutParentInput
-  }
-
-  export type CommentCreateOrConnectWithoutParentInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
-  }
-
-  export type CommentCreateManyParentInputEnvelope = {
-    data: CommentCreateManyParentInput | CommentCreateManyParentInput[]
-    skipDuplicates?: boolean
   }
 
   export type UserCreateWithoutCommentsInput = {
@@ -17717,9 +17998,10 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
+    flags?: FlagCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     votes?: VoteCreateNestedManyWithoutUserInput
-    flags?: FlagCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -17731,14 +18013,60 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
+    flags?: FlagUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput
-    flags?: FlagUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type CommentUpsertWithoutRepliesInput = {
+    update: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
+    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type CommentUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    parent?: CommentUpdateOneWithoutRepliesNestedInput
+    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
+    user?: UserUpdateOneWithoutCommentsNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
+    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutParentInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutParentInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutParentInput>
   }
 
   export type ScamReportUpsertWithoutCommentsInput = {
@@ -17773,9 +18101,9 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
-    votes?: VoteUpdateManyWithoutReportNestedInput
-    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
+    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
+    votes?: VoteUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportUncheckedUpdateWithoutCommentsInput = {
@@ -17800,53 +18128,8 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
-    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
-  }
-
-  export type CommentUpsertWithoutRepliesInput = {
-    update: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
-    create: XOR<CommentCreateWithoutRepliesInput, CommentUncheckedCreateWithoutRepliesInput>
-    where?: CommentWhereInput
-  }
-
-  export type CommentUpdateToOneWithWhereWithoutRepliesInput = {
-    where?: CommentWhereInput
-    data: XOR<CommentUpdateWithoutRepliesInput, CommentUncheckedUpdateWithoutRepliesInput>
-  }
-
-  export type CommentUpdateWithoutRepliesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
-    parent?: CommentUpdateOneWithoutRepliesNestedInput
-    user?: UserUpdateOneWithoutCommentsNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutRepliesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    reportId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type CommentUpsertWithWhereUniqueWithoutParentInput = {
-    where: CommentWhereUniqueInput
-    update: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
-    create: XOR<CommentCreateWithoutParentInput, CommentUncheckedCreateWithoutParentInput>
-  }
-
-  export type CommentUpdateWithWhereUniqueWithoutParentInput = {
-    where: CommentWhereUniqueInput
-    data: XOR<CommentUpdateWithoutParentInput, CommentUncheckedUpdateWithoutParentInput>
-  }
-
-  export type CommentUpdateManyWithWhereWithoutParentInput = {
-    where: CommentScalarWhereInput
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutParentInput>
+    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type UserUpsertWithoutCommentsInput = {
@@ -17869,9 +18152,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
+    flags?: FlagUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     votes?: VoteUpdateManyWithoutUserNestedInput
-    flags?: FlagUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -17883,9 +18167,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
+    flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
-    flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ScamReportCreateWithoutVotesInput = {
@@ -17910,8 +18195,8 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
-    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
     flags?: FlagCreateNestedManyWithoutReportInput
+    scamType?: ScamTypeCreateNestedOneWithoutReportsInput
   }
 
   export type ScamReportUncheckedCreateWithoutVotesInput = {
@@ -17954,9 +18239,10 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
     flags?: FlagCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVotesInput = {
@@ -17968,9 +18254,10 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     flags?: FlagUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVotesInput = {
@@ -18011,8 +18298,8 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
-    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
+    scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
   }
 
   export type ScamReportUncheckedUpdateWithoutVotesInput = {
@@ -18061,9 +18348,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
     flags?: FlagUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVotesInput = {
@@ -18075,9 +18363,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ScamReportCreateWithoutScamTypeInput = {
@@ -18102,8 +18391,8 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
-    votes?: VoteCreateNestedManyWithoutReportInput
     flags?: FlagCreateNestedManyWithoutReportInput
+    votes?: VoteCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportUncheckedCreateWithoutScamTypeInput = {
@@ -18128,8 +18417,8 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
-    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
+    votes?: VoteUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportCreateOrConnectWithoutScamTypeInput = {
@@ -18207,8 +18496,8 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
-    votes?: VoteCreateNestedManyWithoutReportInput
     scamType?: ScamTypeCreateNestedOneWithoutReportsInput
+    votes?: VoteCreateNestedManyWithoutReportInput
   }
 
   export type ScamReportUncheckedCreateWithoutFlagsInput = {
@@ -18251,6 +18540,7 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     votes?: VoteCreateNestedManyWithoutUserInput
@@ -18265,6 +18555,7 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput
@@ -18308,8 +18599,8 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
-    votes?: VoteUpdateManyWithoutReportNestedInput
     scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
+    votes?: VoteUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportUncheckedUpdateWithoutFlagsInput = {
@@ -18358,6 +18649,7 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     votes?: VoteUpdateManyWithoutUserNestedInput
@@ -18372,6 +18664,7 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
@@ -18381,9 +18674,9 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     content: string
-    report: ScamReportCreateNestedOneWithoutCommentsInput
     parent?: CommentCreateNestedOneWithoutRepliesInput
     replies?: CommentCreateNestedManyWithoutParentInput
+    report: ScamReportCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateWithoutUserInput = {
@@ -18402,6 +18695,30 @@ export namespace Prisma {
 
   export type CommentCreateManyUserInputEnvelope = {
     data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FlagCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    reason?: string | null
+    report: ScamReportCreateNestedOneWithoutFlagsInput
+  }
+
+  export type FlagUncheckedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    reportId: string
+    reason?: string | null
+  }
+
+  export type FlagCreateOrConnectWithoutUserInput = {
+    where: FlagWhereUniqueInput
+    create: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput>
+  }
+
+  export type FlagCreateManyUserInputEnvelope = {
+    data: FlagCreateManyUserInput | FlagCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -18453,30 +18770,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type FlagCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    reason?: string | null
-    report: ScamReportCreateNestedOneWithoutFlagsInput
-  }
-
-  export type FlagUncheckedCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    reportId: string
-    reason?: string | null
-  }
-
-  export type FlagCreateOrConnectWithoutUserInput = {
-    where: FlagWhereUniqueInput
-    create: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput>
-  }
-
-  export type FlagCreateManyUserInputEnvelope = {
-    data: FlagCreateManyUserInput | FlagCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type CommentUpsertWithWhereUniqueWithoutUserInput = {
     where: CommentWhereUniqueInput
     update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
@@ -18491,6 +18784,22 @@ export namespace Prisma {
   export type CommentUpdateManyWithWhereWithoutUserInput = {
     where: CommentScalarWhereInput
     data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FlagUpsertWithWhereUniqueWithoutUserInput = {
+    where: FlagWhereUniqueInput
+    update: XOR<FlagUpdateWithoutUserInput, FlagUncheckedUpdateWithoutUserInput>
+    create: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput>
+  }
+
+  export type FlagUpdateWithWhereUniqueWithoutUserInput = {
+    where: FlagWhereUniqueInput
+    data: XOR<FlagUpdateWithoutUserInput, FlagUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FlagUpdateManyWithWhereWithoutUserInput = {
+    where: FlagScalarWhereInput
+    data: XOR<FlagUpdateManyMutationInput, FlagUncheckedUpdateManyWithoutUserInput>
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -18537,22 +18846,6 @@ export namespace Prisma {
     data: XOR<VoteUpdateManyMutationInput, VoteUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type FlagUpsertWithWhereUniqueWithoutUserInput = {
-    where: FlagWhereUniqueInput
-    update: XOR<FlagUpdateWithoutUserInput, FlagUncheckedUpdateWithoutUserInput>
-    create: XOR<FlagCreateWithoutUserInput, FlagUncheckedCreateWithoutUserInput>
-  }
-
-  export type FlagUpdateWithWhereUniqueWithoutUserInput = {
-    where: FlagWhereUniqueInput
-    data: XOR<FlagUpdateWithoutUserInput, FlagUncheckedUpdateWithoutUserInput>
-  }
-
-  export type FlagUpdateManyWithWhereWithoutUserInput = {
-    where: FlagScalarWhereInput
-    data: XOR<FlagUpdateManyMutationInput, FlagUncheckedUpdateManyWithoutUserInput>
-  }
-
   export type UserCreateWithoutNotificationsInput = {
     id?: string
     email: string
@@ -18562,9 +18855,10 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentCreateNestedManyWithoutUserInput
-    votes?: VoteCreateNestedManyWithoutUserInput
     flags?: FlagCreateNestedManyWithoutUserInput
+    votes?: VoteCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -18576,9 +18870,10 @@ export namespace Prisma {
     notificationSettings?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    role?: string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
-    votes?: VoteUncheckedCreateNestedManyWithoutUserInput
     flags?: FlagUncheckedCreateNestedManyWithoutUserInput
+    votes?: VoteUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -18606,9 +18901,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUpdateManyWithoutUserNestedInput
-    votes?: VoteUpdateManyWithoutUserNestedInput
     flags?: FlagUpdateManyWithoutUserNestedInput
+    votes?: VoteUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -18620,9 +18916,10 @@ export namespace Prisma {
     notificationSettings?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: StringFieldUpdateOperationsInput | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
-    votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
     flags?: FlagUncheckedUpdateManyWithoutUserNestedInput
+    votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CommentCreateManyReportInput = {
@@ -18633,17 +18930,17 @@ export namespace Prisma {
     userId?: string | null
   }
 
-  export type VoteCreateManyReportInput = {
-    id?: string
-    userId: string
-    voteType: string
-  }
-
   export type FlagCreateManyReportInput = {
     id?: string
     createdAt?: Date | string
     userId: string
     reason?: string | null
+  }
+
+  export type VoteCreateManyReportInput = {
+    id?: string
+    userId: string
+    voteType: string
   }
 
   export type CommentUpdateWithoutReportInput = {
@@ -18672,24 +18969,6 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type VoteUpdateWithoutReportInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    voteType?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutVotesNestedInput
-  }
-
-  export type VoteUncheckedUpdateWithoutReportInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    voteType?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type VoteUncheckedUpdateManyWithoutReportInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    voteType?: StringFieldUpdateOperationsInput | string
-  }
-
   export type FlagUpdateWithoutReportInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18711,6 +18990,24 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type VoteUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voteType?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutVotesNestedInput
+  }
+
+  export type VoteUncheckedUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    voteType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VoteUncheckedUpdateManyWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    voteType?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CommentCreateManyParentInput = {
     id?: string
     createdAt?: Date | string
@@ -18723,8 +19020,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: StringFieldUpdateOperationsInput | string
-    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
     replies?: CommentUpdateManyWithoutParentNestedInput
+    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
     user?: UserUpdateOneWithoutCommentsNestedInput
   }
 
@@ -18790,8 +19087,8 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
-    votes?: VoteUpdateManyWithoutReportNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
+    votes?: VoteUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportUncheckedUpdateWithoutScamTypeInput = {
@@ -18816,8 +19113,8 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
-    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
+    votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type ScamReportUncheckedUpdateManyWithoutScamTypeInput = {
@@ -18851,6 +19148,13 @@ export namespace Prisma {
     parentId?: string | null
   }
 
+  export type FlagCreateManyUserInput = {
+    id?: string
+    createdAt?: Date | string
+    reportId: string
+    reason?: string | null
+  }
+
   export type NotificationCreateManyUserInput = {
     id?: string
     type: string
@@ -18865,20 +19169,13 @@ export namespace Prisma {
     voteType: string
   }
 
-  export type FlagCreateManyUserInput = {
-    id?: string
-    createdAt?: Date | string
-    reportId: string
-    reason?: string | null
-  }
-
   export type CommentUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: StringFieldUpdateOperationsInput | string
-    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
     parent?: CommentUpdateOneWithoutRepliesNestedInput
     replies?: CommentUpdateManyWithoutParentNestedInput
+    report?: ScamReportUpdateOneRequiredWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutUserInput = {
@@ -18896,6 +19193,27 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     reportId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FlagUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    report?: ScamReportUpdateOneRequiredWithoutFlagsNestedInput
+  }
+
+  export type FlagUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportId?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FlagUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reportId?: StringFieldUpdateOperationsInput | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotificationUpdateWithoutUserInput = {
@@ -18938,27 +19256,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reportId?: StringFieldUpdateOperationsInput | string
     voteType?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type FlagUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    report?: ScamReportUpdateOneRequiredWithoutFlagsNestedInput
-  }
-
-  export type FlagUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reportId?: StringFieldUpdateOperationsInput | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type FlagUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reportId?: StringFieldUpdateOperationsInput | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
