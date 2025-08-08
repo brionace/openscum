@@ -169,7 +169,7 @@ export function ReportCard({
   };
 
   return (
-    <Card className="w-full p-0 border-0">
+    <Card className="w-full p-0 border-0 shadow-none">
       <CardHeader className="p-0 pb-3">
         <div className="flex flex-wrap gap-2 mb-2 items-center">
           {/* Scam Type Name */}

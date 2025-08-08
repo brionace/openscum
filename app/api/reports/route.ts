@@ -98,11 +98,11 @@ export async function POST(request: NextRequest) {
     };
 
     // Validate required fields
-    if (!scamTypeId) {
+    if (!description) {
       return NextResponse.json(
         {
           success: false,
-          error: "Scam Type is required.",
+          error: "Description is required.",
         },
         { status: 400 }
       );
@@ -175,6 +175,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Ensure scamTypeId is set to the 'Other' scam type ID if scamTypeId is empty
+    let finalScamTypeId = scamTypeId;
+    if (!finalScamTypeId) {
+      const otherType = await prisma.scamType.findFirst({
+        where: { name: "Other" },
+        select: { id: true },
+      });
+      if (!otherType) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Scam type "Other" not found in database.',
+          },
+          { status: 500 }
+        );
+      }
+      finalScamTypeId = otherType.id;
+    }
+
     // Create new report
     const report = await prisma.scamReport.create({
       data: {
@@ -194,7 +213,7 @@ export async function POST(request: NextRequest) {
         anonymous,
         screenshots: JSON.stringify([]),
         evidence: JSON.stringify([]),
-        scamTypeId,
+        scamTypeId: finalScamTypeId,
         outcome, // <-- store outcome as JSON
       },
       include: {

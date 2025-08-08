@@ -479,30 +479,27 @@ export function ReportForm({
     showNext?: boolean;
     showSubmit?: boolean;
   }) => (
-    <div className="flex justify-end">
-      {showSkip && (
-        <Button type="button" variant="ghost" onClick={skipStep}>
-          Skip
-        </Button>
-      )}
+    <div className="flex justify-between gap-2">
+      <div className="flex gap-2">
+        {showNext && (
+          <Button type="button" onClick={nextStep} variant="secondary">
+            Next
+          </Button>
+        )}
+        {showPrev && (
+          <Button type="button" onClick={prevStep} variant="secondary">
+            Back
+          </Button>
+        )}
+        {showSkip && (
+          <Button type="button" variant="ghost" onClick={skipStep}>
+            Skip
+          </Button>
+        )}
+      </div>
       {showSubmit && (
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" disabled={isSubmitting} form="report-form">
           {isSubmitting ? "Submitting..." : "Submit Report"}
-        </Button>
-      )}
-      {showPrev && (
-        <Button
-          type="button"
-          onClick={prevStep}
-          className="mr-2"
-          variant="secondary"
-        >
-          Back
-        </Button>
-      )}
-      {showNext && (
-        <Button type="button" onClick={nextStep} variant="secondary">
-          Next
         </Button>
       )}
     </div>
@@ -531,6 +528,7 @@ export function ReportForm({
         )}
         <Form {...form}>
           <form
+            id="report-form"
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-8"
           >
@@ -605,7 +603,7 @@ export function ReportForm({
                                 onOtherSelected={() =>
                                   setShowCustomScamTypeModal(true)
                                 }
-                                placeholder="Type to search..."
+                                placeholder="Click here to select a Scam Type"
                                 multi={false}
                                 showAllOnFocus={true}
                               />
@@ -628,12 +626,13 @@ export function ReportForm({
                           options={tagOptions}
                           onSearch={setTagSearch}
                           onOtherSelected={() => setShowCustomTagModal(true)}
-                          placeholder="Type to search..."
+                          placeholder="Click here to select tags"
                           multi={true}
                           showAllOnFocus={true}
                         />
                         <FormDescription>
-                          Add any related types to help others find this report.
+                          Add any additional Scam Types to help others find this
+                          report
                         </FormDescription>
                       </FormItem>
                     </div>
@@ -1055,7 +1054,7 @@ export function ReportForm({
                     </div>
                   </div>
                 </div>
-                <NavButtons showPrev={true} showSubmit={true} />
+                <NavButtons showPrev={true} showSubmit />
               </>
             )}
           </form>
