@@ -6,7 +6,7 @@ import { ReportCard } from "@/components/report-modal-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { AlertTriangle, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { ScamReport } from "@/lib/types";
 import { supabase } from "@/lib/supabaseClient";
 import VisuallyHidden from "./ui/visually-hidden";
@@ -162,10 +162,9 @@ export function ReportModal({
         className="lg:max-w-3xl mx-auto h-full max-h-full overflow-y-auto p-0"
       >
         <div id="modal-desc" className="p-12">
-          <DialogTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-6 w-6 text-red-500" />
-            Report a Scam
-          </DialogTitle>
+          <VisuallyHidden>
+            <DialogTitle></DialogTitle>
+          </VisuallyHidden>
           {report && (
             <ReportCard
               report={report}

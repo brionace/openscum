@@ -511,7 +511,7 @@ export function ReportForm({
   return (
     <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 mt-12">
           <AlertTriangle className="h-6 w-6 text-red-500" />
           Report a Scam
         </CardTitle>
@@ -922,7 +922,7 @@ export function ReportForm({
                           <FormLabel>Other Details</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Any other details e.g. bitcoin wallet address. Add one per line or comma separated."
+                              placeholder="Any other details (one per line or comma separated) e.g. bitcoin wallet address."
                               {...field}
                               className="text-base py-3"
                             />

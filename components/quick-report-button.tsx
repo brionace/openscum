@@ -80,7 +80,7 @@ export function QuickReportButton({
         ref={modalContentRef}
         className="lg:max-w-3xl mx-auto h-full max-h-full overflow-y-auto p-0"
       >
-        <VisuallyHidden>
+        <VisuallyHidden className="hidden">
           <DialogTitle></DialogTitle>
         </VisuallyHidden>
         <ReportForm
