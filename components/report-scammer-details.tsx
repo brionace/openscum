@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
-import { Phone, Mail, Globe, User } from "lucide-react";
+import { Phone, Mail, Globe, User, ShieldQuestion } from "lucide-react";
 
 interface ScammerDetails {
   phoneNumber?: string;
   email?: string;
   website?: string;
-  socialMedia?: string;
+  username?: string;
   name?: string;
+  other?: string;
 }
 
 interface ReportScammerDetailsProps {
@@ -28,36 +29,53 @@ export function ReportScammerDetails({
       <div className="space-y-2 mb-4">
         {scammerDetails.phoneNumber && (
           <div className="flex items-center gap-2 text-sm">
-            <Phone className="h-4 w-4 text-red-500" />
+            <Phone className="h-4 w-4 text-red-500" aria-label="Phone number" />
             <span className="font-mono">{scammerDetails.phoneNumber}</span>
           </div>
         )}
         {scammerDetails.email && (
           <div className="flex items-center gap-2 text-sm">
-            <Mail className="h-4 w-4 text-orange-500" />
+            <Mail
+              className="h-4 w-4 text-orange-500"
+              aria-label="Email address"
+            />
             <span className="font-mono">{scammerDetails.email}</span>
           </div>
         )}
         {scammerDetails.website && (
           <div className="flex items-center gap-2 text-sm">
-            <Globe className="h-4 w-4 text-blue-500" />
+            <Globe className="h-4 w-4 text-blue-500" aria-label="Website" />
             <span className="font-mono break-all">
               {scammerDetails.website}
             </span>
           </div>
         )}
-        {scammerDetails.socialMedia && (
+        {scammerDetails.username && (
           <div className="flex items-center gap-2 text-sm">
-            <Globe className="h-4 w-4 text-green-500" />
+            <User className="h-4 w-4 text-green-500" aria-label="Username" />
             <span className="font-mono break-all">
-              {scammerDetails.socialMedia}
+              {scammerDetails.username}
             </span>
           </div>
         )}
         {scammerDetails.name && (
           <div className="flex items-center gap-2 text-sm">
-            <User className="h-4 w-4 text-green-500" />
+            <User className="h-4 w-4 text-green-500" aria-label="Name" />
             <span className="font-mono">{scammerDetails.name}</span>
+          </div>
+        )}
+        {scammerDetails.other && (
+          <div className="flex items-center gap-2 text-sm">
+            <ShieldQuestion
+              className="h-4 w-4 text-green-500"
+              aria-label="Other"
+            />
+            <span className="font-mono">
+              {scammerDetails.other
+                .split(/<br\s*\/?>|,/i)
+                .map((item) => item.trim())
+                .join(", ")}
+            </span>
           </div>
         )}
       </div>

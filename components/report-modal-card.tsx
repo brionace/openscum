@@ -204,17 +204,17 @@ export function ReportCard({
         </p>
 
         {/* Scammer Details */}
-        {Array.isArray(report.scammerDetails) &&
-          report.scammerDetails.length > 0 && (
+        {report.scammerDetails &&
+          Object.keys(report.scammerDetails).length > 0 && (
             <ReportScammerDetails scammerDetails={report.scammerDetails} />
           )}
 
         {/* Outcome(s) */}
-        {Array.isArray(report.outcome) && report.outcome.length > 0 && (
+        {/* {Array.isArray(report.outcome) && report.outcome.length > 0 && (
           <div className="mb-4">
             <ReportOutcome outcome={report.outcome} />
           </div>
-        )}
+        )} */}
 
         {/* Meta Information */}
         <ReportMeta

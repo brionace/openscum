@@ -1,6 +1,7 @@
 // npx tsx prisma/seed-outcome-types.ts
 import prisma from "@/lib/prisma";
 import fetch from "node-fetch";
+import compareTwoStrings from "string-similarity-js";
 
 const API_TOKEN = "m8wkplbego3r0dq7sxhvt1a5fc2jz6";
 const BASE_URL = "https://scamsearch.io/api/search-with-wild";
@@ -35,73 +36,122 @@ async function isDuplicate(report: any): Promise<boolean> {
   const normalizedDescription = report.description.trim().toLowerCase();
 
   // Check for existing report with similar description
-  const descMatch = await prisma.scamReport.findFirst({
+  const definiteMatch = await prisma.scamReport.findFirst({
     where: {
       description: { equals: normalizedDescription },
+      scamTypeId: report.scamTypeId,
     },
     select: { id: true },
   });
+  if (definiteMatch) return true;
 
-  // Check for existing report with same scammer email, phone, or website
-  const scammerEmail = report.scammerDetails.email;
-  const scammerPhone = report.scammerDetails.phoneNumber;
-  // const socialMedia = report.scammerDetails.socialMedia;
-
-  const scammerMatch = await prisma.scamReport.findFirst({
-    where: {
-      OR: [
-        { scammerDetails: { path: ["email"], equals: scammerEmail } },
-        { scammerDetails: { path: ["phoneNumber"], equals: scammerPhone } },
-        // { scammerDetails: { path: ["username"], equals: socialMedia } },
-      ],
-    },
-    select: { id: true },
+  // Fuzzy duplicate: description similarity > 70% with same scamTypeId
+  const candidates = await prisma.scamReport.findMany({
+    where: { scamTypeId: report.scamTypeId },
+    select: { description: true },
   });
+  for (const candidate of candidates) {
+    const candidateDesc = candidate.description.trim().toLowerCase();
+    const similarity = compareTwoStrings(normalizedDescription, candidateDesc);
+    if (similarity > 0.7) {
+      return true;
+    }
+  }
 
-  return !!descMatch || !!scammerMatch;
+  // Build OR array only for non-empty scammer details
+  const scammerChecks = [];
+  if (report.scammerDetails.email) {
+    scammerChecks.push({
+      scammerDetails: { path: ["email"], equals: report.scammerDetails.email },
+    });
+  }
+  if (report.scammerDetails.phoneNumber) {
+    scammerChecks.push({
+      scammerDetails: {
+        path: ["phoneNumber"],
+        equals: report.scammerDetails.phoneNumber,
+      },
+    });
+  }
+  if (report.scammerDetails.socialMedia) {
+    scammerChecks.push({
+      scammerDetails: {
+        path: ["socialMedia"],
+        equals: report.scammerDetails.socialMedia,
+      },
+    });
+  }
+  if (report.scammerDetails.name) {
+    scammerChecks.push({
+      scammerDetails: { path: ["name"], equals: report.scammerDetails.name },
+    });
+  }
+  if (report.scammerDetails.website) {
+    scammerChecks.push({
+      scammerDetails: {
+        path: ["website"],
+        equals: report.scammerDetails.website,
+      },
+    });
+  }
+
+  let scammerMatch = null;
+  if (scammerChecks.length > 0) {
+    scammerMatch = await prisma.scamReport.findFirst({
+      where: {
+        OR: scammerChecks,
+      },
+      select: { id: true },
+    });
+  }
+
+  return !!scammerMatch;
 }
 
 async function importReports() {
   // Get all scamType names from the database
   const scamTypes = await prisma.scamType.findMany({ select: { name: true } });
-  // const scamTypeNames = scamTypes.map((t) => t.name).filter(Boolean);
-  const scamTypeNames = [
-    "Romance Scam",
-    "EBay Scam",
-    "Phone Scam",
-    "Email Scam",
-    "Phishing",
-    "Website Scam",
-    "Crypto Scam",
-    "Pension Scam",
-    "Investment Scam",
-    "Giftcard Scam",
-    "Card Scam",
-    "dating app",
-    "tinder",
-    "Bumble",
-    "Hinge",
-    "OkCupid",
-    "Badoo",
-    "Plenty of Fish",
-    "online marketing scams",
-    "blackmail",
-    "crypto",
-    "debt",
-    "romance",
-    "ransomware",
-    "bitcoin",
-    "sextortion",
-    "fraud",
-    "phishing",
-    "tech support",
-    "Blackmail",
-    "investment",
-    "instagram",
-    "facebook",
-    "email",
-    "other",
-  ];
+  const scamTypeNames = scamTypes
+    .slice(50)
+    .map((t) => t.name)
+    .filter(Boolean);
+  // const scamTypeNames = [
+  //   "Romance Scam",
+  //   "EBay Scam",
+  //   "Phone Scam",
+  //   "Email Scam",
+  //   "Phishing",
+  //   "Website Scam",
+  //   "Crypto Scam",
+  //   "Pension Scam",
+  //   "Investment Scam",
+  //   "Giftcard Scam",
+  //   "Card Scam",
+  //   "dating app",
+  //   "tinder",
+  //   "Bumble",
+  //   "Hinge",
+  //   "OkCupid",
+  //   "Badoo",
+  //   "Plenty of Fish",
+  //   "online marketing scams",
+  //   "blackmail",
+  //   "crypto",
+  //   "debt",
+  //   "romance",
+  //   "ransomware",
+  //   "bitcoin",
+  //   "sextortion",
+  //   "fraud",
+  //   "phishing",
+  //   "tech support",
+  //   "Blackmail",
+  //   "investment",
+  //   "instagram",
+  //   "facebook",
+  //   "email",
+  //   "other",
+  // ];
 
   for (const scamTypeName of scamTypeNames) {
     const searchConfig = {
@@ -127,7 +177,11 @@ async function importReports() {
       };
 
       // Check for duplicates
-      const duplicate = await isDuplicate({ description, scammerDetails });
+      const duplicate = await isDuplicate({
+        description,
+        scammerDetails,
+        scamTypeId,
+      });
       if (duplicate) {
         console.log(
           `Duplicate found, skipping: ${description.slice(0, 40)}...`
