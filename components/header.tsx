@@ -51,7 +51,7 @@ export function Header({ onReportClick, reports }: HeaderProps) {
           onClick={onReportClick}
           size="default"
           variant="secondary"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-gradient-to-br from-blue-50 via-red-50 to-green-50"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden lg:inline">Report Scam</span>
