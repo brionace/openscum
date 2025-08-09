@@ -18,8 +18,8 @@ async function fetchReports(config: Record<string, string>) {
   const url = `${BASE_URL}?${params}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`);
-  const data = await res.json();
-  return data?.result || [];
+  const data = (await res.json()) as { result?: any[] };
+  return data.result ?? [];
 }
 
 async function getScamTypeId(typeName: string): Promise<string | null> {
