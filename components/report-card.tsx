@@ -14,7 +14,7 @@ import {
   Globe,
   Share2,
   Flag,
-  ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,7 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
+import { severityBLColors, severityColors } from "@/lib/utils";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -36,13 +37,6 @@ interface ReportCardProps {
   flagged?: boolean;
   hideTypeLink?: boolean;
 }
-
-const severityColors = {
-  LOW: "border-l-yellow-400",
-  MEDIUM: "border-l-orange-400",
-  HIGH: "border-l-red-400",
-  CRITICAL: "border-l-red-600",
-};
 
 export function ReportCard({
   report,
@@ -178,13 +172,11 @@ export function ReportCard({
     }
   };
 
-  console.log({ report });
-
   return (
     <Card
       className={`w-full border-l-4 ${
-        severityColors[
-          (report.severity as keyof typeof severityColors) || "LOW"
+        severityBLColors[
+          (report.severity as keyof typeof severityBLColors) || "LOW"
         ]
       } hover:shadow-lg transition-shadow`}
     >
@@ -204,7 +196,7 @@ export function ReportCard({
               <AlertTriangle
                 className={`h-3 w-3 ${
                   severityColors[
-                    (report.severity as keyof typeof severityColors) || "LOW"
+                    report.severity as keyof typeof severityBLColors
                   ]
                 }`}
                 aria-label={"Severity: " + report.severity}
@@ -240,7 +232,7 @@ export function ReportCard({
               onClick={() => onCommentsClick?.(report.id)}
               aria-label="View report details"
             >
-              <ChevronRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -254,7 +246,14 @@ export function ReportCard({
         {/* Scammer Details */}
         {report.scammerDetails &&
           Object.keys(report.scammerDetails).length > 0 && (
-            <ReportScammerDetails scammerDetails={report.scammerDetails} />
+            <ReportScammerDetails
+              scammerDetails={report.scammerDetails}
+              severity={
+                report.severity === null || report.severity === undefined
+                  ? undefined
+                  : (report.severity as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
+              }
+            />
           )}
 
         {/* Outcome(s) */}

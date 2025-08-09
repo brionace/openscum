@@ -47,11 +47,14 @@ export function Header({ onReportClick, reports }: HeaderProps) {
           </div>
         </div>
         {/* Right: Report button */}
-        <Button onClick={onReportClick} size="lg">
-          <div className="flex items-center gap-2">
-            <Plus className="h-6 w-6" />
-            <span className="hidden lg:inline">Report Scam</span>
-          </div>
+        <Button
+          onClick={onReportClick}
+          size="icon"
+          variant="secondary"
+          className="flex items-center gap-2"
+        >
+          <Plus className="h-4 w-4" />
+          <span className="hidden lg:inline">Report Scam</span>
         </Button>
       </div>
     </header>

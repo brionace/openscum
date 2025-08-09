@@ -24,6 +24,7 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
+import { severityColors } from "@/lib/utils";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -33,13 +34,6 @@ interface ReportCardProps {
   onFlag?: (reportId: string, flag: boolean) => void; // NEW
   flagged?: boolean; // <-- add flagged prop
 }
-
-const severityColors = {
-  LOW: "border-l-yellow-400",
-  MEDIUM: "border-l-orange-400",
-  HIGH: "border-l-red-400",
-  CRITICAL: "border-l-red-600",
-};
 
 export function ReportCard({
   report,
@@ -175,9 +169,7 @@ export function ReportCard({
           {/* Severity */}
           <AlertTriangle
             className={`h-3 w-3 ${
-              severityColors[
-                (report.severity as keyof typeof severityColors) || "LOW"
-              ]
+              severityColors[report.severity as keyof typeof severityColors]
             }`}
             aria-label={"Severity: " + report.severity}
           />
