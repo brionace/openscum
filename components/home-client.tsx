@@ -299,7 +299,7 @@ export function HomeClient({
           </aside>
         )}
         <main className="space-y-8">
-          <TrendingBar />
+          {/* <TrendingBar /> */}
 
           <div className="space-y-6">
             {/* <div className="flex justify-between items-center">

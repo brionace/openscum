@@ -170,17 +170,17 @@ export function ReportCard({
 
   return (
     <Card className="w-full p-0 border-0 shadow-none">
-      <CardHeader className="p-0 pb-3">
+      <CardHeader className="p-0 pb-3 mt-12">
         <div className="flex flex-wrap gap-2 mb-2 items-center">
           {/* Scam Type Name */}
           {report.scamType?.name && (
-            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 py-0.5 rounded text-xs font-semibold">
               {report.scamType.name}
             </span>
           )}
           {/* Severity */}
           {(report.severity === "HIGH" || report.severity === "CRITICAL") && (
-            <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
+            <span className="flex items-center gap-1 bg-red-100 text-red-800 py-0.5 rounded text-xs font-semibold">
               <AlertTriangle className="h-3 w-3" />
               {/* {report.severity} */}
             </span>

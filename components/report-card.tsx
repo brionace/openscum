@@ -186,7 +186,7 @@ export function ReportCard({
     //   ]
     // } hover:shadow-lg transition-shadow`}
     >
-      <CardHeader className="pb-3">
+      <CardHeader className="p-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 items-center">
@@ -233,7 +233,7 @@ export function ReportCard({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 p-3">
         <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
           {report.description}
         </p>

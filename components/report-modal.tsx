@@ -161,7 +161,7 @@ export function ReportModal({
         aria-describedby="modal-desc"
         className="lg:max-w-3xl mx-auto h-full max-h-full overflow-y-auto p-0"
       >
-        <div id="modal-desc" className="p-12">
+        <div id="modal-desc" className="p-6">
           <VisuallyHidden>
             <DialogTitle></DialogTitle>
           </VisuallyHidden>
