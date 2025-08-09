@@ -180,11 +180,11 @@ export function ReportCard({
 
   return (
     <Card
-    // className={`w-full border-l-4 ${
-    //   severityColors[
-    //     (report.severity as keyof typeof severityColors) || "LOW"
-    //   ]
-    // } hover:shadow-lg transition-shadow`}
+      className={`w-full border-l-4 ${
+        severityColors[
+          (report.severity as keyof typeof severityColors) || "LOW"
+        ]
+      } hover:shadow-lg transition-shadow`}
     >
       <CardHeader className="p-3">
         <div className="flex items-center justify-between gap-3">

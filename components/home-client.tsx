@@ -329,7 +329,7 @@ export function HomeClient({
               </Button>
             </div> */}
 
-            <div className="grid gap-6">
+            <div className="grid gap-6 p-2">
               {reports.map((report) => (
                 <ReportCard
                   key={report.id}

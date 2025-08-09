@@ -179,12 +179,14 @@ export function ReportCard({
             </span>
           )}
           {/* Severity */}
-          {(report.severity === "HIGH" || report.severity === "CRITICAL") && (
-            <span className="flex items-center gap-1 bg-red-100 text-red-800 py-0.5 rounded text-xs font-semibold">
-              <AlertTriangle className="h-3 w-3" />
-              {/* {report.severity} */}
-            </span>
-          )}
+          <AlertTriangle
+            className={`h-3 w-3 ${
+              severityColors[
+                (report.severity as keyof typeof severityColors) || "LOW"
+              ]
+            }`}
+            aria-label={"Severity: " + report.severity}
+          />
           {report.reportCount > 1 && report.scamType?.id && (
             <Link
               href={`/types/${report.scamType.id}`}
