@@ -178,6 +178,8 @@ export function ReportCard({
     }
   };
 
+  console.log({ report });
+
   return (
     <Card
       className={`w-full border-l-4 ${
@@ -190,6 +192,23 @@ export function ReportCard({
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 items-center">
+              {/* Severity */}
+              {/* {(report.severity === "HIGH" ||
+                report.severity === "CRITICAL") && (
+                <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
+                  <AlertTriangle className="h-3 w-3" />
+                  {report.severity}
+                </span>
+              )}
+               */}
+              <AlertTriangle
+                className={`h-3 w-3 ${
+                  severityColors[
+                    (report.severity as keyof typeof severityColors) || "LOW"
+                  ]
+                }`}
+                aria-label={"Severity: " + report.severity}
+              />
               {/* Scam Type Name */}
               {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
@@ -201,15 +220,9 @@ export function ReportCard({
                   </span>
                 </Link>
               )} */}
-              <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-                {report.scamType?.name}
-              </span>
-              {/* Severity */}
-              {(report.severity === "HIGH" ||
-                report.severity === "CRITICAL") && (
-                <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  <AlertTriangle className="h-3 w-3" />
-                  {/* {report.severity} */}
+              {report.scamType?.name === "Other" ? null : (
+                <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+                  {report.scamType?.name}
                 </span>
               )}
               {report.reportCount > 1 && report.scamType?.id && (

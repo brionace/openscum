@@ -172,12 +172,6 @@ export function ReportCard({
     <Card className="w-full p-0 border-0 shadow-none">
       <CardHeader className="p-0 pb-3 mt-12">
         <div className="flex flex-wrap gap-2 mb-2 items-center">
-          {/* Scam Type Name */}
-          {report.scamType?.name && (
-            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 py-0.5 rounded text-xs font-semibold">
-              {report.scamType.name}
-            </span>
-          )}
           {/* Severity */}
           <AlertTriangle
             className={`h-3 w-3 ${
@@ -187,6 +181,12 @@ export function ReportCard({
             }`}
             aria-label={"Severity: " + report.severity}
           />
+          {/* Scam Type Name */}
+          {report.scamType?.name && (
+            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 py-0.5 rounded text-xs font-semibold">
+              {report.scamType.name}
+            </span>
+          )}
           {report.reportCount > 1 && report.scamType?.id && (
             <Link
               href={`/types/${report.scamType.id}`}
