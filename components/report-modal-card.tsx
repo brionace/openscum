@@ -35,7 +35,7 @@ interface ReportCardProps {
   flagged?: boolean; // <-- add flagged prop
 }
 
-export function ReportCard({
+export function ReportModalCard({
   report,
   onShare,
   onVote,

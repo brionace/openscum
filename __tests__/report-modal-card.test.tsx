@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { ReportCard } from "@/components/report-modal-card";
+import { ReportModalCard } from "@/components/report-modal-card";
 import React from "react";
 
 const mockReport = {
@@ -42,7 +42,7 @@ const mockReport = {
 
 describe("ReportModalCard", () => {
   it("renders report details", async () => {
-    render(<ReportCard report={mockReport} />);
+    render(<ReportModalCard report={mockReport} />);
     expect(
       screen.getByText("Test scam report description")
     ).toBeInTheDocument();
@@ -53,7 +53,9 @@ describe("ReportModalCard", () => {
 
   it("shows authentication required for flag toggle", async () => {
     const onFlag = jest.fn();
-    render(<ReportCard report={mockReport} onFlag={onFlag} flagged={false} />);
+    render(
+      <ReportModalCard report={mockReport} onFlag={onFlag} flagged={false} />
+    );
     const flagBtn = screen.getByLabelText(/flag report/i);
     fireEvent.click(flagBtn);
     // Since user is not authenticated (from our mock), onFlag should NOT be called
@@ -63,14 +65,14 @@ describe("ReportModalCard", () => {
   it("handles share", () => {
     const onShare = jest.fn();
     Object.assign(navigator, { clipboard: { writeText: jest.fn() } });
-    render(<ReportCard report={mockReport} onShare={onShare} />);
+    render(<ReportModalCard report={mockReport} onShare={onShare} />);
     fireEvent.click(screen.getByLabelText("Share report"));
     expect(onShare).toHaveBeenCalledWith(mockReport);
   });
 
   it("shows authentication required for voting", async () => {
     const onVote = jest.fn();
-    render(<ReportCard report={mockReport} onVote={onVote} />);
+    render(<ReportModalCard report={mockReport} onVote={onVote} />);
     const voteBtn = screen.getByLabelText(/thumbs up/i);
     fireEvent.click(voteBtn);
     // Since user is not authenticated (from our mock), onVote should NOT be called

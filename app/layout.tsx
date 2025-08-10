@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { SupabaseUserProvider } from "@/components/SupabaseUserContext";
 
@@ -10,9 +10,15 @@ export const metadata: Metadata = {
   description:
     "Protect yourself and others by checking, reporting, and learning about scams. Community-driven fraud prevention.",
   keywords: "scam, fraud, protection, reporting, safety, community",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
-  themeColor: "#ef4444",
   manifest: "/manifest.json",
+};
+
+// Next.js 14: move viewport and themeColor to the dedicated export
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ef4444",
 };
 
 export default function RootLayout({
@@ -23,12 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="theme-color" content="#ef4444" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="openscum" />
         <meta
-          http-equiv="Content-Security-Policy"
+          httpEquiv="Content-Security-Policy"
           content="frame-ancestors 'self' https://www.google.com/"
         />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />

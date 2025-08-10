@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { ReportCard } from "@/components/report-modal-card";
+import { ReportModalCard } from "@/components/report-modal-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -155,6 +155,8 @@ export function ReportModal({
     }
   };
 
+  console.log({ report });
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -166,7 +168,7 @@ export function ReportModal({
             <DialogTitle></DialogTitle>
           </VisuallyHidden>
           {report && (
-            <ReportCard
+            <ReportModalCard
               report={report}
               onVote={onVote}
               onFlag={onFlag}
