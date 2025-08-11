@@ -112,15 +112,17 @@ model AIScamReport {
 }
 
 model ScamType {
-  id            String       @id @default(cuid())
-  name          String       @unique
-  createdAt     DateTime     @default(now())
+  id            String                  @id @default(cuid())
+  name          String                  @unique
+  createdAt     DateTime                @default(now())
   createdBy     String?
-  isApproved    Boolean      @default(false)
-  isUserCreated Boolean      @default(false)
+  isApproved    Boolean                 @default(false)
+  isUserCreated Boolean                 @default(false)
   moderatedAt   DateTime?
   moderatedBy   String?
   reports       ScamReport[]
+  postLinks     EducationPostScamType[]
+  contactLinks  ContactScamType[]
 
   @@index([isApproved])
   @@index([isUserCreated])
@@ -173,4 +175,147 @@ model OutcomeType {
   label     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+/// Educational posts (blog-style) for learning hub
+model EducationPost {
+  id              String       @id @default(cuid())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  slug            String       @unique
+  title           String
+  excerpt         String?
+  bodyMd          String // Markdown/MDX content
+  status          PostStatus   @default(DRAFT)
+  publishedAt     DateTime?
+  category        PostCategory
+  heroImageUrl    String?
+  heroSvg         String?
+  heroAlt         String?
+  country         String?
+  region          String?
+  city            String?
+  canonicalUrl    String?
+  metaTitle       String?
+  metaDescription String?
+  featured        Boolean      @default(false)
+  authorName      String?
+  sourceUrl       String?
+
+  scamTypes EducationPostScamType[]
+  tags      PostTag[]
+
+  @@index([category])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([country, region, city])
+}
+
+/// Tags, shared between posts and contacts
+model Tag {
+  id       String       @id @default(cuid())
+  name     String       @unique
+  posts    PostTag[]
+  contacts ContactTag[]
+}
+
+model PostTag {
+  postId String
+  tagId  String
+  post   EducationPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    Tag           @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@index([tagId])
+}
+
+model EducationPostScamType {
+  postId     String
+  scamTypeId String
+  post       EducationPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  scamType   ScamType      @relation(fields: [scamTypeId], references: [id], onDelete: Cascade)
+
+  @@id([postId, scamTypeId])
+  @@index([scamTypeId])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PostCategory {
+  REPORT_TO_AUTHORITIES
+  PREVENTION
+  CHECKLIST
+  RECOVERY
+  NEWS
+  GUIDE
+}
+
+/// Community-driven localized contacts (authorities/resources)
+model Contact {
+  id             String          @id @default(cuid())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  orgName        String
+  category       ContactCategory
+  description    String?
+  website        String?
+  phone          String?
+  email          String?
+  submitUrl      String? // official reporting form link, if any
+  languageCodes  String[]
+  country        String?
+  region         String?
+  city           String?
+  status         ContactStatus   @default(PUBLISHED)
+  verified       Boolean         @default(false)
+  source         String?
+  lastVerifiedAt DateTime?
+  createdById    String?
+
+  scamTypes ContactScamType[]
+  tags      ContactTag[]
+
+  @@index([category])
+  @@index([status, verified])
+  @@index([country, region, city])
+}
+
+model ContactScamType {
+  contactId  String
+  scamTypeId String
+  contact    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  scamType   ScamType @relation(fields: [scamTypeId], references: [id], onDelete: Cascade)
+
+  @@id([contactId, scamTypeId])
+  @@index([scamTypeId])
+}
+
+model ContactTag {
+  contactId String
+  tagId     String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([contactId, tagId])
+  @@index([tagId])
+}
+
+enum ContactCategory {
+  AUTHORITY
+  CONSUMER_PROTECTION
+  FINANCIAL_REGULATOR
+  POLICE
+  ADVISORY
+  OTHER
+}
+
+enum ContactStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  ARCHIVED
 }

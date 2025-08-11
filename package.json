@@ -22,6 +22,8 @@
     "db:reset": "prisma migrate reset --force",
     "db:seed:types": "npx tsx prisma/seed-types.ts && npx tsx prisma/seed-outcome-types.ts",
     "db:seed:reports": "npx tsx prisma/seed-reports.ts ",
+    "db:seed:education": "npx tsx prisma/seed-education.ts",
+    "db:seed:contacts": "npx tsx prisma/seed-contacts.ts",
     "test": "jest --watchAll",
     "test:ci": "NODE_ENV=test jest --ci --passWithNoTests --coverage",
     "postinstall": "prisma generate"

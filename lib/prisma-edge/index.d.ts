@@ -68,6 +68,105 @@ export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
  * 
  */
 export type OutcomeType = $Result.DefaultSelection<Prisma.$OutcomeTypePayload>
+/**
+ * Model EducationPost
+ * Educational posts (blog-style) for learning hub
+ */
+export type EducationPost = $Result.DefaultSelection<Prisma.$EducationPostPayload>
+/**
+ * Model Tag
+ * Tags, shared between posts and contacts
+ */
+export type Tag = $Result.DefaultSelection<Prisma.$TagPayload>
+/**
+ * Model PostTag
+ * 
+ */
+export type PostTag = $Result.DefaultSelection<Prisma.$PostTagPayload>
+/**
+ * Model EducationPostScamType
+ * 
+ */
+export type EducationPostScamType = $Result.DefaultSelection<Prisma.$EducationPostScamTypePayload>
+/**
+ * Model Contact
+ * Community-driven localized contacts (authorities/resources)
+ */
+export type Contact = $Result.DefaultSelection<Prisma.$ContactPayload>
+/**
+ * Model ContactScamType
+ * 
+ */
+export type ContactScamType = $Result.DefaultSelection<Prisma.$ContactScamTypePayload>
+/**
+ * Model ContactTag
+ * 
+ */
+export type ContactTag = $Result.DefaultSelection<Prisma.$ContactTagPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const PostStatus: {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]
+
+
+export const PostCategory: {
+  REPORT_TO_AUTHORITIES: 'REPORT_TO_AUTHORITIES',
+  PREVENTION: 'PREVENTION',
+  CHECKLIST: 'CHECKLIST',
+  RECOVERY: 'RECOVERY',
+  NEWS: 'NEWS',
+  GUIDE: 'GUIDE'
+};
+
+export type PostCategory = (typeof PostCategory)[keyof typeof PostCategory]
+
+
+export const ContactCategory: {
+  AUTHORITY: 'AUTHORITY',
+  CONSUMER_PROTECTION: 'CONSUMER_PROTECTION',
+  FINANCIAL_REGULATOR: 'FINANCIAL_REGULATOR',
+  POLICE: 'POLICE',
+  ADVISORY: 'ADVISORY',
+  OTHER: 'OTHER'
+};
+
+export type ContactCategory = (typeof ContactCategory)[keyof typeof ContactCategory]
+
+
+export const ContactStatus: {
+  DRAFT: 'DRAFT',
+  PENDING_REVIEW: 'PENDING_REVIEW',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type ContactStatus = (typeof ContactStatus)[keyof typeof ContactStatus]
+
+}
+
+export type PostStatus = $Enums.PostStatus
+
+export const PostStatus: typeof $Enums.PostStatus
+
+export type PostCategory = $Enums.PostCategory
+
+export const PostCategory: typeof $Enums.PostCategory
+
+export type ContactCategory = $Enums.ContactCategory
+
+export const ContactCategory: typeof $Enums.ContactCategory
+
+export type ContactStatus = $Enums.ContactStatus
+
+export const ContactStatus: typeof $Enums.ContactStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -85,7 +184,7 @@ export type OutcomeType = $Result.DefaultSelection<Prisma.$OutcomeTypePayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -303,6 +402,76 @@ export class PrismaClient<
     * ```
     */
   get outcomeType(): Prisma.OutcomeTypeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.educationPost`: Exposes CRUD operations for the **EducationPost** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EducationPosts
+    * const educationPosts = await prisma.educationPost.findMany()
+    * ```
+    */
+  get educationPost(): Prisma.EducationPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tag`: Exposes CRUD operations for the **Tag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tags
+    * const tags = await prisma.tag.findMany()
+    * ```
+    */
+  get tag(): Prisma.TagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.postTag`: Exposes CRUD operations for the **PostTag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostTags
+    * const postTags = await prisma.postTag.findMany()
+    * ```
+    */
+  get postTag(): Prisma.PostTagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.educationPostScamType`: Exposes CRUD operations for the **EducationPostScamType** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EducationPostScamTypes
+    * const educationPostScamTypes = await prisma.educationPostScamType.findMany()
+    * ```
+    */
+  get educationPostScamType(): Prisma.EducationPostScamTypeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contact`: Exposes CRUD operations for the **Contact** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Contacts
+    * const contacts = await prisma.contact.findMany()
+    * ```
+    */
+  get contact(): Prisma.ContactDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contactScamType`: Exposes CRUD operations for the **ContactScamType** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContactScamTypes
+    * const contactScamTypes = await prisma.contactScamType.findMany()
+    * ```
+    */
+  get contactScamType(): Prisma.ContactScamTypeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contactTag`: Exposes CRUD operations for the **ContactTag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContactTags
+    * const contactTags = await prisma.contactTag.findMany()
+    * ```
+    */
+  get contactTag(): Prisma.ContactTagDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -361,8 +530,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.12.0
-   * Query Engine version: 8047c96bbd92db98a2abc7c9323ce77c02c89dbc
+   * Prisma Client JS version: 6.13.0
+   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
    */
   export type PrismaVersion = {
     client: string
@@ -753,7 +922,14 @@ export namespace Prisma {
     Flag: 'Flag',
     User: 'User',
     Notification: 'Notification',
-    OutcomeType: 'OutcomeType'
+    OutcomeType: 'OutcomeType',
+    EducationPost: 'EducationPost',
+    Tag: 'Tag',
+    PostTag: 'PostTag',
+    EducationPostScamType: 'EducationPostScamType',
+    Contact: 'Contact',
+    ContactScamType: 'ContactScamType',
+    ContactTag: 'ContactTag'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -772,7 +948,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "scamReport" | "comment" | "vote" | "wikiPage" | "searchCache" | "aIScamReport" | "scamType" | "flag" | "user" | "notification" | "outcomeType"
+      modelProps: "scamReport" | "comment" | "vote" | "wikiPage" | "searchCache" | "aIScamReport" | "scamType" | "flag" | "user" | "notification" | "outcomeType" | "educationPost" | "tag" | "postTag" | "educationPostScamType" | "contact" | "contactScamType" | "contactTag"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1590,6 +1766,524 @@ export namespace Prisma {
           }
         }
       }
+      EducationPost: {
+        payload: Prisma.$EducationPostPayload<ExtArgs>
+        fields: Prisma.EducationPostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EducationPostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EducationPostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          findFirst: {
+            args: Prisma.EducationPostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EducationPostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          findMany: {
+            args: Prisma.EducationPostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>[]
+          }
+          create: {
+            args: Prisma.EducationPostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          createMany: {
+            args: Prisma.EducationPostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EducationPostCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>[]
+          }
+          delete: {
+            args: Prisma.EducationPostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          update: {
+            args: Prisma.EducationPostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          deleteMany: {
+            args: Prisma.EducationPostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EducationPostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EducationPostUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>[]
+          }
+          upsert: {
+            args: Prisma.EducationPostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostPayload>
+          }
+          aggregate: {
+            args: Prisma.EducationPostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEducationPost>
+          }
+          groupBy: {
+            args: Prisma.EducationPostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EducationPostGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EducationPostCountArgs<ExtArgs>
+            result: $Utils.Optional<EducationPostCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tag: {
+        payload: Prisma.$TagPayload<ExtArgs>
+        fields: Prisma.TagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          findFirst: {
+            args: Prisma.TagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          findMany: {
+            args: Prisma.TagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
+          }
+          create: {
+            args: Prisma.TagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          createMany: {
+            args: Prisma.TagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
+          }
+          delete: {
+            args: Prisma.TagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          update: {
+            args: Prisma.TagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          deleteMany: {
+            args: Prisma.TagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TagUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>[]
+          }
+          upsert: {
+            args: Prisma.TagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TagPayload>
+          }
+          aggregate: {
+            args: Prisma.TagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTag>
+          }
+          groupBy: {
+            args: Prisma.TagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TagCountArgs<ExtArgs>
+            result: $Utils.Optional<TagCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostTag: {
+        payload: Prisma.$PostTagPayload<ExtArgs>
+        fields: Prisma.PostTagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostTagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostTagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          findFirst: {
+            args: Prisma.PostTagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostTagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          findMany: {
+            args: Prisma.PostTagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+          }
+          create: {
+            args: Prisma.PostTagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          createMany: {
+            args: Prisma.PostTagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostTagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+          }
+          delete: {
+            args: Prisma.PostTagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          update: {
+            args: Prisma.PostTagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostTagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostTagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostTagUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>[]
+          }
+          upsert: {
+            args: Prisma.PostTagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostTagPayload>
+          }
+          aggregate: {
+            args: Prisma.PostTagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostTag>
+          }
+          groupBy: {
+            args: Prisma.PostTagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostTagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostTagCountArgs<ExtArgs>
+            result: $Utils.Optional<PostTagCountAggregateOutputType> | number
+          }
+        }
+      }
+      EducationPostScamType: {
+        payload: Prisma.$EducationPostScamTypePayload<ExtArgs>
+        fields: Prisma.EducationPostScamTypeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EducationPostScamTypeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EducationPostScamTypeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          findFirst: {
+            args: Prisma.EducationPostScamTypeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EducationPostScamTypeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          findMany: {
+            args: Prisma.EducationPostScamTypeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>[]
+          }
+          create: {
+            args: Prisma.EducationPostScamTypeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          createMany: {
+            args: Prisma.EducationPostScamTypeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EducationPostScamTypeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>[]
+          }
+          delete: {
+            args: Prisma.EducationPostScamTypeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          update: {
+            args: Prisma.EducationPostScamTypeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          deleteMany: {
+            args: Prisma.EducationPostScamTypeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EducationPostScamTypeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EducationPostScamTypeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>[]
+          }
+          upsert: {
+            args: Prisma.EducationPostScamTypeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EducationPostScamTypePayload>
+          }
+          aggregate: {
+            args: Prisma.EducationPostScamTypeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEducationPostScamType>
+          }
+          groupBy: {
+            args: Prisma.EducationPostScamTypeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EducationPostScamTypeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EducationPostScamTypeCountArgs<ExtArgs>
+            result: $Utils.Optional<EducationPostScamTypeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Contact: {
+        payload: Prisma.$ContactPayload<ExtArgs>
+        fields: Prisma.ContactFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          findMany: {
+            args: Prisma.ContactFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>[]
+          }
+          create: {
+            args: Prisma.ContactCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          createMany: {
+            args: Prisma.ContactCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>[]
+          }
+          delete: {
+            args: Prisma.ContactDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          update: {
+            args: Prisma.ContactUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContactUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContactUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContact>
+          }
+          groupBy: {
+            args: Prisma.ContactGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContactScamType: {
+        payload: Prisma.$ContactScamTypePayload<ExtArgs>
+        fields: Prisma.ContactScamTypeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactScamTypeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactScamTypeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          findFirst: {
+            args: Prisma.ContactScamTypeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactScamTypeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          findMany: {
+            args: Prisma.ContactScamTypeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>[]
+          }
+          create: {
+            args: Prisma.ContactScamTypeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          createMany: {
+            args: Prisma.ContactScamTypeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactScamTypeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>[]
+          }
+          delete: {
+            args: Prisma.ContactScamTypeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          update: {
+            args: Prisma.ContactScamTypeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactScamTypeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactScamTypeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContactScamTypeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>[]
+          }
+          upsert: {
+            args: Prisma.ContactScamTypeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactScamTypePayload>
+          }
+          aggregate: {
+            args: Prisma.ContactScamTypeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContactScamType>
+          }
+          groupBy: {
+            args: Prisma.ContactScamTypeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactScamTypeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactScamTypeCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactScamTypeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContactTag: {
+        payload: Prisma.$ContactTagPayload<ExtArgs>
+        fields: Prisma.ContactTagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactTagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactTagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactTagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactTagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          findMany: {
+            args: Prisma.ContactTagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>[]
+          }
+          create: {
+            args: Prisma.ContactTagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          createMany: {
+            args: Prisma.ContactTagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactTagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>[]
+          }
+          delete: {
+            args: Prisma.ContactTagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          update: {
+            args: Prisma.ContactTagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactTagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactTagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContactTagUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContactTagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTagPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactTagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContactTag>
+          }
+          groupBy: {
+            args: Prisma.ContactTagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactTagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactTagCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactTagCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1633,16 +2327,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1685,6 +2387,13 @@ export namespace Prisma {
     user?: UserOmit
     notification?: NotificationOmit
     outcomeType?: OutcomeTypeOmit
+    educationPost?: EducationPostOmit
+    tag?: TagOmit
+    postTag?: PostTagOmit
+    educationPostScamType?: EducationPostScamTypeOmit
+    contact?: ContactOmit
+    contactScamType?: ContactScamTypeOmit
+    contactTag?: ContactTagOmit
   }
 
   /* Types for Logging */
@@ -1694,10 +2403,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1860,10 +2574,14 @@ export namespace Prisma {
 
   export type ScamTypeCountOutputType = {
     reports: number
+    postLinks: number
+    contactLinks: number
   }
 
   export type ScamTypeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | ScamTypeCountOutputTypeCountReportsArgs
+    postLinks?: boolean | ScamTypeCountOutputTypeCountPostLinksArgs
+    contactLinks?: boolean | ScamTypeCountOutputTypeCountContactLinksArgs
   }
 
   // Custom InputTypes
@@ -1882,6 +2600,20 @@ export namespace Prisma {
    */
   export type ScamTypeCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ScamReportWhereInput
+  }
+
+  /**
+   * ScamTypeCountOutputType without action
+   */
+  export type ScamTypeCountOutputTypeCountPostLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducationPostScamTypeWhereInput
+  }
+
+  /**
+   * ScamTypeCountOutputType without action
+   */
+  export type ScamTypeCountOutputTypeCountContactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactScamTypeWhereInput
   }
 
 
@@ -1940,6 +2672,126 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VoteWhereInput
+  }
+
+
+  /**
+   * Count Type EducationPostCountOutputType
+   */
+
+  export type EducationPostCountOutputType = {
+    scamTypes: number
+    tags: number
+  }
+
+  export type EducationPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamTypes?: boolean | EducationPostCountOutputTypeCountScamTypesArgs
+    tags?: boolean | EducationPostCountOutputTypeCountTagsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EducationPostCountOutputType without action
+   */
+  export type EducationPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostCountOutputType
+     */
+    select?: EducationPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EducationPostCountOutputType without action
+   */
+  export type EducationPostCountOutputTypeCountScamTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducationPostScamTypeWhereInput
+  }
+
+  /**
+   * EducationPostCountOutputType without action
+   */
+  export type EducationPostCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+  }
+
+
+  /**
+   * Count Type TagCountOutputType
+   */
+
+  export type TagCountOutputType = {
+    posts: number
+    contacts: number
+  }
+
+  export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | TagCountOutputTypeCountPostsArgs
+    contacts?: boolean | TagCountOutputTypeCountContactsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TagCountOutputType
+     */
+    select?: TagCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactTagWhereInput
+  }
+
+
+  /**
+   * Count Type ContactCountOutputType
+   */
+
+  export type ContactCountOutputType = {
+    scamTypes: number
+    tags: number
+  }
+
+  export type ContactCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamTypes?: boolean | ContactCountOutputTypeCountScamTypesArgs
+    tags?: boolean | ContactCountOutputTypeCountTagsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactCountOutputType
+     */
+    select?: ContactCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeCountScamTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactScamTypeWhereInput
+  }
+
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactTagWhereInput
   }
 
 
@@ -8931,6 +9783,8 @@ export namespace Prisma {
     moderatedAt?: boolean
     moderatedBy?: boolean
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
+    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
+    contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scamType"]>
 
@@ -8970,6 +9824,8 @@ export namespace Prisma {
   export type ScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "createdBy" | "isApproved" | "isUserCreated" | "moderatedAt" | "moderatedBy", ExtArgs["result"]["scamType"]>
   export type ScamTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
+    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
+    contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScamTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -8979,6 +9835,8 @@ export namespace Prisma {
     name: "ScamType"
     objects: {
       reports: Prisma.$ScamReportPayload<ExtArgs>[]
+      postLinks: Prisma.$EducationPostScamTypePayload<ExtArgs>[]
+      contactLinks: Prisma.$ContactScamTypePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9384,6 +10242,8 @@ export namespace Prisma {
   export interface Prisma__ScamTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reports<T extends ScamType$reportsArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    postLinks<T extends ScamType$postLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$postLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contactLinks<T extends ScamType$contactLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$contactLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9830,6 +10690,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ScamReportScalarFieldEnum | ScamReportScalarFieldEnum[]
+  }
+
+  /**
+   * ScamType.postLinks
+   */
+  export type ScamType$postLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    where?: EducationPostScamTypeWhereInput
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EducationPostScamTypeScalarFieldEnum | EducationPostScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ScamType.contactLinks
+   */
+  export type ScamType$contactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    where?: ContactScamTypeWhereInput
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    cursor?: ContactScamTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
   }
 
   /**
@@ -14190,6 +15098,7768 @@ export namespace Prisma {
 
 
   /**
+   * Model EducationPost
+   */
+
+  export type AggregateEducationPost = {
+    _count: EducationPostCountAggregateOutputType | null
+    _min: EducationPostMinAggregateOutputType | null
+    _max: EducationPostMaxAggregateOutputType | null
+  }
+
+  export type EducationPostMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    slug: string | null
+    title: string | null
+    excerpt: string | null
+    bodyMd: string | null
+    status: $Enums.PostStatus | null
+    publishedAt: Date | null
+    category: $Enums.PostCategory | null
+    heroImageUrl: string | null
+    heroSvg: string | null
+    heroAlt: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    canonicalUrl: string | null
+    metaTitle: string | null
+    metaDescription: string | null
+    featured: boolean | null
+    authorName: string | null
+    sourceUrl: string | null
+  }
+
+  export type EducationPostMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    slug: string | null
+    title: string | null
+    excerpt: string | null
+    bodyMd: string | null
+    status: $Enums.PostStatus | null
+    publishedAt: Date | null
+    category: $Enums.PostCategory | null
+    heroImageUrl: string | null
+    heroSvg: string | null
+    heroAlt: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    canonicalUrl: string | null
+    metaTitle: string | null
+    metaDescription: string | null
+    featured: boolean | null
+    authorName: string | null
+    sourceUrl: string | null
+  }
+
+  export type EducationPostCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    slug: number
+    title: number
+    excerpt: number
+    bodyMd: number
+    status: number
+    publishedAt: number
+    category: number
+    heroImageUrl: number
+    heroSvg: number
+    heroAlt: number
+    country: number
+    region: number
+    city: number
+    canonicalUrl: number
+    metaTitle: number
+    metaDescription: number
+    featured: number
+    authorName: number
+    sourceUrl: number
+    _all: number
+  }
+
+
+  export type EducationPostMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    slug?: true
+    title?: true
+    excerpt?: true
+    bodyMd?: true
+    status?: true
+    publishedAt?: true
+    category?: true
+    heroImageUrl?: true
+    heroSvg?: true
+    heroAlt?: true
+    country?: true
+    region?: true
+    city?: true
+    canonicalUrl?: true
+    metaTitle?: true
+    metaDescription?: true
+    featured?: true
+    authorName?: true
+    sourceUrl?: true
+  }
+
+  export type EducationPostMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    slug?: true
+    title?: true
+    excerpt?: true
+    bodyMd?: true
+    status?: true
+    publishedAt?: true
+    category?: true
+    heroImageUrl?: true
+    heroSvg?: true
+    heroAlt?: true
+    country?: true
+    region?: true
+    city?: true
+    canonicalUrl?: true
+    metaTitle?: true
+    metaDescription?: true
+    featured?: true
+    authorName?: true
+    sourceUrl?: true
+  }
+
+  export type EducationPostCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    slug?: true
+    title?: true
+    excerpt?: true
+    bodyMd?: true
+    status?: true
+    publishedAt?: true
+    category?: true
+    heroImageUrl?: true
+    heroSvg?: true
+    heroAlt?: true
+    country?: true
+    region?: true
+    city?: true
+    canonicalUrl?: true
+    metaTitle?: true
+    metaDescription?: true
+    featured?: true
+    authorName?: true
+    sourceUrl?: true
+    _all?: true
+  }
+
+  export type EducationPostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducationPost to aggregate.
+     */
+    where?: EducationPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPosts to fetch.
+     */
+    orderBy?: EducationPostOrderByWithRelationInput | EducationPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EducationPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EducationPosts
+    **/
+    _count?: true | EducationPostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EducationPostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EducationPostMaxAggregateInputType
+  }
+
+  export type GetEducationPostAggregateType<T extends EducationPostAggregateArgs> = {
+        [P in keyof T & keyof AggregateEducationPost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEducationPost[P]>
+      : GetScalarType<T[P], AggregateEducationPost[P]>
+  }
+
+
+
+
+  export type EducationPostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducationPostWhereInput
+    orderBy?: EducationPostOrderByWithAggregationInput | EducationPostOrderByWithAggregationInput[]
+    by: EducationPostScalarFieldEnum[] | EducationPostScalarFieldEnum
+    having?: EducationPostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EducationPostCountAggregateInputType | true
+    _min?: EducationPostMinAggregateInputType
+    _max?: EducationPostMaxAggregateInputType
+  }
+
+  export type EducationPostGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    slug: string
+    title: string
+    excerpt: string | null
+    bodyMd: string
+    status: $Enums.PostStatus
+    publishedAt: Date | null
+    category: $Enums.PostCategory
+    heroImageUrl: string | null
+    heroSvg: string | null
+    heroAlt: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    canonicalUrl: string | null
+    metaTitle: string | null
+    metaDescription: string | null
+    featured: boolean
+    authorName: string | null
+    sourceUrl: string | null
+    _count: EducationPostCountAggregateOutputType | null
+    _min: EducationPostMinAggregateOutputType | null
+    _max: EducationPostMaxAggregateOutputType | null
+  }
+
+  type GetEducationPostGroupByPayload<T extends EducationPostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EducationPostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EducationPostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EducationPostGroupByOutputType[P]>
+            : GetScalarType<T[P], EducationPostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EducationPostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    slug?: boolean
+    title?: boolean
+    excerpt?: boolean
+    bodyMd?: boolean
+    status?: boolean
+    publishedAt?: boolean
+    category?: boolean
+    heroImageUrl?: boolean
+    heroSvg?: boolean
+    heroAlt?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    canonicalUrl?: boolean
+    metaTitle?: boolean
+    metaDescription?: boolean
+    featured?: boolean
+    authorName?: boolean
+    sourceUrl?: boolean
+    scamTypes?: boolean | EducationPost$scamTypesArgs<ExtArgs>
+    tags?: boolean | EducationPost$tagsArgs<ExtArgs>
+    _count?: boolean | EducationPostCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["educationPost"]>
+
+  export type EducationPostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    slug?: boolean
+    title?: boolean
+    excerpt?: boolean
+    bodyMd?: boolean
+    status?: boolean
+    publishedAt?: boolean
+    category?: boolean
+    heroImageUrl?: boolean
+    heroSvg?: boolean
+    heroAlt?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    canonicalUrl?: boolean
+    metaTitle?: boolean
+    metaDescription?: boolean
+    featured?: boolean
+    authorName?: boolean
+    sourceUrl?: boolean
+  }, ExtArgs["result"]["educationPost"]>
+
+  export type EducationPostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    slug?: boolean
+    title?: boolean
+    excerpt?: boolean
+    bodyMd?: boolean
+    status?: boolean
+    publishedAt?: boolean
+    category?: boolean
+    heroImageUrl?: boolean
+    heroSvg?: boolean
+    heroAlt?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    canonicalUrl?: boolean
+    metaTitle?: boolean
+    metaDescription?: boolean
+    featured?: boolean
+    authorName?: boolean
+    sourceUrl?: boolean
+  }, ExtArgs["result"]["educationPost"]>
+
+  export type EducationPostSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    slug?: boolean
+    title?: boolean
+    excerpt?: boolean
+    bodyMd?: boolean
+    status?: boolean
+    publishedAt?: boolean
+    category?: boolean
+    heroImageUrl?: boolean
+    heroSvg?: boolean
+    heroAlt?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    canonicalUrl?: boolean
+    metaTitle?: boolean
+    metaDescription?: boolean
+    featured?: boolean
+    authorName?: boolean
+    sourceUrl?: boolean
+  }
+
+  export type EducationPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "slug" | "title" | "excerpt" | "bodyMd" | "status" | "publishedAt" | "category" | "heroImageUrl" | "heroSvg" | "heroAlt" | "country" | "region" | "city" | "canonicalUrl" | "metaTitle" | "metaDescription" | "featured" | "authorName" | "sourceUrl", ExtArgs["result"]["educationPost"]>
+  export type EducationPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamTypes?: boolean | EducationPost$scamTypesArgs<ExtArgs>
+    tags?: boolean | EducationPost$tagsArgs<ExtArgs>
+    _count?: boolean | EducationPostCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EducationPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EducationPostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EducationPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EducationPost"
+    objects: {
+      scamTypes: Prisma.$EducationPostScamTypePayload<ExtArgs>[]
+      tags: Prisma.$PostTagPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      slug: string
+      title: string
+      excerpt: string | null
+      bodyMd: string
+      status: $Enums.PostStatus
+      publishedAt: Date | null
+      category: $Enums.PostCategory
+      heroImageUrl: string | null
+      heroSvg: string | null
+      heroAlt: string | null
+      country: string | null
+      region: string | null
+      city: string | null
+      canonicalUrl: string | null
+      metaTitle: string | null
+      metaDescription: string | null
+      featured: boolean
+      authorName: string | null
+      sourceUrl: string | null
+    }, ExtArgs["result"]["educationPost"]>
+    composites: {}
+  }
+
+  type EducationPostGetPayload<S extends boolean | null | undefined | EducationPostDefaultArgs> = $Result.GetResult<Prisma.$EducationPostPayload, S>
+
+  type EducationPostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EducationPostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EducationPostCountAggregateInputType | true
+    }
+
+  export interface EducationPostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EducationPost'], meta: { name: 'EducationPost' } }
+    /**
+     * Find zero or one EducationPost that matches the filter.
+     * @param {EducationPostFindUniqueArgs} args - Arguments to find a EducationPost
+     * @example
+     * // Get one EducationPost
+     * const educationPost = await prisma.educationPost.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EducationPostFindUniqueArgs>(args: SelectSubset<T, EducationPostFindUniqueArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EducationPost that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EducationPostFindUniqueOrThrowArgs} args - Arguments to find a EducationPost
+     * @example
+     * // Get one EducationPost
+     * const educationPost = await prisma.educationPost.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EducationPostFindUniqueOrThrowArgs>(args: SelectSubset<T, EducationPostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducationPost that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostFindFirstArgs} args - Arguments to find a EducationPost
+     * @example
+     * // Get one EducationPost
+     * const educationPost = await prisma.educationPost.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EducationPostFindFirstArgs>(args?: SelectSubset<T, EducationPostFindFirstArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducationPost that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostFindFirstOrThrowArgs} args - Arguments to find a EducationPost
+     * @example
+     * // Get one EducationPost
+     * const educationPost = await prisma.educationPost.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EducationPostFindFirstOrThrowArgs>(args?: SelectSubset<T, EducationPostFindFirstOrThrowArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EducationPosts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EducationPosts
+     * const educationPosts = await prisma.educationPost.findMany()
+     * 
+     * // Get first 10 EducationPosts
+     * const educationPosts = await prisma.educationPost.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const educationPostWithIdOnly = await prisma.educationPost.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EducationPostFindManyArgs>(args?: SelectSubset<T, EducationPostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EducationPost.
+     * @param {EducationPostCreateArgs} args - Arguments to create a EducationPost.
+     * @example
+     * // Create one EducationPost
+     * const EducationPost = await prisma.educationPost.create({
+     *   data: {
+     *     // ... data to create a EducationPost
+     *   }
+     * })
+     * 
+     */
+    create<T extends EducationPostCreateArgs>(args: SelectSubset<T, EducationPostCreateArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EducationPosts.
+     * @param {EducationPostCreateManyArgs} args - Arguments to create many EducationPosts.
+     * @example
+     * // Create many EducationPosts
+     * const educationPost = await prisma.educationPost.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EducationPostCreateManyArgs>(args?: SelectSubset<T, EducationPostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EducationPosts and returns the data saved in the database.
+     * @param {EducationPostCreateManyAndReturnArgs} args - Arguments to create many EducationPosts.
+     * @example
+     * // Create many EducationPosts
+     * const educationPost = await prisma.educationPost.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EducationPosts and only return the `id`
+     * const educationPostWithIdOnly = await prisma.educationPost.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EducationPostCreateManyAndReturnArgs>(args?: SelectSubset<T, EducationPostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EducationPost.
+     * @param {EducationPostDeleteArgs} args - Arguments to delete one EducationPost.
+     * @example
+     * // Delete one EducationPost
+     * const EducationPost = await prisma.educationPost.delete({
+     *   where: {
+     *     // ... filter to delete one EducationPost
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EducationPostDeleteArgs>(args: SelectSubset<T, EducationPostDeleteArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EducationPost.
+     * @param {EducationPostUpdateArgs} args - Arguments to update one EducationPost.
+     * @example
+     * // Update one EducationPost
+     * const educationPost = await prisma.educationPost.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EducationPostUpdateArgs>(args: SelectSubset<T, EducationPostUpdateArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EducationPosts.
+     * @param {EducationPostDeleteManyArgs} args - Arguments to filter EducationPosts to delete.
+     * @example
+     * // Delete a few EducationPosts
+     * const { count } = await prisma.educationPost.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EducationPostDeleteManyArgs>(args?: SelectSubset<T, EducationPostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducationPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EducationPosts
+     * const educationPost = await prisma.educationPost.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EducationPostUpdateManyArgs>(args: SelectSubset<T, EducationPostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducationPosts and returns the data updated in the database.
+     * @param {EducationPostUpdateManyAndReturnArgs} args - Arguments to update many EducationPosts.
+     * @example
+     * // Update many EducationPosts
+     * const educationPost = await prisma.educationPost.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EducationPosts and only return the `id`
+     * const educationPostWithIdOnly = await prisma.educationPost.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EducationPostUpdateManyAndReturnArgs>(args: SelectSubset<T, EducationPostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EducationPost.
+     * @param {EducationPostUpsertArgs} args - Arguments to update or create a EducationPost.
+     * @example
+     * // Update or create a EducationPost
+     * const educationPost = await prisma.educationPost.upsert({
+     *   create: {
+     *     // ... data to create a EducationPost
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EducationPost we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EducationPostUpsertArgs>(args: SelectSubset<T, EducationPostUpsertArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EducationPosts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostCountArgs} args - Arguments to filter EducationPosts to count.
+     * @example
+     * // Count the number of EducationPosts
+     * const count = await prisma.educationPost.count({
+     *   where: {
+     *     // ... the filter for the EducationPosts we want to count
+     *   }
+     * })
+    **/
+    count<T extends EducationPostCountArgs>(
+      args?: Subset<T, EducationPostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EducationPostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EducationPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EducationPostAggregateArgs>(args: Subset<T, EducationPostAggregateArgs>): Prisma.PrismaPromise<GetEducationPostAggregateType<T>>
+
+    /**
+     * Group by EducationPost.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EducationPostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EducationPostGroupByArgs['orderBy'] }
+        : { orderBy?: EducationPostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EducationPostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEducationPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EducationPost model
+   */
+  readonly fields: EducationPostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EducationPost.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EducationPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    scamTypes<T extends EducationPost$scamTypesArgs<ExtArgs> = {}>(args?: Subset<T, EducationPost$scamTypesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tags<T extends EducationPost$tagsArgs<ExtArgs> = {}>(args?: Subset<T, EducationPost$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EducationPost model
+   */
+  interface EducationPostFieldRefs {
+    readonly id: FieldRef<"EducationPost", 'String'>
+    readonly createdAt: FieldRef<"EducationPost", 'DateTime'>
+    readonly updatedAt: FieldRef<"EducationPost", 'DateTime'>
+    readonly slug: FieldRef<"EducationPost", 'String'>
+    readonly title: FieldRef<"EducationPost", 'String'>
+    readonly excerpt: FieldRef<"EducationPost", 'String'>
+    readonly bodyMd: FieldRef<"EducationPost", 'String'>
+    readonly status: FieldRef<"EducationPost", 'PostStatus'>
+    readonly publishedAt: FieldRef<"EducationPost", 'DateTime'>
+    readonly category: FieldRef<"EducationPost", 'PostCategory'>
+    readonly heroImageUrl: FieldRef<"EducationPost", 'String'>
+    readonly heroSvg: FieldRef<"EducationPost", 'String'>
+    readonly heroAlt: FieldRef<"EducationPost", 'String'>
+    readonly country: FieldRef<"EducationPost", 'String'>
+    readonly region: FieldRef<"EducationPost", 'String'>
+    readonly city: FieldRef<"EducationPost", 'String'>
+    readonly canonicalUrl: FieldRef<"EducationPost", 'String'>
+    readonly metaTitle: FieldRef<"EducationPost", 'String'>
+    readonly metaDescription: FieldRef<"EducationPost", 'String'>
+    readonly featured: FieldRef<"EducationPost", 'Boolean'>
+    readonly authorName: FieldRef<"EducationPost", 'String'>
+    readonly sourceUrl: FieldRef<"EducationPost", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EducationPost findUnique
+   */
+  export type EducationPostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPost to fetch.
+     */
+    where: EducationPostWhereUniqueInput
+  }
+
+  /**
+   * EducationPost findUniqueOrThrow
+   */
+  export type EducationPostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPost to fetch.
+     */
+    where: EducationPostWhereUniqueInput
+  }
+
+  /**
+   * EducationPost findFirst
+   */
+  export type EducationPostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPost to fetch.
+     */
+    where?: EducationPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPosts to fetch.
+     */
+    orderBy?: EducationPostOrderByWithRelationInput | EducationPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducationPosts.
+     */
+    cursor?: EducationPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducationPosts.
+     */
+    distinct?: EducationPostScalarFieldEnum | EducationPostScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPost findFirstOrThrow
+   */
+  export type EducationPostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPost to fetch.
+     */
+    where?: EducationPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPosts to fetch.
+     */
+    orderBy?: EducationPostOrderByWithRelationInput | EducationPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducationPosts.
+     */
+    cursor?: EducationPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPosts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducationPosts.
+     */
+    distinct?: EducationPostScalarFieldEnum | EducationPostScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPost findMany
+   */
+  export type EducationPostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPosts to fetch.
+     */
+    where?: EducationPostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPosts to fetch.
+     */
+    orderBy?: EducationPostOrderByWithRelationInput | EducationPostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EducationPosts.
+     */
+    cursor?: EducationPostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPosts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPosts.
+     */
+    skip?: number
+    distinct?: EducationPostScalarFieldEnum | EducationPostScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPost create
+   */
+  export type EducationPostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EducationPost.
+     */
+    data: XOR<EducationPostCreateInput, EducationPostUncheckedCreateInput>
+  }
+
+  /**
+   * EducationPost createMany
+   */
+  export type EducationPostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EducationPosts.
+     */
+    data: EducationPostCreateManyInput | EducationPostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EducationPost createManyAndReturn
+   */
+  export type EducationPostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * The data used to create many EducationPosts.
+     */
+    data: EducationPostCreateManyInput | EducationPostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EducationPost update
+   */
+  export type EducationPostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EducationPost.
+     */
+    data: XOR<EducationPostUpdateInput, EducationPostUncheckedUpdateInput>
+    /**
+     * Choose, which EducationPost to update.
+     */
+    where: EducationPostWhereUniqueInput
+  }
+
+  /**
+   * EducationPost updateMany
+   */
+  export type EducationPostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EducationPosts.
+     */
+    data: XOR<EducationPostUpdateManyMutationInput, EducationPostUncheckedUpdateManyInput>
+    /**
+     * Filter which EducationPosts to update
+     */
+    where?: EducationPostWhereInput
+    /**
+     * Limit how many EducationPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducationPost updateManyAndReturn
+   */
+  export type EducationPostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * The data used to update EducationPosts.
+     */
+    data: XOR<EducationPostUpdateManyMutationInput, EducationPostUncheckedUpdateManyInput>
+    /**
+     * Filter which EducationPosts to update
+     */
+    where?: EducationPostWhereInput
+    /**
+     * Limit how many EducationPosts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducationPost upsert
+   */
+  export type EducationPostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EducationPost to update in case it exists.
+     */
+    where: EducationPostWhereUniqueInput
+    /**
+     * In case the EducationPost found by the `where` argument doesn't exist, create a new EducationPost with this data.
+     */
+    create: XOR<EducationPostCreateInput, EducationPostUncheckedCreateInput>
+    /**
+     * In case the EducationPost was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EducationPostUpdateInput, EducationPostUncheckedUpdateInput>
+  }
+
+  /**
+   * EducationPost delete
+   */
+  export type EducationPostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+    /**
+     * Filter which EducationPost to delete.
+     */
+    where: EducationPostWhereUniqueInput
+  }
+
+  /**
+   * EducationPost deleteMany
+   */
+  export type EducationPostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducationPosts to delete
+     */
+    where?: EducationPostWhereInput
+    /**
+     * Limit how many EducationPosts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducationPost.scamTypes
+   */
+  export type EducationPost$scamTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    where?: EducationPostScamTypeWhereInput
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EducationPostScamTypeScalarFieldEnum | EducationPostScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPost.tags
+   */
+  export type EducationPost$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    cursor?: PostTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPost without action
+   */
+  export type EducationPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPost
+     */
+    select?: EducationPostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPost
+     */
+    omit?: EducationPostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tag
+   */
+
+  export type AggregateTag = {
+    _count: TagCountAggregateOutputType | null
+    _min: TagMinAggregateOutputType | null
+    _max: TagMaxAggregateOutputType | null
+  }
+
+  export type TagMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type TagMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+  }
+
+  export type TagCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type TagMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type TagMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type TagCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type TagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tag to aggregate.
+     */
+    where?: TagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tags
+    **/
+    _count?: true | TagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TagMaxAggregateInputType
+  }
+
+  export type GetTagAggregateType<T extends TagAggregateArgs> = {
+        [P in keyof T & keyof AggregateTag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTag[P]>
+      : GetScalarType<T[P], AggregateTag[P]>
+  }
+
+
+
+
+  export type TagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TagWhereInput
+    orderBy?: TagOrderByWithAggregationInput | TagOrderByWithAggregationInput[]
+    by: TagScalarFieldEnum[] | TagScalarFieldEnum
+    having?: TagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TagCountAggregateInputType | true
+    _min?: TagMinAggregateInputType
+    _max?: TagMaxAggregateInputType
+  }
+
+  export type TagGroupByOutputType = {
+    id: string
+    name: string
+    _count: TagCountAggregateOutputType | null
+    _min: TagMinAggregateOutputType | null
+    _max: TagMaxAggregateOutputType | null
+  }
+
+  type GetTagGroupByPayload<T extends TagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TagGroupByOutputType[P]>
+            : GetScalarType<T[P], TagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    posts?: boolean | Tag$postsArgs<ExtArgs>
+    contacts?: boolean | Tag$contactsArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tag"]>
+
+  export type TagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["tag"]>
+
+  export type TagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+  }, ExtArgs["result"]["tag"]>
+
+  export type TagSelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tag"]>
+  export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    posts?: boolean | Tag$postsArgs<ExtArgs>
+    contacts?: boolean | Tag$contactsArgs<ExtArgs>
+    _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tag"
+    objects: {
+      posts: Prisma.$PostTagPayload<ExtArgs>[]
+      contacts: Prisma.$ContactTagPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+    }, ExtArgs["result"]["tag"]>
+    composites: {}
+  }
+
+  type TagGetPayload<S extends boolean | null | undefined | TagDefaultArgs> = $Result.GetResult<Prisma.$TagPayload, S>
+
+  type TagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TagCountAggregateInputType | true
+    }
+
+  export interface TagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tag'], meta: { name: 'Tag' } }
+    /**
+     * Find zero or one Tag that matches the filter.
+     * @param {TagFindUniqueArgs} args - Arguments to find a Tag
+     * @example
+     * // Get one Tag
+     * const tag = await prisma.tag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TagFindUniqueArgs>(args: SelectSubset<T, TagFindUniqueArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TagFindUniqueOrThrowArgs} args - Arguments to find a Tag
+     * @example
+     * // Get one Tag
+     * const tag = await prisma.tag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TagFindUniqueOrThrowArgs>(args: SelectSubset<T, TagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagFindFirstArgs} args - Arguments to find a Tag
+     * @example
+     * // Get one Tag
+     * const tag = await prisma.tag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TagFindFirstArgs>(args?: SelectSubset<T, TagFindFirstArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagFindFirstOrThrowArgs} args - Arguments to find a Tag
+     * @example
+     * // Get one Tag
+     * const tag = await prisma.tag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TagFindFirstOrThrowArgs>(args?: SelectSubset<T, TagFindFirstOrThrowArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tags
+     * const tags = await prisma.tag.findMany()
+     * 
+     * // Get first 10 Tags
+     * const tags = await prisma.tag.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tagWithIdOnly = await prisma.tag.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TagFindManyArgs>(args?: SelectSubset<T, TagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tag.
+     * @param {TagCreateArgs} args - Arguments to create a Tag.
+     * @example
+     * // Create one Tag
+     * const Tag = await prisma.tag.create({
+     *   data: {
+     *     // ... data to create a Tag
+     *   }
+     * })
+     * 
+     */
+    create<T extends TagCreateArgs>(args: SelectSubset<T, TagCreateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tags.
+     * @param {TagCreateManyArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tag = await prisma.tag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TagCreateManyArgs>(args?: SelectSubset<T, TagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tags and returns the data saved in the database.
+     * @param {TagCreateManyAndReturnArgs} args - Arguments to create many Tags.
+     * @example
+     * // Create many Tags
+     * const tag = await prisma.tag.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tags and only return the `id`
+     * const tagWithIdOnly = await prisma.tag.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TagCreateManyAndReturnArgs>(args?: SelectSubset<T, TagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tag.
+     * @param {TagDeleteArgs} args - Arguments to delete one Tag.
+     * @example
+     * // Delete one Tag
+     * const Tag = await prisma.tag.delete({
+     *   where: {
+     *     // ... filter to delete one Tag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TagDeleteArgs>(args: SelectSubset<T, TagDeleteArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tag.
+     * @param {TagUpdateArgs} args - Arguments to update one Tag.
+     * @example
+     * // Update one Tag
+     * const tag = await prisma.tag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TagUpdateArgs>(args: SelectSubset<T, TagUpdateArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tags.
+     * @param {TagDeleteManyArgs} args - Arguments to filter Tags to delete.
+     * @example
+     * // Delete a few Tags
+     * const { count } = await prisma.tag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TagDeleteManyArgs>(args?: SelectSubset<T, TagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tags
+     * const tag = await prisma.tag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TagUpdateManyArgs>(args: SelectSubset<T, TagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tags and returns the data updated in the database.
+     * @param {TagUpdateManyAndReturnArgs} args - Arguments to update many Tags.
+     * @example
+     * // Update many Tags
+     * const tag = await prisma.tag.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tags and only return the `id`
+     * const tagWithIdOnly = await prisma.tag.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TagUpdateManyAndReturnArgs>(args: SelectSubset<T, TagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tag.
+     * @param {TagUpsertArgs} args - Arguments to update or create a Tag.
+     * @example
+     * // Update or create a Tag
+     * const tag = await prisma.tag.upsert({
+     *   create: {
+     *     // ... data to create a Tag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TagUpsertArgs>(args: SelectSubset<T, TagUpsertArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagCountArgs} args - Arguments to filter Tags to count.
+     * @example
+     * // Count the number of Tags
+     * const count = await prisma.tag.count({
+     *   where: {
+     *     // ... the filter for the Tags we want to count
+     *   }
+     * })
+    **/
+    count<T extends TagCountArgs>(
+      args?: Subset<T, TagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TagAggregateArgs>(args: Subset<T, TagAggregateArgs>): Prisma.PrismaPromise<GetTagAggregateType<T>>
+
+    /**
+     * Group by Tag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TagGroupByArgs['orderBy'] }
+        : { orderBy?: TagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tag model
+   */
+  readonly fields: TagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    posts<T extends Tag$postsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contacts<T extends Tag$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tag model
+   */
+  interface TagFieldRefs {
+    readonly id: FieldRef<"Tag", 'String'>
+    readonly name: FieldRef<"Tag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tag findUnique
+   */
+  export type TagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter, which Tag to fetch.
+     */
+    where: TagWhereUniqueInput
+  }
+
+  /**
+   * Tag findUniqueOrThrow
+   */
+  export type TagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter, which Tag to fetch.
+     */
+    where: TagWhereUniqueInput
+  }
+
+  /**
+   * Tag findFirst
+   */
+  export type TagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter, which Tag to fetch.
+     */
+    where?: TagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tags.
+     */
+    cursor?: TagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tags.
+     */
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag findFirstOrThrow
+   */
+  export type TagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter, which Tag to fetch.
+     */
+    where?: TagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tags.
+     */
+    cursor?: TagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tags.
+     */
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag findMany
+   */
+  export type TagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter, which Tags to fetch.
+     */
+    where?: TagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tags to fetch.
+     */
+    orderBy?: TagOrderByWithRelationInput | TagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tags.
+     */
+    cursor?: TagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tags.
+     */
+    skip?: number
+    distinct?: TagScalarFieldEnum | TagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag create
+   */
+  export type TagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tag.
+     */
+    data: XOR<TagCreateInput, TagUncheckedCreateInput>
+  }
+
+  /**
+   * Tag createMany
+   */
+  export type TagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tags.
+     */
+    data: TagCreateManyInput | TagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tag createManyAndReturn
+   */
+  export type TagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tags.
+     */
+    data: TagCreateManyInput | TagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tag update
+   */
+  export type TagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tag.
+     */
+    data: XOR<TagUpdateInput, TagUncheckedUpdateInput>
+    /**
+     * Choose, which Tag to update.
+     */
+    where: TagWhereUniqueInput
+  }
+
+  /**
+   * Tag updateMany
+   */
+  export type TagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tags.
+     */
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyInput>
+    /**
+     * Filter which Tags to update
+     */
+    where?: TagWhereInput
+    /**
+     * Limit how many Tags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tag updateManyAndReturn
+   */
+  export type TagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * The data used to update Tags.
+     */
+    data: XOR<TagUpdateManyMutationInput, TagUncheckedUpdateManyInput>
+    /**
+     * Filter which Tags to update
+     */
+    where?: TagWhereInput
+    /**
+     * Limit how many Tags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tag upsert
+   */
+  export type TagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tag to update in case it exists.
+     */
+    where: TagWhereUniqueInput
+    /**
+     * In case the Tag found by the `where` argument doesn't exist, create a new Tag with this data.
+     */
+    create: XOR<TagCreateInput, TagUncheckedCreateInput>
+    /**
+     * In case the Tag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TagUpdateInput, TagUncheckedUpdateInput>
+  }
+
+  /**
+   * Tag delete
+   */
+  export type TagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+    /**
+     * Filter which Tag to delete.
+     */
+    where: TagWhereUniqueInput
+  }
+
+  /**
+   * Tag deleteMany
+   */
+  export type TagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tags to delete
+     */
+    where?: TagWhereInput
+    /**
+     * Limit how many Tags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tag.posts
+   */
+  export type Tag$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    cursor?: PostTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag.contacts
+   */
+  export type Tag$contactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    where?: ContactTagWhereInput
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    cursor?: ContactTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag without action
+   */
+  export type TagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tag
+     */
+    select?: TagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tag
+     */
+    omit?: TagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TagInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PostTag
+   */
+
+  export type AggregatePostTag = {
+    _count: PostTagCountAggregateOutputType | null
+    _min: PostTagMinAggregateOutputType | null
+    _max: PostTagMaxAggregateOutputType | null
+  }
+
+  export type PostTagMinAggregateOutputType = {
+    postId: string | null
+    tagId: string | null
+  }
+
+  export type PostTagMaxAggregateOutputType = {
+    postId: string | null
+    tagId: string | null
+  }
+
+  export type PostTagCountAggregateOutputType = {
+    postId: number
+    tagId: number
+    _all: number
+  }
+
+
+  export type PostTagMinAggregateInputType = {
+    postId?: true
+    tagId?: true
+  }
+
+  export type PostTagMaxAggregateInputType = {
+    postId?: true
+    tagId?: true
+  }
+
+  export type PostTagCountAggregateInputType = {
+    postId?: true
+    tagId?: true
+    _all?: true
+  }
+
+  export type PostTagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostTag to aggregate.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostTags
+    **/
+    _count?: true | PostTagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostTagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostTagMaxAggregateInputType
+  }
+
+  export type GetPostTagAggregateType<T extends PostTagAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostTag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostTag[P]>
+      : GetScalarType<T[P], AggregatePostTag[P]>
+  }
+
+
+
+
+  export type PostTagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithAggregationInput | PostTagOrderByWithAggregationInput[]
+    by: PostTagScalarFieldEnum[] | PostTagScalarFieldEnum
+    having?: PostTagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostTagCountAggregateInputType | true
+    _min?: PostTagMinAggregateInputType
+    _max?: PostTagMaxAggregateInputType
+  }
+
+  export type PostTagGroupByOutputType = {
+    postId: string
+    tagId: string
+    _count: PostTagCountAggregateOutputType | null
+    _min: PostTagMinAggregateOutputType | null
+    _max: PostTagMaxAggregateOutputType | null
+  }
+
+  type GetPostTagGroupByPayload<T extends PostTagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostTagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostTagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostTagGroupByOutputType[P]>
+            : GetScalarType<T[P], PostTagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostTagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    tagId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postTag"]>
+
+  export type PostTagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    tagId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postTag"]>
+
+  export type PostTagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    tagId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["postTag"]>
+
+  export type PostTagSelectScalar = {
+    postId?: boolean
+    tagId?: boolean
+  }
+
+  export type PostTagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"postId" | "tagId", ExtArgs["result"]["postTag"]>
+  export type PostTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type PostTagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type PostTagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+
+  export type $PostTagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostTag"
+    objects: {
+      post: Prisma.$EducationPostPayload<ExtArgs>
+      tag: Prisma.$TagPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      postId: string
+      tagId: string
+    }, ExtArgs["result"]["postTag"]>
+    composites: {}
+  }
+
+  type PostTagGetPayload<S extends boolean | null | undefined | PostTagDefaultArgs> = $Result.GetResult<Prisma.$PostTagPayload, S>
+
+  type PostTagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostTagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostTagCountAggregateInputType | true
+    }
+
+  export interface PostTagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostTag'], meta: { name: 'PostTag' } }
+    /**
+     * Find zero or one PostTag that matches the filter.
+     * @param {PostTagFindUniqueArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostTagFindUniqueArgs>(args: SelectSubset<T, PostTagFindUniqueArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PostTag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostTagFindUniqueOrThrowArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostTagFindUniqueOrThrowArgs>(args: SelectSubset<T, PostTagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostTag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindFirstArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostTagFindFirstArgs>(args?: SelectSubset<T, PostTagFindFirstArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PostTag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindFirstOrThrowArgs} args - Arguments to find a PostTag
+     * @example
+     * // Get one PostTag
+     * const postTag = await prisma.postTag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostTagFindFirstOrThrowArgs>(args?: SelectSubset<T, PostTagFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PostTags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostTags
+     * const postTags = await prisma.postTag.findMany()
+     * 
+     * // Get first 10 PostTags
+     * const postTags = await prisma.postTag.findMany({ take: 10 })
+     * 
+     * // Only select the `postId`
+     * const postTagWithPostIdOnly = await prisma.postTag.findMany({ select: { postId: true } })
+     * 
+     */
+    findMany<T extends PostTagFindManyArgs>(args?: SelectSubset<T, PostTagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PostTag.
+     * @param {PostTagCreateArgs} args - Arguments to create a PostTag.
+     * @example
+     * // Create one PostTag
+     * const PostTag = await prisma.postTag.create({
+     *   data: {
+     *     // ... data to create a PostTag
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostTagCreateArgs>(args: SelectSubset<T, PostTagCreateArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PostTags.
+     * @param {PostTagCreateManyArgs} args - Arguments to create many PostTags.
+     * @example
+     * // Create many PostTags
+     * const postTag = await prisma.postTag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostTagCreateManyArgs>(args?: SelectSubset<T, PostTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PostTags and returns the data saved in the database.
+     * @param {PostTagCreateManyAndReturnArgs} args - Arguments to create many PostTags.
+     * @example
+     * // Create many PostTags
+     * const postTag = await prisma.postTag.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PostTags and only return the `postId`
+     * const postTagWithPostIdOnly = await prisma.postTag.createManyAndReturn({
+     *   select: { postId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostTagCreateManyAndReturnArgs>(args?: SelectSubset<T, PostTagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PostTag.
+     * @param {PostTagDeleteArgs} args - Arguments to delete one PostTag.
+     * @example
+     * // Delete one PostTag
+     * const PostTag = await prisma.postTag.delete({
+     *   where: {
+     *     // ... filter to delete one PostTag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostTagDeleteArgs>(args: SelectSubset<T, PostTagDeleteArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PostTag.
+     * @param {PostTagUpdateArgs} args - Arguments to update one PostTag.
+     * @example
+     * // Update one PostTag
+     * const postTag = await prisma.postTag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostTagUpdateArgs>(args: SelectSubset<T, PostTagUpdateArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PostTags.
+     * @param {PostTagDeleteManyArgs} args - Arguments to filter PostTags to delete.
+     * @example
+     * // Delete a few PostTags
+     * const { count } = await prisma.postTag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostTagDeleteManyArgs>(args?: SelectSubset<T, PostTagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostTags
+     * const postTag = await prisma.postTag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostTagUpdateManyArgs>(args: SelectSubset<T, PostTagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostTags and returns the data updated in the database.
+     * @param {PostTagUpdateManyAndReturnArgs} args - Arguments to update many PostTags.
+     * @example
+     * // Update many PostTags
+     * const postTag = await prisma.postTag.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PostTags and only return the `postId`
+     * const postTagWithPostIdOnly = await prisma.postTag.updateManyAndReturn({
+     *   select: { postId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostTagUpdateManyAndReturnArgs>(args: SelectSubset<T, PostTagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PostTag.
+     * @param {PostTagUpsertArgs} args - Arguments to update or create a PostTag.
+     * @example
+     * // Update or create a PostTag
+     * const postTag = await prisma.postTag.upsert({
+     *   create: {
+     *     // ... data to create a PostTag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostTag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostTagUpsertArgs>(args: SelectSubset<T, PostTagUpsertArgs<ExtArgs>>): Prisma__PostTagClient<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PostTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagCountArgs} args - Arguments to filter PostTags to count.
+     * @example
+     * // Count the number of PostTags
+     * const count = await prisma.postTag.count({
+     *   where: {
+     *     // ... the filter for the PostTags we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostTagCountArgs>(
+      args?: Subset<T, PostTagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostTagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostTagAggregateArgs>(args: Subset<T, PostTagAggregateArgs>): Prisma.PrismaPromise<GetPostTagAggregateType<T>>
+
+    /**
+     * Group by PostTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostTagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostTagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostTagGroupByArgs['orderBy'] }
+        : { orderBy?: PostTagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostTag model
+   */
+  readonly fields: PostTagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostTag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostTagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends EducationPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EducationPostDefaultArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tag<T extends TagDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TagDefaultArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostTag model
+   */
+  interface PostTagFieldRefs {
+    readonly postId: FieldRef<"PostTag", 'String'>
+    readonly tagId: FieldRef<"PostTag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostTag findUnique
+   */
+  export type PostTagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag findUniqueOrThrow
+   */
+  export type PostTagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag findFirst
+   */
+  export type PostTagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostTags.
+     */
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag findFirstOrThrow
+   */
+  export type PostTagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTag to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostTags.
+     */
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag findMany
+   */
+  export type PostTagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter, which PostTags to fetch.
+     */
+    where?: PostTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostTags to fetch.
+     */
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostTags.
+     */
+    cursor?: PostTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostTags.
+     */
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
+  }
+
+  /**
+   * PostTag create
+   */
+  export type PostTagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PostTag.
+     */
+    data: XOR<PostTagCreateInput, PostTagUncheckedCreateInput>
+  }
+
+  /**
+   * PostTag createMany
+   */
+  export type PostTagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostTags.
+     */
+    data: PostTagCreateManyInput | PostTagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostTag createManyAndReturn
+   */
+  export type PostTagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * The data used to create many PostTags.
+     */
+    data: PostTagCreateManyInput | PostTagCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostTag update
+   */
+  export type PostTagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PostTag.
+     */
+    data: XOR<PostTagUpdateInput, PostTagUncheckedUpdateInput>
+    /**
+     * Choose, which PostTag to update.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag updateMany
+   */
+  export type PostTagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostTags.
+     */
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyInput>
+    /**
+     * Filter which PostTags to update
+     */
+    where?: PostTagWhereInput
+    /**
+     * Limit how many PostTags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostTag updateManyAndReturn
+   */
+  export type PostTagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * The data used to update PostTags.
+     */
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyInput>
+    /**
+     * Filter which PostTags to update
+     */
+    where?: PostTagWhereInput
+    /**
+     * Limit how many PostTags to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PostTag upsert
+   */
+  export type PostTagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PostTag to update in case it exists.
+     */
+    where: PostTagWhereUniqueInput
+    /**
+     * In case the PostTag found by the `where` argument doesn't exist, create a new PostTag with this data.
+     */
+    create: XOR<PostTagCreateInput, PostTagUncheckedCreateInput>
+    /**
+     * In case the PostTag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostTagUpdateInput, PostTagUncheckedUpdateInput>
+  }
+
+  /**
+   * PostTag delete
+   */
+  export type PostTagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    /**
+     * Filter which PostTag to delete.
+     */
+    where: PostTagWhereUniqueInput
+  }
+
+  /**
+   * PostTag deleteMany
+   */
+  export type PostTagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostTags to delete
+     */
+    where?: PostTagWhereInput
+    /**
+     * Limit how many PostTags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PostTag without action
+   */
+  export type PostTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EducationPostScamType
+   */
+
+  export type AggregateEducationPostScamType = {
+    _count: EducationPostScamTypeCountAggregateOutputType | null
+    _min: EducationPostScamTypeMinAggregateOutputType | null
+    _max: EducationPostScamTypeMaxAggregateOutputType | null
+  }
+
+  export type EducationPostScamTypeMinAggregateOutputType = {
+    postId: string | null
+    scamTypeId: string | null
+  }
+
+  export type EducationPostScamTypeMaxAggregateOutputType = {
+    postId: string | null
+    scamTypeId: string | null
+  }
+
+  export type EducationPostScamTypeCountAggregateOutputType = {
+    postId: number
+    scamTypeId: number
+    _all: number
+  }
+
+
+  export type EducationPostScamTypeMinAggregateInputType = {
+    postId?: true
+    scamTypeId?: true
+  }
+
+  export type EducationPostScamTypeMaxAggregateInputType = {
+    postId?: true
+    scamTypeId?: true
+  }
+
+  export type EducationPostScamTypeCountAggregateInputType = {
+    postId?: true
+    scamTypeId?: true
+    _all?: true
+  }
+
+  export type EducationPostScamTypeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducationPostScamType to aggregate.
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPostScamTypes to fetch.
+     */
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPostScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPostScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EducationPostScamTypes
+    **/
+    _count?: true | EducationPostScamTypeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EducationPostScamTypeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EducationPostScamTypeMaxAggregateInputType
+  }
+
+  export type GetEducationPostScamTypeAggregateType<T extends EducationPostScamTypeAggregateArgs> = {
+        [P in keyof T & keyof AggregateEducationPostScamType]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEducationPostScamType[P]>
+      : GetScalarType<T[P], AggregateEducationPostScamType[P]>
+  }
+
+
+
+
+  export type EducationPostScamTypeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EducationPostScamTypeWhereInput
+    orderBy?: EducationPostScamTypeOrderByWithAggregationInput | EducationPostScamTypeOrderByWithAggregationInput[]
+    by: EducationPostScamTypeScalarFieldEnum[] | EducationPostScamTypeScalarFieldEnum
+    having?: EducationPostScamTypeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EducationPostScamTypeCountAggregateInputType | true
+    _min?: EducationPostScamTypeMinAggregateInputType
+    _max?: EducationPostScamTypeMaxAggregateInputType
+  }
+
+  export type EducationPostScamTypeGroupByOutputType = {
+    postId: string
+    scamTypeId: string
+    _count: EducationPostScamTypeCountAggregateOutputType | null
+    _min: EducationPostScamTypeMinAggregateOutputType | null
+    _max: EducationPostScamTypeMaxAggregateOutputType | null
+  }
+
+  type GetEducationPostScamTypeGroupByPayload<T extends EducationPostScamTypeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EducationPostScamTypeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EducationPostScamTypeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EducationPostScamTypeGroupByOutputType[P]>
+            : GetScalarType<T[P], EducationPostScamTypeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EducationPostScamTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    scamTypeId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["educationPostScamType"]>
+
+  export type EducationPostScamTypeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    scamTypeId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["educationPostScamType"]>
+
+  export type EducationPostScamTypeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    postId?: boolean
+    scamTypeId?: boolean
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["educationPostScamType"]>
+
+  export type EducationPostScamTypeSelectScalar = {
+    postId?: boolean
+    scamTypeId?: boolean
+  }
+
+  export type EducationPostScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"postId" | "scamTypeId", ExtArgs["result"]["educationPostScamType"]>
+  export type EducationPostScamTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type EducationPostScamTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type EducationPostScamTypeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | EducationPostDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $EducationPostScamTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EducationPostScamType"
+    objects: {
+      post: Prisma.$EducationPostPayload<ExtArgs>
+      scamType: Prisma.$ScamTypePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      postId: string
+      scamTypeId: string
+    }, ExtArgs["result"]["educationPostScamType"]>
+    composites: {}
+  }
+
+  type EducationPostScamTypeGetPayload<S extends boolean | null | undefined | EducationPostScamTypeDefaultArgs> = $Result.GetResult<Prisma.$EducationPostScamTypePayload, S>
+
+  type EducationPostScamTypeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EducationPostScamTypeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EducationPostScamTypeCountAggregateInputType | true
+    }
+
+  export interface EducationPostScamTypeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EducationPostScamType'], meta: { name: 'EducationPostScamType' } }
+    /**
+     * Find zero or one EducationPostScamType that matches the filter.
+     * @param {EducationPostScamTypeFindUniqueArgs} args - Arguments to find a EducationPostScamType
+     * @example
+     * // Get one EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EducationPostScamTypeFindUniqueArgs>(args: SelectSubset<T, EducationPostScamTypeFindUniqueArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EducationPostScamType that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EducationPostScamTypeFindUniqueOrThrowArgs} args - Arguments to find a EducationPostScamType
+     * @example
+     * // Get one EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EducationPostScamTypeFindUniqueOrThrowArgs>(args: SelectSubset<T, EducationPostScamTypeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducationPostScamType that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeFindFirstArgs} args - Arguments to find a EducationPostScamType
+     * @example
+     * // Get one EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EducationPostScamTypeFindFirstArgs>(args?: SelectSubset<T, EducationPostScamTypeFindFirstArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EducationPostScamType that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeFindFirstOrThrowArgs} args - Arguments to find a EducationPostScamType
+     * @example
+     * // Get one EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EducationPostScamTypeFindFirstOrThrowArgs>(args?: SelectSubset<T, EducationPostScamTypeFindFirstOrThrowArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EducationPostScamTypes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EducationPostScamTypes
+     * const educationPostScamTypes = await prisma.educationPostScamType.findMany()
+     * 
+     * // Get first 10 EducationPostScamTypes
+     * const educationPostScamTypes = await prisma.educationPostScamType.findMany({ take: 10 })
+     * 
+     * // Only select the `postId`
+     * const educationPostScamTypeWithPostIdOnly = await prisma.educationPostScamType.findMany({ select: { postId: true } })
+     * 
+     */
+    findMany<T extends EducationPostScamTypeFindManyArgs>(args?: SelectSubset<T, EducationPostScamTypeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EducationPostScamType.
+     * @param {EducationPostScamTypeCreateArgs} args - Arguments to create a EducationPostScamType.
+     * @example
+     * // Create one EducationPostScamType
+     * const EducationPostScamType = await prisma.educationPostScamType.create({
+     *   data: {
+     *     // ... data to create a EducationPostScamType
+     *   }
+     * })
+     * 
+     */
+    create<T extends EducationPostScamTypeCreateArgs>(args: SelectSubset<T, EducationPostScamTypeCreateArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EducationPostScamTypes.
+     * @param {EducationPostScamTypeCreateManyArgs} args - Arguments to create many EducationPostScamTypes.
+     * @example
+     * // Create many EducationPostScamTypes
+     * const educationPostScamType = await prisma.educationPostScamType.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EducationPostScamTypeCreateManyArgs>(args?: SelectSubset<T, EducationPostScamTypeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EducationPostScamTypes and returns the data saved in the database.
+     * @param {EducationPostScamTypeCreateManyAndReturnArgs} args - Arguments to create many EducationPostScamTypes.
+     * @example
+     * // Create many EducationPostScamTypes
+     * const educationPostScamType = await prisma.educationPostScamType.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EducationPostScamTypes and only return the `postId`
+     * const educationPostScamTypeWithPostIdOnly = await prisma.educationPostScamType.createManyAndReturn({
+     *   select: { postId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EducationPostScamTypeCreateManyAndReturnArgs>(args?: SelectSubset<T, EducationPostScamTypeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EducationPostScamType.
+     * @param {EducationPostScamTypeDeleteArgs} args - Arguments to delete one EducationPostScamType.
+     * @example
+     * // Delete one EducationPostScamType
+     * const EducationPostScamType = await prisma.educationPostScamType.delete({
+     *   where: {
+     *     // ... filter to delete one EducationPostScamType
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EducationPostScamTypeDeleteArgs>(args: SelectSubset<T, EducationPostScamTypeDeleteArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EducationPostScamType.
+     * @param {EducationPostScamTypeUpdateArgs} args - Arguments to update one EducationPostScamType.
+     * @example
+     * // Update one EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EducationPostScamTypeUpdateArgs>(args: SelectSubset<T, EducationPostScamTypeUpdateArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EducationPostScamTypes.
+     * @param {EducationPostScamTypeDeleteManyArgs} args - Arguments to filter EducationPostScamTypes to delete.
+     * @example
+     * // Delete a few EducationPostScamTypes
+     * const { count } = await prisma.educationPostScamType.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EducationPostScamTypeDeleteManyArgs>(args?: SelectSubset<T, EducationPostScamTypeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducationPostScamTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EducationPostScamTypes
+     * const educationPostScamType = await prisma.educationPostScamType.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EducationPostScamTypeUpdateManyArgs>(args: SelectSubset<T, EducationPostScamTypeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EducationPostScamTypes and returns the data updated in the database.
+     * @param {EducationPostScamTypeUpdateManyAndReturnArgs} args - Arguments to update many EducationPostScamTypes.
+     * @example
+     * // Update many EducationPostScamTypes
+     * const educationPostScamType = await prisma.educationPostScamType.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EducationPostScamTypes and only return the `postId`
+     * const educationPostScamTypeWithPostIdOnly = await prisma.educationPostScamType.updateManyAndReturn({
+     *   select: { postId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EducationPostScamTypeUpdateManyAndReturnArgs>(args: SelectSubset<T, EducationPostScamTypeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EducationPostScamType.
+     * @param {EducationPostScamTypeUpsertArgs} args - Arguments to update or create a EducationPostScamType.
+     * @example
+     * // Update or create a EducationPostScamType
+     * const educationPostScamType = await prisma.educationPostScamType.upsert({
+     *   create: {
+     *     // ... data to create a EducationPostScamType
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EducationPostScamType we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EducationPostScamTypeUpsertArgs>(args: SelectSubset<T, EducationPostScamTypeUpsertArgs<ExtArgs>>): Prisma__EducationPostScamTypeClient<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EducationPostScamTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeCountArgs} args - Arguments to filter EducationPostScamTypes to count.
+     * @example
+     * // Count the number of EducationPostScamTypes
+     * const count = await prisma.educationPostScamType.count({
+     *   where: {
+     *     // ... the filter for the EducationPostScamTypes we want to count
+     *   }
+     * })
+    **/
+    count<T extends EducationPostScamTypeCountArgs>(
+      args?: Subset<T, EducationPostScamTypeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EducationPostScamTypeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EducationPostScamType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EducationPostScamTypeAggregateArgs>(args: Subset<T, EducationPostScamTypeAggregateArgs>): Prisma.PrismaPromise<GetEducationPostScamTypeAggregateType<T>>
+
+    /**
+     * Group by EducationPostScamType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EducationPostScamTypeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EducationPostScamTypeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EducationPostScamTypeGroupByArgs['orderBy'] }
+        : { orderBy?: EducationPostScamTypeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EducationPostScamTypeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEducationPostScamTypeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EducationPostScamType model
+   */
+  readonly fields: EducationPostScamTypeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EducationPostScamType.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EducationPostScamTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends EducationPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EducationPostDefaultArgs<ExtArgs>>): Prisma__EducationPostClient<$Result.GetResult<Prisma.$EducationPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    scamType<T extends ScamTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScamTypeDefaultArgs<ExtArgs>>): Prisma__ScamTypeClient<$Result.GetResult<Prisma.$ScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EducationPostScamType model
+   */
+  interface EducationPostScamTypeFieldRefs {
+    readonly postId: FieldRef<"EducationPostScamType", 'String'>
+    readonly scamTypeId: FieldRef<"EducationPostScamType", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EducationPostScamType findUnique
+   */
+  export type EducationPostScamTypeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPostScamType to fetch.
+     */
+    where: EducationPostScamTypeWhereUniqueInput
+  }
+
+  /**
+   * EducationPostScamType findUniqueOrThrow
+   */
+  export type EducationPostScamTypeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPostScamType to fetch.
+     */
+    where: EducationPostScamTypeWhereUniqueInput
+  }
+
+  /**
+   * EducationPostScamType findFirst
+   */
+  export type EducationPostScamTypeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPostScamType to fetch.
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPostScamTypes to fetch.
+     */
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducationPostScamTypes.
+     */
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPostScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPostScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducationPostScamTypes.
+     */
+    distinct?: EducationPostScamTypeScalarFieldEnum | EducationPostScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPostScamType findFirstOrThrow
+   */
+  export type EducationPostScamTypeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPostScamType to fetch.
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPostScamTypes to fetch.
+     */
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EducationPostScamTypes.
+     */
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPostScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPostScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EducationPostScamTypes.
+     */
+    distinct?: EducationPostScamTypeScalarFieldEnum | EducationPostScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPostScamType findMany
+   */
+  export type EducationPostScamTypeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which EducationPostScamTypes to fetch.
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EducationPostScamTypes to fetch.
+     */
+    orderBy?: EducationPostScamTypeOrderByWithRelationInput | EducationPostScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EducationPostScamTypes.
+     */
+    cursor?: EducationPostScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EducationPostScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EducationPostScamTypes.
+     */
+    skip?: number
+    distinct?: EducationPostScamTypeScalarFieldEnum | EducationPostScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * EducationPostScamType create
+   */
+  export type EducationPostScamTypeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EducationPostScamType.
+     */
+    data: XOR<EducationPostScamTypeCreateInput, EducationPostScamTypeUncheckedCreateInput>
+  }
+
+  /**
+   * EducationPostScamType createMany
+   */
+  export type EducationPostScamTypeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EducationPostScamTypes.
+     */
+    data: EducationPostScamTypeCreateManyInput | EducationPostScamTypeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EducationPostScamType createManyAndReturn
+   */
+  export type EducationPostScamTypeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * The data used to create many EducationPostScamTypes.
+     */
+    data: EducationPostScamTypeCreateManyInput | EducationPostScamTypeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EducationPostScamType update
+   */
+  export type EducationPostScamTypeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EducationPostScamType.
+     */
+    data: XOR<EducationPostScamTypeUpdateInput, EducationPostScamTypeUncheckedUpdateInput>
+    /**
+     * Choose, which EducationPostScamType to update.
+     */
+    where: EducationPostScamTypeWhereUniqueInput
+  }
+
+  /**
+   * EducationPostScamType updateMany
+   */
+  export type EducationPostScamTypeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EducationPostScamTypes.
+     */
+    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which EducationPostScamTypes to update
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * Limit how many EducationPostScamTypes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducationPostScamType updateManyAndReturn
+   */
+  export type EducationPostScamTypeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * The data used to update EducationPostScamTypes.
+     */
+    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which EducationPostScamTypes to update
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * Limit how many EducationPostScamTypes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EducationPostScamType upsert
+   */
+  export type EducationPostScamTypeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EducationPostScamType to update in case it exists.
+     */
+    where: EducationPostScamTypeWhereUniqueInput
+    /**
+     * In case the EducationPostScamType found by the `where` argument doesn't exist, create a new EducationPostScamType with this data.
+     */
+    create: XOR<EducationPostScamTypeCreateInput, EducationPostScamTypeUncheckedCreateInput>
+    /**
+     * In case the EducationPostScamType was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EducationPostScamTypeUpdateInput, EducationPostScamTypeUncheckedUpdateInput>
+  }
+
+  /**
+   * EducationPostScamType delete
+   */
+  export type EducationPostScamTypeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter which EducationPostScamType to delete.
+     */
+    where: EducationPostScamTypeWhereUniqueInput
+  }
+
+  /**
+   * EducationPostScamType deleteMany
+   */
+  export type EducationPostScamTypeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EducationPostScamTypes to delete
+     */
+    where?: EducationPostScamTypeWhereInput
+    /**
+     * Limit how many EducationPostScamTypes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EducationPostScamType without action
+   */
+  export type EducationPostScamTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EducationPostScamType
+     */
+    select?: EducationPostScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EducationPostScamType
+     */
+    omit?: EducationPostScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EducationPostScamTypeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Contact
+   */
+
+  export type AggregateContact = {
+    _count: ContactCountAggregateOutputType | null
+    _min: ContactMinAggregateOutputType | null
+    _max: ContactMaxAggregateOutputType | null
+  }
+
+  export type ContactMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    orgName: string | null
+    category: $Enums.ContactCategory | null
+    description: string | null
+    website: string | null
+    phone: string | null
+    email: string | null
+    submitUrl: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    status: $Enums.ContactStatus | null
+    verified: boolean | null
+    source: string | null
+    lastVerifiedAt: Date | null
+    createdById: string | null
+  }
+
+  export type ContactMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    orgName: string | null
+    category: $Enums.ContactCategory | null
+    description: string | null
+    website: string | null
+    phone: string | null
+    email: string | null
+    submitUrl: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    status: $Enums.ContactStatus | null
+    verified: boolean | null
+    source: string | null
+    lastVerifiedAt: Date | null
+    createdById: string | null
+  }
+
+  export type ContactCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    orgName: number
+    category: number
+    description: number
+    website: number
+    phone: number
+    email: number
+    submitUrl: number
+    languageCodes: number
+    country: number
+    region: number
+    city: number
+    status: number
+    verified: number
+    source: number
+    lastVerifiedAt: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type ContactMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    orgName?: true
+    category?: true
+    description?: true
+    website?: true
+    phone?: true
+    email?: true
+    submitUrl?: true
+    country?: true
+    region?: true
+    city?: true
+    status?: true
+    verified?: true
+    source?: true
+    lastVerifiedAt?: true
+    createdById?: true
+  }
+
+  export type ContactMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    orgName?: true
+    category?: true
+    description?: true
+    website?: true
+    phone?: true
+    email?: true
+    submitUrl?: true
+    country?: true
+    region?: true
+    city?: true
+    status?: true
+    verified?: true
+    source?: true
+    lastVerifiedAt?: true
+    createdById?: true
+  }
+
+  export type ContactCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    orgName?: true
+    category?: true
+    description?: true
+    website?: true
+    phone?: true
+    email?: true
+    submitUrl?: true
+    languageCodes?: true
+    country?: true
+    region?: true
+    city?: true
+    status?: true
+    verified?: true
+    source?: true
+    lastVerifiedAt?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type ContactAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contact to aggregate.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Contacts
+    **/
+    _count?: true | ContactCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactMaxAggregateInputType
+  }
+
+  export type GetContactAggregateType<T extends ContactAggregateArgs> = {
+        [P in keyof T & keyof AggregateContact]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContact[P]>
+      : GetScalarType<T[P], AggregateContact[P]>
+  }
+
+
+
+
+  export type ContactGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactWhereInput
+    orderBy?: ContactOrderByWithAggregationInput | ContactOrderByWithAggregationInput[]
+    by: ContactScalarFieldEnum[] | ContactScalarFieldEnum
+    having?: ContactScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactCountAggregateInputType | true
+    _min?: ContactMinAggregateInputType
+    _max?: ContactMaxAggregateInputType
+  }
+
+  export type ContactGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    orgName: string
+    category: $Enums.ContactCategory
+    description: string | null
+    website: string | null
+    phone: string | null
+    email: string | null
+    submitUrl: string | null
+    languageCodes: string[]
+    country: string | null
+    region: string | null
+    city: string | null
+    status: $Enums.ContactStatus
+    verified: boolean
+    source: string | null
+    lastVerifiedAt: Date | null
+    createdById: string | null
+    _count: ContactCountAggregateOutputType | null
+    _min: ContactMinAggregateOutputType | null
+    _max: ContactMaxAggregateOutputType | null
+  }
+
+  type GetContactGroupByPayload<T extends ContactGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    orgName?: boolean
+    category?: boolean
+    description?: boolean
+    website?: boolean
+    phone?: boolean
+    email?: boolean
+    submitUrl?: boolean
+    languageCodes?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    status?: boolean
+    verified?: boolean
+    source?: boolean
+    lastVerifiedAt?: boolean
+    createdById?: boolean
+    scamTypes?: boolean | Contact$scamTypesArgs<ExtArgs>
+    tags?: boolean | Contact$tagsArgs<ExtArgs>
+    _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contact"]>
+
+  export type ContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    orgName?: boolean
+    category?: boolean
+    description?: boolean
+    website?: boolean
+    phone?: boolean
+    email?: boolean
+    submitUrl?: boolean
+    languageCodes?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    status?: boolean
+    verified?: boolean
+    source?: boolean
+    lastVerifiedAt?: boolean
+    createdById?: boolean
+  }, ExtArgs["result"]["contact"]>
+
+  export type ContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    orgName?: boolean
+    category?: boolean
+    description?: boolean
+    website?: boolean
+    phone?: boolean
+    email?: boolean
+    submitUrl?: boolean
+    languageCodes?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    status?: boolean
+    verified?: boolean
+    source?: boolean
+    lastVerifiedAt?: boolean
+    createdById?: boolean
+  }, ExtArgs["result"]["contact"]>
+
+  export type ContactSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    orgName?: boolean
+    category?: boolean
+    description?: boolean
+    website?: boolean
+    phone?: boolean
+    email?: boolean
+    submitUrl?: boolean
+    languageCodes?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    status?: boolean
+    verified?: boolean
+    source?: boolean
+    lastVerifiedAt?: boolean
+    createdById?: boolean
+  }
+
+  export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "orgName" | "category" | "description" | "website" | "phone" | "email" | "submitUrl" | "languageCodes" | "country" | "region" | "city" | "status" | "verified" | "source" | "lastVerifiedAt" | "createdById", ExtArgs["result"]["contact"]>
+  export type ContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamTypes?: boolean | Contact$scamTypesArgs<ExtArgs>
+    tags?: boolean | Contact$tagsArgs<ExtArgs>
+    _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ContactIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Contact"
+    objects: {
+      scamTypes: Prisma.$ContactScamTypePayload<ExtArgs>[]
+      tags: Prisma.$ContactTagPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      orgName: string
+      category: $Enums.ContactCategory
+      description: string | null
+      website: string | null
+      phone: string | null
+      email: string | null
+      submitUrl: string | null
+      languageCodes: string[]
+      country: string | null
+      region: string | null
+      city: string | null
+      status: $Enums.ContactStatus
+      verified: boolean
+      source: string | null
+      lastVerifiedAt: Date | null
+      createdById: string | null
+    }, ExtArgs["result"]["contact"]>
+    composites: {}
+  }
+
+  type ContactGetPayload<S extends boolean | null | undefined | ContactDefaultArgs> = $Result.GetResult<Prisma.$ContactPayload, S>
+
+  type ContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactCountAggregateInputType | true
+    }
+
+  export interface ContactDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Contact'], meta: { name: 'Contact' } }
+    /**
+     * Find zero or one Contact that matches the filter.
+     * @param {ContactFindUniqueArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactFindUniqueArgs>(args: SelectSubset<T, ContactFindUniqueArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Contact that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactFindUniqueOrThrowArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contact that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindFirstArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactFindFirstArgs>(args?: SelectSubset<T, ContactFindFirstArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Contact that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindFirstOrThrowArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Contacts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Contacts
+     * const contacts = await prisma.contact.findMany()
+     * 
+     * // Get first 10 Contacts
+     * const contacts = await prisma.contact.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contactWithIdOnly = await prisma.contact.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContactFindManyArgs>(args?: SelectSubset<T, ContactFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Contact.
+     * @param {ContactCreateArgs} args - Arguments to create a Contact.
+     * @example
+     * // Create one Contact
+     * const Contact = await prisma.contact.create({
+     *   data: {
+     *     // ... data to create a Contact
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactCreateArgs>(args: SelectSubset<T, ContactCreateArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Contacts.
+     * @param {ContactCreateManyArgs} args - Arguments to create many Contacts.
+     * @example
+     * // Create many Contacts
+     * const contact = await prisma.contact.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactCreateManyArgs>(args?: SelectSubset<T, ContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Contacts and returns the data saved in the database.
+     * @param {ContactCreateManyAndReturnArgs} args - Arguments to create many Contacts.
+     * @example
+     * // Create many Contacts
+     * const contact = await prisma.contact.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Contacts and only return the `id`
+     * const contactWithIdOnly = await prisma.contact.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Contact.
+     * @param {ContactDeleteArgs} args - Arguments to delete one Contact.
+     * @example
+     * // Delete one Contact
+     * const Contact = await prisma.contact.delete({
+     *   where: {
+     *     // ... filter to delete one Contact
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactDeleteArgs>(args: SelectSubset<T, ContactDeleteArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Contact.
+     * @param {ContactUpdateArgs} args - Arguments to update one Contact.
+     * @example
+     * // Update one Contact
+     * const contact = await prisma.contact.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactUpdateArgs>(args: SelectSubset<T, ContactUpdateArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Contacts.
+     * @param {ContactDeleteManyArgs} args - Arguments to filter Contacts to delete.
+     * @example
+     * // Delete a few Contacts
+     * const { count } = await prisma.contact.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactDeleteManyArgs>(args?: SelectSubset<T, ContactDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Contacts
+     * const contact = await prisma.contact.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactUpdateManyArgs>(args: SelectSubset<T, ContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contacts and returns the data updated in the database.
+     * @param {ContactUpdateManyAndReturnArgs} args - Arguments to update many Contacts.
+     * @example
+     * // Update many Contacts
+     * const contact = await prisma.contact.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Contacts and only return the `id`
+     * const contactWithIdOnly = await prisma.contact.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContactUpdateManyAndReturnArgs>(args: SelectSubset<T, ContactUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Contact.
+     * @param {ContactUpsertArgs} args - Arguments to update or create a Contact.
+     * @example
+     * // Update or create a Contact
+     * const contact = await prisma.contact.upsert({
+     *   create: {
+     *     // ... data to create a Contact
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Contact we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactUpsertArgs>(args: SelectSubset<T, ContactUpsertArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Contacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactCountArgs} args - Arguments to filter Contacts to count.
+     * @example
+     * // Count the number of Contacts
+     * const count = await prisma.contact.count({
+     *   where: {
+     *     // ... the filter for the Contacts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactCountArgs>(
+      args?: Subset<T, ContactCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Contact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactAggregateArgs>(args: Subset<T, ContactAggregateArgs>): Prisma.PrismaPromise<GetContactAggregateType<T>>
+
+    /**
+     * Group by Contact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactGroupByArgs['orderBy'] }
+        : { orderBy?: ContactGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Contact model
+   */
+  readonly fields: ContactFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Contact.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    scamTypes<T extends Contact$scamTypesArgs<ExtArgs> = {}>(args?: Subset<T, Contact$scamTypesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tags<T extends Contact$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Contact model
+   */
+  interface ContactFieldRefs {
+    readonly id: FieldRef<"Contact", 'String'>
+    readonly createdAt: FieldRef<"Contact", 'DateTime'>
+    readonly updatedAt: FieldRef<"Contact", 'DateTime'>
+    readonly orgName: FieldRef<"Contact", 'String'>
+    readonly category: FieldRef<"Contact", 'ContactCategory'>
+    readonly description: FieldRef<"Contact", 'String'>
+    readonly website: FieldRef<"Contact", 'String'>
+    readonly phone: FieldRef<"Contact", 'String'>
+    readonly email: FieldRef<"Contact", 'String'>
+    readonly submitUrl: FieldRef<"Contact", 'String'>
+    readonly languageCodes: FieldRef<"Contact", 'String[]'>
+    readonly country: FieldRef<"Contact", 'String'>
+    readonly region: FieldRef<"Contact", 'String'>
+    readonly city: FieldRef<"Contact", 'String'>
+    readonly status: FieldRef<"Contact", 'ContactStatus'>
+    readonly verified: FieldRef<"Contact", 'Boolean'>
+    readonly source: FieldRef<"Contact", 'String'>
+    readonly lastVerifiedAt: FieldRef<"Contact", 'DateTime'>
+    readonly createdById: FieldRef<"Contact", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Contact findUnique
+   */
+  export type ContactFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact findUniqueOrThrow
+   */
+  export type ContactFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact findFirst
+   */
+  export type ContactFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contacts.
+     */
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact findFirstOrThrow
+   */
+  export type ContactFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contacts.
+     */
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact findMany
+   */
+  export type ContactFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contacts to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact create
+   */
+  export type ContactCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Contact.
+     */
+    data: XOR<ContactCreateInput, ContactUncheckedCreateInput>
+  }
+
+  /**
+   * Contact createMany
+   */
+  export type ContactCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contacts.
+     */
+    data: ContactCreateManyInput | ContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contact createManyAndReturn
+   */
+  export type ContactCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * The data used to create many Contacts.
+     */
+    data: ContactCreateManyInput | ContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contact update
+   */
+  export type ContactUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Contact.
+     */
+    data: XOR<ContactUpdateInput, ContactUncheckedUpdateInput>
+    /**
+     * Choose, which Contact to update.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact updateMany
+   */
+  export type ContactUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Contacts.
+     */
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyInput>
+    /**
+     * Filter which Contacts to update
+     */
+    where?: ContactWhereInput
+    /**
+     * Limit how many Contacts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contact updateManyAndReturn
+   */
+  export type ContactUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * The data used to update Contacts.
+     */
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyInput>
+    /**
+     * Filter which Contacts to update
+     */
+    where?: ContactWhereInput
+    /**
+     * Limit how many Contacts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contact upsert
+   */
+  export type ContactUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Contact to update in case it exists.
+     */
+    where: ContactWhereUniqueInput
+    /**
+     * In case the Contact found by the `where` argument doesn't exist, create a new Contact with this data.
+     */
+    create: XOR<ContactCreateInput, ContactUncheckedCreateInput>
+    /**
+     * In case the Contact was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactUpdateInput, ContactUncheckedUpdateInput>
+  }
+
+  /**
+   * Contact delete
+   */
+  export type ContactDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter which Contact to delete.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact deleteMany
+   */
+  export type ContactDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contacts to delete
+     */
+    where?: ContactWhereInput
+    /**
+     * Limit how many Contacts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Contact.scamTypes
+   */
+  export type Contact$scamTypesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    where?: ContactScamTypeWhereInput
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    cursor?: ContactScamTypeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * Contact.tags
+   */
+  export type Contact$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    where?: ContactTagWhereInput
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    cursor?: ContactTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * Contact without action
+   */
+  export type ContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContactScamType
+   */
+
+  export type AggregateContactScamType = {
+    _count: ContactScamTypeCountAggregateOutputType | null
+    _min: ContactScamTypeMinAggregateOutputType | null
+    _max: ContactScamTypeMaxAggregateOutputType | null
+  }
+
+  export type ContactScamTypeMinAggregateOutputType = {
+    contactId: string | null
+    scamTypeId: string | null
+  }
+
+  export type ContactScamTypeMaxAggregateOutputType = {
+    contactId: string | null
+    scamTypeId: string | null
+  }
+
+  export type ContactScamTypeCountAggregateOutputType = {
+    contactId: number
+    scamTypeId: number
+    _all: number
+  }
+
+
+  export type ContactScamTypeMinAggregateInputType = {
+    contactId?: true
+    scamTypeId?: true
+  }
+
+  export type ContactScamTypeMaxAggregateInputType = {
+    contactId?: true
+    scamTypeId?: true
+  }
+
+  export type ContactScamTypeCountAggregateInputType = {
+    contactId?: true
+    scamTypeId?: true
+    _all?: true
+  }
+
+  export type ContactScamTypeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactScamType to aggregate.
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactScamTypes to fetch.
+     */
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContactScamTypes
+    **/
+    _count?: true | ContactScamTypeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactScamTypeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactScamTypeMaxAggregateInputType
+  }
+
+  export type GetContactScamTypeAggregateType<T extends ContactScamTypeAggregateArgs> = {
+        [P in keyof T & keyof AggregateContactScamType]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContactScamType[P]>
+      : GetScalarType<T[P], AggregateContactScamType[P]>
+  }
+
+
+
+
+  export type ContactScamTypeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactScamTypeWhereInput
+    orderBy?: ContactScamTypeOrderByWithAggregationInput | ContactScamTypeOrderByWithAggregationInput[]
+    by: ContactScamTypeScalarFieldEnum[] | ContactScamTypeScalarFieldEnum
+    having?: ContactScamTypeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactScamTypeCountAggregateInputType | true
+    _min?: ContactScamTypeMinAggregateInputType
+    _max?: ContactScamTypeMaxAggregateInputType
+  }
+
+  export type ContactScamTypeGroupByOutputType = {
+    contactId: string
+    scamTypeId: string
+    _count: ContactScamTypeCountAggregateOutputType | null
+    _min: ContactScamTypeMinAggregateOutputType | null
+    _max: ContactScamTypeMaxAggregateOutputType | null
+  }
+
+  type GetContactScamTypeGroupByPayload<T extends ContactScamTypeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactScamTypeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactScamTypeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactScamTypeGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactScamTypeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactScamTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    scamTypeId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactScamType"]>
+
+  export type ContactScamTypeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    scamTypeId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactScamType"]>
+
+  export type ContactScamTypeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    scamTypeId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactScamType"]>
+
+  export type ContactScamTypeSelectScalar = {
+    contactId?: boolean
+    scamTypeId?: boolean
+  }
+
+  export type ContactScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"contactId" | "scamTypeId", ExtArgs["result"]["contactScamType"]>
+  export type ContactScamTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type ContactScamTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type ContactScamTypeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $ContactScamTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContactScamType"
+    objects: {
+      contact: Prisma.$ContactPayload<ExtArgs>
+      scamType: Prisma.$ScamTypePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      contactId: string
+      scamTypeId: string
+    }, ExtArgs["result"]["contactScamType"]>
+    composites: {}
+  }
+
+  type ContactScamTypeGetPayload<S extends boolean | null | undefined | ContactScamTypeDefaultArgs> = $Result.GetResult<Prisma.$ContactScamTypePayload, S>
+
+  type ContactScamTypeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactScamTypeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactScamTypeCountAggregateInputType | true
+    }
+
+  export interface ContactScamTypeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContactScamType'], meta: { name: 'ContactScamType' } }
+    /**
+     * Find zero or one ContactScamType that matches the filter.
+     * @param {ContactScamTypeFindUniqueArgs} args - Arguments to find a ContactScamType
+     * @example
+     * // Get one ContactScamType
+     * const contactScamType = await prisma.contactScamType.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactScamTypeFindUniqueArgs>(args: SelectSubset<T, ContactScamTypeFindUniqueArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContactScamType that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactScamTypeFindUniqueOrThrowArgs} args - Arguments to find a ContactScamType
+     * @example
+     * // Get one ContactScamType
+     * const contactScamType = await prisma.contactScamType.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactScamTypeFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactScamTypeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactScamType that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeFindFirstArgs} args - Arguments to find a ContactScamType
+     * @example
+     * // Get one ContactScamType
+     * const contactScamType = await prisma.contactScamType.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactScamTypeFindFirstArgs>(args?: SelectSubset<T, ContactScamTypeFindFirstArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactScamType that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeFindFirstOrThrowArgs} args - Arguments to find a ContactScamType
+     * @example
+     * // Get one ContactScamType
+     * const contactScamType = await prisma.contactScamType.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactScamTypeFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactScamTypeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactScamTypes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContactScamTypes
+     * const contactScamTypes = await prisma.contactScamType.findMany()
+     * 
+     * // Get first 10 ContactScamTypes
+     * const contactScamTypes = await prisma.contactScamType.findMany({ take: 10 })
+     * 
+     * // Only select the `contactId`
+     * const contactScamTypeWithContactIdOnly = await prisma.contactScamType.findMany({ select: { contactId: true } })
+     * 
+     */
+    findMany<T extends ContactScamTypeFindManyArgs>(args?: SelectSubset<T, ContactScamTypeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContactScamType.
+     * @param {ContactScamTypeCreateArgs} args - Arguments to create a ContactScamType.
+     * @example
+     * // Create one ContactScamType
+     * const ContactScamType = await prisma.contactScamType.create({
+     *   data: {
+     *     // ... data to create a ContactScamType
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactScamTypeCreateArgs>(args: SelectSubset<T, ContactScamTypeCreateArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContactScamTypes.
+     * @param {ContactScamTypeCreateManyArgs} args - Arguments to create many ContactScamTypes.
+     * @example
+     * // Create many ContactScamTypes
+     * const contactScamType = await prisma.contactScamType.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactScamTypeCreateManyArgs>(args?: SelectSubset<T, ContactScamTypeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContactScamTypes and returns the data saved in the database.
+     * @param {ContactScamTypeCreateManyAndReturnArgs} args - Arguments to create many ContactScamTypes.
+     * @example
+     * // Create many ContactScamTypes
+     * const contactScamType = await prisma.contactScamType.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContactScamTypes and only return the `contactId`
+     * const contactScamTypeWithContactIdOnly = await prisma.contactScamType.createManyAndReturn({
+     *   select: { contactId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactScamTypeCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactScamTypeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContactScamType.
+     * @param {ContactScamTypeDeleteArgs} args - Arguments to delete one ContactScamType.
+     * @example
+     * // Delete one ContactScamType
+     * const ContactScamType = await prisma.contactScamType.delete({
+     *   where: {
+     *     // ... filter to delete one ContactScamType
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactScamTypeDeleteArgs>(args: SelectSubset<T, ContactScamTypeDeleteArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContactScamType.
+     * @param {ContactScamTypeUpdateArgs} args - Arguments to update one ContactScamType.
+     * @example
+     * // Update one ContactScamType
+     * const contactScamType = await prisma.contactScamType.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactScamTypeUpdateArgs>(args: SelectSubset<T, ContactScamTypeUpdateArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContactScamTypes.
+     * @param {ContactScamTypeDeleteManyArgs} args - Arguments to filter ContactScamTypes to delete.
+     * @example
+     * // Delete a few ContactScamTypes
+     * const { count } = await prisma.contactScamType.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactScamTypeDeleteManyArgs>(args?: SelectSubset<T, ContactScamTypeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactScamTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContactScamTypes
+     * const contactScamType = await prisma.contactScamType.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactScamTypeUpdateManyArgs>(args: SelectSubset<T, ContactScamTypeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactScamTypes and returns the data updated in the database.
+     * @param {ContactScamTypeUpdateManyAndReturnArgs} args - Arguments to update many ContactScamTypes.
+     * @example
+     * // Update many ContactScamTypes
+     * const contactScamType = await prisma.contactScamType.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContactScamTypes and only return the `contactId`
+     * const contactScamTypeWithContactIdOnly = await prisma.contactScamType.updateManyAndReturn({
+     *   select: { contactId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContactScamTypeUpdateManyAndReturnArgs>(args: SelectSubset<T, ContactScamTypeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContactScamType.
+     * @param {ContactScamTypeUpsertArgs} args - Arguments to update or create a ContactScamType.
+     * @example
+     * // Update or create a ContactScamType
+     * const contactScamType = await prisma.contactScamType.upsert({
+     *   create: {
+     *     // ... data to create a ContactScamType
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContactScamType we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactScamTypeUpsertArgs>(args: SelectSubset<T, ContactScamTypeUpsertArgs<ExtArgs>>): Prisma__ContactScamTypeClient<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContactScamTypes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeCountArgs} args - Arguments to filter ContactScamTypes to count.
+     * @example
+     * // Count the number of ContactScamTypes
+     * const count = await prisma.contactScamType.count({
+     *   where: {
+     *     // ... the filter for the ContactScamTypes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactScamTypeCountArgs>(
+      args?: Subset<T, ContactScamTypeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactScamTypeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContactScamType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactScamTypeAggregateArgs>(args: Subset<T, ContactScamTypeAggregateArgs>): Prisma.PrismaPromise<GetContactScamTypeAggregateType<T>>
+
+    /**
+     * Group by ContactScamType.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactScamTypeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactScamTypeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactScamTypeGroupByArgs['orderBy'] }
+        : { orderBy?: ContactScamTypeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactScamTypeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactScamTypeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContactScamType model
+   */
+  readonly fields: ContactScamTypeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContactScamType.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactScamTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contact<T extends ContactDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContactDefaultArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    scamType<T extends ScamTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScamTypeDefaultArgs<ExtArgs>>): Prisma__ScamTypeClient<$Result.GetResult<Prisma.$ScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContactScamType model
+   */
+  interface ContactScamTypeFieldRefs {
+    readonly contactId: FieldRef<"ContactScamType", 'String'>
+    readonly scamTypeId: FieldRef<"ContactScamType", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContactScamType findUnique
+   */
+  export type ContactScamTypeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactScamType to fetch.
+     */
+    where: ContactScamTypeWhereUniqueInput
+  }
+
+  /**
+   * ContactScamType findUniqueOrThrow
+   */
+  export type ContactScamTypeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactScamType to fetch.
+     */
+    where: ContactScamTypeWhereUniqueInput
+  }
+
+  /**
+   * ContactScamType findFirst
+   */
+  export type ContactScamTypeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactScamType to fetch.
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactScamTypes to fetch.
+     */
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactScamTypes.
+     */
+    cursor?: ContactScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactScamTypes.
+     */
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ContactScamType findFirstOrThrow
+   */
+  export type ContactScamTypeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactScamType to fetch.
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactScamTypes to fetch.
+     */
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactScamTypes.
+     */
+    cursor?: ContactScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactScamTypes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactScamTypes.
+     */
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ContactScamType findMany
+   */
+  export type ContactScamTypeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactScamTypes to fetch.
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactScamTypes to fetch.
+     */
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContactScamTypes.
+     */
+    cursor?: ContactScamTypeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactScamTypes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactScamTypes.
+     */
+    skip?: number
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
+  }
+
+  /**
+   * ContactScamType create
+   */
+  export type ContactScamTypeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContactScamType.
+     */
+    data: XOR<ContactScamTypeCreateInput, ContactScamTypeUncheckedCreateInput>
+  }
+
+  /**
+   * ContactScamType createMany
+   */
+  export type ContactScamTypeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContactScamTypes.
+     */
+    data: ContactScamTypeCreateManyInput | ContactScamTypeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContactScamType createManyAndReturn
+   */
+  export type ContactScamTypeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContactScamTypes.
+     */
+    data: ContactScamTypeCreateManyInput | ContactScamTypeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactScamType update
+   */
+  export type ContactScamTypeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContactScamType.
+     */
+    data: XOR<ContactScamTypeUpdateInput, ContactScamTypeUncheckedUpdateInput>
+    /**
+     * Choose, which ContactScamType to update.
+     */
+    where: ContactScamTypeWhereUniqueInput
+  }
+
+  /**
+   * ContactScamType updateMany
+   */
+  export type ContactScamTypeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContactScamTypes.
+     */
+    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactScamTypes to update
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * Limit how many ContactScamTypes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactScamType updateManyAndReturn
+   */
+  export type ContactScamTypeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * The data used to update ContactScamTypes.
+     */
+    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactScamTypes to update
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * Limit how many ContactScamTypes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactScamType upsert
+   */
+  export type ContactScamTypeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContactScamType to update in case it exists.
+     */
+    where: ContactScamTypeWhereUniqueInput
+    /**
+     * In case the ContactScamType found by the `where` argument doesn't exist, create a new ContactScamType with this data.
+     */
+    create: XOR<ContactScamTypeCreateInput, ContactScamTypeUncheckedCreateInput>
+    /**
+     * In case the ContactScamType was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactScamTypeUpdateInput, ContactScamTypeUncheckedUpdateInput>
+  }
+
+  /**
+   * ContactScamType delete
+   */
+  export type ContactScamTypeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    /**
+     * Filter which ContactScamType to delete.
+     */
+    where: ContactScamTypeWhereUniqueInput
+  }
+
+  /**
+   * ContactScamType deleteMany
+   */
+  export type ContactScamTypeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactScamTypes to delete
+     */
+    where?: ContactScamTypeWhereInput
+    /**
+     * Limit how many ContactScamTypes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactScamType without action
+   */
+  export type ContactScamTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactScamType
+     */
+    select?: ContactScamTypeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactScamType
+     */
+    omit?: ContactScamTypeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactScamTypeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContactTag
+   */
+
+  export type AggregateContactTag = {
+    _count: ContactTagCountAggregateOutputType | null
+    _min: ContactTagMinAggregateOutputType | null
+    _max: ContactTagMaxAggregateOutputType | null
+  }
+
+  export type ContactTagMinAggregateOutputType = {
+    contactId: string | null
+    tagId: string | null
+  }
+
+  export type ContactTagMaxAggregateOutputType = {
+    contactId: string | null
+    tagId: string | null
+  }
+
+  export type ContactTagCountAggregateOutputType = {
+    contactId: number
+    tagId: number
+    _all: number
+  }
+
+
+  export type ContactTagMinAggregateInputType = {
+    contactId?: true
+    tagId?: true
+  }
+
+  export type ContactTagMaxAggregateInputType = {
+    contactId?: true
+    tagId?: true
+  }
+
+  export type ContactTagCountAggregateInputType = {
+    contactId?: true
+    tagId?: true
+    _all?: true
+  }
+
+  export type ContactTagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactTag to aggregate.
+     */
+    where?: ContactTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTags to fetch.
+     */
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContactTags
+    **/
+    _count?: true | ContactTagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactTagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactTagMaxAggregateInputType
+  }
+
+  export type GetContactTagAggregateType<T extends ContactTagAggregateArgs> = {
+        [P in keyof T & keyof AggregateContactTag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContactTag[P]>
+      : GetScalarType<T[P], AggregateContactTag[P]>
+  }
+
+
+
+
+  export type ContactTagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactTagWhereInput
+    orderBy?: ContactTagOrderByWithAggregationInput | ContactTagOrderByWithAggregationInput[]
+    by: ContactTagScalarFieldEnum[] | ContactTagScalarFieldEnum
+    having?: ContactTagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactTagCountAggregateInputType | true
+    _min?: ContactTagMinAggregateInputType
+    _max?: ContactTagMaxAggregateInputType
+  }
+
+  export type ContactTagGroupByOutputType = {
+    contactId: string
+    tagId: string
+    _count: ContactTagCountAggregateOutputType | null
+    _min: ContactTagMinAggregateOutputType | null
+    _max: ContactTagMaxAggregateOutputType | null
+  }
+
+  type GetContactTagGroupByPayload<T extends ContactTagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactTagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactTagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactTagGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactTagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactTagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    tagId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactTag"]>
+
+  export type ContactTagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    tagId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactTag"]>
+
+  export type ContactTagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    contactId?: boolean
+    tagId?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contactTag"]>
+
+  export type ContactTagSelectScalar = {
+    contactId?: boolean
+    tagId?: boolean
+  }
+
+  export type ContactTagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"contactId" | "tagId", ExtArgs["result"]["contactTag"]>
+  export type ContactTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type ContactTagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type ContactTagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+
+  export type $ContactTagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContactTag"
+    objects: {
+      contact: Prisma.$ContactPayload<ExtArgs>
+      tag: Prisma.$TagPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      contactId: string
+      tagId: string
+    }, ExtArgs["result"]["contactTag"]>
+    composites: {}
+  }
+
+  type ContactTagGetPayload<S extends boolean | null | undefined | ContactTagDefaultArgs> = $Result.GetResult<Prisma.$ContactTagPayload, S>
+
+  type ContactTagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactTagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactTagCountAggregateInputType | true
+    }
+
+  export interface ContactTagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContactTag'], meta: { name: 'ContactTag' } }
+    /**
+     * Find zero or one ContactTag that matches the filter.
+     * @param {ContactTagFindUniqueArgs} args - Arguments to find a ContactTag
+     * @example
+     * // Get one ContactTag
+     * const contactTag = await prisma.contactTag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactTagFindUniqueArgs>(args: SelectSubset<T, ContactTagFindUniqueArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContactTag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactTagFindUniqueOrThrowArgs} args - Arguments to find a ContactTag
+     * @example
+     * // Get one ContactTag
+     * const contactTag = await prisma.contactTag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactTagFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactTagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactTag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagFindFirstArgs} args - Arguments to find a ContactTag
+     * @example
+     * // Get one ContactTag
+     * const contactTag = await prisma.contactTag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactTagFindFirstArgs>(args?: SelectSubset<T, ContactTagFindFirstArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactTag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagFindFirstOrThrowArgs} args - Arguments to find a ContactTag
+     * @example
+     * // Get one ContactTag
+     * const contactTag = await prisma.contactTag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactTagFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactTagFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactTags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContactTags
+     * const contactTags = await prisma.contactTag.findMany()
+     * 
+     * // Get first 10 ContactTags
+     * const contactTags = await prisma.contactTag.findMany({ take: 10 })
+     * 
+     * // Only select the `contactId`
+     * const contactTagWithContactIdOnly = await prisma.contactTag.findMany({ select: { contactId: true } })
+     * 
+     */
+    findMany<T extends ContactTagFindManyArgs>(args?: SelectSubset<T, ContactTagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContactTag.
+     * @param {ContactTagCreateArgs} args - Arguments to create a ContactTag.
+     * @example
+     * // Create one ContactTag
+     * const ContactTag = await prisma.contactTag.create({
+     *   data: {
+     *     // ... data to create a ContactTag
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactTagCreateArgs>(args: SelectSubset<T, ContactTagCreateArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContactTags.
+     * @param {ContactTagCreateManyArgs} args - Arguments to create many ContactTags.
+     * @example
+     * // Create many ContactTags
+     * const contactTag = await prisma.contactTag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactTagCreateManyArgs>(args?: SelectSubset<T, ContactTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContactTags and returns the data saved in the database.
+     * @param {ContactTagCreateManyAndReturnArgs} args - Arguments to create many ContactTags.
+     * @example
+     * // Create many ContactTags
+     * const contactTag = await prisma.contactTag.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContactTags and only return the `contactId`
+     * const contactTagWithContactIdOnly = await prisma.contactTag.createManyAndReturn({
+     *   select: { contactId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactTagCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactTagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContactTag.
+     * @param {ContactTagDeleteArgs} args - Arguments to delete one ContactTag.
+     * @example
+     * // Delete one ContactTag
+     * const ContactTag = await prisma.contactTag.delete({
+     *   where: {
+     *     // ... filter to delete one ContactTag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactTagDeleteArgs>(args: SelectSubset<T, ContactTagDeleteArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContactTag.
+     * @param {ContactTagUpdateArgs} args - Arguments to update one ContactTag.
+     * @example
+     * // Update one ContactTag
+     * const contactTag = await prisma.contactTag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactTagUpdateArgs>(args: SelectSubset<T, ContactTagUpdateArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContactTags.
+     * @param {ContactTagDeleteManyArgs} args - Arguments to filter ContactTags to delete.
+     * @example
+     * // Delete a few ContactTags
+     * const { count } = await prisma.contactTag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactTagDeleteManyArgs>(args?: SelectSubset<T, ContactTagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContactTags
+     * const contactTag = await prisma.contactTag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactTagUpdateManyArgs>(args: SelectSubset<T, ContactTagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactTags and returns the data updated in the database.
+     * @param {ContactTagUpdateManyAndReturnArgs} args - Arguments to update many ContactTags.
+     * @example
+     * // Update many ContactTags
+     * const contactTag = await prisma.contactTag.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContactTags and only return the `contactId`
+     * const contactTagWithContactIdOnly = await prisma.contactTag.updateManyAndReturn({
+     *   select: { contactId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContactTagUpdateManyAndReturnArgs>(args: SelectSubset<T, ContactTagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContactTag.
+     * @param {ContactTagUpsertArgs} args - Arguments to update or create a ContactTag.
+     * @example
+     * // Update or create a ContactTag
+     * const contactTag = await prisma.contactTag.upsert({
+     *   create: {
+     *     // ... data to create a ContactTag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContactTag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactTagUpsertArgs>(args: SelectSubset<T, ContactTagUpsertArgs<ExtArgs>>): Prisma__ContactTagClient<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContactTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagCountArgs} args - Arguments to filter ContactTags to count.
+     * @example
+     * // Count the number of ContactTags
+     * const count = await prisma.contactTag.count({
+     *   where: {
+     *     // ... the filter for the ContactTags we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactTagCountArgs>(
+      args?: Subset<T, ContactTagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactTagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContactTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactTagAggregateArgs>(args: Subset<T, ContactTagAggregateArgs>): Prisma.PrismaPromise<GetContactTagAggregateType<T>>
+
+    /**
+     * Group by ContactTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactTagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactTagGroupByArgs['orderBy'] }
+        : { orderBy?: ContactTagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContactTag model
+   */
+  readonly fields: ContactTagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContactTag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactTagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contact<T extends ContactDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContactDefaultArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tag<T extends TagDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TagDefaultArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContactTag model
+   */
+  interface ContactTagFieldRefs {
+    readonly contactId: FieldRef<"ContactTag", 'String'>
+    readonly tagId: FieldRef<"ContactTag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContactTag findUnique
+   */
+  export type ContactTagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactTag to fetch.
+     */
+    where: ContactTagWhereUniqueInput
+  }
+
+  /**
+   * ContactTag findUniqueOrThrow
+   */
+  export type ContactTagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactTag to fetch.
+     */
+    where: ContactTagWhereUniqueInput
+  }
+
+  /**
+   * ContactTag findFirst
+   */
+  export type ContactTagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactTag to fetch.
+     */
+    where?: ContactTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTags to fetch.
+     */
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactTags.
+     */
+    cursor?: ContactTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactTags.
+     */
+    distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTag findFirstOrThrow
+   */
+  export type ContactTagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactTag to fetch.
+     */
+    where?: ContactTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTags to fetch.
+     */
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactTags.
+     */
+    cursor?: ContactTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactTags.
+     */
+    distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTag findMany
+   */
+  export type ContactTagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter, which ContactTags to fetch.
+     */
+    where?: ContactTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTags to fetch.
+     */
+    orderBy?: ContactTagOrderByWithRelationInput | ContactTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContactTags.
+     */
+    cursor?: ContactTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTags.
+     */
+    skip?: number
+    distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTag create
+   */
+  export type ContactTagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContactTag.
+     */
+    data: XOR<ContactTagCreateInput, ContactTagUncheckedCreateInput>
+  }
+
+  /**
+   * ContactTag createMany
+   */
+  export type ContactTagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContactTags.
+     */
+    data: ContactTagCreateManyInput | ContactTagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContactTag createManyAndReturn
+   */
+  export type ContactTagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContactTags.
+     */
+    data: ContactTagCreateManyInput | ContactTagCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactTag update
+   */
+  export type ContactTagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContactTag.
+     */
+    data: XOR<ContactTagUpdateInput, ContactTagUncheckedUpdateInput>
+    /**
+     * Choose, which ContactTag to update.
+     */
+    where: ContactTagWhereUniqueInput
+  }
+
+  /**
+   * ContactTag updateMany
+   */
+  export type ContactTagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContactTags.
+     */
+    data: XOR<ContactTagUpdateManyMutationInput, ContactTagUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactTags to update
+     */
+    where?: ContactTagWhereInput
+    /**
+     * Limit how many ContactTags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactTag updateManyAndReturn
+   */
+  export type ContactTagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * The data used to update ContactTags.
+     */
+    data: XOR<ContactTagUpdateManyMutationInput, ContactTagUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactTags to update
+     */
+    where?: ContactTagWhereInput
+    /**
+     * Limit how many ContactTags to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContactTag upsert
+   */
+  export type ContactTagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContactTag to update in case it exists.
+     */
+    where: ContactTagWhereUniqueInput
+    /**
+     * In case the ContactTag found by the `where` argument doesn't exist, create a new ContactTag with this data.
+     */
+    create: XOR<ContactTagCreateInput, ContactTagUncheckedCreateInput>
+    /**
+     * In case the ContactTag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactTagUpdateInput, ContactTagUncheckedUpdateInput>
+  }
+
+  /**
+   * ContactTag delete
+   */
+  export type ContactTagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+    /**
+     * Filter which ContactTag to delete.
+     */
+    where: ContactTagWhereUniqueInput
+  }
+
+  /**
+   * ContactTag deleteMany
+   */
+  export type ContactTagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactTags to delete
+     */
+    where?: ContactTagWhereInput
+    /**
+     * Limit how many ContactTags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactTag without action
+   */
+  export type ContactTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTag
+     */
+    select?: ContactTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTag
+     */
+    omit?: ContactTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactTagInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14355,6 +23025,99 @@ export namespace Prisma {
   export type OutcomeTypeScalarFieldEnum = (typeof OutcomeTypeScalarFieldEnum)[keyof typeof OutcomeTypeScalarFieldEnum]
 
 
+  export const EducationPostScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    slug: 'slug',
+    title: 'title',
+    excerpt: 'excerpt',
+    bodyMd: 'bodyMd',
+    status: 'status',
+    publishedAt: 'publishedAt',
+    category: 'category',
+    heroImageUrl: 'heroImageUrl',
+    heroSvg: 'heroSvg',
+    heroAlt: 'heroAlt',
+    country: 'country',
+    region: 'region',
+    city: 'city',
+    canonicalUrl: 'canonicalUrl',
+    metaTitle: 'metaTitle',
+    metaDescription: 'metaDescription',
+    featured: 'featured',
+    authorName: 'authorName',
+    sourceUrl: 'sourceUrl'
+  };
+
+  export type EducationPostScalarFieldEnum = (typeof EducationPostScalarFieldEnum)[keyof typeof EducationPostScalarFieldEnum]
+
+
+  export const TagScalarFieldEnum: {
+    id: 'id',
+    name: 'name'
+  };
+
+  export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+  export const PostTagScalarFieldEnum: {
+    postId: 'postId',
+    tagId: 'tagId'
+  };
+
+  export type PostTagScalarFieldEnum = (typeof PostTagScalarFieldEnum)[keyof typeof PostTagScalarFieldEnum]
+
+
+  export const EducationPostScamTypeScalarFieldEnum: {
+    postId: 'postId',
+    scamTypeId: 'scamTypeId'
+  };
+
+  export type EducationPostScamTypeScalarFieldEnum = (typeof EducationPostScamTypeScalarFieldEnum)[keyof typeof EducationPostScamTypeScalarFieldEnum]
+
+
+  export const ContactScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    orgName: 'orgName',
+    category: 'category',
+    description: 'description',
+    website: 'website',
+    phone: 'phone',
+    email: 'email',
+    submitUrl: 'submitUrl',
+    languageCodes: 'languageCodes',
+    country: 'country',
+    region: 'region',
+    city: 'city',
+    status: 'status',
+    verified: 'verified',
+    source: 'source',
+    lastVerifiedAt: 'lastVerifiedAt',
+    createdById: 'createdById'
+  };
+
+  export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
+
+
+  export const ContactScamTypeScalarFieldEnum: {
+    contactId: 'contactId',
+    scamTypeId: 'scamTypeId'
+  };
+
+  export type ContactScamTypeScalarFieldEnum = (typeof ContactScamTypeScalarFieldEnum)[keyof typeof ContactScamTypeScalarFieldEnum]
+
+
+  export const ContactTagScalarFieldEnum: {
+    contactId: 'contactId',
+    tagId: 'tagId'
+  };
+
+  export type ContactTagScalarFieldEnum = (typeof ContactTagScalarFieldEnum)[keyof typeof ContactTagScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -14475,6 +23238,62 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostStatus'
+   */
+  export type EnumPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostStatus[]'
+   */
+  export type ListEnumPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostCategory'
+   */
+  export type EnumPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostCategory[]'
+   */
+  export type ListEnumPostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactCategory'
+   */
+  export type EnumContactCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactCategory[]'
+   */
+  export type ListEnumContactCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactStatus'
+   */
+  export type EnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactStatus[]'
+   */
+  export type ListEnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus[]'>
     
   /**
    * Deep Input Types
@@ -14960,6 +23779,8 @@ export namespace Prisma {
     moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
     moderatedBy?: StringNullableFilter<"ScamType"> | string | null
     reports?: ScamReportListRelationFilter
+    postLinks?: EducationPostScamTypeListRelationFilter
+    contactLinks?: ContactScamTypeListRelationFilter
   }
 
   export type ScamTypeOrderByWithRelationInput = {
@@ -14972,6 +23793,8 @@ export namespace Prisma {
     moderatedAt?: SortOrderInput | SortOrder
     moderatedBy?: SortOrderInput | SortOrder
     reports?: ScamReportOrderByRelationAggregateInput
+    postLinks?: EducationPostScamTypeOrderByRelationAggregateInput
+    contactLinks?: ContactScamTypeOrderByRelationAggregateInput
   }
 
   export type ScamTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -14987,6 +23810,8 @@ export namespace Prisma {
     moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
     moderatedBy?: StringNullableFilter<"ScamType"> | string | null
     reports?: ScamReportListRelationFilter
+    postLinks?: EducationPostScamTypeListRelationFilter
+    contactLinks?: ContactScamTypeListRelationFilter
   }, "id" | "name">
 
   export type ScamTypeOrderByWithAggregationInput = {
@@ -15270,6 +24095,496 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"OutcomeType"> | string
     createdAt?: DateTimeWithAggregatesFilter<"OutcomeType"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OutcomeType"> | Date | string
+  }
+
+  export type EducationPostWhereInput = {
+    AND?: EducationPostWhereInput | EducationPostWhereInput[]
+    OR?: EducationPostWhereInput[]
+    NOT?: EducationPostWhereInput | EducationPostWhereInput[]
+    id?: StringFilter<"EducationPost"> | string
+    createdAt?: DateTimeFilter<"EducationPost"> | Date | string
+    updatedAt?: DateTimeFilter<"EducationPost"> | Date | string
+    slug?: StringFilter<"EducationPost"> | string
+    title?: StringFilter<"EducationPost"> | string
+    excerpt?: StringNullableFilter<"EducationPost"> | string | null
+    bodyMd?: StringFilter<"EducationPost"> | string
+    status?: EnumPostStatusFilter<"EducationPost"> | $Enums.PostStatus
+    publishedAt?: DateTimeNullableFilter<"EducationPost"> | Date | string | null
+    category?: EnumPostCategoryFilter<"EducationPost"> | $Enums.PostCategory
+    heroImageUrl?: StringNullableFilter<"EducationPost"> | string | null
+    heroSvg?: StringNullableFilter<"EducationPost"> | string | null
+    heroAlt?: StringNullableFilter<"EducationPost"> | string | null
+    country?: StringNullableFilter<"EducationPost"> | string | null
+    region?: StringNullableFilter<"EducationPost"> | string | null
+    city?: StringNullableFilter<"EducationPost"> | string | null
+    canonicalUrl?: StringNullableFilter<"EducationPost"> | string | null
+    metaTitle?: StringNullableFilter<"EducationPost"> | string | null
+    metaDescription?: StringNullableFilter<"EducationPost"> | string | null
+    featured?: BoolFilter<"EducationPost"> | boolean
+    authorName?: StringNullableFilter<"EducationPost"> | string | null
+    sourceUrl?: StringNullableFilter<"EducationPost"> | string | null
+    scamTypes?: EducationPostScamTypeListRelationFilter
+    tags?: PostTagListRelationFilter
+  }
+
+  export type EducationPostOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    slug?: SortOrder
+    title?: SortOrder
+    excerpt?: SortOrderInput | SortOrder
+    bodyMd?: SortOrder
+    status?: SortOrder
+    publishedAt?: SortOrderInput | SortOrder
+    category?: SortOrder
+    heroImageUrl?: SortOrderInput | SortOrder
+    heroSvg?: SortOrderInput | SortOrder
+    heroAlt?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    canonicalUrl?: SortOrderInput | SortOrder
+    metaTitle?: SortOrderInput | SortOrder
+    metaDescription?: SortOrderInput | SortOrder
+    featured?: SortOrder
+    authorName?: SortOrderInput | SortOrder
+    sourceUrl?: SortOrderInput | SortOrder
+    scamTypes?: EducationPostScamTypeOrderByRelationAggregateInput
+    tags?: PostTagOrderByRelationAggregateInput
+  }
+
+  export type EducationPostWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: EducationPostWhereInput | EducationPostWhereInput[]
+    OR?: EducationPostWhereInput[]
+    NOT?: EducationPostWhereInput | EducationPostWhereInput[]
+    createdAt?: DateTimeFilter<"EducationPost"> | Date | string
+    updatedAt?: DateTimeFilter<"EducationPost"> | Date | string
+    title?: StringFilter<"EducationPost"> | string
+    excerpt?: StringNullableFilter<"EducationPost"> | string | null
+    bodyMd?: StringFilter<"EducationPost"> | string
+    status?: EnumPostStatusFilter<"EducationPost"> | $Enums.PostStatus
+    publishedAt?: DateTimeNullableFilter<"EducationPost"> | Date | string | null
+    category?: EnumPostCategoryFilter<"EducationPost"> | $Enums.PostCategory
+    heroImageUrl?: StringNullableFilter<"EducationPost"> | string | null
+    heroSvg?: StringNullableFilter<"EducationPost"> | string | null
+    heroAlt?: StringNullableFilter<"EducationPost"> | string | null
+    country?: StringNullableFilter<"EducationPost"> | string | null
+    region?: StringNullableFilter<"EducationPost"> | string | null
+    city?: StringNullableFilter<"EducationPost"> | string | null
+    canonicalUrl?: StringNullableFilter<"EducationPost"> | string | null
+    metaTitle?: StringNullableFilter<"EducationPost"> | string | null
+    metaDescription?: StringNullableFilter<"EducationPost"> | string | null
+    featured?: BoolFilter<"EducationPost"> | boolean
+    authorName?: StringNullableFilter<"EducationPost"> | string | null
+    sourceUrl?: StringNullableFilter<"EducationPost"> | string | null
+    scamTypes?: EducationPostScamTypeListRelationFilter
+    tags?: PostTagListRelationFilter
+  }, "id" | "slug">
+
+  export type EducationPostOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    slug?: SortOrder
+    title?: SortOrder
+    excerpt?: SortOrderInput | SortOrder
+    bodyMd?: SortOrder
+    status?: SortOrder
+    publishedAt?: SortOrderInput | SortOrder
+    category?: SortOrder
+    heroImageUrl?: SortOrderInput | SortOrder
+    heroSvg?: SortOrderInput | SortOrder
+    heroAlt?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    canonicalUrl?: SortOrderInput | SortOrder
+    metaTitle?: SortOrderInput | SortOrder
+    metaDescription?: SortOrderInput | SortOrder
+    featured?: SortOrder
+    authorName?: SortOrderInput | SortOrder
+    sourceUrl?: SortOrderInput | SortOrder
+    _count?: EducationPostCountOrderByAggregateInput
+    _max?: EducationPostMaxOrderByAggregateInput
+    _min?: EducationPostMinOrderByAggregateInput
+  }
+
+  export type EducationPostScalarWhereWithAggregatesInput = {
+    AND?: EducationPostScalarWhereWithAggregatesInput | EducationPostScalarWhereWithAggregatesInput[]
+    OR?: EducationPostScalarWhereWithAggregatesInput[]
+    NOT?: EducationPostScalarWhereWithAggregatesInput | EducationPostScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EducationPost"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EducationPost"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EducationPost"> | Date | string
+    slug?: StringWithAggregatesFilter<"EducationPost"> | string
+    title?: StringWithAggregatesFilter<"EducationPost"> | string
+    excerpt?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    bodyMd?: StringWithAggregatesFilter<"EducationPost"> | string
+    status?: EnumPostStatusWithAggregatesFilter<"EducationPost"> | $Enums.PostStatus
+    publishedAt?: DateTimeNullableWithAggregatesFilter<"EducationPost"> | Date | string | null
+    category?: EnumPostCategoryWithAggregatesFilter<"EducationPost"> | $Enums.PostCategory
+    heroImageUrl?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    heroSvg?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    heroAlt?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    country?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    region?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    city?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    canonicalUrl?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    metaTitle?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    metaDescription?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    featured?: BoolWithAggregatesFilter<"EducationPost"> | boolean
+    authorName?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+    sourceUrl?: StringNullableWithAggregatesFilter<"EducationPost"> | string | null
+  }
+
+  export type TagWhereInput = {
+    AND?: TagWhereInput | TagWhereInput[]
+    OR?: TagWhereInput[]
+    NOT?: TagWhereInput | TagWhereInput[]
+    id?: StringFilter<"Tag"> | string
+    name?: StringFilter<"Tag"> | string
+    posts?: PostTagListRelationFilter
+    contacts?: ContactTagListRelationFilter
+  }
+
+  export type TagOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    posts?: PostTagOrderByRelationAggregateInput
+    contacts?: ContactTagOrderByRelationAggregateInput
+  }
+
+  export type TagWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: TagWhereInput | TagWhereInput[]
+    OR?: TagWhereInput[]
+    NOT?: TagWhereInput | TagWhereInput[]
+    posts?: PostTagListRelationFilter
+    contacts?: ContactTagListRelationFilter
+  }, "id" | "name">
+
+  export type TagOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: TagCountOrderByAggregateInput
+    _max?: TagMaxOrderByAggregateInput
+    _min?: TagMinOrderByAggregateInput
+  }
+
+  export type TagScalarWhereWithAggregatesInput = {
+    AND?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
+    OR?: TagScalarWhereWithAggregatesInput[]
+    NOT?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tag"> | string
+    name?: StringWithAggregatesFilter<"Tag"> | string
+  }
+
+  export type PostTagWhereInput = {
+    AND?: PostTagWhereInput | PostTagWhereInput[]
+    OR?: PostTagWhereInput[]
+    NOT?: PostTagWhereInput | PostTagWhereInput[]
+    postId?: StringFilter<"PostTag"> | string
+    tagId?: StringFilter<"PostTag"> | string
+    post?: XOR<EducationPostScalarRelationFilter, EducationPostWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }
+
+  export type PostTagOrderByWithRelationInput = {
+    postId?: SortOrder
+    tagId?: SortOrder
+    post?: EducationPostOrderByWithRelationInput
+    tag?: TagOrderByWithRelationInput
+  }
+
+  export type PostTagWhereUniqueInput = Prisma.AtLeast<{
+    postId_tagId?: PostTagPostIdTagIdCompoundUniqueInput
+    AND?: PostTagWhereInput | PostTagWhereInput[]
+    OR?: PostTagWhereInput[]
+    NOT?: PostTagWhereInput | PostTagWhereInput[]
+    postId?: StringFilter<"PostTag"> | string
+    tagId?: StringFilter<"PostTag"> | string
+    post?: XOR<EducationPostScalarRelationFilter, EducationPostWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }, "postId_tagId">
+
+  export type PostTagOrderByWithAggregationInput = {
+    postId?: SortOrder
+    tagId?: SortOrder
+    _count?: PostTagCountOrderByAggregateInput
+    _max?: PostTagMaxOrderByAggregateInput
+    _min?: PostTagMinOrderByAggregateInput
+  }
+
+  export type PostTagScalarWhereWithAggregatesInput = {
+    AND?: PostTagScalarWhereWithAggregatesInput | PostTagScalarWhereWithAggregatesInput[]
+    OR?: PostTagScalarWhereWithAggregatesInput[]
+    NOT?: PostTagScalarWhereWithAggregatesInput | PostTagScalarWhereWithAggregatesInput[]
+    postId?: StringWithAggregatesFilter<"PostTag"> | string
+    tagId?: StringWithAggregatesFilter<"PostTag"> | string
+  }
+
+  export type EducationPostScamTypeWhereInput = {
+    AND?: EducationPostScamTypeWhereInput | EducationPostScamTypeWhereInput[]
+    OR?: EducationPostScamTypeWhereInput[]
+    NOT?: EducationPostScamTypeWhereInput | EducationPostScamTypeWhereInput[]
+    postId?: StringFilter<"EducationPostScamType"> | string
+    scamTypeId?: StringFilter<"EducationPostScamType"> | string
+    post?: XOR<EducationPostScalarRelationFilter, EducationPostWhereInput>
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }
+
+  export type EducationPostScamTypeOrderByWithRelationInput = {
+    postId?: SortOrder
+    scamTypeId?: SortOrder
+    post?: EducationPostOrderByWithRelationInput
+    scamType?: ScamTypeOrderByWithRelationInput
+  }
+
+  export type EducationPostScamTypeWhereUniqueInput = Prisma.AtLeast<{
+    postId_scamTypeId?: EducationPostScamTypePostIdScamTypeIdCompoundUniqueInput
+    AND?: EducationPostScamTypeWhereInput | EducationPostScamTypeWhereInput[]
+    OR?: EducationPostScamTypeWhereInput[]
+    NOT?: EducationPostScamTypeWhereInput | EducationPostScamTypeWhereInput[]
+    postId?: StringFilter<"EducationPostScamType"> | string
+    scamTypeId?: StringFilter<"EducationPostScamType"> | string
+    post?: XOR<EducationPostScalarRelationFilter, EducationPostWhereInput>
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }, "postId_scamTypeId">
+
+  export type EducationPostScamTypeOrderByWithAggregationInput = {
+    postId?: SortOrder
+    scamTypeId?: SortOrder
+    _count?: EducationPostScamTypeCountOrderByAggregateInput
+    _max?: EducationPostScamTypeMaxOrderByAggregateInput
+    _min?: EducationPostScamTypeMinOrderByAggregateInput
+  }
+
+  export type EducationPostScamTypeScalarWhereWithAggregatesInput = {
+    AND?: EducationPostScamTypeScalarWhereWithAggregatesInput | EducationPostScamTypeScalarWhereWithAggregatesInput[]
+    OR?: EducationPostScamTypeScalarWhereWithAggregatesInput[]
+    NOT?: EducationPostScamTypeScalarWhereWithAggregatesInput | EducationPostScamTypeScalarWhereWithAggregatesInput[]
+    postId?: StringWithAggregatesFilter<"EducationPostScamType"> | string
+    scamTypeId?: StringWithAggregatesFilter<"EducationPostScamType"> | string
+  }
+
+  export type ContactWhereInput = {
+    AND?: ContactWhereInput | ContactWhereInput[]
+    OR?: ContactWhereInput[]
+    NOT?: ContactWhereInput | ContactWhereInput[]
+    id?: StringFilter<"Contact"> | string
+    createdAt?: DateTimeFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeFilter<"Contact"> | Date | string
+    orgName?: StringFilter<"Contact"> | string
+    category?: EnumContactCategoryFilter<"Contact"> | $Enums.ContactCategory
+    description?: StringNullableFilter<"Contact"> | string | null
+    website?: StringNullableFilter<"Contact"> | string | null
+    phone?: StringNullableFilter<"Contact"> | string | null
+    email?: StringNullableFilter<"Contact"> | string | null
+    submitUrl?: StringNullableFilter<"Contact"> | string | null
+    languageCodes?: StringNullableListFilter<"Contact">
+    country?: StringNullableFilter<"Contact"> | string | null
+    region?: StringNullableFilter<"Contact"> | string | null
+    city?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
+    verified?: BoolFilter<"Contact"> | boolean
+    source?: StringNullableFilter<"Contact"> | string | null
+    lastVerifiedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    createdById?: StringNullableFilter<"Contact"> | string | null
+    scamTypes?: ContactScamTypeListRelationFilter
+    tags?: ContactTagListRelationFilter
+  }
+
+  export type ContactOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    orgName?: SortOrder
+    category?: SortOrder
+    description?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    submitUrl?: SortOrderInput | SortOrder
+    languageCodes?: SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    status?: SortOrder
+    verified?: SortOrder
+    source?: SortOrderInput | SortOrder
+    lastVerifiedAt?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    scamTypes?: ContactScamTypeOrderByRelationAggregateInput
+    tags?: ContactTagOrderByRelationAggregateInput
+  }
+
+  export type ContactWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ContactWhereInput | ContactWhereInput[]
+    OR?: ContactWhereInput[]
+    NOT?: ContactWhereInput | ContactWhereInput[]
+    createdAt?: DateTimeFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeFilter<"Contact"> | Date | string
+    orgName?: StringFilter<"Contact"> | string
+    category?: EnumContactCategoryFilter<"Contact"> | $Enums.ContactCategory
+    description?: StringNullableFilter<"Contact"> | string | null
+    website?: StringNullableFilter<"Contact"> | string | null
+    phone?: StringNullableFilter<"Contact"> | string | null
+    email?: StringNullableFilter<"Contact"> | string | null
+    submitUrl?: StringNullableFilter<"Contact"> | string | null
+    languageCodes?: StringNullableListFilter<"Contact">
+    country?: StringNullableFilter<"Contact"> | string | null
+    region?: StringNullableFilter<"Contact"> | string | null
+    city?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
+    verified?: BoolFilter<"Contact"> | boolean
+    source?: StringNullableFilter<"Contact"> | string | null
+    lastVerifiedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    createdById?: StringNullableFilter<"Contact"> | string | null
+    scamTypes?: ContactScamTypeListRelationFilter
+    tags?: ContactTagListRelationFilter
+  }, "id">
+
+  export type ContactOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    orgName?: SortOrder
+    category?: SortOrder
+    description?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    submitUrl?: SortOrderInput | SortOrder
+    languageCodes?: SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    status?: SortOrder
+    verified?: SortOrder
+    source?: SortOrderInput | SortOrder
+    lastVerifiedAt?: SortOrderInput | SortOrder
+    createdById?: SortOrderInput | SortOrder
+    _count?: ContactCountOrderByAggregateInput
+    _max?: ContactMaxOrderByAggregateInput
+    _min?: ContactMinOrderByAggregateInput
+  }
+
+  export type ContactScalarWhereWithAggregatesInput = {
+    AND?: ContactScalarWhereWithAggregatesInput | ContactScalarWhereWithAggregatesInput[]
+    OR?: ContactScalarWhereWithAggregatesInput[]
+    NOT?: ContactScalarWhereWithAggregatesInput | ContactScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Contact"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
+    orgName?: StringWithAggregatesFilter<"Contact"> | string
+    category?: EnumContactCategoryWithAggregatesFilter<"Contact"> | $Enums.ContactCategory
+    description?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    website?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    submitUrl?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    languageCodes?: StringNullableListFilter<"Contact">
+    country?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    region?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    status?: EnumContactStatusWithAggregatesFilter<"Contact"> | $Enums.ContactStatus
+    verified?: BoolWithAggregatesFilter<"Contact"> | boolean
+    source?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    lastVerifiedAt?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
+    createdById?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+  }
+
+  export type ContactScamTypeWhereInput = {
+    AND?: ContactScamTypeWhereInput | ContactScamTypeWhereInput[]
+    OR?: ContactScamTypeWhereInput[]
+    NOT?: ContactScamTypeWhereInput | ContactScamTypeWhereInput[]
+    contactId?: StringFilter<"ContactScamType"> | string
+    scamTypeId?: StringFilter<"ContactScamType"> | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }
+
+  export type ContactScamTypeOrderByWithRelationInput = {
+    contactId?: SortOrder
+    scamTypeId?: SortOrder
+    contact?: ContactOrderByWithRelationInput
+    scamType?: ScamTypeOrderByWithRelationInput
+  }
+
+  export type ContactScamTypeWhereUniqueInput = Prisma.AtLeast<{
+    contactId_scamTypeId?: ContactScamTypeContactIdScamTypeIdCompoundUniqueInput
+    AND?: ContactScamTypeWhereInput | ContactScamTypeWhereInput[]
+    OR?: ContactScamTypeWhereInput[]
+    NOT?: ContactScamTypeWhereInput | ContactScamTypeWhereInput[]
+    contactId?: StringFilter<"ContactScamType"> | string
+    scamTypeId?: StringFilter<"ContactScamType"> | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }, "contactId_scamTypeId">
+
+  export type ContactScamTypeOrderByWithAggregationInput = {
+    contactId?: SortOrder
+    scamTypeId?: SortOrder
+    _count?: ContactScamTypeCountOrderByAggregateInput
+    _max?: ContactScamTypeMaxOrderByAggregateInput
+    _min?: ContactScamTypeMinOrderByAggregateInput
+  }
+
+  export type ContactScamTypeScalarWhereWithAggregatesInput = {
+    AND?: ContactScamTypeScalarWhereWithAggregatesInput | ContactScamTypeScalarWhereWithAggregatesInput[]
+    OR?: ContactScamTypeScalarWhereWithAggregatesInput[]
+    NOT?: ContactScamTypeScalarWhereWithAggregatesInput | ContactScamTypeScalarWhereWithAggregatesInput[]
+    contactId?: StringWithAggregatesFilter<"ContactScamType"> | string
+    scamTypeId?: StringWithAggregatesFilter<"ContactScamType"> | string
+  }
+
+  export type ContactTagWhereInput = {
+    AND?: ContactTagWhereInput | ContactTagWhereInput[]
+    OR?: ContactTagWhereInput[]
+    NOT?: ContactTagWhereInput | ContactTagWhereInput[]
+    contactId?: StringFilter<"ContactTag"> | string
+    tagId?: StringFilter<"ContactTag"> | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }
+
+  export type ContactTagOrderByWithRelationInput = {
+    contactId?: SortOrder
+    tagId?: SortOrder
+    contact?: ContactOrderByWithRelationInput
+    tag?: TagOrderByWithRelationInput
+  }
+
+  export type ContactTagWhereUniqueInput = Prisma.AtLeast<{
+    contactId_tagId?: ContactTagContactIdTagIdCompoundUniqueInput
+    AND?: ContactTagWhereInput | ContactTagWhereInput[]
+    OR?: ContactTagWhereInput[]
+    NOT?: ContactTagWhereInput | ContactTagWhereInput[]
+    contactId?: StringFilter<"ContactTag"> | string
+    tagId?: StringFilter<"ContactTag"> | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }, "contactId_tagId">
+
+  export type ContactTagOrderByWithAggregationInput = {
+    contactId?: SortOrder
+    tagId?: SortOrder
+    _count?: ContactTagCountOrderByAggregateInput
+    _max?: ContactTagMaxOrderByAggregateInput
+    _min?: ContactTagMinOrderByAggregateInput
+  }
+
+  export type ContactTagScalarWhereWithAggregatesInput = {
+    AND?: ContactTagScalarWhereWithAggregatesInput | ContactTagScalarWhereWithAggregatesInput[]
+    OR?: ContactTagScalarWhereWithAggregatesInput[]
+    NOT?: ContactTagScalarWhereWithAggregatesInput | ContactTagScalarWhereWithAggregatesInput[]
+    contactId?: StringWithAggregatesFilter<"ContactTag"> | string
+    tagId?: StringWithAggregatesFilter<"ContactTag"> | string
   }
 
   export type ScamReportCreateInput = {
@@ -15789,6 +25104,8 @@ export namespace Prisma {
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
     reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateInput = {
@@ -15801,6 +25118,8 @@ export namespace Prisma {
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
     reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUpdateInput = {
@@ -15813,6 +25132,8 @@ export namespace Prisma {
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateInput = {
@@ -15825,6 +25146,8 @@ export namespace Prisma {
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeCreateManyInput = {
@@ -16130,6 +25453,530 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EducationPostCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    scamTypes?: EducationPostScamTypeCreateNestedManyWithoutPostInput
+    tags?: PostTagCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    scamTypes?: EducationPostScamTypeUncheckedCreateNestedManyWithoutPostInput
+    tags?: PostTagUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: EducationPostScamTypeUpdateManyWithoutPostNestedInput
+    tags?: PostTagUpdateManyWithoutPostNestedInput
+  }
+
+  export type EducationPostUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: EducationPostScamTypeUncheckedUpdateManyWithoutPostNestedInput
+    tags?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type EducationPostCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+  }
+
+  export type EducationPostUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EducationPostUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TagCreateInput = {
+    id?: string
+    name: string
+    posts?: PostTagCreateNestedManyWithoutTagInput
+    contacts?: ContactTagCreateNestedManyWithoutTagInput
+  }
+
+  export type TagUncheckedCreateInput = {
+    id?: string
+    name: string
+    posts?: PostTagUncheckedCreateNestedManyWithoutTagInput
+    contacts?: ContactTagUncheckedCreateNestedManyWithoutTagInput
+  }
+
+  export type TagUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    posts?: PostTagUpdateManyWithoutTagNestedInput
+    contacts?: ContactTagUpdateManyWithoutTagNestedInput
+  }
+
+  export type TagUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    posts?: PostTagUncheckedUpdateManyWithoutTagNestedInput
+    contacts?: ContactTagUncheckedUpdateManyWithoutTagNestedInput
+  }
+
+  export type TagCreateManyInput = {
+    id?: string
+    name: string
+  }
+
+  export type TagUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TagUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagCreateInput = {
+    post: EducationPostCreateNestedOneWithoutTagsInput
+    tag: TagCreateNestedOneWithoutPostsInput
+  }
+
+  export type PostTagUncheckedCreateInput = {
+    postId: string
+    tagId: string
+  }
+
+  export type PostTagUpdateInput = {
+    post?: EducationPostUpdateOneRequiredWithoutTagsNestedInput
+    tag?: TagUpdateOneRequiredWithoutPostsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagCreateManyInput = {
+    postId: string
+    tagId: string
+  }
+
+  export type PostTagUpdateManyMutationInput = {
+
+  }
+
+  export type PostTagUncheckedUpdateManyInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeCreateInput = {
+    post: EducationPostCreateNestedOneWithoutScamTypesInput
+    scamType: ScamTypeCreateNestedOneWithoutPostLinksInput
+  }
+
+  export type EducationPostScamTypeUncheckedCreateInput = {
+    postId: string
+    scamTypeId: string
+  }
+
+  export type EducationPostScamTypeUpdateInput = {
+    post?: EducationPostUpdateOneRequiredWithoutScamTypesNestedInput
+    scamType?: ScamTypeUpdateOneRequiredWithoutPostLinksNestedInput
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeCreateManyInput = {
+    postId: string
+    scamTypeId: string
+  }
+
+  export type EducationPostScamTypeUpdateManyMutationInput = {
+
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    scamTypes?: ContactScamTypeCreateNestedManyWithoutContactInput
+    tags?: ContactTagCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    scamTypes?: ContactScamTypeUncheckedCreateNestedManyWithoutContactInput
+    tags?: ContactTagUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: ContactScamTypeUpdateManyWithoutContactNestedInput
+    tags?: ContactTagUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: ContactScamTypeUncheckedUpdateManyWithoutContactNestedInput
+    tags?: ContactTagUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+  }
+
+  export type ContactUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContactUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContactScamTypeCreateInput = {
+    contact: ContactCreateNestedOneWithoutScamTypesInput
+    scamType: ScamTypeCreateNestedOneWithoutContactLinksInput
+  }
+
+  export type ContactScamTypeUncheckedCreateInput = {
+    contactId: string
+    scamTypeId: string
+  }
+
+  export type ContactScamTypeUpdateInput = {
+    contact?: ContactUpdateOneRequiredWithoutScamTypesNestedInput
+    scamType?: ScamTypeUpdateOneRequiredWithoutContactLinksNestedInput
+  }
+
+  export type ContactScamTypeUncheckedUpdateInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeCreateManyInput = {
+    contactId: string
+    scamTypeId: string
+  }
+
+  export type ContactScamTypeUpdateManyMutationInput = {
+
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagCreateInput = {
+    contact: ContactCreateNestedOneWithoutTagsInput
+    tag: TagCreateNestedOneWithoutContactsInput
+  }
+
+  export type ContactTagUncheckedCreateInput = {
+    contactId: string
+    tagId: string
+  }
+
+  export type ContactTagUpdateInput = {
+    contact?: ContactUpdateOneRequiredWithoutTagsNestedInput
+    tag?: TagUpdateOneRequiredWithoutContactsNestedInput
+  }
+
+  export type ContactTagUncheckedUpdateInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagCreateManyInput = {
+    contactId: string
+    tagId: string
+  }
+
+  export type ContactTagUpdateManyMutationInput = {
+
+  }
+
+  export type ContactTagUncheckedUpdateManyInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+    tagId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -16695,7 +26542,27 @@ export namespace Prisma {
     none?: ScamReportWhereInput
   }
 
+  export type EducationPostScamTypeListRelationFilter = {
+    every?: EducationPostScamTypeWhereInput
+    some?: EducationPostScamTypeWhereInput
+    none?: EducationPostScamTypeWhereInput
+  }
+
+  export type ContactScamTypeListRelationFilter = {
+    every?: ContactScamTypeWhereInput
+    some?: ContactScamTypeWhereInput
+    none?: ContactScamTypeWhereInput
+  }
+
   export type ScamReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EducationPostScamTypeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContactScamTypeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16870,6 +26737,356 @@ export namespace Prisma {
     label?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumPostStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
+  }
+
+  export type EnumPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryFilter<$PrismaModel> | $Enums.PostCategory
+  }
+
+  export type PostTagListRelationFilter = {
+    every?: PostTagWhereInput
+    some?: PostTagWhereInput
+    none?: PostTagWhereInput
+  }
+
+  export type PostTagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EducationPostCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    slug?: SortOrder
+    title?: SortOrder
+    excerpt?: SortOrder
+    bodyMd?: SortOrder
+    status?: SortOrder
+    publishedAt?: SortOrder
+    category?: SortOrder
+    heroImageUrl?: SortOrder
+    heroSvg?: SortOrder
+    heroAlt?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    canonicalUrl?: SortOrder
+    metaTitle?: SortOrder
+    metaDescription?: SortOrder
+    featured?: SortOrder
+    authorName?: SortOrder
+    sourceUrl?: SortOrder
+  }
+
+  export type EducationPostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    slug?: SortOrder
+    title?: SortOrder
+    excerpt?: SortOrder
+    bodyMd?: SortOrder
+    status?: SortOrder
+    publishedAt?: SortOrder
+    category?: SortOrder
+    heroImageUrl?: SortOrder
+    heroSvg?: SortOrder
+    heroAlt?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    canonicalUrl?: SortOrder
+    metaTitle?: SortOrder
+    metaDescription?: SortOrder
+    featured?: SortOrder
+    authorName?: SortOrder
+    sourceUrl?: SortOrder
+  }
+
+  export type EducationPostMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    slug?: SortOrder
+    title?: SortOrder
+    excerpt?: SortOrder
+    bodyMd?: SortOrder
+    status?: SortOrder
+    publishedAt?: SortOrder
+    category?: SortOrder
+    heroImageUrl?: SortOrder
+    heroSvg?: SortOrder
+    heroAlt?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    canonicalUrl?: SortOrder
+    metaTitle?: SortOrder
+    metaDescription?: SortOrder
+    featured?: SortOrder
+    authorName?: SortOrder
+    sourceUrl?: SortOrder
+  }
+
+  export type EnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostStatusFilter<$PrismaModel>
+    _max?: NestedEnumPostStatusFilter<$PrismaModel>
+  }
+
+  export type EnumPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPostCategoryFilter<$PrismaModel>
+  }
+
+  export type ContactTagListRelationFilter = {
+    every?: ContactTagWhereInput
+    some?: ContactTagWhereInput
+    none?: ContactTagWhereInput
+  }
+
+  export type ContactTagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TagCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type TagMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type TagMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type EducationPostScalarRelationFilter = {
+    is?: EducationPostWhereInput
+    isNot?: EducationPostWhereInput
+  }
+
+  export type TagScalarRelationFilter = {
+    is?: TagWhereInput
+    isNot?: TagWhereInput
+  }
+
+  export type PostTagPostIdTagIdCompoundUniqueInput = {
+    postId: string
+    tagId: string
+  }
+
+  export type PostTagCountOrderByAggregateInput = {
+    postId?: SortOrder
+    tagId?: SortOrder
+  }
+
+  export type PostTagMaxOrderByAggregateInput = {
+    postId?: SortOrder
+    tagId?: SortOrder
+  }
+
+  export type PostTagMinOrderByAggregateInput = {
+    postId?: SortOrder
+    tagId?: SortOrder
+  }
+
+  export type ScamTypeScalarRelationFilter = {
+    is?: ScamTypeWhereInput
+    isNot?: ScamTypeWhereInput
+  }
+
+  export type EducationPostScamTypePostIdScamTypeIdCompoundUniqueInput = {
+    postId: string
+    scamTypeId: string
+  }
+
+  export type EducationPostScamTypeCountOrderByAggregateInput = {
+    postId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type EducationPostScamTypeMaxOrderByAggregateInput = {
+    postId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type EducationPostScamTypeMinOrderByAggregateInput = {
+    postId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type EnumContactCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactCategory | EnumContactCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactCategoryFilter<$PrismaModel> | $Enums.ContactCategory
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type EnumContactStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
+  export type ContactCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    orgName?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    submitUrl?: SortOrder
+    languageCodes?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    status?: SortOrder
+    verified?: SortOrder
+    source?: SortOrder
+    lastVerifiedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type ContactMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    orgName?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    submitUrl?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    status?: SortOrder
+    verified?: SortOrder
+    source?: SortOrder
+    lastVerifiedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type ContactMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    orgName?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    website?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    submitUrl?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    status?: SortOrder
+    verified?: SortOrder
+    source?: SortOrder
+    lastVerifiedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type EnumContactCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactCategory | EnumContactCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ContactCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactCategoryFilter<$PrismaModel>
+    _max?: NestedEnumContactCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContactStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactStatusFilter<$PrismaModel>
+    _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
+  export type ContactScalarRelationFilter = {
+    is?: ContactWhereInput
+    isNot?: ContactWhereInput
+  }
+
+  export type ContactScamTypeContactIdScamTypeIdCompoundUniqueInput = {
+    contactId: string
+    scamTypeId: string
+  }
+
+  export type ContactScamTypeCountOrderByAggregateInput = {
+    contactId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type ContactScamTypeMaxOrderByAggregateInput = {
+    contactId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type ContactScamTypeMinOrderByAggregateInput = {
+    contactId?: SortOrder
+    scamTypeId?: SortOrder
+  }
+
+  export type ContactTagContactIdTagIdCompoundUniqueInput = {
+    contactId: string
+    tagId: string
+  }
+
+  export type ContactTagCountOrderByAggregateInput = {
+    contactId?: SortOrder
+    tagId?: SortOrder
+  }
+
+  export type ContactTagMaxOrderByAggregateInput = {
+    contactId?: SortOrder
+    tagId?: SortOrder
+  }
+
+  export type ContactTagMinOrderByAggregateInput = {
+    contactId?: SortOrder
+    tagId?: SortOrder
   }
 
   export type CommentCreateNestedManyWithoutReportInput = {
@@ -17177,11 +27394,39 @@ export namespace Prisma {
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
   }
 
+  export type EducationPostScamTypeCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
+    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+  }
+
+  export type ContactScamTypeCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+  }
+
   export type ScamReportUncheckedCreateNestedManyWithoutScamTypeInput = {
     create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
     createMany?: ScamReportCreateManyScamTypeInputEnvelope
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+  }
+
+  export type EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
+    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+  }
+
+  export type ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -17202,6 +27447,34 @@ export namespace Prisma {
     deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
   }
 
+  export type EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
+    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput | EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type ContactScamTypeUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    update?: ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput | ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+  }
+
   export type ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput = {
     create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
@@ -17214,6 +27487,34 @@ export namespace Prisma {
     update?: ScamReportUpdateWithWhereUniqueWithoutScamTypeInput | ScamReportUpdateWithWhereUniqueWithoutScamTypeInput[]
     updateMany?: ScamReportUpdateManyWithWhereWithoutScamTypeInput | ScamReportUpdateManyWithWhereWithoutScamTypeInput[]
     deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
+    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput | EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    update?: ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput | ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
   }
 
   export type ScamReportCreateNestedOneWithoutFlagsInput = {
@@ -17424,6 +27725,395 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutNotificationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type EducationPostScamTypeCreateNestedManyWithoutPostInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput> | EducationPostScamTypeCreateWithoutPostInput[] | EducationPostScamTypeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutPostInput | EducationPostScamTypeCreateOrConnectWithoutPostInput[]
+    createMany?: EducationPostScamTypeCreateManyPostInputEnvelope
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+  }
+
+  export type PostTagCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type EducationPostScamTypeUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput> | EducationPostScamTypeCreateWithoutPostInput[] | EducationPostScamTypeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutPostInput | EducationPostScamTypeCreateOrConnectWithoutPostInput[]
+    createMany?: EducationPostScamTypeCreateManyPostInputEnvelope
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+  }
+
+  export type PostTagUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type EnumPostStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PostStatus
+  }
+
+  export type EnumPostCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PostCategory
+  }
+
+  export type EducationPostScamTypeUpdateManyWithoutPostNestedInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput> | EducationPostScamTypeCreateWithoutPostInput[] | EducationPostScamTypeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutPostInput | EducationPostScamTypeCreateOrConnectWithoutPostInput[]
+    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutPostInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: EducationPostScamTypeCreateManyPostInputEnvelope
+    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutPostInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutPostInput | EducationPostScamTypeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type PostTagUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutPostInput | PostTagUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutPostInput | PostTagUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutPostInput | PostTagUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput> | EducationPostScamTypeCreateWithoutPostInput[] | EducationPostScamTypeUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutPostInput | EducationPostScamTypeCreateOrConnectWithoutPostInput[]
+    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutPostInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: EducationPostScamTypeCreateManyPostInputEnvelope
+    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutPostInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutPostInput | EducationPostScamTypeUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput> | PostTagCreateWithoutPostInput[] | PostTagUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutPostInput | PostTagCreateOrConnectWithoutPostInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutPostInput | PostTagUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: PostTagCreateManyPostInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutPostInput | PostTagUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutPostInput | PostTagUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type PostTagCreateNestedManyWithoutTagInput = {
+    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
+    createMany?: PostTagCreateManyTagInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type ContactTagCreateNestedManyWithoutTagInput = {
+    create?: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput> | ContactTagCreateWithoutTagInput[] | ContactTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutTagInput | ContactTagCreateOrConnectWithoutTagInput[]
+    createMany?: ContactTagCreateManyTagInputEnvelope
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+  }
+
+  export type PostTagUncheckedCreateNestedManyWithoutTagInput = {
+    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
+    createMany?: PostTagCreateManyTagInputEnvelope
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+  }
+
+  export type ContactTagUncheckedCreateNestedManyWithoutTagInput = {
+    create?: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput> | ContactTagCreateWithoutTagInput[] | ContactTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutTagInput | ContactTagCreateOrConnectWithoutTagInput[]
+    createMany?: ContactTagCreateManyTagInputEnvelope
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+  }
+
+  export type PostTagUpdateManyWithoutTagNestedInput = {
+    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutTagInput | PostTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: PostTagCreateManyTagInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutTagInput | PostTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutTagInput | PostTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type ContactTagUpdateManyWithoutTagNestedInput = {
+    create?: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput> | ContactTagCreateWithoutTagInput[] | ContactTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutTagInput | ContactTagCreateOrConnectWithoutTagInput[]
+    upsert?: ContactTagUpsertWithWhereUniqueWithoutTagInput | ContactTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: ContactTagCreateManyTagInputEnvelope
+    set?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    disconnect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    delete?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    update?: ContactTagUpdateWithWhereUniqueWithoutTagInput | ContactTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: ContactTagUpdateManyWithWhereWithoutTagInput | ContactTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutTagNestedInput = {
+    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutTagInput | PostTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: PostTagCreateManyTagInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutTagInput | PostTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutTagInput | PostTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+  }
+
+  export type ContactTagUncheckedUpdateManyWithoutTagNestedInput = {
+    create?: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput> | ContactTagCreateWithoutTagInput[] | ContactTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutTagInput | ContactTagCreateOrConnectWithoutTagInput[]
+    upsert?: ContactTagUpsertWithWhereUniqueWithoutTagInput | ContactTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: ContactTagCreateManyTagInputEnvelope
+    set?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    disconnect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    delete?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    update?: ContactTagUpdateWithWhereUniqueWithoutTagInput | ContactTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: ContactTagUpdateManyWithWhereWithoutTagInput | ContactTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+  }
+
+  export type EducationPostCreateNestedOneWithoutTagsInput = {
+    create?: XOR<EducationPostCreateWithoutTagsInput, EducationPostUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: EducationPostCreateOrConnectWithoutTagsInput
+    connect?: EducationPostWhereUniqueInput
+  }
+
+  export type TagCreateNestedOneWithoutPostsInput = {
+    create?: XOR<TagCreateWithoutPostsInput, TagUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutPostsInput
+    connect?: TagWhereUniqueInput
+  }
+
+  export type EducationPostUpdateOneRequiredWithoutTagsNestedInput = {
+    create?: XOR<EducationPostCreateWithoutTagsInput, EducationPostUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: EducationPostCreateOrConnectWithoutTagsInput
+    upsert?: EducationPostUpsertWithoutTagsInput
+    connect?: EducationPostWhereUniqueInput
+    update?: XOR<XOR<EducationPostUpdateToOneWithWhereWithoutTagsInput, EducationPostUpdateWithoutTagsInput>, EducationPostUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type TagUpdateOneRequiredWithoutPostsNestedInput = {
+    create?: XOR<TagCreateWithoutPostsInput, TagUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutPostsInput
+    upsert?: TagUpsertWithoutPostsInput
+    connect?: TagWhereUniqueInput
+    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutPostsInput, TagUpdateWithoutPostsInput>, TagUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type EducationPostCreateNestedOneWithoutScamTypesInput = {
+    create?: XOR<EducationPostCreateWithoutScamTypesInput, EducationPostUncheckedCreateWithoutScamTypesInput>
+    connectOrCreate?: EducationPostCreateOrConnectWithoutScamTypesInput
+    connect?: EducationPostWhereUniqueInput
+  }
+
+  export type ScamTypeCreateNestedOneWithoutPostLinksInput = {
+    create?: XOR<ScamTypeCreateWithoutPostLinksInput, ScamTypeUncheckedCreateWithoutPostLinksInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutPostLinksInput
+    connect?: ScamTypeWhereUniqueInput
+  }
+
+  export type EducationPostUpdateOneRequiredWithoutScamTypesNestedInput = {
+    create?: XOR<EducationPostCreateWithoutScamTypesInput, EducationPostUncheckedCreateWithoutScamTypesInput>
+    connectOrCreate?: EducationPostCreateOrConnectWithoutScamTypesInput
+    upsert?: EducationPostUpsertWithoutScamTypesInput
+    connect?: EducationPostWhereUniqueInput
+    update?: XOR<XOR<EducationPostUpdateToOneWithWhereWithoutScamTypesInput, EducationPostUpdateWithoutScamTypesInput>, EducationPostUncheckedUpdateWithoutScamTypesInput>
+  }
+
+  export type ScamTypeUpdateOneRequiredWithoutPostLinksNestedInput = {
+    create?: XOR<ScamTypeCreateWithoutPostLinksInput, ScamTypeUncheckedCreateWithoutPostLinksInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutPostLinksInput
+    upsert?: ScamTypeUpsertWithoutPostLinksInput
+    connect?: ScamTypeWhereUniqueInput
+    update?: XOR<XOR<ScamTypeUpdateToOneWithWhereWithoutPostLinksInput, ScamTypeUpdateWithoutPostLinksInput>, ScamTypeUncheckedUpdateWithoutPostLinksInput>
+  }
+
+  export type ContactCreatelanguageCodesInput = {
+    set: string[]
+  }
+
+  export type ContactScamTypeCreateNestedManyWithoutContactInput = {
+    create?: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput> | ContactScamTypeCreateWithoutContactInput[] | ContactScamTypeUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutContactInput | ContactScamTypeCreateOrConnectWithoutContactInput[]
+    createMany?: ContactScamTypeCreateManyContactInputEnvelope
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+  }
+
+  export type ContactTagCreateNestedManyWithoutContactInput = {
+    create?: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput> | ContactTagCreateWithoutContactInput[] | ContactTagUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutContactInput | ContactTagCreateOrConnectWithoutContactInput[]
+    createMany?: ContactTagCreateManyContactInputEnvelope
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+  }
+
+  export type ContactScamTypeUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput> | ContactScamTypeCreateWithoutContactInput[] | ContactScamTypeUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutContactInput | ContactScamTypeCreateOrConnectWithoutContactInput[]
+    createMany?: ContactScamTypeCreateManyContactInputEnvelope
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+  }
+
+  export type ContactTagUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput> | ContactTagCreateWithoutContactInput[] | ContactTagUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutContactInput | ContactTagCreateOrConnectWithoutContactInput[]
+    createMany?: ContactTagCreateManyContactInputEnvelope
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+  }
+
+  export type EnumContactCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.ContactCategory
+  }
+
+  export type ContactUpdatelanguageCodesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumContactStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ContactStatus
+  }
+
+  export type ContactScamTypeUpdateManyWithoutContactNestedInput = {
+    create?: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput> | ContactScamTypeCreateWithoutContactInput[] | ContactScamTypeUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutContactInput | ContactScamTypeCreateOrConnectWithoutContactInput[]
+    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutContactInput | ContactScamTypeUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: ContactScamTypeCreateManyContactInputEnvelope
+    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    update?: ContactScamTypeUpdateWithWhereUniqueWithoutContactInput | ContactScamTypeUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutContactInput | ContactScamTypeUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+  }
+
+  export type ContactTagUpdateManyWithoutContactNestedInput = {
+    create?: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput> | ContactTagCreateWithoutContactInput[] | ContactTagUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutContactInput | ContactTagCreateOrConnectWithoutContactInput[]
+    upsert?: ContactTagUpsertWithWhereUniqueWithoutContactInput | ContactTagUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: ContactTagCreateManyContactInputEnvelope
+    set?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    disconnect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    delete?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    update?: ContactTagUpdateWithWhereUniqueWithoutContactInput | ContactTagUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: ContactTagUpdateManyWithWhereWithoutContactInput | ContactTagUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput> | ContactScamTypeCreateWithoutContactInput[] | ContactScamTypeUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutContactInput | ContactScamTypeCreateOrConnectWithoutContactInput[]
+    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutContactInput | ContactScamTypeUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: ContactScamTypeCreateManyContactInputEnvelope
+    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    update?: ContactScamTypeUpdateWithWhereUniqueWithoutContactInput | ContactScamTypeUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutContactInput | ContactScamTypeUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+  }
+
+  export type ContactTagUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput> | ContactTagCreateWithoutContactInput[] | ContactTagUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: ContactTagCreateOrConnectWithoutContactInput | ContactTagCreateOrConnectWithoutContactInput[]
+    upsert?: ContactTagUpsertWithWhereUniqueWithoutContactInput | ContactTagUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: ContactTagCreateManyContactInputEnvelope
+    set?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    disconnect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    delete?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
+    update?: ContactTagUpdateWithWhereUniqueWithoutContactInput | ContactTagUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: ContactTagUpdateManyWithWhereWithoutContactInput | ContactTagUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+  }
+
+  export type ContactCreateNestedOneWithoutScamTypesInput = {
+    create?: XOR<ContactCreateWithoutScamTypesInput, ContactUncheckedCreateWithoutScamTypesInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutScamTypesInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type ScamTypeCreateNestedOneWithoutContactLinksInput = {
+    create?: XOR<ScamTypeCreateWithoutContactLinksInput, ScamTypeUncheckedCreateWithoutContactLinksInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutContactLinksInput
+    connect?: ScamTypeWhereUniqueInput
+  }
+
+  export type ContactUpdateOneRequiredWithoutScamTypesNestedInput = {
+    create?: XOR<ContactCreateWithoutScamTypesInput, ContactUncheckedCreateWithoutScamTypesInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutScamTypesInput
+    upsert?: ContactUpsertWithoutScamTypesInput
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutScamTypesInput, ContactUpdateWithoutScamTypesInput>, ContactUncheckedUpdateWithoutScamTypesInput>
+  }
+
+  export type ScamTypeUpdateOneRequiredWithoutContactLinksNestedInput = {
+    create?: XOR<ScamTypeCreateWithoutContactLinksInput, ScamTypeUncheckedCreateWithoutContactLinksInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutContactLinksInput
+    upsert?: ScamTypeUpsertWithoutContactLinksInput
+    connect?: ScamTypeWhereUniqueInput
+    update?: XOR<XOR<ScamTypeUpdateToOneWithWhereWithoutContactLinksInput, ScamTypeUpdateWithoutContactLinksInput>, ScamTypeUncheckedUpdateWithoutContactLinksInput>
+  }
+
+  export type ContactCreateNestedOneWithoutTagsInput = {
+    create?: XOR<ContactCreateWithoutTagsInput, ContactUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutTagsInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type TagCreateNestedOneWithoutContactsInput = {
+    create?: XOR<TagCreateWithoutContactsInput, TagUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutContactsInput
+    connect?: TagWhereUniqueInput
+  }
+
+  export type ContactUpdateOneRequiredWithoutTagsNestedInput = {
+    create?: XOR<ContactCreateWithoutTagsInput, ContactUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutTagsInput
+    upsert?: ContactUpsertWithoutTagsInput
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutTagsInput, ContactUpdateWithoutTagsInput>, ContactUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type TagUpdateOneRequiredWithoutContactsNestedInput = {
+    create?: XOR<TagCreateWithoutContactsInput, TagUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutContactsInput
+    upsert?: TagUpsertWithoutContactsInput
+    connect?: TagWhereUniqueInput
+    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutContactsInput, TagUpdateWithoutContactsInput>, TagUncheckedUpdateWithoutContactsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -17666,6 +28356,74 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumPostStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
+  }
+
+  export type NestedEnumPostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryFilter<$PrismaModel> | $Enums.PostCategory
+  }
+
+  export type NestedEnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostStatusWithAggregatesFilter<$PrismaModel> | $Enums.PostStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostStatusFilter<$PrismaModel>
+    _max?: NestedEnumPostStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostCategory | EnumPostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostCategory[] | ListEnumPostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPostCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContactCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactCategory | EnumContactCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactCategoryFilter<$PrismaModel> | $Enums.ContactCategory
+  }
+
+  export type NestedEnumContactStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
+  export type NestedEnumContactCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactCategory | EnumContactCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactCategory[] | ListEnumContactCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ContactCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactCategoryFilter<$PrismaModel>
+    _max?: NestedEnumContactCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContactStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactStatusFilter<$PrismaModel>
+    _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
   export type CommentCreateWithoutReportInput = {
     id?: string
     createdAt?: Date | string
@@ -17727,6 +28485,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutReportsInput = {
@@ -17738,6 +28498,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutReportsInput = {
@@ -17842,6 +28604,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutReportsInput = {
@@ -17853,6 +28617,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type VoteUpsertWithWhereUniqueWithoutReportInput = {
@@ -18431,6 +29197,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EducationPostScamTypeCreateWithoutScamTypeInput = {
+    post: EducationPostCreateNestedOneWithoutScamTypesInput
+  }
+
+  export type EducationPostScamTypeUncheckedCreateWithoutScamTypeInput = {
+    postId: string
+  }
+
+  export type EducationPostScamTypeCreateOrConnectWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeCreateManyScamTypeInputEnvelope = {
+    data: EducationPostScamTypeCreateManyScamTypeInput | EducationPostScamTypeCreateManyScamTypeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactScamTypeCreateWithoutScamTypeInput = {
+    contact: ContactCreateNestedOneWithoutScamTypesInput
+  }
+
+  export type ContactScamTypeUncheckedCreateWithoutScamTypeInput = {
+    contactId: string
+  }
+
+  export type ContactScamTypeCreateOrConnectWithoutScamTypeInput = {
+    where: ContactScamTypeWhereUniqueInput
+    create: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeCreateManyScamTypeInputEnvelope = {
+    data: ContactScamTypeCreateManyScamTypeInput | ContactScamTypeCreateManyScamTypeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScamReportUpsertWithWhereUniqueWithoutScamTypeInput = {
     where: ScamReportWhereUniqueInput
     update: XOR<ScamReportUpdateWithoutScamTypeInput, ScamReportUncheckedUpdateWithoutScamTypeInput>
@@ -18472,6 +29274,54 @@ export namespace Prisma {
     screenshots?: StringNullableFilter<"ScamReport"> | string | null
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
+  }
+
+  export type EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    update: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
+    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    data: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
+    where: EducationPostScamTypeScalarWhereInput
+    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeScalarWhereInput = {
+    AND?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+    OR?: EducationPostScamTypeScalarWhereInput[]
+    NOT?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+    postId?: StringFilter<"EducationPostScamType"> | string
+    scamTypeId?: StringFilter<"EducationPostScamType"> | string
+  }
+
+  export type ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
+    where: ContactScamTypeWhereUniqueInput
+    update: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
+    create: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
+    where: ContactScamTypeWhereUniqueInput
+    data: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
+    where: ContactScamTypeScalarWhereInput
+    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeScalarWhereInput = {
+    AND?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+    OR?: ContactScamTypeScalarWhereInput[]
+    NOT?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+    contactId?: StringFilter<"ContactScamType"> | string
+    scamTypeId?: StringFilter<"ContactScamType"> | string
   }
 
   export type ScamReportCreateWithoutFlagsInput = {
@@ -18922,6 +29772,898 @@ export namespace Prisma {
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type EducationPostScamTypeCreateWithoutPostInput = {
+    scamType: ScamTypeCreateNestedOneWithoutPostLinksInput
+  }
+
+  export type EducationPostScamTypeUncheckedCreateWithoutPostInput = {
+    scamTypeId: string
+  }
+
+  export type EducationPostScamTypeCreateOrConnectWithoutPostInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    create: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput>
+  }
+
+  export type EducationPostScamTypeCreateManyPostInputEnvelope = {
+    data: EducationPostScamTypeCreateManyPostInput | EducationPostScamTypeCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostTagCreateWithoutPostInput = {
+    tag: TagCreateNestedOneWithoutPostsInput
+  }
+
+  export type PostTagUncheckedCreateWithoutPostInput = {
+    tagId: string
+  }
+
+  export type PostTagCreateOrConnectWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    create: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostTagCreateManyPostInputEnvelope = {
+    data: PostTagCreateManyPostInput | PostTagCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EducationPostScamTypeUpsertWithWhereUniqueWithoutPostInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    update: XOR<EducationPostScamTypeUpdateWithoutPostInput, EducationPostScamTypeUncheckedUpdateWithoutPostInput>
+    create: XOR<EducationPostScamTypeCreateWithoutPostInput, EducationPostScamTypeUncheckedCreateWithoutPostInput>
+  }
+
+  export type EducationPostScamTypeUpdateWithWhereUniqueWithoutPostInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    data: XOR<EducationPostScamTypeUpdateWithoutPostInput, EducationPostScamTypeUncheckedUpdateWithoutPostInput>
+  }
+
+  export type EducationPostScamTypeUpdateManyWithWhereWithoutPostInput = {
+    where: EducationPostScamTypeScalarWhereInput
+    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostTagUpsertWithWhereUniqueWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    update: XOR<PostTagUpdateWithoutPostInput, PostTagUncheckedUpdateWithoutPostInput>
+    create: XOR<PostTagCreateWithoutPostInput, PostTagUncheckedCreateWithoutPostInput>
+  }
+
+  export type PostTagUpdateWithWhereUniqueWithoutPostInput = {
+    where: PostTagWhereUniqueInput
+    data: XOR<PostTagUpdateWithoutPostInput, PostTagUncheckedUpdateWithoutPostInput>
+  }
+
+  export type PostTagUpdateManyWithWhereWithoutPostInput = {
+    where: PostTagScalarWhereInput
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type PostTagScalarWhereInput = {
+    AND?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+    OR?: PostTagScalarWhereInput[]
+    NOT?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
+    postId?: StringFilter<"PostTag"> | string
+    tagId?: StringFilter<"PostTag"> | string
+  }
+
+  export type PostTagCreateWithoutTagInput = {
+    post: EducationPostCreateNestedOneWithoutTagsInput
+  }
+
+  export type PostTagUncheckedCreateWithoutTagInput = {
+    postId: string
+  }
+
+  export type PostTagCreateOrConnectWithoutTagInput = {
+    where: PostTagWhereUniqueInput
+    create: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type PostTagCreateManyTagInputEnvelope = {
+    data: PostTagCreateManyTagInput | PostTagCreateManyTagInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactTagCreateWithoutTagInput = {
+    contact: ContactCreateNestedOneWithoutTagsInput
+  }
+
+  export type ContactTagUncheckedCreateWithoutTagInput = {
+    contactId: string
+  }
+
+  export type ContactTagCreateOrConnectWithoutTagInput = {
+    where: ContactTagWhereUniqueInput
+    create: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type ContactTagCreateManyTagInputEnvelope = {
+    data: ContactTagCreateManyTagInput | ContactTagCreateManyTagInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PostTagUpsertWithWhereUniqueWithoutTagInput = {
+    where: PostTagWhereUniqueInput
+    update: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
+    create: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type PostTagUpdateWithWhereUniqueWithoutTagInput = {
+    where: PostTagWhereUniqueInput
+    data: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
+  }
+
+  export type PostTagUpdateManyWithWhereWithoutTagInput = {
+    where: PostTagScalarWhereInput
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutTagInput>
+  }
+
+  export type ContactTagUpsertWithWhereUniqueWithoutTagInput = {
+    where: ContactTagWhereUniqueInput
+    update: XOR<ContactTagUpdateWithoutTagInput, ContactTagUncheckedUpdateWithoutTagInput>
+    create: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type ContactTagUpdateWithWhereUniqueWithoutTagInput = {
+    where: ContactTagWhereUniqueInput
+    data: XOR<ContactTagUpdateWithoutTagInput, ContactTagUncheckedUpdateWithoutTagInput>
+  }
+
+  export type ContactTagUpdateManyWithWhereWithoutTagInput = {
+    where: ContactTagScalarWhereInput
+    data: XOR<ContactTagUpdateManyMutationInput, ContactTagUncheckedUpdateManyWithoutTagInput>
+  }
+
+  export type ContactTagScalarWhereInput = {
+    AND?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+    OR?: ContactTagScalarWhereInput[]
+    NOT?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+    contactId?: StringFilter<"ContactTag"> | string
+    tagId?: StringFilter<"ContactTag"> | string
+  }
+
+  export type EducationPostCreateWithoutTagsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    scamTypes?: EducationPostScamTypeCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostUncheckedCreateWithoutTagsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    scamTypes?: EducationPostScamTypeUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostCreateOrConnectWithoutTagsInput = {
+    where: EducationPostWhereUniqueInput
+    create: XOR<EducationPostCreateWithoutTagsInput, EducationPostUncheckedCreateWithoutTagsInput>
+  }
+
+  export type TagCreateWithoutPostsInput = {
+    id?: string
+    name: string
+    contacts?: ContactTagCreateNestedManyWithoutTagInput
+  }
+
+  export type TagUncheckedCreateWithoutPostsInput = {
+    id?: string
+    name: string
+    contacts?: ContactTagUncheckedCreateNestedManyWithoutTagInput
+  }
+
+  export type TagCreateOrConnectWithoutPostsInput = {
+    where: TagWhereUniqueInput
+    create: XOR<TagCreateWithoutPostsInput, TagUncheckedCreateWithoutPostsInput>
+  }
+
+  export type EducationPostUpsertWithoutTagsInput = {
+    update: XOR<EducationPostUpdateWithoutTagsInput, EducationPostUncheckedUpdateWithoutTagsInput>
+    create: XOR<EducationPostCreateWithoutTagsInput, EducationPostUncheckedCreateWithoutTagsInput>
+    where?: EducationPostWhereInput
+  }
+
+  export type EducationPostUpdateToOneWithWhereWithoutTagsInput = {
+    where?: EducationPostWhereInput
+    data: XOR<EducationPostUpdateWithoutTagsInput, EducationPostUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type EducationPostUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: EducationPostScamTypeUpdateManyWithoutPostNestedInput
+  }
+
+  export type EducationPostUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: EducationPostScamTypeUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type TagUpsertWithoutPostsInput = {
+    update: XOR<TagUpdateWithoutPostsInput, TagUncheckedUpdateWithoutPostsInput>
+    create: XOR<TagCreateWithoutPostsInput, TagUncheckedCreateWithoutPostsInput>
+    where?: TagWhereInput
+  }
+
+  export type TagUpdateToOneWithWhereWithoutPostsInput = {
+    where?: TagWhereInput
+    data: XOR<TagUpdateWithoutPostsInput, TagUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type TagUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contacts?: ContactTagUpdateManyWithoutTagNestedInput
+  }
+
+  export type TagUncheckedUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    contacts?: ContactTagUncheckedUpdateManyWithoutTagNestedInput
+  }
+
+  export type EducationPostCreateWithoutScamTypesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    tags?: PostTagCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostUncheckedCreateWithoutScamTypesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    slug: string
+    title: string
+    excerpt?: string | null
+    bodyMd: string
+    status?: $Enums.PostStatus
+    publishedAt?: Date | string | null
+    category: $Enums.PostCategory
+    heroImageUrl?: string | null
+    heroSvg?: string | null
+    heroAlt?: string | null
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    canonicalUrl?: string | null
+    metaTitle?: string | null
+    metaDescription?: string | null
+    featured?: boolean
+    authorName?: string | null
+    sourceUrl?: string | null
+    tags?: PostTagUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type EducationPostCreateOrConnectWithoutScamTypesInput = {
+    where: EducationPostWhereUniqueInput
+    create: XOR<EducationPostCreateWithoutScamTypesInput, EducationPostUncheckedCreateWithoutScamTypesInput>
+  }
+
+  export type ScamTypeCreateWithoutPostLinksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeUncheckedCreateWithoutPostLinksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeCreateOrConnectWithoutPostLinksInput = {
+    where: ScamTypeWhereUniqueInput
+    create: XOR<ScamTypeCreateWithoutPostLinksInput, ScamTypeUncheckedCreateWithoutPostLinksInput>
+  }
+
+  export type EducationPostUpsertWithoutScamTypesInput = {
+    update: XOR<EducationPostUpdateWithoutScamTypesInput, EducationPostUncheckedUpdateWithoutScamTypesInput>
+    create: XOR<EducationPostCreateWithoutScamTypesInput, EducationPostUncheckedCreateWithoutScamTypesInput>
+    where?: EducationPostWhereInput
+  }
+
+  export type EducationPostUpdateToOneWithWhereWithoutScamTypesInput = {
+    where?: EducationPostWhereInput
+    data: XOR<EducationPostUpdateWithoutScamTypesInput, EducationPostUncheckedUpdateWithoutScamTypesInput>
+  }
+
+  export type EducationPostUpdateWithoutScamTypesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostTagUpdateManyWithoutPostNestedInput
+  }
+
+  export type EducationPostUncheckedUpdateWithoutScamTypesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    slug?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
+    bodyMd?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: EnumPostCategoryFieldUpdateOperationsInput | $Enums.PostCategory
+    heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    heroSvg?: NullableStringFieldUpdateOperationsInput | string | null
+    heroAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    canonicalUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metaTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    metaDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    authorName?: NullableStringFieldUpdateOperationsInput | string | null
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: PostTagUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type ScamTypeUpsertWithoutPostLinksInput = {
+    update: XOR<ScamTypeUpdateWithoutPostLinksInput, ScamTypeUncheckedUpdateWithoutPostLinksInput>
+    create: XOR<ScamTypeCreateWithoutPostLinksInput, ScamTypeUncheckedCreateWithoutPostLinksInput>
+    where?: ScamTypeWhereInput
+  }
+
+  export type ScamTypeUpdateToOneWithWhereWithoutPostLinksInput = {
+    where?: ScamTypeWhereInput
+    data: XOR<ScamTypeUpdateWithoutPostLinksInput, ScamTypeUncheckedUpdateWithoutPostLinksInput>
+  }
+
+  export type ScamTypeUpdateWithoutPostLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
+  }
+
+  export type ScamTypeUncheckedUpdateWithoutPostLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+  }
+
+  export type ContactScamTypeCreateWithoutContactInput = {
+    scamType: ScamTypeCreateNestedOneWithoutContactLinksInput
+  }
+
+  export type ContactScamTypeUncheckedCreateWithoutContactInput = {
+    scamTypeId: string
+  }
+
+  export type ContactScamTypeCreateOrConnectWithoutContactInput = {
+    where: ContactScamTypeWhereUniqueInput
+    create: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput>
+  }
+
+  export type ContactScamTypeCreateManyContactInputEnvelope = {
+    data: ContactScamTypeCreateManyContactInput | ContactScamTypeCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactTagCreateWithoutContactInput = {
+    tag: TagCreateNestedOneWithoutContactsInput
+  }
+
+  export type ContactTagUncheckedCreateWithoutContactInput = {
+    tagId: string
+  }
+
+  export type ContactTagCreateOrConnectWithoutContactInput = {
+    where: ContactTagWhereUniqueInput
+    create: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput>
+  }
+
+  export type ContactTagCreateManyContactInputEnvelope = {
+    data: ContactTagCreateManyContactInput | ContactTagCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactScamTypeUpsertWithWhereUniqueWithoutContactInput = {
+    where: ContactScamTypeWhereUniqueInput
+    update: XOR<ContactScamTypeUpdateWithoutContactInput, ContactScamTypeUncheckedUpdateWithoutContactInput>
+    create: XOR<ContactScamTypeCreateWithoutContactInput, ContactScamTypeUncheckedCreateWithoutContactInput>
+  }
+
+  export type ContactScamTypeUpdateWithWhereUniqueWithoutContactInput = {
+    where: ContactScamTypeWhereUniqueInput
+    data: XOR<ContactScamTypeUpdateWithoutContactInput, ContactScamTypeUncheckedUpdateWithoutContactInput>
+  }
+
+  export type ContactScamTypeUpdateManyWithWhereWithoutContactInput = {
+    where: ContactScamTypeScalarWhereInput
+    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type ContactTagUpsertWithWhereUniqueWithoutContactInput = {
+    where: ContactTagWhereUniqueInput
+    update: XOR<ContactTagUpdateWithoutContactInput, ContactTagUncheckedUpdateWithoutContactInput>
+    create: XOR<ContactTagCreateWithoutContactInput, ContactTagUncheckedCreateWithoutContactInput>
+  }
+
+  export type ContactTagUpdateWithWhereUniqueWithoutContactInput = {
+    where: ContactTagWhereUniqueInput
+    data: XOR<ContactTagUpdateWithoutContactInput, ContactTagUncheckedUpdateWithoutContactInput>
+  }
+
+  export type ContactTagUpdateManyWithWhereWithoutContactInput = {
+    where: ContactTagScalarWhereInput
+    data: XOR<ContactTagUpdateManyMutationInput, ContactTagUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type ContactCreateWithoutScamTypesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    tags?: ContactTagCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutScamTypesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    tags?: ContactTagUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutScamTypesInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutScamTypesInput, ContactUncheckedCreateWithoutScamTypesInput>
+  }
+
+  export type ScamTypeCreateWithoutContactLinksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeUncheckedCreateWithoutContactLinksInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeCreateOrConnectWithoutContactLinksInput = {
+    where: ScamTypeWhereUniqueInput
+    create: XOR<ScamTypeCreateWithoutContactLinksInput, ScamTypeUncheckedCreateWithoutContactLinksInput>
+  }
+
+  export type ContactUpsertWithoutScamTypesInput = {
+    update: XOR<ContactUpdateWithoutScamTypesInput, ContactUncheckedUpdateWithoutScamTypesInput>
+    create: XOR<ContactCreateWithoutScamTypesInput, ContactUncheckedCreateWithoutScamTypesInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutScamTypesInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutScamTypesInput, ContactUncheckedUpdateWithoutScamTypesInput>
+  }
+
+  export type ContactUpdateWithoutScamTypesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: ContactTagUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutScamTypesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: ContactTagUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ScamTypeUpsertWithoutContactLinksInput = {
+    update: XOR<ScamTypeUpdateWithoutContactLinksInput, ScamTypeUncheckedUpdateWithoutContactLinksInput>
+    create: XOR<ScamTypeCreateWithoutContactLinksInput, ScamTypeUncheckedCreateWithoutContactLinksInput>
+    where?: ScamTypeWhereInput
+  }
+
+  export type ScamTypeUpdateToOneWithWhereWithoutContactLinksInput = {
+    where?: ScamTypeWhereInput
+    data: XOR<ScamTypeUpdateWithoutContactLinksInput, ScamTypeUncheckedUpdateWithoutContactLinksInput>
+  }
+
+  export type ScamTypeUpdateWithoutContactLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+  }
+
+  export type ScamTypeUncheckedUpdateWithoutContactLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+  }
+
+  export type ContactCreateWithoutTagsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    scamTypes?: ContactScamTypeCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutTagsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    orgName: string
+    category: $Enums.ContactCategory
+    description?: string | null
+    website?: string | null
+    phone?: string | null
+    email?: string | null
+    submitUrl?: string | null
+    languageCodes?: ContactCreatelanguageCodesInput | string[]
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    status?: $Enums.ContactStatus
+    verified?: boolean
+    source?: string | null
+    lastVerifiedAt?: Date | string | null
+    createdById?: string | null
+    scamTypes?: ContactScamTypeUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutTagsInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutTagsInput, ContactUncheckedCreateWithoutTagsInput>
+  }
+
+  export type TagCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    posts?: PostTagCreateNestedManyWithoutTagInput
+  }
+
+  export type TagUncheckedCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    posts?: PostTagUncheckedCreateNestedManyWithoutTagInput
+  }
+
+  export type TagCreateOrConnectWithoutContactsInput = {
+    where: TagWhereUniqueInput
+    create: XOR<TagCreateWithoutContactsInput, TagUncheckedCreateWithoutContactsInput>
+  }
+
+  export type ContactUpsertWithoutTagsInput = {
+    update: XOR<ContactUpdateWithoutTagsInput, ContactUncheckedUpdateWithoutTagsInput>
+    create: XOR<ContactCreateWithoutTagsInput, ContactUncheckedCreateWithoutTagsInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutTagsInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutTagsInput, ContactUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type ContactUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: ContactScamTypeUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orgName?: StringFieldUpdateOperationsInput | string
+    category?: EnumContactCategoryFieldUpdateOperationsInput | $Enums.ContactCategory
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    submitUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    languageCodes?: ContactUpdatelanguageCodesInput | string[]
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    verified?: BoolFieldUpdateOperationsInput | boolean
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    lastVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    scamTypes?: ContactScamTypeUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type TagUpsertWithoutContactsInput = {
+    update: XOR<TagUpdateWithoutContactsInput, TagUncheckedUpdateWithoutContactsInput>
+    create: XOR<TagCreateWithoutContactsInput, TagUncheckedCreateWithoutContactsInput>
+    where?: TagWhereInput
+  }
+
+  export type TagUpdateToOneWithWhereWithoutContactsInput = {
+    where?: TagWhereInput
+    data: XOR<TagUpdateWithoutContactsInput, TagUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type TagUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    posts?: PostTagUpdateManyWithoutTagNestedInput
+  }
+
+  export type TagUncheckedUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    posts?: PostTagUncheckedUpdateManyWithoutTagNestedInput
+  }
+
   export type CommentCreateManyReportInput = {
     id?: string
     createdAt?: Date | string
@@ -19065,6 +30807,14 @@ export namespace Prisma {
     evidence?: string | null
   }
 
+  export type EducationPostScamTypeCreateManyScamTypeInput = {
+    postId: string
+  }
+
+  export type ContactScamTypeCreateManyScamTypeInput = {
+    contactId: string
+  }
+
   export type ScamReportUpdateWithoutScamTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19138,6 +30888,30 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EducationPostScamTypeUpdateWithoutScamTypeInput = {
+    post?: EducationPostUpdateOneRequiredWithoutScamTypesNestedInput
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeUpdateWithoutScamTypeInput = {
+    contact?: ContactUpdateOneRequiredWithoutScamTypesNestedInput
+  }
+
+  export type ContactScamTypeUncheckedUpdateWithoutScamTypeInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentCreateManyUserInput = {
@@ -19256,6 +31030,102 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reportId?: StringFieldUpdateOperationsInput | string
     voteType?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeCreateManyPostInput = {
+    scamTypeId: string
+  }
+
+  export type PostTagCreateManyPostInput = {
+    tagId: string
+  }
+
+  export type EducationPostScamTypeUpdateWithoutPostInput = {
+    scamType?: ScamTypeUpdateOneRequiredWithoutPostLinksNestedInput
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateWithoutPostInput = {
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyWithoutPostInput = {
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagUpdateWithoutPostInput = {
+    tag?: TagUpdateOneRequiredWithoutPostsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateWithoutPostInput = {
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutPostInput = {
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagCreateManyTagInput = {
+    postId: string
+  }
+
+  export type ContactTagCreateManyTagInput = {
+    contactId: string
+  }
+
+  export type PostTagUpdateWithoutTagInput = {
+    post?: EducationPostUpdateOneRequiredWithoutTagsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateWithoutTagInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutTagInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagUpdateWithoutTagInput = {
+    contact?: ContactUpdateOneRequiredWithoutTagsNestedInput
+  }
+
+  export type ContactTagUncheckedUpdateWithoutTagInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagUncheckedUpdateManyWithoutTagInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeCreateManyContactInput = {
+    scamTypeId: string
+  }
+
+  export type ContactTagCreateManyContactInput = {
+    tagId: string
+  }
+
+  export type ContactScamTypeUpdateWithoutContactInput = {
+    scamType?: ScamTypeUpdateOneRequiredWithoutContactLinksNestedInput
+  }
+
+  export type ContactScamTypeUncheckedUpdateWithoutContactInput = {
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutContactInput = {
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagUpdateWithoutContactInput = {
+    tag?: TagUpdateOneRequiredWithoutContactsNestedInput
+  }
+
+  export type ContactTagUncheckedUpdateWithoutContactInput = {
+    tagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactTagUncheckedUpdateManyWithoutContactInput = {
+    tagId?: StringFieldUpdateOperationsInput | string
   }
 
 
