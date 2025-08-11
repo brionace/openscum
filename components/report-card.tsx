@@ -174,11 +174,11 @@ export function ReportCard({
 
   return (
     <Card
-      className={`w-full border-l-4 ${
+      className={`w-full border-b last:border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-4 ${
         severityBLColors[
           (report.severity as keyof typeof severityBLColors) || "LOW"
         ]
-      } hover:shadow-lg transition-shadow`}
+      } hover:lg:shadow-lg transition-shadow`}
     >
       <CardHeader className="p-3">
         <div className="flex items-center justify-between gap-3">

@@ -27,7 +27,7 @@ export function ReportScammerDetails({
   }
 
   return (
-    <div className="p-2 bg-gray-50 rounded-lg border border-slate-100">
+    <div className="p-2 bg-gray-50 rounded-lg border border-slate-200">
       <p className="flex items-center gap-2 mb-4 text-xs bg-slate-100 p-2 rounded-lg">
         <Info className="h-4 w-4 text-red-500" aria-label="Phone number" />
         <span className="font-semibold">Scammer Info</span>
@@ -36,7 +36,7 @@ export function ReportScammerDetails({
         {scammerDetails.phoneNumber && (
           <div className="flex items-start gap-2 text-sm">
             <Phone
-              className={`h-4 w-4 ${
+              className={`h-4 w-4 shrink-0 ${
                 severityColors[severity as keyof typeof severityColors]
               }`}
               aria-label="Phone number"
@@ -47,7 +47,7 @@ export function ReportScammerDetails({
         {scammerDetails.email && (
           <div className="flex items-start gap-2 text-sm">
             <Mail
-              className={`h-4 w-4 ${
+              className={`h-4 w-4 shrink-0 ${
                 severityColors[severity as keyof typeof severityColors]
               }`}
               aria-label="Email address"
@@ -58,7 +58,7 @@ export function ReportScammerDetails({
         {scammerDetails.website && (
           <div className="flex items-start gap-2 text-sm">
             <Globe
-              className={`h-4 w-4 ${
+              className={`h-4 w-4 shrink-0 ${
                 severityColors[severity as keyof typeof severityColors]
               }`}
               aria-label="Website"
@@ -71,7 +71,7 @@ export function ReportScammerDetails({
         {scammerDetails.username && (
           <div className="flex items-start gap-2 text-sm">
             <User
-              className={`h-4 w-4 ${
+              className={`h-4 w-4 shrink-0 ${
                 severityColors[severity as keyof typeof severityColors]
               }`}
               aria-label="Username"
@@ -84,7 +84,7 @@ export function ReportScammerDetails({
         {scammerDetails.name && (
           <div className="flex items-start gap-2 text-sm">
             <User
-              className={`h-4 w-4 ${
+              className={`h-4 w-4 shrink-0 ${
                 severityColors[severity as keyof typeof severityColors]
               }`}
               aria-label="Name"

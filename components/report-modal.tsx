@@ -71,10 +71,18 @@ export function ReportModal({
   const fetchReport = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/reports?id=${reportId}`);
+      // Prefer the dedicated endpoint to load any report by id
+      const res = await fetch(`/api/reports/${reportId}`);
       const data = await res.json();
-      if (data.success && Array.isArray(data.data.reports)) {
-        const found = data.data.reports.find(
+      if (data?.success && data?.data) {
+        setReport(data.data as ScamReport);
+        return;
+      }
+      // Fallback to list endpoint (older behavior)
+      const resList = await fetch(`/api/reports?id=${reportId}`);
+      const json = await resList.json();
+      if (json.success && Array.isArray(json.data?.reports)) {
+        const found = json.data.reports.find(
           (r: ScamReport) => r.id === reportId
         );
         if (found) setReport(found);
@@ -155,8 +163,6 @@ export function ReportModal({
     }
   };
 
-  console.log({ report });
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -167,6 +173,12 @@ export function ReportModal({
           <VisuallyHidden>
             <DialogTitle></DialogTitle>
           </VisuallyHidden>
+          {loading && (
+            <div className="p-2 text-sm text-gray-500">Loading report…</div>
+          )}
+          {!loading && !report && (
+            <div className="p-2 text-sm text-gray-500">Report not found.</div>
+          )}
           {report && (
             <ReportModalCard
               report={report}
