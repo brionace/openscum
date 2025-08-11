@@ -232,9 +232,7 @@ export function ReportCard({
       </CardHeader>
 
       <CardContent className="space-y-4 p-3">
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-          {report.description}
-        </p>
+        <p className="text-sm mb-4 line-clamp-3">{report.description}</p>
 
         {/* Severity bulletin */}
         <SeverityBulletin
