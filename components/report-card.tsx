@@ -14,6 +14,7 @@ import {
   Share2,
   Flag,
   ArrowRight,
+  AlertTriangle,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,7 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
-import { severityBLColors } from "@/lib/utils";
+import { cn, severityBLColors, severityColors } from "@/lib/utils";
 import { SeverityBulletin } from "./severity-bulletin";
 
 interface ReportCardProps {
@@ -172,6 +173,10 @@ export function ReportCard({
     }
   };
 
+  const colorClass =
+    severityColors[report.severity as keyof typeof severityColors] ||
+    "text-slate-600";
+
   return (
     <Card
       className={`w-full border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-0 ${
@@ -183,7 +188,12 @@ export function ReportCard({
       <CardHeader className="p-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap gap-2 items-center">
+            <div className="flex flex-wrap gap-1 items-center">
+              {/* Alert Status */}
+              <AlertTriangle
+                className={cn("h-4 w-4 shrink-0", colorClass)}
+                aria-hidden="true"
+              />
               {/* Scam Type Name */}
               {/* {!hideTypeLink && report.scamType?.name && (
                 <Link

@@ -53,14 +53,8 @@ export function ReportScammerDetails({
       className="rounded-md border-b border-slate-200 p-1 text-xs"
     >
       <AccordionItem value="scammer-details" className="border-0 flex-1">
-        <AccordionTrigger className="p-0 h-auto min-h-0">
-          <div className="flex w-full items-center gap-1">
-            <Info
-              className={cn("h-4 w-4 shrink-0", colorClass)}
-              aria-hidden="true"
-            />
-            <span className="text-muted-foreground">Scammer details</span>
-          </div>
+        <AccordionTrigger className="p-0 h-auto min-h-0 text-muted-foreground">
+          Scammer info
         </AccordionTrigger>
         <AccordionContent className="mt-2 p-0 text-xs">
           <div className="space-y-2 [&_div>div]:text-muted-foreground [&_div>div]:text-xs">

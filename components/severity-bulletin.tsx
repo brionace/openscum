@@ -60,14 +60,8 @@ export function SeverityBulletin({
       aria-label={`Severity bulletin: ${meta.title}`}
     >
       <AccordionItem value="severity" className="border-0 flex-1">
-        <AccordionTrigger className="p-0 h-auto text-xs min-h-0">
-          <div className="flex items-center gap-1">
-            <AlertTriangle
-              className={cn("h-4 w-4 shrink-0", colorClass)}
-              aria-hidden="true"
-            />
-            <span className="text-muted-foreground">{meta.title}</span>
-          </div>
+        <AccordionTrigger className="p-0 h-auto text-xs min-h-0 text-muted-foreground">
+          {meta.title}
         </AccordionTrigger>
         <AccordionContent className="mt-2 p-0 text-muted-foreground text-xs">
           {meta.description}

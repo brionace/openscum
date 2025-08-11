@@ -24,7 +24,7 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
-import { severityColors } from "@/lib/utils";
+import { cn, severityColors } from "@/lib/utils";
 import { SeverityBulletin } from "./severity-bulletin";
 
 interface ReportCardProps {
@@ -163,16 +163,27 @@ export function ReportModalCard({
     }
   };
 
+  const colorClass =
+    severityColors[report.severity as keyof typeof severityColors] ||
+    "text-slate-600";
+
   return (
     <Card className="w-full p-0 border-0 shadow-none">
       <CardHeader className="p-0 pb-3 mt-12">
         <div className="flex flex-wrap gap-2 mb-2 items-center">
-          {/* Scam Type Name */}
-          {report.scamType?.name === "Other" ? null : (
-            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-              {report.scamType?.name}
-            </span>
-          )}
+          <div className="flex items-center gap-1">
+            {/* Alert Status */}
+            <AlertTriangle
+              className={cn("h-4 w-4 shrink-0", colorClass)}
+              aria-hidden="true"
+            />
+            {/* Scam Type Name */}
+            {report.scamType?.name === "Other" ? null : (
+              <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+                {report.scamType?.name}
+              </span>
+            )}
+          </div>
           {report.reportCount > 1 && report.scamType?.id && (
             <Link
               href={`/types/${report.scamType.id}`}
