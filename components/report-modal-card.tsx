@@ -25,6 +25,7 @@ import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
 import { severityColors } from "@/lib/utils";
+import { SeverityBulletin } from "./severity-bulletin";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -166,17 +167,10 @@ export function ReportModalCard({
     <Card className="w-full p-0 border-0 shadow-none">
       <CardHeader className="p-0 pb-3 mt-12">
         <div className="flex flex-wrap gap-2 mb-2 items-center">
-          {/* Severity */}
-          <AlertTriangle
-            className={`h-3 w-3 ${
-              severityColors[report.severity as keyof typeof severityColors]
-            }`}
-            aria-label={"Severity: " + report.severity}
-          />
           {/* Scam Type Name */}
-          {report.scamType?.name && (
-            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 py-0.5 rounded text-xs font-semibold">
-              {report.scamType.name}
+          {report.scamType?.name === "Other" ? null : (
+            <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
+              {report.scamType?.name}
             </span>
           )}
           {report.reportCount > 1 && report.scamType?.id && (
@@ -196,6 +190,16 @@ export function ReportModalCard({
         <p className="text-sm text-muted-foreground mb-4 whitespace-pre-wrap break-words">
           {report.description}
         </p>
+
+        {/* Severity bulletin */}
+        <SeverityBulletin
+          severity={
+            report.severity === null || report.severity === undefined
+              ? undefined
+              : (report.severity as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
+          }
+          compact
+        />
 
         {/* Scammer Details */}
         {report.scammerDetails &&

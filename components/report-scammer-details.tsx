@@ -27,11 +27,16 @@ export function ReportScammerDetails({
   }
 
   return (
-    <div className="p-2 bg-gray-50 rounded-lg border border-slate-200">
-      <p className="flex items-center gap-2 mb-4 text-xs bg-slate-100 p-2 rounded-lg">
-        <Info className="h-4 w-4 text-red-500" aria-label="Phone number" />
+    <div className="p-2 bg-gray-50 rounded-lg border border-slate-200 bg-slate-50">
+      {/* <p className="flex items-center gap-2 mb-4 text-xs bg-slate-100 p-2 rounded-lg">
+        <Info
+          className={`h-4 w-4 ${
+            severityColors[severity as keyof typeof severityColors]
+          }`}
+          aria-label="Phone number"
+        />
         <span className="font-semibold">Scammer Info</span>
-      </p>
+      </p> */}
       <div className="space-y-2">
         {scammerDetails.phoneNumber && (
           <div className="flex items-start gap-2 text-sm">

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useSupabaseUser } from "@/components/SupabaseUserContext";
 import { ScamReport, OutcomeType } from "@/lib/types";
 import {
-  AlertTriangle,
   MapPin,
   Calendar,
   MessageCircle,
@@ -25,7 +24,8 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
-import { severityBLColors, severityColors } from "@/lib/utils";
+import { severityBLColors } from "@/lib/utils";
+import { SeverityBulletin } from "./severity-bulletin";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -184,23 +184,6 @@ export function ReportCard({
         <div className="flex items-center justify-between gap-3">
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap gap-2 items-center">
-              {/* Severity */}
-              {/* {(report.severity === "HIGH" ||
-                report.severity === "CRITICAL") && (
-                <span className="flex items-center gap-1 bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  <AlertTriangle className="h-3 w-3" />
-                  {report.severity}
-                </span>
-              )}
-               */}
-              <AlertTriangle
-                className={`h-3 w-3 ${
-                  severityColors[
-                    report.severity as keyof typeof severityBLColors
-                  ]
-                }`}
-                aria-label={"Severity: " + report.severity}
-              />
               {/* Scam Type Name */}
               {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
@@ -242,6 +225,16 @@ export function ReportCard({
         <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
           {report.description}
         </p>
+
+        {/* Severity bulletin */}
+        <SeverityBulletin
+          severity={
+            report.severity === null || report.severity === undefined
+              ? undefined
+              : (report.severity as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
+          }
+          compact
+        />
 
         {/* Scammer Details */}
         {report.scammerDetails &&
