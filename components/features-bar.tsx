@@ -89,24 +89,40 @@ export function FeaturesBar() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          <Button variant="outline" className="w-full justify-between">
-            <span className="flex items-center">
-              <Shield className="h-4 w-4 mr-2" /> Common Scam Tactics
-            </span>
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" className="w-full justify-between">
-            <span className="flex items-center">
-              <AlertTriangle className="h-4 w-4 mr-2" /> How to Verify Contacts
-            </span>
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" className="w-full justify-between">
-            <span className="flex items-center">
-              <Phone className="h-4 w-4 mr-2" /> Report to Authorities
-            </span>
-            <ArrowRight className="h-4 w-4" />
-          </Button>
+          <Link href="/learn/category/PREVENTION">
+            <Button
+              asChild
+              variant="outline"
+              className="w-full justify-between"
+            >
+              <span className="flex items-center">
+                <Shield className="h-4 w-4 mr-2" /> Common Scam Tactics
+              </span>
+            </Button>
+          </Link>
+          <Link href="/learn/category/GUIDE">
+            <Button
+              asChild
+              variant="outline"
+              className="w-full justify-between"
+            >
+              <span className="flex items-center">
+                <AlertTriangle className="h-4 w-4 mr-2" /> How to Verify
+                Contacts
+              </span>
+            </Button>
+          </Link>
+          <Link href="/learn/category/REPORT_TO_AUTHORITIES">
+            <Button
+              asChild
+              variant="outline"
+              className="w-full justify-between"
+            >
+              <span className="flex items-center">
+                <Phone className="h-4 w-4 mr-2" /> Report to Authorities
+              </span>
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>

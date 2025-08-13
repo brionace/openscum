@@ -185,15 +185,15 @@ export function ReportCard({
         ]
       } hover:lg:shadow-lg transition-shadow`}
     >
-      <CardHeader className="p-3">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex-1 min-w-0">
+      <CardHeader className="p-3 pt-6">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 flex flex-col gap-2 min-w-0">
             <div className="flex flex-wrap gap-1 items-center">
               {/* Alert Status */}
-              <AlertTriangle
+              {/* <AlertTriangle
                 className={cn("h-4 w-4 shrink-0", colorClass)}
                 aria-hidden="true"
-              />
+              /> */}
               {/* Scam Type Name */}
               {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
@@ -216,18 +216,29 @@ export function ReportCard({
                 </span>
               )}
             </div>
+            <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground">
+              <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
+              {(report.city || report.country) && (
+                <>
+                  &bull;
+                  <span>
+                    {report.city
+                      ? `${report.city}, ${report.country}`
+                      : report.country}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
-          <div className="flex gap-1 items-center">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="shrink-0"
-              onClick={() => onCommentsClick?.(report.id)}
-              aria-label="View report details"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            onClick={() => onCommentsClick?.(report.id)}
+            aria-label="View report details"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </Button>
         </div>
       </CardHeader>
 
@@ -235,14 +246,14 @@ export function ReportCard({
         <p className="text-sm mb-4 line-clamp-3">{report.description}</p>
 
         {/* Severity bulletin */}
-        <SeverityBulletin
+        {/* <SeverityBulletin
           severity={
             report.severity === null || report.severity === undefined
               ? undefined
               : (report.severity as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
           }
           compact
-        />
+        /> */}
 
         {/* Scammer Details */}
         {report.scammerDetails &&
@@ -263,7 +274,6 @@ export function ReportCard({
             <ReportOutcome outcome={report.outcome} />
           </div>
         )} */}
-
         {/* Meta Information */}
         <ReportMeta
           report={report}

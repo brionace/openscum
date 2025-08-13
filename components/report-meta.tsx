@@ -9,6 +9,8 @@ import {
   ThumbsUp,
   Flag,
   Share2,
+  ArrowRight,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatDistanceToNow } from "@/lib/date-utils";
@@ -38,12 +40,12 @@ export function ReportMeta({
 }: ReportMetaProps) {
   return (
     <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground pt-3">
-      <div className="flex flex-col gap-2 col-span-1">
+      {/* Date / Location info */}
+      {/* <div className="flex flex-col gap-2 col-span-1">
         <div className="flex items-center gap-1">
           <Calendar className="h-3 w-3" />
           <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
         </div>
-        {/* Location info */}
         {(report.city || report.country) && (
           <div className="flex items-center gap-1">
             <MapPin className="h-3 w-3 text-blue-500" />
@@ -54,7 +56,7 @@ export function ReportMeta({
             </span>
           </div>
         )}
-      </div>
+      </div> */}
       <div className="flex items-center gap-3 text-xs">
         {/* Flag Button */}
         <Button
@@ -117,6 +119,19 @@ export function ReportMeta({
           </Button>
         )}
       </div>
+      {/* {onCommentsClick && (
+        <div className="flex gap-1 items-center">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            onClick={() => onCommentsClick?.(report.id)}
+            aria-label="View report details"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )} */}
     </div>
   );
 }

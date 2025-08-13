@@ -7,6 +7,7 @@ export type ListEducationPostsParams = {
   country?: string;
   region?: string;
   city?: string;
+  category?: string;
   tagIds?: string[];
   scamTypeIds?: string[];
   featuredOnly?: boolean;
@@ -21,6 +22,7 @@ export async function getEducationPosts(params: ListEducationPostsParams = {}) {
     region,
     city,
     tagIds,
+    category,
     scamTypeIds,
     featuredOnly,
   } = params;
@@ -40,6 +42,7 @@ export async function getEducationPosts(params: ListEducationPostsParams = {}) {
   if (country) where.country = country;
   if (region) where.region = region;
   if (city) where.city = city;
+  if (category) where.category = category;
 
   if (tagIds?.length) {
     where.tags = { some: { tagId: { in: tagIds } } };
