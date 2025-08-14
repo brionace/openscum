@@ -38,6 +38,7 @@ export function HomeClient({
   const [reports, setReports] = useState<ScamReport[]>(initialReports);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(initialHasMore);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [stats, setStats] = useState(initialStats);
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const [reportPrefill, setReportPrefill] = useState<{
@@ -58,8 +59,9 @@ export function HomeClient({
     if (loading || !hasMore) return;
     setLoading(true);
     try {
-      const offset = reports.length;
-      const response = await fetch(`/api/reports?limit=10&offset=${offset}`);
+      let url = `/api/reports?limit=10`;
+      if (nextCursor) url += `&cursor=${nextCursor}`;
+      const response = await fetch(url);
       if (!response.ok) {
         const text = await response.text();
         console.error("API response not OK:", response.status, text);
@@ -67,11 +69,17 @@ export function HomeClient({
       }
       const data = await response.json();
       if (data.success) {
-        if (!Array.isArray(data.data.reports)) {
-          console.warn("No reports array in response:", data);
-        }
-        setReports((prev) => [...prev, ...(data.data.reports || [])]);
-        setHasMore(data.data.hasMore);
+        const newReports = Array.isArray(data.data) ? data.data : [];
+        // Deduplicate by ID
+        setReports((prev) => {
+          const ids = new Set(prev.map((r) => r.id));
+          return [
+            ...prev,
+            ...newReports.filter((r: ScamReport) => !ids.has(r.id)),
+          ];
+        });
+        setHasMore(data.hasMore);
+        setNextCursor(data.nextCursor || null);
       } else {
         console.error("API returned error:", data.error);
       }
@@ -95,9 +103,11 @@ export function HomeClient({
       }
     };
     window.addEventListener("scroll", handleScroll);
+    // Trigger check immediately on mount
+    setTimeout(handleScroll, 0);
     return () => window.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, hasMore, reports.length]);
+  }, [loading, hasMore, nextCursor, reports.length]);
 
   // Handle deep-linking for #/reports/[id]
   useEffect(() => {
@@ -138,6 +148,7 @@ export function HomeClient({
     // Refresh reports and stats
     setReports([]);
     setHasMore(true);
+    setNextCursor(null);
     setTimeout(() => loadMoreReports(), 100);
     loadStats();
   };
@@ -145,12 +156,13 @@ export function HomeClient({
   const handleRefresh = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/reports?limit=20&offset=0");
+      const response = await fetch("/api/reports?limit=20");
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
-          setReports(data.data.reports);
-          setHasMore(data.data.hasMore);
+          setReports(Array.isArray(data.data) ? data.data : []);
+          setHasMore(data.hasMore);
+          setNextCursor(data.nextCursor || null);
           toast({
             title: "Refreshed",
             description: "Latest reports loaded successfully",
@@ -262,18 +274,20 @@ export function HomeClient({
   useEffect(() => {
     const refreshInterval = setInterval(async () => {
       try {
-        const response = await fetch("/api/reports?limit=20&offset=0");
+        const response = await fetch("/api/reports?limit=20");
         if (response.ok) {
           const data = await response.json();
-          if (data.success && data.data.reports.length > 0) {
+          if (
+            data.success &&
+            Array.isArray(data.data) &&
+            data.data.length > 0
+          ) {
             // Check if there are new reports (by comparing the first report ID)
-            if (
-              reports.length > 0 &&
-              data.data.reports[0].id !== reports[0].id
-            ) {
+            if (reports.length > 0 && data.data[0].id !== reports[0].id) {
               // Silently update the reports list with new data
-              setReports(data.data.reports);
-              setHasMore(data.data.hasMore);
+              setReports(data.data);
+              setHasMore(data.hasMore);
+              setNextCursor(data.nextCursor || null);
             }
           }
         }

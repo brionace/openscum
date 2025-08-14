@@ -7,12 +7,14 @@ export interface GetReportsParams {
   offset?: number;
   ai?: string;
   latestByType?: boolean;
+  cursor?: string | null;
 }
 
 export interface GetReportsResult {
   reports: ScamReport[];
   total: number;
   hasMore: boolean;
+  nextCursor?: string | null;
 }
 
 export async function getReports({
@@ -21,6 +23,7 @@ export async function getReports({
   offset = 0,
   ai = "0",
   latestByType = false,
+  cursor = null,
 }: GetReportsParams): Promise<GetReportsResult> {
   let whereClause: PrismaWhereInput = {};
   if (query) {
@@ -72,9 +75,13 @@ export async function getReports({
     reports = latestReports.filter(Boolean);
     total = reports.length;
   } else {
-    // Fetch reports with counts
-    const rawReports = await prisma.scamReport.findMany({
+    // Cursor-based pagination
+    const orderBy = [{ createdAt: "desc" }, { id: "desc" }];
+    const take = limit;
+    const findArgs: any = {
       where: whereClause,
+      orderBy,
+      take,
       select: {
         id: true,
         createdAt: true,
@@ -105,16 +112,20 @@ export async function getReports({
           },
         },
       },
-      orderBy: [{ createdAt: "desc" }],
-      take: limit * 3,
-      skip: offset,
-    });
+    };
+    if (cursor) {
+      findArgs.cursor = { id: cursor };
+      findArgs.skip = 1;
+    } else {
+      findArgs.skip = offset;
+    }
+    const rawReports = await prisma.scamReport.findMany(findArgs);
     // Filter out flagged reports in JS
     const filtered = rawReports.filter(
       (r: any) => r._count && r._count.flags < 3
     );
-    reports = filtered.slice(0, limit);
-    total = filtered.length;
+    reports = filtered;
+    total = await prisma.scamReport.count({ where: whereClause });
   }
 
   // Remove flagged property if present (defensive, not needed if never added)
@@ -134,10 +145,22 @@ export async function getReports({
     })
   );
 
+  // Cursor pagination: hasMore if page is full
+  let hasMore = false;
+  let nextCursor: string | null = null;
+  if (!latestByType) {
+    if (reportsWithSeverity.length === limit) {
+      hasMore = true;
+      nextCursor =
+        reportsWithSeverity[reportsWithSeverity.length - 1]?.id ?? null;
+    }
+  }
+
   return {
     reports: reportsWithSeverity,
     total,
-    hasMore: !latestByType && offset + limit < total,
+    hasMore,
+    nextCursor,
   };
 }
 

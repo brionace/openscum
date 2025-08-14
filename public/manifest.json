@@ -1,7 +1,7 @@
 {
-  "name": "Scamlist - Community Scam Reporting",
-  "short_name": "Scamlist",
-  "description": "Protect yourself and others by checking, reporting, and learning about scams",
+  "name": "Openscum - Report Scams, Check Scam Reports & Stay Safe",
+  "short_name": "Openscum",
+  "description": "We are a free community platform to report scams, search scam reports, and track trending scams worldwide. Protect yourself and your loved ones with AI-powered scam detection.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

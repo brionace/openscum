@@ -6,11 +6,29 @@ import { SupabaseUserProvider } from "@/components/SupabaseUserContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Openscum - Community Scam Reporting Platform",
+  title: "Openscum - Report Scams, Check Scam Reports & Stay Safe",
   description:
-    "Protect yourself and others by checking, reporting, and learning about scams. Community-driven fraud prevention.",
-  keywords: "scam, fraud, protection, reporting, safety, community",
+    "We are a free community platform to report scams, search scam reports, and track trending scams worldwide. Protect yourself and your loved ones with AI-powered scam detection.",
+  keywords:
+    "report scams online, scam reporting website, check if something is a scam, trending scams near me, report fraud online, scammer database, scam alert platform, global scam reports, search scammer details, community scam warnings, scam, fraud, protection, reporting, safety, community",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "OpenScum — Expose Scammers, Protect the World",
+    description:
+      "Report scams, browse scam reports, and learn about trending scams in your area. Together, we shine a light on fraud.",
+    url: "https://openscum.com",
+    siteName: "OpenScum",
+    images: [
+      {
+        url: "/og-image.png", // Replace with your actual OG image path
+        width: 1200,
+        height: 630,
+        alt: "OpenScum — Expose Scammers, Protect the World",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 // Next.js 14: move viewport and themeColor to the dedicated export

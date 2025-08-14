@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get("offset") || "0");
     const ai = searchParams.get("ai") || "0";
     const latestByType = searchParams.get("latestByType") === "1";
+    const cursor = searchParams.get("cursor");
 
     const result = await getReports({
       query,
@@ -18,11 +19,15 @@ export async function GET(request: NextRequest) {
       offset,
       ai,
       latestByType,
+      cursor,
     });
 
     const response = NextResponse.json({
       success: true,
-      data: result,
+      data: result.reports,
+      hasMore: result.hasMore,
+      nextCursor: result.nextCursor,
+      total: result.total,
     });
 
     // Add cache control headers to prevent caching of fresh data

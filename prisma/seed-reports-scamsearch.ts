@@ -5,7 +5,7 @@ import compareTwoStrings from "string-similarity-js";
 
 const API_TOKEN = "m8wkplbego3r0dq7sxhvt1a5fc2jz6";
 const BASE_URL = "https://scamsearch.io/api/search-with-wild";
-const DEFAULT_SEARCH = "fraud"; //
+const DEFAULT_SEARCH = "phishing"; //
 
 // Configurable query params
 const config = {
@@ -111,10 +111,11 @@ async function isDuplicate(report: any): Promise<boolean> {
 async function importReports() {
   // Get all scamType names from the database
   const scamTypes = await prisma.scamType.findMany({ select: { name: true } });
-  const scamTypeNames = scamTypes
-    .slice(200)
-    .map((t) => t.name)
-    .filter(Boolean);
+  // const scamTypeNames = scamTypes
+  //   .slice(40)
+  //   .map((t) => t.name)
+  //   .filter(Boolean);
+
   // const scamTypeNames = [
   //   "Romance Scam",
   //   "EBay Scam",
@@ -153,6 +154,8 @@ async function importReports() {
   //   "other",
   // ];
 
+  const scamTypeNames = ["all"];
+
   for (const scamTypeName of scamTypeNames) {
     const searchConfig = {
       ...config,
@@ -160,6 +163,7 @@ async function importReports() {
     };
     console.log(`Searching for scamType: ${scamTypeName}`);
     const reports = await fetchReports(searchConfig);
+    console.log({ reports }, { length: reports.length });
 
     for (const item of reports) {
       const description = item.scamdescription || "";
