@@ -231,8 +231,9 @@ export function ReportCard({
             </div>
           </div>
           <Link
-            href={`${window.location.origin}/#/report/${report.id}`}
+            href={`#/reports/${report.id}`}
             onClick={() => onCommentsClick?.(report.id)}
+            aria-label="View report details"
           >
             <ArrowRight className="h-4 w-4" />
           </Link>
