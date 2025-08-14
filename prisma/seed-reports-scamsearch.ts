@@ -1,4 +1,4 @@
-// npx tsx prisma/seed-outcome-types.ts
+// npx tsx prisma/seed-reports-scamsearch.ts
 import prisma from "@/lib/prisma";
 import fetch from "node-fetch";
 import compareTwoStrings from "string-similarity-js";
@@ -111,47 +111,47 @@ async function isDuplicate(report: any): Promise<boolean> {
 async function importReports() {
   // Get all scamType names from the database
   const scamTypes = await prisma.scamType.findMany({ select: { name: true } });
-  // const scamTypeNames = scamTypes
-  //   .slice(50)
-  //   .map((t) => t.name)
-  //   .filter(Boolean);
-  const scamTypeNames = [
-    "Romance Scam",
-    "EBay Scam",
-    "Phone Scam",
-    "Email Scam",
-    "Phishing",
-    "Website Scam",
-    "Crypto Scam",
-    "Pension Scam",
-    "Investment Scam",
-    "Giftcard Scam",
-    "Card Scam",
-    "dating app",
-    "tinder",
-    "Bumble",
-    "Hinge",
-    "OkCupid",
-    "Badoo",
-    "Plenty of Fish",
-    "online marketing scams",
-    "blackmail",
-    "crypto",
-    "debt",
-    "romance",
-    "ransomware",
-    "bitcoin",
-    "sextortion",
-    "fraud",
-    "phishing",
-    "tech support",
-    "Blackmail",
-    "investment",
-    "instagram",
-    "facebook",
-    "email",
-    "other",
-  ];
+  const scamTypeNames = scamTypes
+    .slice(200)
+    .map((t) => t.name)
+    .filter(Boolean);
+  // const scamTypeNames = [
+  //   "Romance Scam",
+  //   "EBay Scam",
+  //   "Phone Scam",
+  //   "Email Scam",
+  //   "Phishing",
+  //   "Website Scam",
+  //   "Crypto Scam",
+  //   "Pension Scam",
+  //   "Investment Scam",
+  //   "Giftcard Scam",
+  //   "Card Scam",
+  //   "dating app",
+  //   "tinder",
+  //   "Bumble",
+  //   "Hinge",
+  //   "OkCupid",
+  //   "Badoo",
+  //   "Plenty of Fish",
+  //   "online marketing scams",
+  //   "blackmail",
+  //   "crypto",
+  //   "debt",
+  //   "romance",
+  //   "ransomware",
+  //   "bitcoin",
+  //   "sextortion",
+  //   "fraud",
+  //   "phishing",
+  //   "tech support",
+  //   "Blackmail",
+  //   "investment",
+  //   "instagram",
+  //   "facebook",
+  //   "email",
+  //   "other",
+  // ];
 
   for (const scamTypeName of scamTypeNames) {
     const searchConfig = {

@@ -88,38 +88,28 @@ export function FeaturesBar() {
             <Users className="h-5 w-5 text-green-500" /> Learn & Protect
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2">
-          <Link href="/learn/category/PREVENTION">
-            <Button
-              asChild
-              variant="outline"
-              className="w-full justify-between"
-            >
-              <span className="flex items-center">
-                <Shield className="h-4 w-4 mr-2" /> Common Scam Tactics
+        <CardContent className="flex flex-col gap-2">
+          <Link href="/learn/category/prevention">
+            <Button asChild variant="outline" className="w-full justify-start">
+              <span>
+                <Shield className="h-4 w-4 mr-2" />
+                <span>Common Scam Tactics</span>
               </span>
             </Button>
           </Link>
-          <Link href="/learn/category/GUIDE">
-            <Button
-              asChild
-              variant="outline"
-              className="w-full justify-between"
-            >
-              <span className="flex items-center">
-                <AlertTriangle className="h-4 w-4 mr-2" /> How to Verify
-                Contacts
+          <Link href="/learn/category/guide">
+            <Button asChild variant="outline" className="w-full justify-start">
+              <span>
+                <AlertTriangle className="h-4 w-4 mr-2" />
+                <span>How to Verify</span>
               </span>
             </Button>
           </Link>
-          <Link href="/learn/category/REPORT_TO_AUTHORITIES">
-            <Button
-              asChild
-              variant="outline"
-              className="w-full justify-between"
-            >
-              <span className="flex items-center">
-                <Phone className="h-4 w-4 mr-2" /> Report to Authorities
+          <Link href="/learn/category/report_to_authorities">
+            <Button asChild variant="outline" className="w-full justify-start">
+              <span>
+                <Phone className="h-4 w-4 mr-2" />
+                <span>Report to Authorities</span>
               </span>
             </Button>
           </Link>

@@ -1,3 +1,4 @@
+import { HeaderPages } from "@/components/header-pages";
 import { getEducationPosts } from "@/lib/data/education";
 import Link from "next/link";
 
@@ -20,25 +21,28 @@ export default async function LearnCategoryPage({
   const heading = TITLE_MAP[cat] ?? cat;
 
   return (
-    <main className="container mx-auto max-w-3xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-semibold">{heading}</h1>
-      {items.length === 0 ? (
-        <p className="text-slate-600">No posts in this category yet.</p>
-      ) : (
-        <ul className="space-y-4">
-          {items.map((p: any) => (
-            <li key={p.id} className="rounded-md border p-4">
-              <Link
-                href={`/learn/${p.slug}`}
-                className="text-lg font-medium hover:underline"
-              >
-                {p.title}
-              </Link>
-              {p.excerpt && <p className="text-slate-600">{p.excerpt}</p>}
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+    <>
+      <HeaderPages />
+      <main className="container mx-auto max-w-3xl px-4 py-8">
+        <h1 className="mb-6 text-2xl font-semibold">{heading}</h1>
+        {items.length === 0 ? (
+          <p className="text-slate-600">No posts in this category yet.</p>
+        ) : (
+          <ul className="space-y-4">
+            {items.map((p: any) => (
+              <li key={p.id} className="rounded-md border p-4">
+                <Link
+                  href={`/learn/${p.slug}`}
+                  className="text-lg font-medium hover:underline"
+                >
+                  {p.title}
+                </Link>
+                {p.excerpt && <p className="text-slate-600">{p.excerpt}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+      </main>
+    </>
   );
 }

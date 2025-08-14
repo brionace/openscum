@@ -14,10 +14,10 @@ export function HeaderPages() {
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-2 md:px-4 py-2 gap-2">
         {/* Back Button */}
-        <Button variant="ghost" onClick={() => window.history.back()}>
+        {/* <Button variant="ghost" onClick={() => window.history.back()}>
           <ArrowLeft className="h-4 w-4" />
           Back
-        </Button>
+        </Button> */}
 
         {/* Logo */}
         <Link
@@ -26,6 +26,9 @@ export function HeaderPages() {
         >
           <Shield className="h-7 w-7" />
         </Link>
+        <Button variant="ghost" size="icon">
+          <EllipsisVertical className="h-4 w-4" />
+        </Button>
       </div>
     </header>
   );
