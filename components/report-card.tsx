@@ -230,15 +230,12 @@ export function ReportCard({
               )}
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="shrink-0"
+          <Link
+            href={`${window.location.origin}/#/report/${report.id}`}
             onClick={() => onCommentsClick?.(report.id)}
-            aria-label="View report details"
           >
             <ArrowRight className="h-4 w-4" />
-          </Button>
+          </Link>
         </div>
       </CardHeader>
 
