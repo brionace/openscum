@@ -205,11 +205,11 @@ export function ReportCard({
                   </span>
                 </Link>
               )} */}
-              {report.scamType?.name === "Other" ? null : (
+              {/* {report.scamType?.name === "Other" ? null : (
                 <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
                   {report.scamType?.name}
                 </span>
-              )}
+              )} */}
               {report.reportCount > 1 && report.scamType?.id && (
                 <span className="text-xs font-semibold">
                   {report.reportCount} reports
