@@ -8,14 +8,14 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Openscum - Report Scams, Check Scam Reports & Stay Safe",
   description:
-    "We are a free community platform to report scams, search scam reports, and track trending scams worldwide. Protect yourself and your loved ones with AI-powered scam detection.",
+    "Report, Search, Comment on, Share and Track scams in your area and worldwide. Do not surfer in silence protect yourself and others use the free tools we will be providing you.",
   keywords:
     "report scams online, scam reporting website, check if something is a scam, trending scams near me, report fraud online, scammer database, scam alert platform, global scam reports, search scammer details, community scam warnings, scam, fraud, protection, reporting, safety, community",
   manifest: "/manifest.json",
   openGraph: {
     title: "OpenScum — Expose Scammers, Protect yourself and others",
     description:
-      "Report scams, browse scam reports, and learn about trending scams in your area. Together, we shine a light on fraud.",
+      "Report scams, browse scam reports, and learn about trending scams in your area and worldwide. Together, we shine a light on fraud.",
     url: "https://openscum.com",
     siteName: "OpenScum",
     images: [

@@ -22,7 +22,7 @@ export function FeaturesBar() {
       <Card className="min-w-[260px] lg:min-w-0 flex-shrink-0 mt-12 lg:mt-0 border-0 lg:border">
         <CardContent className="space-y-3 mt-5 text-sm">
           <p>
-            We are a public, community-powered scam reporting and lookup site.
+            We are a community-powered scam reporting and lookup site.
             Search scams by scammer credentials or content, report scams to help
             expose con artists. Comment, vote, and flag suspicious posts to keep
             the database clean and up to date.
