@@ -50,6 +50,7 @@ export function ReportScammerDetails({
     <Accordion
       type="single"
       collapsible
+      defaultValue="scammer-details"
       className="rounded-md border border-slate-200 p-1 text-xs bg-gray-50"
     >
       <AccordionItem value="scammer-details" className="border-0 flex-1">
