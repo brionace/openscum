@@ -211,6 +211,7 @@ async function importReports() {
           outcome: item.outcome ? item.outcome : undefined,
           screenshots: JSON.stringify([]),
           evidence: JSON.stringify([]),
+          source: "scamsearch.io",
         },
       });
 

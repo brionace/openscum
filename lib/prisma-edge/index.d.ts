@@ -2573,15 +2573,15 @@ export namespace Prisma {
    */
 
   export type ScamTypeCountOutputType = {
-    reports: number
-    postLinks: number
     contactLinks: number
+    postLinks: number
+    reports: number
   }
 
   export type ScamTypeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    reports?: boolean | ScamTypeCountOutputTypeCountReportsArgs
-    postLinks?: boolean | ScamTypeCountOutputTypeCountPostLinksArgs
     contactLinks?: boolean | ScamTypeCountOutputTypeCountContactLinksArgs
+    postLinks?: boolean | ScamTypeCountOutputTypeCountPostLinksArgs
+    reports?: boolean | ScamTypeCountOutputTypeCountReportsArgs
   }
 
   // Custom InputTypes
@@ -2598,8 +2598,8 @@ export namespace Prisma {
   /**
    * ScamTypeCountOutputType without action
    */
-  export type ScamTypeCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ScamReportWhereInput
+  export type ScamTypeCountOutputTypeCountContactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactScamTypeWhereInput
   }
 
   /**
@@ -2612,8 +2612,8 @@ export namespace Prisma {
   /**
    * ScamTypeCountOutputType without action
    */
-  export type ScamTypeCountOutputTypeCountContactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ContactScamTypeWhereInput
+  export type ScamTypeCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScamReportWhereInput
   }
 
 
@@ -2720,13 +2720,13 @@ export namespace Prisma {
    */
 
   export type TagCountOutputType = {
-    posts: number
     contacts: number
+    posts: number
   }
 
   export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | TagCountOutputTypeCountPostsArgs
     contacts?: boolean | TagCountOutputTypeCountContactsArgs
+    posts?: boolean | TagCountOutputTypeCountPostsArgs
   }
 
   // Custom InputTypes
@@ -2743,15 +2743,15 @@ export namespace Prisma {
   /**
    * TagCountOutputType without action
    */
-  export type TagCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostTagWhereInput
+  export type TagCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactTagWhereInput
   }
 
   /**
    * TagCountOutputType without action
    */
-  export type TagCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ContactTagWhereInput
+  export type TagCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostTagWhereInput
   }
 
 
@@ -2845,6 +2845,7 @@ export namespace Prisma {
     screenshots: string | null
     evidence: string | null
     scamTypeId: string | null
+    source: string | null
   }
 
   export type ScamReportMaxAggregateOutputType = {
@@ -2867,6 +2868,7 @@ export namespace Prisma {
     screenshots: string | null
     evidence: string | null
     scamTypeId: string | null
+    source: string | null
   }
 
   export type ScamReportCountAggregateOutputType = {
@@ -2891,6 +2893,7 @@ export namespace Prisma {
     screenshots: number
     evidence: number
     scamTypeId: number
+    source: number
     _all: number
   }
 
@@ -2929,6 +2932,7 @@ export namespace Prisma {
     screenshots?: true
     evidence?: true
     scamTypeId?: true
+    source?: true
   }
 
   export type ScamReportMaxAggregateInputType = {
@@ -2951,6 +2955,7 @@ export namespace Prisma {
     screenshots?: true
     evidence?: true
     scamTypeId?: true
+    source?: true
   }
 
   export type ScamReportCountAggregateInputType = {
@@ -2975,6 +2980,7 @@ export namespace Prisma {
     screenshots?: true
     evidence?: true
     scamTypeId?: true
+    source?: true
     _all?: true
   }
 
@@ -3086,6 +3092,7 @@ export namespace Prisma {
     screenshots: string | null
     evidence: string | null
     scamTypeId: string | null
+    source: string | null
     _count: ScamReportCountAggregateOutputType | null
     _avg: ScamReportAvgAggregateOutputType | null
     _sum: ScamReportSumAggregateOutputType | null
@@ -3129,6 +3136,7 @@ export namespace Prisma {
     screenshots?: boolean
     evidence?: boolean
     scamTypeId?: boolean
+    source?: boolean
     comments?: boolean | ScamReport$commentsArgs<ExtArgs>
     flags?: boolean | ScamReport$flagsArgs<ExtArgs>
     scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
@@ -3158,6 +3166,7 @@ export namespace Prisma {
     screenshots?: boolean
     evidence?: boolean
     scamTypeId?: boolean
+    source?: boolean
     scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
   }, ExtArgs["result"]["scamReport"]>
 
@@ -3183,6 +3192,7 @@ export namespace Prisma {
     screenshots?: boolean
     evidence?: boolean
     scamTypeId?: boolean
+    source?: boolean
     scamType?: boolean | ScamReport$scamTypeArgs<ExtArgs>
   }, ExtArgs["result"]["scamReport"]>
 
@@ -3208,9 +3218,10 @@ export namespace Prisma {
     screenshots?: boolean
     evidence?: boolean
     scamTypeId?: boolean
+    source?: boolean
   }
 
-  export type ScamReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "description" | "scammerDetails" | "city" | "country" | "region" | "ipHash" | "latitude" | "longitude" | "verified" | "trustScore" | "reportCount" | "reporterName" | "reporterEmail" | "anonymous" | "outcome" | "screenshots" | "evidence" | "scamTypeId", ExtArgs["result"]["scamReport"]>
+  export type ScamReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "description" | "scammerDetails" | "city" | "country" | "region" | "ipHash" | "latitude" | "longitude" | "verified" | "trustScore" | "reportCount" | "reporterName" | "reporterEmail" | "anonymous" | "outcome" | "screenshots" | "evidence" | "scamTypeId" | "source", ExtArgs["result"]["scamReport"]>
   export type ScamReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | ScamReport$commentsArgs<ExtArgs>
     flags?: boolean | ScamReport$flagsArgs<ExtArgs>
@@ -3255,6 +3266,7 @@ export namespace Prisma {
       screenshots: string | null
       evidence: string | null
       scamTypeId: string | null
+      source: string | null
     }, ExtArgs["result"]["scamReport"]>
     composites: {}
   }
@@ -3703,6 +3715,7 @@ export namespace Prisma {
     readonly screenshots: FieldRef<"ScamReport", 'String'>
     readonly evidence: FieldRef<"ScamReport", 'String'>
     readonly scamTypeId: FieldRef<"ScamReport", 'String'>
+    readonly source: FieldRef<"ScamReport", 'String'>
   }
     
 
@@ -9782,9 +9795,9 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: boolean
     moderatedBy?: boolean
-    reports?: boolean | ScamType$reportsArgs<ExtArgs>
-    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
     contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
+    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
+    reports?: boolean | ScamType$reportsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scamType"]>
 
@@ -9823,9 +9836,9 @@ export namespace Prisma {
 
   export type ScamTypeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "createdBy" | "isApproved" | "isUserCreated" | "moderatedAt" | "moderatedBy", ExtArgs["result"]["scamType"]>
   export type ScamTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    reports?: boolean | ScamType$reportsArgs<ExtArgs>
-    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
     contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
+    postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
+    reports?: boolean | ScamType$reportsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScamTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9834,9 +9847,9 @@ export namespace Prisma {
   export type $ScamTypePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ScamType"
     objects: {
-      reports: Prisma.$ScamReportPayload<ExtArgs>[]
-      postLinks: Prisma.$EducationPostScamTypePayload<ExtArgs>[]
       contactLinks: Prisma.$ContactScamTypePayload<ExtArgs>[]
+      postLinks: Prisma.$EducationPostScamTypePayload<ExtArgs>[]
+      reports: Prisma.$ScamReportPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10241,9 +10254,9 @@ export namespace Prisma {
    */
   export interface Prisma__ScamTypeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    reports<T extends ScamType$reportsArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    postLinks<T extends ScamType$postLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$postLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contactLinks<T extends ScamType$contactLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$contactLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    postLinks<T extends ScamType$postLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$postLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reports<T extends ScamType$reportsArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10669,27 +10682,27 @@ export namespace Prisma {
   }
 
   /**
-   * ScamType.reports
+   * ScamType.contactLinks
    */
-  export type ScamType$reportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ScamType$contactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ScamReport
+     * Select specific fields to fetch from the ContactScamType
      */
-    select?: ScamReportSelect<ExtArgs> | null
+    select?: ContactScamTypeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ScamReport
+     * Omit specific fields from the ContactScamType
      */
-    omit?: ScamReportOmit<ExtArgs> | null
+    omit?: ContactScamTypeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ScamReportInclude<ExtArgs> | null
-    where?: ScamReportWhereInput
-    orderBy?: ScamReportOrderByWithRelationInput | ScamReportOrderByWithRelationInput[]
-    cursor?: ScamReportWhereUniqueInput
+    include?: ContactScamTypeInclude<ExtArgs> | null
+    where?: ContactScamTypeWhereInput
+    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
+    cursor?: ContactScamTypeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ScamReportScalarFieldEnum | ScamReportScalarFieldEnum[]
+    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
   }
 
   /**
@@ -10717,27 +10730,27 @@ export namespace Prisma {
   }
 
   /**
-   * ScamType.contactLinks
+   * ScamType.reports
    */
-  export type ScamType$contactLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ScamType$reportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ContactScamType
+     * Select specific fields to fetch from the ScamReport
      */
-    select?: ContactScamTypeSelect<ExtArgs> | null
+    select?: ScamReportSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ContactScamType
+     * Omit specific fields from the ScamReport
      */
-    omit?: ContactScamTypeOmit<ExtArgs> | null
+    omit?: ScamReportOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ContactScamTypeInclude<ExtArgs> | null
-    where?: ContactScamTypeWhereInput
-    orderBy?: ContactScamTypeOrderByWithRelationInput | ContactScamTypeOrderByWithRelationInput[]
-    cursor?: ContactScamTypeWhereUniqueInput
+    include?: ScamReportInclude<ExtArgs> | null
+    where?: ScamReportWhereInput
+    orderBy?: ScamReportOrderByWithRelationInput | ScamReportOrderByWithRelationInput[]
+    cursor?: ScamReportWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ContactScamTypeScalarFieldEnum | ContactScamTypeScalarFieldEnum[]
+    distinct?: ScamReportScalarFieldEnum | ScamReportScalarFieldEnum[]
   }
 
   /**
@@ -16556,8 +16569,8 @@ export namespace Prisma {
   export type TagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    posts?: boolean | Tag$postsArgs<ExtArgs>
     contacts?: boolean | Tag$contactsArgs<ExtArgs>
+    posts?: boolean | Tag$postsArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tag"]>
 
@@ -16578,8 +16591,8 @@ export namespace Prisma {
 
   export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tag"]>
   export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    posts?: boolean | Tag$postsArgs<ExtArgs>
     contacts?: boolean | Tag$contactsArgs<ExtArgs>
+    posts?: boolean | Tag$postsArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -16588,8 +16601,8 @@ export namespace Prisma {
   export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tag"
     objects: {
-      posts: Prisma.$PostTagPayload<ExtArgs>[]
       contacts: Prisma.$ContactTagPayload<ExtArgs>[]
+      posts: Prisma.$PostTagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16988,8 +17001,8 @@ export namespace Prisma {
    */
   export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    posts<T extends Tag$postsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contacts<T extends Tag$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    posts<T extends Tag$postsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17409,30 +17422,6 @@ export namespace Prisma {
   }
 
   /**
-   * Tag.posts
-   */
-  export type Tag$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PostTag
-     */
-    select?: PostTagSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the PostTag
-     */
-    omit?: PostTagOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PostTagInclude<ExtArgs> | null
-    where?: PostTagWhereInput
-    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
-    cursor?: PostTagWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
-  }
-
-  /**
    * Tag.contacts
    */
   export type Tag$contactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17454,6 +17443,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ContactTagScalarFieldEnum | ContactTagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag.posts
+   */
+  export type Tag$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostTag
+     */
+    select?: PostTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostTag
+     */
+    omit?: PostTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostTagInclude<ExtArgs> | null
+    where?: PostTagWhereInput
+    orderBy?: PostTagOrderByWithRelationInput | PostTagOrderByWithRelationInput[]
+    cursor?: PostTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostTagScalarFieldEnum | PostTagScalarFieldEnum[]
   }
 
   /**
@@ -22894,7 +22907,8 @@ export namespace Prisma {
     outcome: 'outcome',
     screenshots: 'screenshots',
     evidence: 'evidence',
-    scamTypeId: 'scamTypeId'
+    scamTypeId: 'scamTypeId',
+    source: 'source'
   };
 
   export type ScamReportScalarFieldEnum = (typeof ScamReportScalarFieldEnum)[keyof typeof ScamReportScalarFieldEnum]
@@ -23325,6 +23339,7 @@ export namespace Prisma {
     screenshots?: StringNullableFilter<"ScamReport"> | string | null
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
+    source?: StringNullableFilter<"ScamReport"> | string | null
     comments?: CommentListRelationFilter
     flags?: FlagListRelationFilter
     scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
@@ -23353,6 +23368,7 @@ export namespace Prisma {
     screenshots?: SortOrderInput | SortOrder
     evidence?: SortOrderInput | SortOrder
     scamTypeId?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
     comments?: CommentOrderByRelationAggregateInput
     flags?: FlagOrderByRelationAggregateInput
     scamType?: ScamTypeOrderByWithRelationInput
@@ -23384,6 +23400,7 @@ export namespace Prisma {
     screenshots?: StringNullableFilter<"ScamReport"> | string | null
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
+    source?: StringNullableFilter<"ScamReport"> | string | null
     comments?: CommentListRelationFilter
     flags?: FlagListRelationFilter
     scamType?: XOR<ScamTypeNullableScalarRelationFilter, ScamTypeWhereInput> | null
@@ -23412,6 +23429,7 @@ export namespace Prisma {
     screenshots?: SortOrderInput | SortOrder
     evidence?: SortOrderInput | SortOrder
     scamTypeId?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
     _count?: ScamReportCountOrderByAggregateInput
     _avg?: ScamReportAvgOrderByAggregateInput
     _max?: ScamReportMaxOrderByAggregateInput
@@ -23444,6 +23462,7 @@ export namespace Prisma {
     screenshots?: StringNullableWithAggregatesFilter<"ScamReport"> | string | null
     evidence?: StringNullableWithAggregatesFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableWithAggregatesFilter<"ScamReport"> | string | null
+    source?: StringNullableWithAggregatesFilter<"ScamReport"> | string | null
   }
 
   export type CommentWhereInput = {
@@ -23778,9 +23797,9 @@ export namespace Prisma {
     isUserCreated?: BoolFilter<"ScamType"> | boolean
     moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
     moderatedBy?: StringNullableFilter<"ScamType"> | string | null
-    reports?: ScamReportListRelationFilter
-    postLinks?: EducationPostScamTypeListRelationFilter
     contactLinks?: ContactScamTypeListRelationFilter
+    postLinks?: EducationPostScamTypeListRelationFilter
+    reports?: ScamReportListRelationFilter
   }
 
   export type ScamTypeOrderByWithRelationInput = {
@@ -23792,9 +23811,9 @@ export namespace Prisma {
     isUserCreated?: SortOrder
     moderatedAt?: SortOrderInput | SortOrder
     moderatedBy?: SortOrderInput | SortOrder
-    reports?: ScamReportOrderByRelationAggregateInput
-    postLinks?: EducationPostScamTypeOrderByRelationAggregateInput
     contactLinks?: ContactScamTypeOrderByRelationAggregateInput
+    postLinks?: EducationPostScamTypeOrderByRelationAggregateInput
+    reports?: ScamReportOrderByRelationAggregateInput
   }
 
   export type ScamTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -23809,9 +23828,9 @@ export namespace Prisma {
     isUserCreated?: BoolFilter<"ScamType"> | boolean
     moderatedAt?: DateTimeNullableFilter<"ScamType"> | Date | string | null
     moderatedBy?: StringNullableFilter<"ScamType"> | string | null
-    reports?: ScamReportListRelationFilter
-    postLinks?: EducationPostScamTypeListRelationFilter
     contactLinks?: ContactScamTypeListRelationFilter
+    postLinks?: EducationPostScamTypeListRelationFilter
+    reports?: ScamReportListRelationFilter
   }, "id" | "name">
 
   export type ScamTypeOrderByWithAggregationInput = {
@@ -24246,15 +24265,15 @@ export namespace Prisma {
     NOT?: TagWhereInput | TagWhereInput[]
     id?: StringFilter<"Tag"> | string
     name?: StringFilter<"Tag"> | string
-    posts?: PostTagListRelationFilter
     contacts?: ContactTagListRelationFilter
+    posts?: PostTagListRelationFilter
   }
 
   export type TagOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    posts?: PostTagOrderByRelationAggregateInput
     contacts?: ContactTagOrderByRelationAggregateInput
+    posts?: PostTagOrderByRelationAggregateInput
   }
 
   export type TagWhereUniqueInput = Prisma.AtLeast<{
@@ -24263,8 +24282,8 @@ export namespace Prisma {
     AND?: TagWhereInput | TagWhereInput[]
     OR?: TagWhereInput[]
     NOT?: TagWhereInput | TagWhereInput[]
-    posts?: PostTagListRelationFilter
     contacts?: ContactTagListRelationFilter
+    posts?: PostTagListRelationFilter
   }, "id" | "name">
 
   export type TagOrderByWithAggregationInput = {
@@ -24608,6 +24627,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
     flags?: FlagCreateNestedManyWithoutReportInput
     scamType?: ScamTypeCreateNestedOneWithoutReportsInput
@@ -24636,6 +24656,7 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
+    source?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
     votes?: VoteUncheckedCreateNestedManyWithoutReportInput
@@ -24662,6 +24683,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
     scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
@@ -24690,6 +24712,7 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
     votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
@@ -24717,6 +24740,7 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
+    source?: string | null
   }
 
   export type ScamReportUpdateManyMutationInput = {
@@ -24740,6 +24764,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ScamReportUncheckedUpdateManyInput = {
@@ -24764,6 +24789,7 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentCreateInput = {
@@ -25103,9 +25129,9 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
-    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateInput = {
@@ -25117,9 +25143,9 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
-    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUpdateInput = {
@@ -25131,9 +25157,9 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
-    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateInput = {
@@ -25145,9 +25171,9 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
-    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeCreateManyInput = {
@@ -25641,29 +25667,29 @@ export namespace Prisma {
   export type TagCreateInput = {
     id?: string
     name: string
-    posts?: PostTagCreateNestedManyWithoutTagInput
     contacts?: ContactTagCreateNestedManyWithoutTagInput
+    posts?: PostTagCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateInput = {
     id?: string
     name: string
-    posts?: PostTagUncheckedCreateNestedManyWithoutTagInput
     contacts?: ContactTagUncheckedCreateNestedManyWithoutTagInput
+    posts?: PostTagUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    posts?: PostTagUpdateManyWithoutTagNestedInput
     contacts?: ContactTagUpdateManyWithoutTagNestedInput
+    posts?: PostTagUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    posts?: PostTagUncheckedUpdateManyWithoutTagNestedInput
     contacts?: ContactTagUncheckedUpdateManyWithoutTagNestedInput
+    posts?: PostTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type TagCreateManyInput = {
@@ -26132,6 +26158,7 @@ export namespace Prisma {
     screenshots?: SortOrder
     evidence?: SortOrder
     scamTypeId?: SortOrder
+    source?: SortOrder
   }
 
   export type ScamReportAvgOrderByAggregateInput = {
@@ -26161,6 +26188,7 @@ export namespace Prisma {
     screenshots?: SortOrder
     evidence?: SortOrder
     scamTypeId?: SortOrder
+    source?: SortOrder
   }
 
   export type ScamReportMinOrderByAggregateInput = {
@@ -26183,6 +26211,7 @@ export namespace Prisma {
     screenshots?: SortOrder
     evidence?: SortOrder
     scamTypeId?: SortOrder
+    source?: SortOrder
   }
 
   export type ScamReportSumOrderByAggregateInput = {
@@ -26536,10 +26565,10 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type ScamReportListRelationFilter = {
-    every?: ScamReportWhereInput
-    some?: ScamReportWhereInput
-    none?: ScamReportWhereInput
+  export type ContactScamTypeListRelationFilter = {
+    every?: ContactScamTypeWhereInput
+    some?: ContactScamTypeWhereInput
+    none?: ContactScamTypeWhereInput
   }
 
   export type EducationPostScamTypeListRelationFilter = {
@@ -26548,13 +26577,13 @@ export namespace Prisma {
     none?: EducationPostScamTypeWhereInput
   }
 
-  export type ContactScamTypeListRelationFilter = {
-    every?: ContactScamTypeWhereInput
-    some?: ContactScamTypeWhereInput
-    none?: ContactScamTypeWhereInput
+  export type ScamReportListRelationFilter = {
+    every?: ScamReportWhereInput
+    some?: ScamReportWhereInput
+    none?: ScamReportWhereInput
   }
 
-  export type ScamReportOrderByRelationAggregateInput = {
+  export type ContactScamTypeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26562,7 +26591,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ContactScamTypeOrderByRelationAggregateInput = {
+  export type ScamReportOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -27387,11 +27416,11 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ScamReportCreateNestedManyWithoutScamTypeInput = {
-    create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
-    connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
-    createMany?: ScamReportCreateManyScamTypeInputEnvelope
-    connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+  export type ContactScamTypeCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
   }
 
   export type EducationPostScamTypeCreateNestedManyWithoutScamTypeInput = {
@@ -27401,25 +27430,11 @@ export namespace Prisma {
     connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
   }
 
-  export type ContactScamTypeCreateNestedManyWithoutScamTypeInput = {
-    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
-    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
-    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
-    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
-  }
-
-  export type ScamReportUncheckedCreateNestedManyWithoutScamTypeInput = {
+  export type ScamReportCreateNestedManyWithoutScamTypeInput = {
     create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
     createMany?: ScamReportCreateManyScamTypeInputEnvelope
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
-  }
-
-  export type EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
-    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
-    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
-    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
-    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
   }
 
   export type ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
@@ -27429,36 +27444,22 @@ export namespace Prisma {
     connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
-  export type ScamReportUpdateManyWithoutScamTypeNestedInput = {
-    create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
-    connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
-    upsert?: ScamReportUpsertWithWhereUniqueWithoutScamTypeInput | ScamReportUpsertWithWhereUniqueWithoutScamTypeInput[]
-    createMany?: ScamReportCreateManyScamTypeInputEnvelope
-    set?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
-    disconnect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
-    delete?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
-    connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
-    update?: ScamReportUpdateWithWhereUniqueWithoutScamTypeInput | ScamReportUpdateWithWhereUniqueWithoutScamTypeInput[]
-    updateMany?: ScamReportUpdateManyWithWhereWithoutScamTypeInput | ScamReportUpdateManyWithWhereWithoutScamTypeInput[]
-    deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
-  }
-
-  export type EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput = {
+  export type EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
     create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
-    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
     createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
-    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
-    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
-    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
     connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
-    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
-    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput | EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
-    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type ScamReportUncheckedCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
+    createMany?: ScamReportCreateManyScamTypeInputEnvelope
+    connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type ContactScamTypeUpdateManyWithoutScamTypeNestedInput = {
@@ -27475,7 +27476,21 @@ export namespace Prisma {
     deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
   }
 
-  export type ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput = {
+  export type EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput> | EducationPostScamTypeCreateWithoutScamTypeInput[] | EducationPostScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: EducationPostScamTypeCreateOrConnectWithoutScamTypeInput | EducationPostScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: EducationPostScamTypeCreateManyScamTypeInputEnvelope
+    set?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    disconnect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    delete?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    connect?: EducationPostScamTypeWhereUniqueInput | EducationPostScamTypeWhereUniqueInput[]
+    update?: EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput | EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+  }
+
+  export type ScamReportUpdateManyWithoutScamTypeNestedInput = {
     create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
     upsert?: ScamReportUpsertWithWhereUniqueWithoutScamTypeInput | ScamReportUpsertWithWhereUniqueWithoutScamTypeInput[]
@@ -27487,6 +27502,20 @@ export namespace Prisma {
     update?: ScamReportUpdateWithWhereUniqueWithoutScamTypeInput | ScamReportUpdateWithWhereUniqueWithoutScamTypeInput[]
     updateMany?: ScamReportUpdateManyWithWhereWithoutScamTypeInput | ScamReportUpdateManyWithWhereWithoutScamTypeInput[]
     deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
+    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
+    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
+    update?: ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput | ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
   }
 
   export type EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
@@ -27503,18 +27532,18 @@ export namespace Prisma {
     deleteMany?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
   }
 
-  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
-    create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
-    connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
-    upsert?: ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput[]
-    createMany?: ContactScamTypeCreateManyScamTypeInputEnvelope
-    set?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
-    disconnect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
-    delete?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
-    connect?: ContactScamTypeWhereUniqueInput | ContactScamTypeWhereUniqueInput[]
-    update?: ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput | ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput[]
-    updateMany?: ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput | ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput[]
-    deleteMany?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+  export type ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<ScamReportCreateWithoutScamTypeInput, ScamReportUncheckedCreateWithoutScamTypeInput> | ScamReportCreateWithoutScamTypeInput[] | ScamReportUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
+    upsert?: ScamReportUpsertWithWhereUniqueWithoutScamTypeInput | ScamReportUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: ScamReportCreateManyScamTypeInputEnvelope
+    set?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+    disconnect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+    delete?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+    connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+    update?: ScamReportUpdateWithWhereUniqueWithoutScamTypeInput | ScamReportUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: ScamReportUpdateManyWithWhereWithoutScamTypeInput | ScamReportUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
   }
 
   export type ScamReportCreateNestedOneWithoutFlagsInput = {
@@ -27819,13 +27848,6 @@ export namespace Prisma {
     deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
   }
 
-  export type PostTagCreateNestedManyWithoutTagInput = {
-    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
-    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
-    createMany?: PostTagCreateManyTagInputEnvelope
-    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
-  }
-
   export type ContactTagCreateNestedManyWithoutTagInput = {
     create?: XOR<ContactTagCreateWithoutTagInput, ContactTagUncheckedCreateWithoutTagInput> | ContactTagCreateWithoutTagInput[] | ContactTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: ContactTagCreateOrConnectWithoutTagInput | ContactTagCreateOrConnectWithoutTagInput[]
@@ -27833,7 +27855,7 @@ export namespace Prisma {
     connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
   }
 
-  export type PostTagUncheckedCreateNestedManyWithoutTagInput = {
+  export type PostTagCreateNestedManyWithoutTagInput = {
     create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
     createMany?: PostTagCreateManyTagInputEnvelope
@@ -27847,18 +27869,11 @@ export namespace Prisma {
     connect?: ContactTagWhereUniqueInput | ContactTagWhereUniqueInput[]
   }
 
-  export type PostTagUpdateManyWithoutTagNestedInput = {
+  export type PostTagUncheckedCreateNestedManyWithoutTagInput = {
     create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
-    upsert?: PostTagUpsertWithWhereUniqueWithoutTagInput | PostTagUpsertWithWhereUniqueWithoutTagInput[]
     createMany?: PostTagCreateManyTagInputEnvelope
-    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
-    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
-    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
     connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
-    update?: PostTagUpdateWithWhereUniqueWithoutTagInput | PostTagUpdateWithWhereUniqueWithoutTagInput[]
-    updateMany?: PostTagUpdateManyWithWhereWithoutTagInput | PostTagUpdateManyWithWhereWithoutTagInput[]
-    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
   }
 
   export type ContactTagUpdateManyWithoutTagNestedInput = {
@@ -27875,7 +27890,7 @@ export namespace Prisma {
     deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
   }
 
-  export type PostTagUncheckedUpdateManyWithoutTagNestedInput = {
+  export type PostTagUpdateManyWithoutTagNestedInput = {
     create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
     upsert?: PostTagUpsertWithWhereUniqueWithoutTagInput | PostTagUpsertWithWhereUniqueWithoutTagInput[]
@@ -27901,6 +27916,20 @@ export namespace Prisma {
     update?: ContactTagUpdateWithWhereUniqueWithoutTagInput | ContactTagUpdateWithWhereUniqueWithoutTagInput[]
     updateMany?: ContactTagUpdateManyWithWhereWithoutTagInput | ContactTagUpdateManyWithWhereWithoutTagInput[]
     deleteMany?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutTagNestedInput = {
+    create?: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput> | PostTagCreateWithoutTagInput[] | PostTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: PostTagCreateOrConnectWithoutTagInput | PostTagCreateOrConnectWithoutTagInput[]
+    upsert?: PostTagUpsertWithWhereUniqueWithoutTagInput | PostTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: PostTagCreateManyTagInputEnvelope
+    set?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    disconnect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    delete?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    connect?: PostTagWhereUniqueInput | PostTagWhereUniqueInput[]
+    update?: PostTagUpdateWithWhereUniqueWithoutTagInput | PostTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: PostTagUpdateManyWithWhereWithoutTagInput | PostTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: PostTagScalarWhereInput | PostTagScalarWhereInput[]
   }
 
   export type EducationPostCreateNestedOneWithoutTagsInput = {
@@ -28485,8 +28514,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutReportsInput = {
@@ -28498,8 +28527,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutReportsInput = {
@@ -28604,8 +28633,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutReportsInput = {
@@ -28617,8 +28646,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type VoteUpsertWithWhereUniqueWithoutReportInput = {
@@ -28719,6 +28748,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     flags?: FlagCreateNestedManyWithoutReportInput
     scamType?: ScamTypeCreateNestedOneWithoutReportsInput
     votes?: VoteCreateNestedManyWithoutReportInput
@@ -28746,6 +28776,7 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
+    source?: string | null
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
     votes?: VoteUncheckedCreateNestedManyWithoutReportInput
   }
@@ -28867,6 +28898,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     flags?: FlagUpdateManyWithoutReportNestedInput
     scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
     votes?: VoteUpdateManyWithoutReportNestedInput
@@ -28894,6 +28926,7 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
     votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
   }
@@ -28960,6 +28993,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
     flags?: FlagCreateNestedManyWithoutReportInput
     scamType?: ScamTypeCreateNestedOneWithoutReportsInput
@@ -28987,6 +29021,7 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
+    source?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
   }
@@ -29063,6 +29098,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
     scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
@@ -29090,6 +29126,7 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
   }
@@ -29135,6 +29172,42 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type ContactScamTypeCreateWithoutScamTypeInput = {
+    contact: ContactCreateNestedOneWithoutScamTypesInput
+  }
+
+  export type ContactScamTypeUncheckedCreateWithoutScamTypeInput = {
+    contactId: string
+  }
+
+  export type ContactScamTypeCreateOrConnectWithoutScamTypeInput = {
+    where: ContactScamTypeWhereUniqueInput
+    create: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeCreateManyScamTypeInputEnvelope = {
+    data: ContactScamTypeCreateManyScamTypeInput | ContactScamTypeCreateManyScamTypeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EducationPostScamTypeCreateWithoutScamTypeInput = {
+    post: EducationPostCreateNestedOneWithoutScamTypesInput
+  }
+
+  export type EducationPostScamTypeUncheckedCreateWithoutScamTypeInput = {
+    postId: string
+  }
+
+  export type EducationPostScamTypeCreateOrConnectWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeCreateManyScamTypeInputEnvelope = {
+    data: EducationPostScamTypeCreateManyScamTypeInput | EducationPostScamTypeCreateManyScamTypeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScamReportCreateWithoutScamTypeInput = {
     id?: string
     createdAt?: Date | string
@@ -29156,6 +29229,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
     flags?: FlagCreateNestedManyWithoutReportInput
     votes?: VoteCreateNestedManyWithoutReportInput
@@ -29182,6 +29256,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
     flags?: FlagUncheckedCreateNestedManyWithoutReportInput
     votes?: VoteUncheckedCreateNestedManyWithoutReportInput
@@ -29197,40 +29272,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EducationPostScamTypeCreateWithoutScamTypeInput = {
-    post: EducationPostCreateNestedOneWithoutScamTypesInput
-  }
-
-  export type EducationPostScamTypeUncheckedCreateWithoutScamTypeInput = {
-    postId: string
-  }
-
-  export type EducationPostScamTypeCreateOrConnectWithoutScamTypeInput = {
-    where: EducationPostScamTypeWhereUniqueInput
-    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
-  }
-
-  export type EducationPostScamTypeCreateManyScamTypeInputEnvelope = {
-    data: EducationPostScamTypeCreateManyScamTypeInput | EducationPostScamTypeCreateManyScamTypeInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ContactScamTypeCreateWithoutScamTypeInput = {
-    contact: ContactCreateNestedOneWithoutScamTypesInput
-  }
-
-  export type ContactScamTypeUncheckedCreateWithoutScamTypeInput = {
-    contactId: string
-  }
-
-  export type ContactScamTypeCreateOrConnectWithoutScamTypeInput = {
+  export type ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
     where: ContactScamTypeWhereUniqueInput
+    update: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
     create: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput>
   }
 
-  export type ContactScamTypeCreateManyScamTypeInputEnvelope = {
-    data: ContactScamTypeCreateManyScamTypeInput | ContactScamTypeCreateManyScamTypeInput[]
-    skipDuplicates?: boolean
+  export type ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
+    where: ContactScamTypeWhereUniqueInput
+    data: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
+    where: ContactScamTypeScalarWhereInput
+    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput>
+  }
+
+  export type ContactScamTypeScalarWhereInput = {
+    AND?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+    OR?: ContactScamTypeScalarWhereInput[]
+    NOT?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
+    contactId?: StringFilter<"ContactScamType"> | string
+    scamTypeId?: StringFilter<"ContactScamType"> | string
+  }
+
+  export type EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    update: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
+    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
+    where: EducationPostScamTypeWhereUniqueInput
+    data: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
+    where: EducationPostScamTypeScalarWhereInput
+    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput>
+  }
+
+  export type EducationPostScamTypeScalarWhereInput = {
+    AND?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+    OR?: EducationPostScamTypeScalarWhereInput[]
+    NOT?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
+    postId?: StringFilter<"EducationPostScamType"> | string
+    scamTypeId?: StringFilter<"EducationPostScamType"> | string
   }
 
   export type ScamReportUpsertWithWhereUniqueWithoutScamTypeInput = {
@@ -29274,54 +29361,7 @@ export namespace Prisma {
     screenshots?: StringNullableFilter<"ScamReport"> | string | null
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
-  }
-
-  export type EducationPostScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
-    where: EducationPostScamTypeWhereUniqueInput
-    update: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
-    create: XOR<EducationPostScamTypeCreateWithoutScamTypeInput, EducationPostScamTypeUncheckedCreateWithoutScamTypeInput>
-  }
-
-  export type EducationPostScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
-    where: EducationPostScamTypeWhereUniqueInput
-    data: XOR<EducationPostScamTypeUpdateWithoutScamTypeInput, EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput>
-  }
-
-  export type EducationPostScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
-    where: EducationPostScamTypeScalarWhereInput
-    data: XOR<EducationPostScamTypeUpdateManyMutationInput, EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput>
-  }
-
-  export type EducationPostScamTypeScalarWhereInput = {
-    AND?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
-    OR?: EducationPostScamTypeScalarWhereInput[]
-    NOT?: EducationPostScamTypeScalarWhereInput | EducationPostScamTypeScalarWhereInput[]
-    postId?: StringFilter<"EducationPostScamType"> | string
-    scamTypeId?: StringFilter<"EducationPostScamType"> | string
-  }
-
-  export type ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
-    where: ContactScamTypeWhereUniqueInput
-    update: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
-    create: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput>
-  }
-
-  export type ContactScamTypeUpdateWithWhereUniqueWithoutScamTypeInput = {
-    where: ContactScamTypeWhereUniqueInput
-    data: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
-  }
-
-  export type ContactScamTypeUpdateManyWithWhereWithoutScamTypeInput = {
-    where: ContactScamTypeScalarWhereInput
-    data: XOR<ContactScamTypeUpdateManyMutationInput, ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput>
-  }
-
-  export type ContactScamTypeScalarWhereInput = {
-    AND?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
-    OR?: ContactScamTypeScalarWhereInput[]
-    NOT?: ContactScamTypeScalarWhereInput | ContactScamTypeScalarWhereInput[]
-    contactId?: StringFilter<"ContactScamType"> | string
-    scamTypeId?: StringFilter<"ContactScamType"> | string
+    source?: StringNullableFilter<"ScamReport"> | string | null
   }
 
   export type ScamReportCreateWithoutFlagsInput = {
@@ -29345,6 +29385,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
     comments?: CommentCreateNestedManyWithoutReportInput
     scamType?: ScamTypeCreateNestedOneWithoutReportsInput
     votes?: VoteCreateNestedManyWithoutReportInput
@@ -29372,6 +29413,7 @@ export namespace Prisma {
     screenshots?: string | null
     evidence?: string | null
     scamTypeId?: string | null
+    source?: string | null
     comments?: CommentUncheckedCreateNestedManyWithoutReportInput
     votes?: VoteUncheckedCreateNestedManyWithoutReportInput
   }
@@ -29448,6 +29490,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
     scamType?: ScamTypeUpdateOneWithoutReportsNestedInput
     votes?: VoteUpdateManyWithoutReportNestedInput
@@ -29475,6 +29518,7 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     scamTypeId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
     votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
   }
@@ -29848,24 +29892,6 @@ export namespace Prisma {
     tagId?: StringFilter<"PostTag"> | string
   }
 
-  export type PostTagCreateWithoutTagInput = {
-    post: EducationPostCreateNestedOneWithoutTagsInput
-  }
-
-  export type PostTagUncheckedCreateWithoutTagInput = {
-    postId: string
-  }
-
-  export type PostTagCreateOrConnectWithoutTagInput = {
-    where: PostTagWhereUniqueInput
-    create: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput>
-  }
-
-  export type PostTagCreateManyTagInputEnvelope = {
-    data: PostTagCreateManyTagInput | PostTagCreateManyTagInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ContactTagCreateWithoutTagInput = {
     contact: ContactCreateNestedOneWithoutTagsInput
   }
@@ -29884,20 +29910,22 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PostTagUpsertWithWhereUniqueWithoutTagInput = {
+  export type PostTagCreateWithoutTagInput = {
+    post: EducationPostCreateNestedOneWithoutTagsInput
+  }
+
+  export type PostTagUncheckedCreateWithoutTagInput = {
+    postId: string
+  }
+
+  export type PostTagCreateOrConnectWithoutTagInput = {
     where: PostTagWhereUniqueInput
-    update: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
     create: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput>
   }
 
-  export type PostTagUpdateWithWhereUniqueWithoutTagInput = {
-    where: PostTagWhereUniqueInput
-    data: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
-  }
-
-  export type PostTagUpdateManyWithWhereWithoutTagInput = {
-    where: PostTagScalarWhereInput
-    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutTagInput>
+  export type PostTagCreateManyTagInputEnvelope = {
+    data: PostTagCreateManyTagInput | PostTagCreateManyTagInput[]
+    skipDuplicates?: boolean
   }
 
   export type ContactTagUpsertWithWhereUniqueWithoutTagInput = {
@@ -29922,6 +29950,22 @@ export namespace Prisma {
     NOT?: ContactTagScalarWhereInput | ContactTagScalarWhereInput[]
     contactId?: StringFilter<"ContactTag"> | string
     tagId?: StringFilter<"ContactTag"> | string
+  }
+
+  export type PostTagUpsertWithWhereUniqueWithoutTagInput = {
+    where: PostTagWhereUniqueInput
+    update: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
+    create: XOR<PostTagCreateWithoutTagInput, PostTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type PostTagUpdateWithWhereUniqueWithoutTagInput = {
+    where: PostTagWhereUniqueInput
+    data: XOR<PostTagUpdateWithoutTagInput, PostTagUncheckedUpdateWithoutTagInput>
+  }
+
+  export type PostTagUpdateManyWithWhereWithoutTagInput = {
+    where: PostTagScalarWhereInput
+    data: XOR<PostTagUpdateManyMutationInput, PostTagUncheckedUpdateManyWithoutTagInput>
   }
 
   export type EducationPostCreateWithoutTagsInput = {
@@ -30150,8 +30194,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutPostLinksInput = {
@@ -30163,8 +30207,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutPostLinksInput = {
@@ -30255,8 +30299,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutPostLinksInput = {
@@ -30268,8 +30312,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ContactScamTypeCreateWithoutContactInput = {
@@ -30400,8 +30444,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutContactLinksInput = {
@@ -30413,8 +30457,8 @@ export namespace Prisma {
     isUserCreated?: boolean
     moderatedAt?: Date | string | null
     moderatedBy?: string | null
-    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutContactLinksInput = {
@@ -30499,8 +30543,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutContactLinksInput = {
@@ -30512,8 +30556,8 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ContactCreateWithoutTagsInput = {
@@ -30784,6 +30828,14 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ContactScamTypeCreateManyScamTypeInput = {
+    contactId: string
+  }
+
+  export type EducationPostScamTypeCreateManyScamTypeInput = {
+    postId: string
+  }
+
   export type ScamReportCreateManyScamTypeInput = {
     id?: string
     createdAt?: Date | string
@@ -30805,14 +30857,31 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: string | null
     evidence?: string | null
+    source?: string | null
   }
 
-  export type EducationPostScamTypeCreateManyScamTypeInput = {
-    postId: string
+  export type ContactScamTypeUpdateWithoutScamTypeInput = {
+    contact?: ContactUpdateOneRequiredWithoutScamTypesNestedInput
   }
 
-  export type ContactScamTypeCreateManyScamTypeInput = {
-    contactId: string
+  export type ContactScamTypeUncheckedUpdateWithoutScamTypeInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
+    contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeUpdateWithoutScamTypeInput = {
+    post?: EducationPostUpdateOneRequiredWithoutScamTypesNestedInput
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
+    postId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ScamReportUpdateWithoutScamTypeInput = {
@@ -30836,6 +30905,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUpdateManyWithoutReportNestedInput
     flags?: FlagUpdateManyWithoutReportNestedInput
     votes?: VoteUpdateManyWithoutReportNestedInput
@@ -30862,6 +30932,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentUncheckedUpdateManyWithoutReportNestedInput
     flags?: FlagUncheckedUpdateManyWithoutReportNestedInput
     votes?: VoteUncheckedUpdateManyWithoutReportNestedInput
@@ -30888,30 +30959,7 @@ export namespace Prisma {
     outcome?: NullableJsonNullValueInput | InputJsonValue
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type EducationPostScamTypeUpdateWithoutScamTypeInput = {
-    post?: EducationPostUpdateOneRequiredWithoutScamTypesNestedInput
-  }
-
-  export type EducationPostScamTypeUncheckedUpdateWithoutScamTypeInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ContactScamTypeUpdateWithoutScamTypeInput = {
-    contact?: ContactUpdateOneRequiredWithoutScamTypesNestedInput
-  }
-
-  export type ContactScamTypeUncheckedUpdateWithoutScamTypeInput = {
-    contactId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeInput = {
-    contactId?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentCreateManyUserInput = {
@@ -31064,24 +31112,12 @@ export namespace Prisma {
     tagId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type PostTagCreateManyTagInput = {
-    postId: string
-  }
-
   export type ContactTagCreateManyTagInput = {
     contactId: string
   }
 
-  export type PostTagUpdateWithoutTagInput = {
-    post?: EducationPostUpdateOneRequiredWithoutTagsNestedInput
-  }
-
-  export type PostTagUncheckedUpdateWithoutTagInput = {
-    postId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PostTagUncheckedUpdateManyWithoutTagInput = {
-    postId?: StringFieldUpdateOperationsInput | string
+  export type PostTagCreateManyTagInput = {
+    postId: string
   }
 
   export type ContactTagUpdateWithoutTagInput = {
@@ -31094,6 +31130,18 @@ export namespace Prisma {
 
   export type ContactTagUncheckedUpdateManyWithoutTagInput = {
     contactId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagUpdateWithoutTagInput = {
+    post?: EducationPostUpdateOneRequiredWithoutTagsNestedInput
+  }
+
+  export type PostTagUncheckedUpdateWithoutTagInput = {
+    postId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostTagUncheckedUpdateManyWithoutTagInput = {
+    postId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContactScamTypeCreateManyContactInput = {

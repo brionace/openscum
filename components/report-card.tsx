@@ -216,7 +216,7 @@ export function ReportCard({
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground line-clamp-1">
               <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
               {(report.city || report.country) && (
                 <>
@@ -225,6 +225,17 @@ export function ReportCard({
                     {report.city
                       ? `${report.city}, ${report.country}`
                       : report.country}
+                  </span>
+                </>
+              )}
+              {report.source && (
+                <>
+                  &bull;
+                  <span
+                    // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
+                    title={`Source: ${report.source}`}
+                  >
+                    Source: {report.source}
                   </span>
                 </>
               )}

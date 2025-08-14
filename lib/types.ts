@@ -115,6 +115,7 @@ export interface ScamReport {
   tags?: Tag[];
   severity?: string | null;
   outcome?: Outcome[]; // Use Outcome[] for structured outcomes
+  source?: string; // external source hostname
   _count?: {
     comments: number;
     votes: number;

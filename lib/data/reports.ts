@@ -104,6 +104,7 @@ export async function getReports({
         evidence: true,
         outcome: true,
         scamType: true,
+        source: true,
         _count: {
           select: {
             comments: true,

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "report scams online, scam reporting website, check if something is a scam, trending scams near me, report fraud online, scammer database, scam alert platform, global scam reports, search scammer details, community scam warnings, scam, fraud, protection, reporting, safety, community",
   manifest: "/manifest.json",
   openGraph: {
-    title: "OpenScum — Expose Scammers, Protect the World",
+    title: "OpenScum — Expose Scammers, Protect yourself and others",
     description:
       "Report scams, browse scam reports, and learn about trending scams in your area. Together, we shine a light on fraud.",
     url: "https://openscum.com",
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
         url: "/og-image.png", // Replace with your actual OG image path
         width: 1200,
         height: 630,
-        alt: "OpenScum — Expose Scammers, Protect the World",
+        alt: "OpenScum — Expose Scammers, Protect yourself and others",
       },
     ],
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
   },
 };

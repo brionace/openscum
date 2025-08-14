@@ -206,6 +206,17 @@ export function ReportModalCard({
                 </span>
               </>
             )}
+            {report.source && (
+              <>
+                &bull;
+                <span
+                  // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
+                  title={`Source: ${report.source}`}
+                >
+                  Source: {report.source}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </CardHeader>

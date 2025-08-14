@@ -36,6 +36,7 @@ model ScamReport {
   screenshots    String?
   evidence       String?
   scamTypeId     String?
+  source         String?
   comments       Comment[]
   flags          Flag[]
   scamType       ScamType? @relation(fields: [scamTypeId], references: [id])
@@ -112,17 +113,17 @@ model AIScamReport {
 }
 
 model ScamType {
-  id            String       @id @default(cuid())
-  name          String       @unique
-  createdAt     DateTime     @default(now())
+  id            String                  @id @default(cuid())
+  name          String                  @unique
+  createdAt     DateTime                @default(now())
   createdBy     String?
-  isApproved    Boolean      @default(false)
-  isUserCreated Boolean      @default(false)
+  isApproved    Boolean                 @default(false)
+  isUserCreated Boolean                 @default(false)
   moderatedAt   DateTime?
   moderatedBy   String?
-  reports       ScamReport[]
-  postLinks     EducationPostScamType[]
   contactLinks  ContactScamType[]
+  postLinks     EducationPostScamType[]
+  reports       ScamReport[]
 
   @@index([isApproved])
   @@index([isUserCreated])
@@ -179,14 +180,14 @@ model OutcomeType {
 
 /// Educational posts (blog-style) for learning hub
 model EducationPost {
-  id              String           @id @default(cuid())
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  slug            String           @unique
+  id              String                  @id @default(cuid())
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  slug            String                  @unique
   title           String
   excerpt         String?
-  bodyMd          String           // Markdown/MDX content
-  status          PostStatus       @default(DRAFT)
+  bodyMd          String
+  status          PostStatus              @default(DRAFT)
   publishedAt     DateTime?
   category        PostCategory
   heroImageUrl    String?
@@ -198,10 +199,9 @@ model EducationPost {
   canonicalUrl    String?
   metaTitle       String?
   metaDescription String?
-  featured        Boolean          @default(false)
+  featured        Boolean                 @default(false)
   authorName      String?
   sourceUrl       String?
-
   scamTypes       EducationPostScamType[]
   tags            PostTag[]
 
@@ -213,10 +213,10 @@ model EducationPost {
 
 /// Tags, shared between posts and contacts
 model Tag {
-  id    String   @id @default(cuid())
-  name  String   @unique
-  posts PostTag[]
+  id       String       @id @default(cuid())
+  name     String       @unique
   contacts ContactTag[]
+  posts    PostTag[]
 }
 
 model PostTag {
@@ -239,43 +239,27 @@ model EducationPostScamType {
   @@index([scamTypeId])
 }
 
-enum PostStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-enum PostCategory {
-  REPORT_TO_AUTHORITIES
-  PREVENTION
-  CHECKLIST
-  RECOVERY
-  NEWS
-  GUIDE
-}
-
 /// Community-driven localized contacts (authorities/resources)
 model Contact {
-  id             String          @id @default(cuid())
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
+  id             String            @id @default(cuid())
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
   orgName        String
   category       ContactCategory
   description    String?
   website        String?
   phone          String?
   email          String?
-  submitUrl      String?         // official reporting form link, if any
+  submitUrl      String?
   languageCodes  String[]
   country        String?
   region         String?
   city           String?
-  status         ContactStatus   @default(PUBLISHED)
-  verified       Boolean         @default(false)
+  status         ContactStatus     @default(PUBLISHED)
+  verified       Boolean           @default(false)
   source         String?
   lastVerifiedAt DateTime?
   createdById    String?
-
   scamTypes      ContactScamType[]
   tags           ContactTag[]
 
@@ -302,6 +286,21 @@ model ContactTag {
 
   @@id([contactId, tagId])
   @@index([tagId])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PostCategory {
+  REPORT_TO_AUTHORITIES
+  PREVENTION
+  CHECKLIST
+  RECOVERY
+  NEWS
+  GUIDE
 }
 
 enum ContactCategory {

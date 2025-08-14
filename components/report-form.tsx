@@ -109,6 +109,7 @@ export function ReportForm({
   isSubmitting = false,
   prefill,
 }: ReportFormProps) {
+  // ...existing state declarations...
   const [step, setStep] = useState(0);
   const { user, session, loading, signIn } = useSupabaseUser();
   // Removed loginPrompt state - no longer needed for anonymous reports
@@ -142,6 +143,7 @@ export function ReportForm({
   const [selectedLocation, setSelectedLocation] = useState<{
     city: string;
     country: string;
+    region?: string;
   } | null>(null);
   const [paraphrasing, setParaphrasing] = useState(false);
   const [paraphraseError, setParaphraseError] = useState("");
@@ -504,6 +506,75 @@ export function ReportForm({
       )}
     </div>
   );
+
+  // Auto-detect location on step 5
+  useEffect(() => {
+    if (step === 5 && !selectedLocation) {
+      // Try browser geolocation first
+      if (typeof window !== "undefined" && "geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            const { latitude, longitude } = pos.coords;
+            // Use OpenStreetMap Nominatim for reverse geocoding
+            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+            try {
+              const res = await fetch(url);
+              const data = await res.json();
+              const city =
+                data.address.city ||
+                data.address.town ||
+                data.address.village ||
+                "";
+              const country = data.address.country || "";
+              const region =
+                data.address.state ||
+                data.address.region ||
+                data.address.county ||
+                "";
+              setSelectedLocation({ city, country, region });
+            } catch (err) {
+              // Fallback to IP-based lookup if geolocation fails
+              fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN")
+                .then((res) => res.json())
+                .then((data) => {
+                  setSelectedLocation({
+                    city: data.city || "",
+                    country: data.country || "",
+                    region: data.region || "",
+                  });
+                })
+                .catch(() => {});
+            }
+          },
+          (err) => {
+            // If user denies geolocation, fallback to IP-based lookup
+            fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN")
+              .then((res) => res.json())
+              .then((data) => {
+                setSelectedLocation({
+                  city: data.city || "",
+                  country: data.country || "",
+                  region: data.region || "",
+                });
+              })
+              .catch(() => {});
+          }
+        );
+      } else {
+        // If geolocation not available, fallback to IP-based lookup
+        fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN")
+          .then((res) => res.json())
+          .then((data) => {
+            setSelectedLocation({
+              city: data.city || "",
+              country: data.country || "",
+              region: data.region || "",
+            });
+          })
+          .catch(() => {});
+      }
+    }
+  }, [step, selectedLocation]);
 
   return (
     <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
@@ -1028,6 +1099,9 @@ export function ReportForm({
                               {selectedLocation.city
                                 ? `${selectedLocation.city}, ${selectedLocation.country}`
                                 : selectedLocation.country}
+                              {selectedLocation.region
+                                ? ` (${selectedLocation.region})`
+                                : ""}
                             </span>
                             <button
                               type="button"
