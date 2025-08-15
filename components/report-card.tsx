@@ -271,7 +271,7 @@ export function ReportCard({
           flagLoading={flagLoading}
           onVote={handleVote}
           onFlag={handleFlag}
-          onCommentsClick={onCommentsClick}
+          // onCommentsClick={onCommentsClick}
         />
       </CardContent>
     </Card>

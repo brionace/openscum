@@ -19,9 +19,9 @@ export function ReportDetails({
 }: ReportDetailsProps) {
   return (
     <div className="space-y-4 p-2 bg-gray-50 border rounded-lg">
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Info className="inline-block h-4 w-4 mr-2" />
-      </div>
+      </div> */}
       {/* Scammer Details */}
       <ReportScammerDetails
         scammerDetails={scammerDetails}

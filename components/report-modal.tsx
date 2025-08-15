@@ -188,12 +188,12 @@ export function ReportModal({
             />
           )}
           <div className="mt-6">
-            <h3 className="font-semibold text-lg flex items-center gap-2 mb-2">
+            {/* <h3 className="font-semibold text-lg flex items-center gap-2 mb-2">
               <MessageCircle className="h-5 w-5" /> Comments
               <span className="ml-2 text-xs bg-gray-100 px-2 py-0.5 rounded">
                 {comments.length}
               </span>
-            </h3>
+            </h3> */}
             {/* Comment form first */}
             {isAuthenticated ? (
               <div className="flex flex-col gap-2 mb-6">

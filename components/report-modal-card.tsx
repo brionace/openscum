@@ -246,6 +246,7 @@ export function ReportModalCard({
           onVote={handleVote}
           onFlag={handleFlag}
           onShare={handleShare}
+          onCommentsClick={onCommentsClick}
         />
       </CardContent>
     </Card>
