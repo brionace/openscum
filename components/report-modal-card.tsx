@@ -24,7 +24,8 @@ import { toast } from "@/hooks/use-toast";
 import { ReportOutcome } from "./report-outcome";
 import { ReportMeta } from "./report-meta";
 import { ReportScammerDetails } from "./report-scammer-details";
-import { cn, severityColors } from "@/lib/utils";
+import { ReportDetails } from "./report-details";
+import { cn, severityColors, getSeverity } from "@/lib/utils";
 import { SeverityBulletin } from "./severity-bulletin";
 
 interface ReportCardProps {
@@ -163,13 +164,14 @@ export function ReportModalCard({
     }
   };
 
+  const severityValue = getSeverity(report.severity);
   const colorClass =
-    severityColors[report.severity as keyof typeof severityColors] ||
+    severityColors[severityValue as keyof typeof severityColors] ||
     "text-slate-600";
 
   return (
     <Card className="w-full p-0 border-0 shadow-none">
-      <CardHeader className="p-0 pb-3 mt-12 mb-3">
+      <CardHeader className="p-0 pb-3">
         <div className="flex flex-col gap-2 min-w-0">
           <div className="flex items-center gap-1">
             {/* Alert Status */}
@@ -221,33 +223,18 @@ export function ReportModalCard({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 p-0">
+      <CardContent className="space-y-4 p-0 mt-6">
         <p className="text-sm mb-4 whitespace-pre-wrap break-words">
           {report.description}
         </p>
 
-        {/* Severity bulletin */}
-        {/* <SeverityBulletin
-          severity={
-            report.severity === null || report.severity === undefined
-              ? undefined
-              : (report.severity as "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
-          }
+        {/* Details Section (scammerDetails, outcome, severity) */}
+        <ReportDetails
+          scammerDetails={report.scammerDetails}
+          outcome={report.outcome}
+          severity={severityValue}
           compact
-        /> */}
-
-        {/* Scammer Details */}
-        {report.scammerDetails &&
-          Object.keys(report.scammerDetails).length > 0 && (
-            <ReportScammerDetails scammerDetails={report.scammerDetails} />
-          )}
-
-        {/* Outcome(s) */}
-        {/* {Array.isArray(report.outcome) && report.outcome.length > 0 && (
-          <div className="mb-4">
-            <ReportOutcome outcome={report.outcome} />
-          </div>
-        )} */}
+        />
 
         {/* Meta Information */}
         <ReportMeta

@@ -49,24 +49,14 @@ export function SeverityBulletin({
     severityColors[severity as keyof typeof severityColors] || "text-slate-600";
 
   return (
-    <Accordion
-      type="single"
-      collapsible
-      className={cn(
-        "w-full flex items-start gap-2 rounded-md border-b border-slate-200",
-        compact ? "p-1" : "p-2",
-        className
-      )}
-      aria-label={`Severity bulletin: ${meta.title}`}
-    >
-      <AccordionItem value="severity" className="border-0 flex-1">
-        <AccordionTrigger className="p-0 h-auto text-xs min-h-0 text-muted-foreground">
-          {meta.title}
-        </AccordionTrigger>
-        <AccordionContent className="mt-2 p-0 text-muted-foreground text-xs">
-          {meta.description}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <div className="flex gap-2 text-xs">
+      <AlertTriangle
+        className={cn("h-3 w-3 shrink-0", colorClass)}
+        aria-hidden="true"
+      />
+      <p>
+        <span className="font-semibold">{meta.title}:</span> {meta.description}
+      </p>
+    </div>
   );
 }
