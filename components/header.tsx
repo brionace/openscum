@@ -31,7 +31,7 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {!isDesktop && (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="outline" size="icon">
                 <EllipsisVertical className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -49,9 +49,8 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {/* Right: Report button */}
         <Button
           onClick={onReportClick}
-          size="default"
-          variant="secondary"
-          className="flex items-center gap-2 bg-gradient-to-br from-blue-50 via-red-50 to-green-50"
+          variant="destructive"
+          className="flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden lg:inline">Report Scam</span>
