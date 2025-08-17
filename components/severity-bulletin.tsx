@@ -50,7 +50,11 @@ export function SeverityBulletin({
 
   return (
     <a href="/info/severity" className="flex items-center gap-1 text-xs">
-      <AlertTriangle className={cn("h-3 w-3", colorClass)} aria-hidden="true" />
+      <AlertTriangle
+        className={cn("h-3 w-3", colorClass)}
+        aria-hidden="true"
+        aria-label={meta.title}
+      />
       {/* <span className={cn(colorClass)}>{meta.title}</span> */}
     </a>
   );
