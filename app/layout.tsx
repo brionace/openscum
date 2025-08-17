@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "OpenScum",
     images: [
       {
-        url: "/og-image.png", // Replace with your actual OG image path
+        url: "/icon512_maskable.png", // Replace with your actual OG image path
         width: 1200,
         height: 630,
         alt: "OpenScum — Expose Scammers, Protect yourself and others",

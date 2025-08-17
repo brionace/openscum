@@ -89,6 +89,7 @@ export default async function About() {
             <a
               href="https://bsky.app/profile/openscum.bsky.social"
               target="_blank"
+              rel="noopener"
               className="underline text-blue-700"
             >
               @openscum
