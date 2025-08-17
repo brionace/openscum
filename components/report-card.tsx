@@ -192,17 +192,15 @@ export function ReportCard({
           ]
         } hover:lg:shadow-lg transition-shadow`}
       >
-        <CardHeader className="p-3 pt-6">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex-1 flex flex-col gap-2 min-w-0">
-              <div className="flex flex-wrap gap-1 items-center">
-                {/* Alert Status */}
-                {/* <AlertTriangle
+        <CardHeader className="flex flex-row items-end justify-between gap-3 p-3 pt-6">
+          <div className="flex-1 flex flex-col gap-2 min-w-0 text-muted-foreground">
+            {/* Alert Status */}
+            {/* <AlertTriangle
                 className={cn("h-4 w-4 shrink-0", colorClass)}
                 aria-hidden="true"
               /> */}
-                {/* Scam Type Name */}
-                {/* {!hideTypeLink && report.scamType?.name && (
+            {/* Scam Type Name */}
+            {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
                   href={`/types/${report.scamType.id}`}
                   className="underline text-blue-700"
@@ -212,50 +210,51 @@ export function ReportCard({
                   </span>
                 </Link>
               )} */}
-                {/* {report.scamType?.name === "Other" ? null : (
+            {/* {report.scamType?.name === "Other" ? null : (
                 <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
                   {report.scamType?.name}
                 </span>
               )} */}
-                {report.reportCount > 1 && report.scamType?.id && (
+            {/* {report.reportCount > 1 && report.scamType?.id && (
                   <span className="text-xs font-semibold">
                     {report.reportCount} reports
                   </span>
-                )}
-              </div>
-              <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground line-clamp-1">
-                <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
-                {(report.city || report.country) && (
-                  <>
-                    &bull;
-                    <span>
-                      {report.city
-                        ? `${report.city}, ${report.country}`
-                        : report.country}
-                    </span>
-                  </>
-                )}
-                {report.source && (
-                  <>
-                    &bull;
-                    <span
-                      // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
-                      title={`Source: ${report.source}`}
-                    >
-                      {report.source}
-                    </span>
-                  </>
-                )}
-              </div>
+                )} */}
+            <div className="flex items-center gap-2 col-span-1 text-xs line-clamp-1">
+              <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
+              {(report.city || report.country) && (
+                <>
+                  &bull;
+                  <span>
+                    {report.city
+                      ? `${report.city}, ${report.country}`
+                      : report.country}
+                  </span>
+                </>
+              )}
+              {report.source && (
+                <>
+                  &bull;
+                  <span
+                    // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
+                    title={`Source: ${report.source}`}
+                  >
+                    {report.source}
+                  </span>
+                </>
+              )}
             </div>
-            {/* <Link
+          </div>
+          {/* <Link
               href={`#/reports/${report.id}`}
               onClick={() => onCommentsClick?.(report.id)}
               aria-label="View report details"
             >
               <ArrowRight className="h-4 w-4" />
             </Link> */}
-          </div>
+          {severityValue && (
+            <SeverityBulletin severity={severityValue} compact />
+          )}
         </CardHeader>
 
         <CardContent className="space-y-4 p-3">

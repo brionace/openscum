@@ -37,53 +37,49 @@ export function ReportScammerDetails({
   if (!hasAny) return null;
 
   return (
-    <div className="space-y-2 [&_div>div]:text-muted-foreground [&_div>div]:text-xs">
+    <div className="space-y-2 [&_div>p]:text-muted-foreground [&_div>div]:text-xs py-3">
       {scammerDetails.phoneNumber && (
         <div className="flex items-start gap-2 text-sm">
           <Phone
             className="inline-block mr-2 h-3 w-3 shrink-0"
             aria-label="Phone number"
           />
-          <div className="font-mono text-inherit">
-            {scammerDetails.phoneNumber}
-          </div>
+          <p>{scammerDetails.phoneNumber}</p>
         </div>
       )}
       {scammerDetails.email && (
         <div className="flex items-start gap-2 text-sm">
           <Mail className="h-3 w-3 shrink-0" aria-label="Email address" />
-          <div className="font-mono text-inherit">{scammerDetails.email}</div>
+          <p>{scammerDetails.email}</p>
         </div>
       )}
       {scammerDetails.website && (
         <div className="flex items-start gap-2 text-sm">
           <Globe className="h-3 w-3 shrink-0" aria-label="Website" />
-          <div className="font-mono break-all text-inherit">
-            {scammerDetails.website}
-          </div>
+          <p>{scammerDetails.website}</p>
         </div>
       )}
       {scammerDetails.username && (
         <div className="flex items-start gap-2 text-sm">
           <User className="h-3 w-3 shrink-0" aria-label="Username" />
-          <div className="font-mono break-all">{scammerDetails.username}</div>
+          <p>{scammerDetails.username}</p>
         </div>
       )}
       {scammerDetails.name && (
         <div className="flex items-start gap-2 text-sm">
           <User className="h-3 w-3 shrink-0" aria-label="Name" />
-          <div className="font-mono">{scammerDetails.name}</div>
+          <p>{scammerDetails.name}</p>
         </div>
       )}
       {scammerDetails.other && (
         <div className="flex items-start gap-2 text-sm">
           <Bitcoin className="h-3 w-3 shrink-0" aria-label="Other" />
-          <div className="font-mono break-all">
+          <p>
             {scammerDetails.other
               .split(/<br\s*\/?>|,/i)
               .map((item) => item.trim())
               .join(", ")}
-          </div>
+          </p>
         </div>
       )}
     </div>

@@ -171,56 +171,53 @@ export function ReportModalCard({
 
   return (
     <Card className="w-full p-0 border-0 shadow-none">
-      <CardHeader className="p-0 pb-3">
-        <div className="flex flex-col gap-2 min-w-0">
-          <div className="flex items-center gap-1">
-            {/* Alert Status */}
-            {/* <AlertTriangle
+      <CardHeader className="flex flex-row items-end justify-between p-0 mt-12">
+        {/* Alert Status */}
+        {/* <AlertTriangle
               className={cn("h-4 w-4 shrink-0", colorClass)}
               aria-hidden="true"
             /> */}
-            {/* Scam Type Name */}
-            {/* {report.scamType?.name === "Other" ? null : (
+        {/* Scam Type Name */}
+        {/* {report.scamType?.name === "Other" ? null : (
               <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
                 {report.scamType?.name}
               </span>
             )} */}
-            {report.reportCount > 1 && report.scamType?.id && (
-              <Link
-                href={`/types/${report.scamType.id}`}
-                className="underline text-blue-700"
+        {/* {report.reportCount > 1 && report.scamType?.id && (
+          <Link
+            href={`/types/${report.scamType.id}`}
+            className="underline text-blue-700"
+          >
+            <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">
+              {report.reportCount} reports
+            </span>
+          </Link>
+        )} */}
+        <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground">
+          <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
+          {(report.city || report.country) && (
+            <>
+              &bull;
+              <span>
+                {report.city
+                  ? `${report.city}, ${report.country}`
+                  : report.country}
+              </span>
+            </>
+          )}
+          {report.source && (
+            <>
+              &bull;
+              <span
+                // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
+                title={`Source: ${report.source}`}
               >
-                <span className="bg-gray-100 px-2 py-0.5 rounded text-xs font-semibold cursor-pointer">
-                  {report.reportCount} reports
-                </span>
-              </Link>
-            )}
-          </div>
-          <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground">
-            <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
-            {(report.city || report.country) && (
-              <>
-                &bull;
-                <span>
-                  {report.city
-                    ? `${report.city}, ${report.country}`
-                    : report.country}
-                </span>
-              </>
-            )}
-            {report.source && (
-              <>
-                &bull;
-                <span
-                  // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
-                  title={`Source: ${report.source}`}
-                >
-                  {report.source}
-                </span>
-              </>
-            )}
-          </div>
+                {report.source}
+              </span>
+            </>
+          )}
         </div>
+        {severityValue && <SeverityBulletin severity={severityValue} compact />}
       </CardHeader>
 
       <CardContent className="space-y-4 p-0 mt-6">

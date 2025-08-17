@@ -44,7 +44,7 @@ export function TrendingBar({ rowStyle = false }: { rowStyle?: boolean }) {
   }
 
   return (
-    <div className="flex items-center gap-2 p-2 bg-orange-50 rounded-lg mb-4">
+    <div className="flex items-center gap-2 p-2 bg-orange-50 rounded-lg mb-4 break-all">
       <Flame className="h-4 w-4 text-orange-600" />
       <span className="font-semibold text-orange-800 text-sm">Trending:</span>
       {trending.map((t) => (

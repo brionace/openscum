@@ -18,24 +18,25 @@ export function ReportDetails({
   compact = false,
 }: ReportDetailsProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-xs">
       {scammerDetails && (
-        <div className="flex items-center">
-          <Info className="inline-block h-4 w-4 mr-2" />
-          <span className="text-xs">Scammer information</span>
+        <div className="bg-gray-100 p-1 rounded-lg border">
+          <div className="bg-gray-200 p-2 rounded-lg">
+            <div className="flex items-center text-xs">
+              <Info className="inline-block h-4 w-4 mr-2" />
+              <span>Scammer information</span>
+            </div>
+          </div>
+          {/* Scammer Details */}
+          <ReportScammerDetails
+            scammerDetails={scammerDetails}
+            severity={severity}
+          />
+          {/* Outcome(s) */}
+          {/* <ReportOutcome outcome={outcome} /> */}
+          {/* Severity bulletin */}
         </div>
       )}
-      {/* Scammer Details */}
-      {scammerDetails && (
-        <ReportScammerDetails
-          scammerDetails={scammerDetails}
-          severity={severity}
-        />
-      )}
-      {/* Outcome(s) */}
-      {/* <ReportOutcome outcome={outcome} /> */}
-      {/* Severity bulletin */}
-      {severity && <SeverityBulletin severity={severity} compact={compact} />}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export function FeaturesBar() {
   return (
     <div className="flex flex-col gap-4 lg:gap-6 lg:flex-col w-full lg:w-80">
       {/* About */}
-      <Card className="min-w-[260px] lg:min-w-0 flex-shrink-0 mt-12 lg:mt-0 border-0 lg:border">
+      <Card className="min-w-[260px] lg:min-w-0 flex-shrink-0 mt-12 lg:mt-0 border-0 lg:border rounded-none lg:rounded-lg">
         <CardContent className="space-y-3 mt-5 text-sm">
           <p>
             We are a community-powered scam reporting and lookup site. Search
