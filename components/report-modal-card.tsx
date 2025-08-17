@@ -224,7 +224,7 @@ export function ReportModalCard({
       </CardHeader>
 
       <CardContent className="space-y-4 p-0 mt-6">
-        <p className="mb-4 whitespace-pre-wrap break-words">
+        <p className="mb-4 whitespace-pre-wrap break-all">
           {report.description}
         </p>
 
