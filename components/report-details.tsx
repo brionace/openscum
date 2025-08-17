@@ -17,9 +17,16 @@ export function ReportDetails({
   severity,
   compact = false,
 }: ReportDetailsProps) {
+  const hasScammerDetails =
+    scammerDetails &&
+    typeof scammerDetails === "object" &&
+    Object.values(scammerDetails).some(
+      (v) => v !== undefined && v !== null && String(v).trim() !== ""
+    );
+
   return (
     <div className="space-y-4 text-xs">
-      {scammerDetails && (
+      {hasScammerDetails && (
         <div className="bg-gray-100 p-1 rounded-lg border">
           <div className="bg-gray-200 p-2 rounded-lg">
             <div className="flex items-center text-xs">
