@@ -22,12 +22,13 @@ import { formatDistanceToNow } from "@/lib/date-utils";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
-import { ReportOutcome } from "./report-outcome";
-import { ReportMeta } from "./report-meta";
+import { ReportOutcome } from "@/components/report-outcome";
+import { ReportMeta } from "@/components/report-meta";
+import { ReportMetaRow } from "@/components/report-meta-row";
 import { ReportScammerDetails } from "./report-scammer-details";
-import { ReportDetails } from "./report-details";
+import { ReportDetails } from "@/components/report-details";
 import { cn, severityBLColors, severityColors, getSeverity } from "@/lib/utils";
-import { SeverityBulletin } from "./severity-bulletin";
+import { SeverityBulletin } from "@/components/severity-bulletin";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -193,68 +194,7 @@ export function ReportCard({
         } hover:lg:shadow-lg transition-shadow`}
       >
         <CardHeader className="flex flex-row items-end justify-between gap-3 p-3 pt-6">
-          <div className="flex-1 flex flex-col gap-2 min-w-0 text-muted-foreground">
-            {/* Alert Status */}
-            {/* <AlertTriangle
-                className={cn("h-4 w-4 shrink-0", colorClass)}
-                aria-hidden="true"
-              /> */}
-            {/* Scam Type Name */}
-            {/* {!hideTypeLink && report.scamType?.name && (
-                <Link
-                  href={`/types/${report.scamType.id}`}
-                  className="underline text-blue-700"
-                >
-                  <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-                    {report.scamType.name}
-                  </span>
-                </Link>
-              )} */}
-            {/* {report.scamType?.name === "Other" ? null : (
-                <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
-                  {report.scamType?.name}
-                </span>
-              )} */}
-            {/* {report.reportCount > 1 && report.scamType?.id && (
-                  <span className="text-xs font-semibold">
-                    {report.reportCount} reports
-                  </span>
-                )} */}
-            <div className="flex items-center gap-2 col-span-1 text-xs line-clamp-1">
-              <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
-              {(report.city || report.country) && (
-                <>
-                  &bull;
-                  <span>
-                    {report.city
-                      ? `${report.city}, ${report.country}`
-                      : report.country}
-                  </span>
-                </>
-              )}
-              {report.source && (
-                <>
-                  &bull;
-                  <span
-                    // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
-                    title={`Source: ${report.source}`}
-                  >
-                    {report.source}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-          {/* <Link
-              href={`#/reports/${report.id}`}
-              onClick={() => onCommentsClick?.(report.id)}
-              aria-label="View report details"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </Link> */}
-          {severityValue && (
-            <SeverityBulletin severity={severityValue} compact />
-          )}
+          <ReportMetaRow report={report} />
         </CardHeader>
 
         <CardContent className="space-y-4 p-3">

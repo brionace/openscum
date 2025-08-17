@@ -16,17 +16,11 @@ import {
   Flag,
 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { formatDistanceToNow } from "@/lib/date-utils";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
-import { ReportOutcome } from "./report-outcome";
-import { ReportMeta } from "./report-meta";
-import { ReportScammerDetails } from "./report-scammer-details";
-import { ReportDetails } from "./report-details";
-import { cn, severityColors, getSeverity } from "@/lib/utils";
-import { SeverityBulletin } from "./severity-bulletin";
+import { ReportMeta } from "@/components/report-meta";
+import { ReportDetails } from "@/components/report-details";
+import { severityColors, getSeverity } from "@/lib/utils";
+import { ReportMetaRow } from "@/components/report-meta-row";
 
 interface ReportCardProps {
   report: ScamReport;
@@ -193,31 +187,7 @@ export function ReportModalCard({
             </span>
           </Link>
         )} */}
-        <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground">
-          <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
-          {(report.city || report.country) && (
-            <>
-              &bull;
-              <span>
-                {report.city
-                  ? `${report.city}, ${report.country}`
-                  : report.country}
-              </span>
-            </>
-          )}
-          {report.source && (
-            <>
-              &bull;
-              <span
-                // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
-                title={`Source: ${report.source}`}
-              >
-                {report.source}
-              </span>
-            </>
-          )}
-        </div>
-        {severityValue && <SeverityBulletin severity={severityValue} compact />}
+        <ReportMetaRow report={report} />
       </CardHeader>
 
       <CardContent className="space-y-4 p-0 mt-6">
