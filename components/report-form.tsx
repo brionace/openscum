@@ -28,14 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  MapPin,
-  AlertTriangle,
-  DollarSign,
-  Shield,
-  Phone,
-  Users,
-} from "lucide-react";
+import { MapPin, DollarSign, Shield, Phone, Users } from "lucide-react";
 import {
   commonCountries,
   commonCurrencies,
@@ -580,7 +573,6 @@ export function ReportForm({
     <Card className="w-full max-w-2xl mx-auto border-0 rounded-none">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 mt-12">
-          <AlertTriangle className="h-6 w-6 text-red-500" />
           Report a Scam
         </CardTitle>
       </CardHeader>
@@ -607,25 +599,20 @@ export function ReportForm({
             {step === 0 && (
               <>
                 {/* Authentication Info */}
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <Shield className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm">
-                      <p className="font-medium text-blue-900 mb-1">
-                        Anonymous Reports Welcome
-                      </p>
-                      <p className="text-blue-700">
-                        You can submit reports anonymously without logging in.
-                        {!user && (
-                          <span className="font-medium">
-                            {" "}
-                            To vote, flag, or comment on reports, you&apos;ll
-                            need to sign in.
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
+                <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm">
+                  <p className="font-medium text-blue-900 mb-1">
+                    Anonymous Reports Welcome
+                  </p>
+                  <p className="text-blue-700">
+                    You can submit reports anonymously without logging in.
+                    {!user && (
+                      <span className="font-medium">
+                        {" "}
+                        To vote, flag, or comment on reports, you&apos;ll need
+                        to sign in.
+                      </span>
+                    )}
+                  </p>
                 </div>
                 <NavButtons showNext={true} />
               </>
