@@ -31,3 +31,49 @@ export function getSeverity(
   }
   return undefined;
 }
+
+// --- Automated scam report scoring and filtering ---
+const BAD_WORDS = [
+  "test",
+  "asdf",
+  "lorem",
+  "1234",
+  "fuck",
+  "shit",
+  "nigger",
+  "paki",
+];
+const MAX_WORD_LENGTH = 20;
+const MIN_DESCRIPTION_LENGTH = 20;
+const MAX_DESCRIPTION_LENGTH = 1000;
+// Matches any sequence of 31+ of the same character, or any 31+ consecutive non-whitespace characters
+const LONG_WORD_REGEX = /(.)\1{20,}|[^\s]{21,}/;
+const URL_REGEX = /(https?:\/\/|www\.)\S+/i;
+
+export function isBadContent(text: string): boolean {
+  if (!text) return true;
+  if (
+    text.length < MIN_DESCRIPTION_LENGTH ||
+    text.length > MAX_DESCRIPTION_LENGTH
+  )
+    return true;
+  if (BAD_WORDS.some((word) => text.toLowerCase().includes(word))) return true;
+  if (LONG_WORD_REGEX.test(text)) return true;
+  if (URL_REGEX.test(text)) return true;
+  return false;
+}
+
+export function filterBadReport(report: any): boolean {
+  if (isBadContent(report.description)) return false;
+  if (report.scammerDetails) {
+    for (const val of Object.values(report.scammerDetails)) {
+      // Normalize value: trim, remove excessive whitespace, lowercase
+      let normalized =
+        typeof val === "string"
+          ? val.trim().replace(/\s+/g, " ").toLowerCase()
+          : "";
+      if (isBadContent(normalized)) return false;
+    }
+  }
+  return true;
+}

@@ -54,7 +54,7 @@ export function SeverityBulletin({
         className={cn("h-3 w-3 shrink-0", colorClass)}
         aria-hidden="true"
       />
-      <p className="text-muted-foreground">
+      <p>
         <span className="font-semibold">{meta.title}:</span> {meta.description}
       </p>
     </div>

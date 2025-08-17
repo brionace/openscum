@@ -59,17 +59,19 @@ export function ReportMeta({
       </div> */}
       <div className="flex items-center gap-3 text-xs">
         {/* Flag Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="shrink-0"
-          onClick={onFlag}
-          aria-label={flagged ? "Unflag report" : "Flag report"}
-          disabled={flagLoading}
-        >
-          <Flag className={`h-3 w-3 ${flagged ? "text-red-500" : ""}`} />
-          <span className="sr-only">{flagged ? "Unflag" : "Flag"}</span>
-        </Button>
+        {onFlag && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            onClick={onFlag}
+            aria-label={flagged ? "Unflag report" : "Flag report"}
+            disabled={flagLoading}
+          >
+            <Flag className={`h-3 w-3 ${flagged ? "text-red-500" : ""}`} />
+            <span className="sr-only">{flagged ? "Unflag" : "Flag"}</span>
+          </Button>
+        )}
 
         {/* Comments Button - only show if onCommentsClick is provided */}
         {onCommentsClick && (
@@ -85,7 +87,9 @@ export function ReportMeta({
             typeof report._count?.comments === "number" &&
             report._count.comments > 0 ? (
               <span>{report._count.comments}</span>
-            ) : null}
+            ) : (
+              0
+            )}
           </Button>
         )}
 
@@ -103,7 +107,7 @@ export function ReportMeta({
             ? votes
             : report._count && typeof report._count?.votes === "number"
             ? report._count.votes
-            : null}
+            : 0}
         </Button>
 
         {/* Share Button */}

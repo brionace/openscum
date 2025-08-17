@@ -215,7 +215,7 @@ export function ReportModalCard({
                   // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
                   title={`Source: ${report.source}`}
                 >
-                  Source: {report.source}
+                  {report.source}
                 </span>
               </>
             )}
@@ -224,7 +224,7 @@ export function ReportModalCard({
       </CardHeader>
 
       <CardContent className="space-y-4 p-0 mt-6">
-        <p className="text-sm mb-4 whitespace-pre-wrap break-words">
+        <p className="mb-4 whitespace-pre-wrap break-words">
           {report.description}
         </p>
 

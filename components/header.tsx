@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { SearchBar } from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
-import { Shield, Plus, EllipsisVertical } from "lucide-react";
+import { Plus, EllipsisVertical } from "lucide-react";
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FeaturesBar } from "@/components/features-bar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { ScamReport } from "@/lib/types";
+import Logo from "@/components/logo";
 
 interface HeaderProps {
   onReportClick: () => void;
@@ -24,14 +25,14 @@ export function Header({ onReportClick, reports }: HeaderProps) {
           href="/"
           className="flex items-center gap-2 font-bold text-lg text-red-600"
         >
-          <Shield className="h-7 w-7" />
+          <Logo />
           <span className="hidden lg:inline">Openscum</span>
         </Link>
         {/* Mobile: Sidebar Drawer Trigger */}
         {!isDesktop && (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="ghost" size="icon">
                 <EllipsisVertical className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -49,8 +50,8 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {/* Right: Report button */}
         <Button
           onClick={onReportClick}
-          variant="destructive"
-          className="flex items-center gap-2"
+          variant="secondary"
+          className="flex items-center gap-2 rounded-full"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden lg:inline">Report Scam</span>

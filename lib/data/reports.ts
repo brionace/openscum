@@ -121,12 +121,16 @@ export async function getReports({
       findArgs.skip = offset;
     }
     const rawReports = await prisma.scamReport.findMany(findArgs);
-    // Filter out flagged reports in JS
+    // Filter out flagged and bad reports in JS
+    // Import filterBadReport from utils
+    // @ts-ignore
+    const { filterBadReport } = require("@/lib/utils");
     const filtered = rawReports.filter(
-      (r: any) => r._count && r._count.flags < 3
+      (r: any) => r._count && r._count.flags < 3 && filterBadReport(r)
     );
-    reports = filtered;
-    total = await prisma.scamReport.count({ where: whereClause });
+    reports = rawReports;
+    // total = await prisma.scamReport.count({ where: whereClause }); // count before filter
+    // total = filtered.length;
   }
 
   // Remove flagged property if present (defensive, not needed if never added)

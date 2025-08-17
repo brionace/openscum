@@ -180,24 +180,29 @@ export function ReportCard({
     "text-slate-600";
 
   return (
-    <Card
-      className={`w-full border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-0 ${
-        severityBLColors[
-          (report.severity as keyof typeof severityBLColors) || "LOW"
-        ]
-      } hover:lg:shadow-lg transition-shadow`}
+    <Link
+      href={`#/reports/${report.id}`}
+      onClick={() => onCommentsClick?.(report.id)}
+      aria-label="View report details"
     >
-      <CardHeader className="p-3 pt-6">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 flex flex-col gap-2 min-w-0">
-            <div className="flex flex-wrap gap-1 items-center">
-              {/* Alert Status */}
-              {/* <AlertTriangle
+      <Card
+        className={`w-full border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-0 ${
+          severityBLColors[
+            (report.severity as keyof typeof severityBLColors) || "LOW"
+          ]
+        } hover:lg:shadow-lg transition-shadow`}
+      >
+        <CardHeader className="p-3 pt-6">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 flex flex-col gap-2 min-w-0">
+              <div className="flex flex-wrap gap-1 items-center">
+                {/* Alert Status */}
+                {/* <AlertTriangle
                 className={cn("h-4 w-4 shrink-0", colorClass)}
                 aria-hidden="true"
               /> */}
-              {/* Scam Type Name */}
-              {/* {!hideTypeLink && report.scamType?.name && (
+                {/* Scam Type Name */}
+                {/* {!hideTypeLink && report.scamType?.name && (
                 <Link
                   href={`/types/${report.scamType.id}`}
                   className="underline text-blue-700"
@@ -207,73 +212,74 @@ export function ReportCard({
                   </span>
                 </Link>
               )} */}
-              {/* {report.scamType?.name === "Other" ? null : (
+                {/* {report.scamType?.name === "Other" ? null : (
                 <span className="flex items-center gap-1 bg-gray-100 text-gray-800 px-2 py-0.5 rounded text-xs font-semibold">
                   {report.scamType?.name}
                 </span>
               )} */}
-              {report.reportCount > 1 && report.scamType?.id && (
-                <span className="text-xs font-semibold">
-                  {report.reportCount} reports
-                </span>
-              )}
-            </div>
-            <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground line-clamp-1">
-              <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
-              {(report.city || report.country) && (
-                <>
-                  &bull;
-                  <span>
-                    {report.city
-                      ? `${report.city}, ${report.country}`
-                      : report.country}
+                {report.reportCount > 1 && report.scamType?.id && (
+                  <span className="text-xs font-semibold">
+                    {report.reportCount} reports
                   </span>
-                </>
-              )}
-              {report.source && (
-                <>
-                  &bull;
-                  <span
-                    // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
-                    title={`Source: ${report.source}`}
-                  >
-                    Source: {report.source}
-                  </span>
-                </>
-              )}
+                )}
+              </div>
+              <div className="flex items-center gap-2 col-span-1 text-xs text-muted-foreground line-clamp-1">
+                <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
+                {(report.city || report.country) && (
+                  <>
+                    &bull;
+                    <span>
+                      {report.city
+                        ? `${report.city}, ${report.country}`
+                        : report.country}
+                    </span>
+                  </>
+                )}
+                {report.source && (
+                  <>
+                    &bull;
+                    <span
+                      // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
+                      title={`Source: ${report.source}`}
+                    >
+                      {report.source}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
+            {/* <Link
+              href={`#/reports/${report.id}`}
+              onClick={() => onCommentsClick?.(report.id)}
+              aria-label="View report details"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </Link> */}
           </div>
-          <Link
-            href={`#/reports/${report.id}`}
-            onClick={() => onCommentsClick?.(report.id)}
-            aria-label="View report details"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </CardHeader>
+        </CardHeader>
 
-      <CardContent className="space-y-4 p-3">
-        <p className="text-sm mb-4 line-clamp-3">{report.description}</p>
+        <CardContent className="space-y-4 p-3 overflow-clip">
+          <p className="mb-4 line-clamp-3">{report.description}</p>
 
-        {/* Details Section (scammerDetails, outcome, severity) */}
-        <ReportDetails
+          {/* Details Section (scammerDetails, outcome, severity) */}
+          {/* <ReportDetails
           scammerDetails={report.scammerDetails}
           outcome={report.outcome}
           severity={severityValue}
           compact
-        />
+        /> */}
 
-        {/* Meta Information */}
-        <ReportMeta
-          report={report}
-          flagged={flagged}
-          flagLoading={flagLoading}
-          onVote={handleVote}
-          onFlag={handleFlag}
-          // onCommentsClick={onCommentsClick}
-        />
-      </CardContent>
-    </Card>
+          {/* Meta Information */}
+          <ReportMeta
+            report={report}
+            flagged={flagged}
+            flagLoading={flagLoading}
+            onVote={handleVote}
+            onCommentsClick={onCommentsClick}
+            // onFlag={handleFlag}
+          />
+        </CardContent>
+      </Card>
+    </Link>
   );
 }

@@ -300,7 +300,7 @@ export function HomeClient({
   }, [reports]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-red-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-red-100 to-green-100">
       <Header
         onReportClick={() => setReportModalOpen(true)}
         reports={reports}
@@ -343,7 +343,7 @@ export function HomeClient({
               </Button>
             </div> */}
 
-            <div className="grid gap-6">
+            <div className="grid gap-2">
               {reports.map((report) => (
                 <ReportCard
                   key={report.id}

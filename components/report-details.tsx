@@ -18,10 +18,11 @@ export function ReportDetails({
   compact = false,
 }: ReportDetailsProps) {
   return (
-    <div className="space-y-4 p-2 bg-gray-50 border rounded-lg">
-      {/* <div className="flex justify-end">
+    <div className="space-y-4">
+      <div className="flex items-center">
         <Info className="inline-block h-4 w-4 mr-2" />
-      </div> */}
+        <span className="text-xs">Scammer information</span>
+      </div>
       {/* Scammer Details */}
       <ReportScammerDetails
         scammerDetails={scammerDetails}
