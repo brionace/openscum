@@ -747,7 +747,7 @@ export function ReportForm({
                             />
                           </FormControl>
                           <FormMessage />
-                          <div>
+                          {/* <div>
                             <Button
                               type="button"
                               variant="secondary"
@@ -830,7 +830,7 @@ export function ReportForm({
                                 Revert
                               </Button>
                             )}
-                          </div>
+                          </div> */}
                           {paraphraseError && (
                             <div className="text-red-500 text-xs mt-1">
                               {paraphraseError}
