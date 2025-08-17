@@ -50,10 +50,6 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="openscum" />
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="frame-ancestors 'self' https://www.google.com/"
-        />
         <link rel="apple-touch-icon" href="/icon512_maskable.png" />
         <link rel="icon" type="image/x-icon" href="/logo.svg" />
       </head>
