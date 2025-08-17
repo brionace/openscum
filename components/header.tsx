@@ -21,26 +21,28 @@ export function Header({ onReportClick, reports }: HeaderProps) {
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-2 md:px-4 py-2 gap-2">
         {/* Left: Logo and name */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-lg text-red-600"
-        >
-          <Logo />
-          <span className="hidden lg:inline">Openscum</span>
-        </Link>
-        {/* Mobile: Sidebar Drawer Trigger */}
-        {!isDesktop && (
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <EllipsisVertical className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-80 max-w-full">
-              <FeaturesBar />
-            </SheetContent>
-          </Sheet>
-        )}
+        <div className="flex items-center">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-bold text-lg text-red-600"
+          >
+            <Logo />
+            <span className="hidden lg:inline">Openscum</span>
+          </Link>
+          {/* Mobile: Sidebar Drawer Trigger */}
+          {!isDesktop && (
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <EllipsisVertical className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 w-80 max-w-full">
+                <FeaturesBar />
+              </SheetContent>
+            </Sheet>
+          )}
+        </div>
         {/* Center: SearchBar */}
         <div className="flex-1 flex justify-center">
           <div className="w-full max-w-lg">

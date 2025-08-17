@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FeaturesBar } from "@/components/features-bar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { ScamReport } from "@/lib/types";
+import Logo from "./logo";
 
 export function HeaderPages() {
   return (
@@ -24,7 +25,7 @@ export function HeaderPages() {
           href="/"
           className="flex items-center gap-2 font-bold text-lg text-red-600"
         >
-          <Shield className="h-7 w-7" />
+          <Logo />
         </Link>
         <Button variant="ghost" size="icon">
           <EllipsisVertical className="h-4 w-4" />
