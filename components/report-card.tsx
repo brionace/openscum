@@ -259,17 +259,10 @@ export function ReportCard({
         </CardHeader>
 
         <CardContent className="space-y-4 p-3">
-          <p className="mb-4 line-clamp-3 break-all">
-            {report.description}
-          </p>
+          <p className="mb-4 line-clamp-3 break-all">{report.description}</p>
 
           {/* Details Section (scammerDetails, outcome, severity) */}
-          {/* <ReportDetails
-          scammerDetails={report.scammerDetails}
-          outcome={report.outcome}
-          severity={severityValue}
-          compact
-        /> */}
+          <ReportDetails severity={severityValue} compact />
 
           {/* Meta Information */}
           <ReportMeta
