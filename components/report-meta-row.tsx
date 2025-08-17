@@ -10,23 +10,23 @@ interface ReportMetaRowProps {
 
 export function ReportMetaRow({ report }: ReportMetaRowProps) {
   const severityValue = getSeverity(report.severity);
+  const cityCountry =
+    report.city && report.country
+      ? `${report.city}, ${report.country}`
+      : `${report.country}`;
   return (
     <div className="w-full flex items-center justify-between gap-2 text-muted-foreground">
       <div className="flex items-center gap-2 col-span-1 text-xs line-clamp-1">
-        <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
+        {/* <span>Posted {formatDistanceToNow(new Date(report.createdAt))}</span> */}
         {(report.city || report.country) && (
           <>
-            &bull;
-            <span>
-              {report.city
-                ? `${report.city}, ${report.country}`
-                : report.country}
-            </span>
+            {/* &bull; */}
+            <span title={cityCountry}>{cityCountry}</span>
           </>
         )}
         {report.source && (
           <>
-            &bull;
+            {/* &bull; */}
             <span
               // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
               title={`Source: ${report.source}`}
