@@ -129,7 +129,7 @@ export async function getReports({
       (r: any) => r._count && r._count.flags < 3 && filterBadReport(r)
     );
     reports = rawReports;
-    // total = await prisma.scamReport.count({ where: whereClause }); // count before filter
+    total = await prisma.scamReport.count({ where: whereClause }); // count before filter
     // total = filtered.length;
   }
 
