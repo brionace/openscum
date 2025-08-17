@@ -258,8 +258,10 @@ export function ReportCard({
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-4 p-3 overflow-clip">
-          <p className="mb-4 line-clamp-3">{report.description}</p>
+        <CardContent className="space-y-4 p-3">
+          <p className="mb-4 line-clamp-3 break-all">
+            {report.description}
+          </p>
 
           {/* Details Section (scammerDetails, outcome, severity) */}
           {/* <ReportDetails

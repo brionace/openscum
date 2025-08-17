@@ -39,7 +39,7 @@ export function ReportMeta({
   onShare,
 }: ReportMetaProps) {
   return (
-    <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground pt-3">
+    <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground">
       {/* Date / Location info */}
       {/* <div className="flex flex-col gap-2 col-span-1">
         <div className="flex items-center gap-1">
