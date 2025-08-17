@@ -54,7 +54,8 @@ export default function RootLayout({
           httpEquiv="Content-Security-Policy"
           content="frame-ancestors 'self' https://www.google.com/"
         />
-        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icon512_maskable.png" />
+        <link rel="icon" type="image/x-icon" href="/logo.svg" />
       </head>
       <body className={inter.className}>
         <SupabaseUserProvider>
