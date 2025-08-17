@@ -26,6 +26,7 @@ export function HeaderPages() {
           className="flex items-center gap-2 font-bold text-lg text-red-600"
         >
           <Logo />
+          <span>Openscum</span>
         </Link>
         <Button variant="ghost" size="icon">
           <EllipsisVertical className="h-4 w-4" />

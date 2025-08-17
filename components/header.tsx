@@ -52,7 +52,7 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {/* Right: Report button */}
         <Button
           onClick={onReportClick}
-          variant="secondary"
+          variant="default"
           className="flex items-center gap-2 rounded-full"
         >
           <Plus className="h-4 w-4" />
