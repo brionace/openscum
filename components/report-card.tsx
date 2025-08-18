@@ -3,32 +3,13 @@
 import React, { useState } from "react";
 import { useSupabaseUser } from "@/components/SupabaseUserContext";
 import { ScamReport, OutcomeType } from "@/lib/types";
-import {
-  MapPin,
-  Calendar,
-  MessageCircle,
-  ThumbsUp,
-  Phone,
-  Mail,
-  Globe,
-  Share2,
-  Flag,
-  ArrowRight,
-  AlertTriangle,
-} from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { formatDistanceToNow } from "@/lib/date-utils";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
-import { ReportOutcome } from "@/components/report-outcome";
 import { ReportMeta } from "@/components/report-meta";
 import { ReportMetaRow } from "@/components/report-meta-row";
-import { ReportScammerDetails } from "./report-scammer-details";
 import { ReportDetails } from "@/components/report-details";
-import { cn, severityBLColors, severityColors, getSeverity } from "@/lib/utils";
-import { SeverityBulletin } from "@/components/severity-bulletin";
+import { severityBLColors, severityColors, getSeverity } from "@/lib/utils";
 
 interface ReportCardProps {
   report: ScamReport;
