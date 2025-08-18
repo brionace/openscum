@@ -14,13 +14,22 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { TrendingBar } from "@/components/trending-bar";
+import Logo from "./logo";
+import { LearnActions } from "@/components/learn-actions";
 
 export function FeaturesBar() {
   return (
     <div className="flex flex-col gap-4 lg:gap-6 lg:flex-col w-full lg:w-80">
       {/* About */}
       <Card className="min-w-[260px] lg:min-w-0 flex-shrink-0 mt-12 lg:mt-0 border-0 lg:border rounded-none lg:rounded-lg">
-        <CardContent className="space-y-3 mt-5 text-sm">
+        <CardContent className="space-y-3 text-sm">
+          <Link
+            href="/"
+            className="flex lg:hidden items-center gap-2 font-bold text-lg text-red-600"
+          >
+            <Logo />
+            <span>Openscum</span>
+          </Link>
           <p>
             We are a community-powered scam reporting and lookup site. Search
             scams by scammer credentials or content, report scams to help expose
@@ -80,31 +89,8 @@ export function FeaturesBar() {
             <Users className="h-5 w-5 text-green-500" /> Learn & Protect
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-2">
-          <Link href="/learn/category/prevention">
-            <Button asChild variant="outline" className="w-full justify-start">
-              <span>
-                <Shield className="h-4 w-4 mr-2" />
-                <span>Common Scam Tactics</span>
-              </span>
-            </Button>
-          </Link>
-          <Link href="/learn/category/guide">
-            <Button asChild variant="outline" className="w-full justify-start">
-              <span>
-                <AlertTriangle className="h-4 w-4 mr-2" />
-                <span>How to Verify</span>
-              </span>
-            </Button>
-          </Link>
-          <Link href="/learn/category/report_to_authorities">
-            <Button asChild variant="outline" className="w-full justify-start">
-              <span>
-                <Phone className="h-4 w-4 mr-2" />
-                <span>Report to Authorities</span>
-              </span>
-            </Button>
-          </Link>
+        <CardContent>
+          <LearnActions />
         </CardContent>
       </Card>
     </div>

@@ -1,6 +1,8 @@
 import { HeaderPages } from "@/components/header-pages";
 import { getEducationPosts } from "@/lib/data/education";
+import { Users, Shield, AlertTriangle, Phone } from "lucide-react";
 import Link from "next/link";
+import { LearnActions } from "@/components/learn-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +22,9 @@ export default async function LearnIndexPage() {
     <>
       <HeaderPages />
       <main className="container mx-auto max-w-3xl px-4 py-8">
-        <h1 className="mb-6 text-2xl font-semibold">Learn</h1>
-        <ul className="space-y-4">
+        <h1 className="mb-6 text-2xl font-semibold">Learn & Protect</h1>
+        <LearnActions direction="row" />
+        <ul className="space-y-4 mt-6">
           {items.map((p: any) => (
             <li key={p.id} className="rounded-md border p-4">
               <Link

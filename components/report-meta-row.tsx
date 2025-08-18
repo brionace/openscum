@@ -22,12 +22,12 @@ export function ReportMetaRow({ report }: ReportMetaRowProps) {
           <Calendar className="h-4 w-4" />
           <span>{formatDistanceToNow(new Date(report.createdAt))}</span>
         </div>
-        {(report.city || report.country) && (
+        {/* {(report.city || report.country) && (
           <div className="flex items-center gap-1">
             <MapPin className="h-4 w-4" />
             <span title={cityCountry}>{cityCountry}</span>
           </div>
-        )}
+        )} */}
         {report.source && (
           <div className="flex items-center gap-1">
             <MapPin className="h-4 w-4" />

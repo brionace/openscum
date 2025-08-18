@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { SearchBar } from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
-import { Plus, EllipsisVertical } from "lucide-react";
+import { Plus, Menu } from "lucide-react";
 import React from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FeaturesBar } from "@/components/features-bar";
@@ -24,17 +24,17 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         <div className="flex items-center">
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-lg text-red-600"
+            className="hidden lg:flex items-center gap-2 font-bold text-lg text-red-600"
           >
             <Logo />
-            <span className="hidden lg:inline">Openscum</span>
+            <span>Openscum</span>
           </Link>
           {/* Mobile: Sidebar Drawer Trigger */}
           {!isDesktop && (
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <EllipsisVertical className="h-6 w-6" />
+                  <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="p-0 w-80 max-w-full">
@@ -46,14 +46,14 @@ export function Header({ onReportClick, reports }: HeaderProps) {
         {/* Center: SearchBar */}
         <div className="flex-1 flex justify-center">
           <div className="w-full max-w-lg">
-            <SearchBar placeholder="Search scams..." reports={reports} />
+            <SearchBar placeholder="Search" reports={reports} />
           </div>
         </div>
         {/* Right: Report button */}
         <Button
           onClick={onReportClick}
-          variant="default"
-          className="flex items-center gap-2 rounded-full"
+          variant="ghost"
+          className="flex items-center gap-2 rounded-full hover:bg-gray-100"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden lg:inline">Report Scam</span>
