@@ -49,6 +49,11 @@ export type AIScamReport = $Result.DefaultSelection<Prisma.$AIScamReportPayload>
  */
 export type ScamType = $Result.DefaultSelection<Prisma.$ScamTypePayload>
 /**
+ * Model Severity
+ * 
+ */
+export type Severity = $Result.DefaultSelection<Prisma.$SeverityPayload>
+/**
  * Model Flag
  * 
  */
@@ -362,6 +367,16 @@ export class PrismaClient<
     * ```
     */
   get scamType(): Prisma.ScamTypeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.severity`: Exposes CRUD operations for the **Severity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Severities
+    * const severities = await prisma.severity.findMany()
+    * ```
+    */
+  get severity(): Prisma.SeverityDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.flag`: Exposes CRUD operations for the **Flag** model.
@@ -919,6 +934,7 @@ export namespace Prisma {
     SearchCache: 'SearchCache',
     AIScamReport: 'AIScamReport',
     ScamType: 'ScamType',
+    Severity: 'Severity',
     Flag: 'Flag',
     User: 'User',
     Notification: 'Notification',
@@ -948,7 +964,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "scamReport" | "comment" | "vote" | "wikiPage" | "searchCache" | "aIScamReport" | "scamType" | "flag" | "user" | "notification" | "outcomeType" | "educationPost" | "tag" | "postTag" | "educationPostScamType" | "contact" | "contactScamType" | "contactTag"
+      modelProps: "scamReport" | "comment" | "vote" | "wikiPage" | "searchCache" | "aIScamReport" | "scamType" | "severity" | "flag" | "user" | "notification" | "outcomeType" | "educationPost" | "tag" | "postTag" | "educationPostScamType" | "contact" | "contactScamType" | "contactTag"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1467,6 +1483,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ScamTypeCountArgs<ExtArgs>
             result: $Utils.Optional<ScamTypeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Severity: {
+        payload: Prisma.$SeverityPayload<ExtArgs>
+        fields: Prisma.SeverityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SeverityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SeverityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          findFirst: {
+            args: Prisma.SeverityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SeverityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          findMany: {
+            args: Prisma.SeverityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>[]
+          }
+          create: {
+            args: Prisma.SeverityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          createMany: {
+            args: Prisma.SeverityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SeverityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>[]
+          }
+          delete: {
+            args: Prisma.SeverityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          update: {
+            args: Prisma.SeverityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          deleteMany: {
+            args: Prisma.SeverityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SeverityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SeverityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>[]
+          }
+          upsert: {
+            args: Prisma.SeverityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeverityPayload>
+          }
+          aggregate: {
+            args: Prisma.SeverityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeverity>
+          }
+          groupBy: {
+            args: Prisma.SeverityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SeverityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SeverityCountArgs<ExtArgs>
+            result: $Utils.Optional<SeverityCountAggregateOutputType> | number
           }
         }
       }
@@ -2383,6 +2473,7 @@ export namespace Prisma {
     searchCache?: SearchCacheOmit
     aIScamReport?: AIScamReportOmit
     scamType?: ScamTypeOmit
+    severity?: SeverityOmit
     flag?: FlagOmit
     user?: UserOmit
     notification?: NotificationOmit
@@ -2576,12 +2667,14 @@ export namespace Prisma {
     contactLinks: number
     postLinks: number
     reports: number
+    severityRecords: number
   }
 
   export type ScamTypeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contactLinks?: boolean | ScamTypeCountOutputTypeCountContactLinksArgs
     postLinks?: boolean | ScamTypeCountOutputTypeCountPostLinksArgs
     reports?: boolean | ScamTypeCountOutputTypeCountReportsArgs
+    severityRecords?: boolean | ScamTypeCountOutputTypeCountSeverityRecordsArgs
   }
 
   // Custom InputTypes
@@ -2614,6 +2707,13 @@ export namespace Prisma {
    */
   export type ScamTypeCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ScamReportWhereInput
+  }
+
+  /**
+   * ScamTypeCountOutputType without action
+   */
+  export type ScamTypeCountOutputTypeCountSeverityRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeverityWhereInput
   }
 
 
@@ -9798,6 +9898,7 @@ export namespace Prisma {
     contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
     postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
+    severityRecords?: boolean | ScamType$severityRecordsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scamType"]>
 
@@ -9839,6 +9940,7 @@ export namespace Prisma {
     contactLinks?: boolean | ScamType$contactLinksArgs<ExtArgs>
     postLinks?: boolean | ScamType$postLinksArgs<ExtArgs>
     reports?: boolean | ScamType$reportsArgs<ExtArgs>
+    severityRecords?: boolean | ScamType$severityRecordsArgs<ExtArgs>
     _count?: boolean | ScamTypeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ScamTypeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9850,6 +9952,7 @@ export namespace Prisma {
       contactLinks: Prisma.$ContactScamTypePayload<ExtArgs>[]
       postLinks: Prisma.$EducationPostScamTypePayload<ExtArgs>[]
       reports: Prisma.$ScamReportPayload<ExtArgs>[]
+      severityRecords: Prisma.$SeverityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10257,6 +10360,7 @@ export namespace Prisma {
     contactLinks<T extends ScamType$contactLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$contactLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     postLinks<T extends ScamType$postLinksArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$postLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EducationPostScamTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reports<T extends ScamType$reportsArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScamReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    severityRecords<T extends ScamType$severityRecordsArgs<ExtArgs> = {}>(args?: Subset<T, ScamType$severityRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10754,6 +10858,30 @@ export namespace Prisma {
   }
 
   /**
+   * ScamType.severityRecords
+   */
+  export type ScamType$severityRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    where?: SeverityWhereInput
+    orderBy?: SeverityOrderByWithRelationInput | SeverityOrderByWithRelationInput[]
+    cursor?: SeverityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeverityScalarFieldEnum | SeverityScalarFieldEnum[]
+  }
+
+  /**
    * ScamType without action
    */
   export type ScamTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10769,6 +10897,1150 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ScamTypeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Severity
+   */
+
+  export type AggregateSeverity = {
+    _count: SeverityCountAggregateOutputType | null
+    _avg: SeverityAvgAggregateOutputType | null
+    _sum: SeveritySumAggregateOutputType | null
+    _min: SeverityMinAggregateOutputType | null
+    _max: SeverityMaxAggregateOutputType | null
+  }
+
+  export type SeverityAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type SeveritySumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type SeverityMinAggregateOutputType = {
+    id: string | null
+    scamTypeId: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    score: number | null
+    level: string | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type SeverityMaxAggregateOutputType = {
+    id: string | null
+    scamTypeId: string | null
+    country: string | null
+    region: string | null
+    city: string | null
+    score: number | null
+    level: string | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type SeverityCountAggregateOutputType = {
+    id: number
+    scamTypeId: number
+    country: number
+    region: number
+    city: number
+    score: number
+    level: number
+    updatedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SeverityAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type SeveritySumAggregateInputType = {
+    score?: true
+  }
+
+  export type SeverityMinAggregateInputType = {
+    id?: true
+    scamTypeId?: true
+    country?: true
+    region?: true
+    city?: true
+    score?: true
+    level?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type SeverityMaxAggregateInputType = {
+    id?: true
+    scamTypeId?: true
+    country?: true
+    region?: true
+    city?: true
+    score?: true
+    level?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type SeverityCountAggregateInputType = {
+    id?: true
+    scamTypeId?: true
+    country?: true
+    region?: true
+    city?: true
+    score?: true
+    level?: true
+    updatedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SeverityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Severity to aggregate.
+     */
+    where?: SeverityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Severities to fetch.
+     */
+    orderBy?: SeverityOrderByWithRelationInput | SeverityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SeverityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Severities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Severities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Severities
+    **/
+    _count?: true | SeverityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SeverityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SeveritySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SeverityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SeverityMaxAggregateInputType
+  }
+
+  export type GetSeverityAggregateType<T extends SeverityAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeverity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeverity[P]>
+      : GetScalarType<T[P], AggregateSeverity[P]>
+  }
+
+
+
+
+  export type SeverityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeverityWhereInput
+    orderBy?: SeverityOrderByWithAggregationInput | SeverityOrderByWithAggregationInput[]
+    by: SeverityScalarFieldEnum[] | SeverityScalarFieldEnum
+    having?: SeverityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SeverityCountAggregateInputType | true
+    _avg?: SeverityAvgAggregateInputType
+    _sum?: SeveritySumAggregateInputType
+    _min?: SeverityMinAggregateInputType
+    _max?: SeverityMaxAggregateInputType
+  }
+
+  export type SeverityGroupByOutputType = {
+    id: string
+    scamTypeId: string
+    country: string | null
+    region: string | null
+    city: string | null
+    score: number
+    level: string
+    updatedAt: Date
+    createdAt: Date
+    _count: SeverityCountAggregateOutputType | null
+    _avg: SeverityAvgAggregateOutputType | null
+    _sum: SeveritySumAggregateOutputType | null
+    _min: SeverityMinAggregateOutputType | null
+    _max: SeverityMaxAggregateOutputType | null
+  }
+
+  type GetSeverityGroupByPayload<T extends SeverityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SeverityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SeverityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SeverityGroupByOutputType[P]>
+            : GetScalarType<T[P], SeverityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SeveritySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    scamTypeId?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    score?: boolean
+    level?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["severity"]>
+
+  export type SeveritySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    scamTypeId?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    score?: boolean
+    level?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["severity"]>
+
+  export type SeveritySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    scamTypeId?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    score?: boolean
+    level?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["severity"]>
+
+  export type SeveritySelectScalar = {
+    id?: boolean
+    scamTypeId?: boolean
+    country?: boolean
+    region?: boolean
+    city?: boolean
+    score?: boolean
+    level?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type SeverityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "scamTypeId" | "country" | "region" | "city" | "score" | "level" | "updatedAt" | "createdAt", ExtArgs["result"]["severity"]>
+  export type SeverityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type SeverityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+  export type SeverityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    scamType?: boolean | ScamTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $SeverityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Severity"
+    objects: {
+      scamType: Prisma.$ScamTypePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      scamTypeId: string
+      country: string | null
+      region: string | null
+      city: string | null
+      score: number
+      level: string
+      updatedAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["severity"]>
+    composites: {}
+  }
+
+  type SeverityGetPayload<S extends boolean | null | undefined | SeverityDefaultArgs> = $Result.GetResult<Prisma.$SeverityPayload, S>
+
+  type SeverityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SeverityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SeverityCountAggregateInputType | true
+    }
+
+  export interface SeverityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Severity'], meta: { name: 'Severity' } }
+    /**
+     * Find zero or one Severity that matches the filter.
+     * @param {SeverityFindUniqueArgs} args - Arguments to find a Severity
+     * @example
+     * // Get one Severity
+     * const severity = await prisma.severity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SeverityFindUniqueArgs>(args: SelectSubset<T, SeverityFindUniqueArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Severity that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SeverityFindUniqueOrThrowArgs} args - Arguments to find a Severity
+     * @example
+     * // Get one Severity
+     * const severity = await prisma.severity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SeverityFindUniqueOrThrowArgs>(args: SelectSubset<T, SeverityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Severity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityFindFirstArgs} args - Arguments to find a Severity
+     * @example
+     * // Get one Severity
+     * const severity = await prisma.severity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SeverityFindFirstArgs>(args?: SelectSubset<T, SeverityFindFirstArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Severity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityFindFirstOrThrowArgs} args - Arguments to find a Severity
+     * @example
+     * // Get one Severity
+     * const severity = await prisma.severity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SeverityFindFirstOrThrowArgs>(args?: SelectSubset<T, SeverityFindFirstOrThrowArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Severities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Severities
+     * const severities = await prisma.severity.findMany()
+     * 
+     * // Get first 10 Severities
+     * const severities = await prisma.severity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const severityWithIdOnly = await prisma.severity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SeverityFindManyArgs>(args?: SelectSubset<T, SeverityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Severity.
+     * @param {SeverityCreateArgs} args - Arguments to create a Severity.
+     * @example
+     * // Create one Severity
+     * const Severity = await prisma.severity.create({
+     *   data: {
+     *     // ... data to create a Severity
+     *   }
+     * })
+     * 
+     */
+    create<T extends SeverityCreateArgs>(args: SelectSubset<T, SeverityCreateArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Severities.
+     * @param {SeverityCreateManyArgs} args - Arguments to create many Severities.
+     * @example
+     * // Create many Severities
+     * const severity = await prisma.severity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SeverityCreateManyArgs>(args?: SelectSubset<T, SeverityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Severities and returns the data saved in the database.
+     * @param {SeverityCreateManyAndReturnArgs} args - Arguments to create many Severities.
+     * @example
+     * // Create many Severities
+     * const severity = await prisma.severity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Severities and only return the `id`
+     * const severityWithIdOnly = await prisma.severity.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SeverityCreateManyAndReturnArgs>(args?: SelectSubset<T, SeverityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Severity.
+     * @param {SeverityDeleteArgs} args - Arguments to delete one Severity.
+     * @example
+     * // Delete one Severity
+     * const Severity = await prisma.severity.delete({
+     *   where: {
+     *     // ... filter to delete one Severity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SeverityDeleteArgs>(args: SelectSubset<T, SeverityDeleteArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Severity.
+     * @param {SeverityUpdateArgs} args - Arguments to update one Severity.
+     * @example
+     * // Update one Severity
+     * const severity = await prisma.severity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SeverityUpdateArgs>(args: SelectSubset<T, SeverityUpdateArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Severities.
+     * @param {SeverityDeleteManyArgs} args - Arguments to filter Severities to delete.
+     * @example
+     * // Delete a few Severities
+     * const { count } = await prisma.severity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SeverityDeleteManyArgs>(args?: SelectSubset<T, SeverityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Severities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Severities
+     * const severity = await prisma.severity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SeverityUpdateManyArgs>(args: SelectSubset<T, SeverityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Severities and returns the data updated in the database.
+     * @param {SeverityUpdateManyAndReturnArgs} args - Arguments to update many Severities.
+     * @example
+     * // Update many Severities
+     * const severity = await prisma.severity.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Severities and only return the `id`
+     * const severityWithIdOnly = await prisma.severity.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SeverityUpdateManyAndReturnArgs>(args: SelectSubset<T, SeverityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Severity.
+     * @param {SeverityUpsertArgs} args - Arguments to update or create a Severity.
+     * @example
+     * // Update or create a Severity
+     * const severity = await prisma.severity.upsert({
+     *   create: {
+     *     // ... data to create a Severity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Severity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SeverityUpsertArgs>(args: SelectSubset<T, SeverityUpsertArgs<ExtArgs>>): Prisma__SeverityClient<$Result.GetResult<Prisma.$SeverityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Severities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityCountArgs} args - Arguments to filter Severities to count.
+     * @example
+     * // Count the number of Severities
+     * const count = await prisma.severity.count({
+     *   where: {
+     *     // ... the filter for the Severities we want to count
+     *   }
+     * })
+    **/
+    count<T extends SeverityCountArgs>(
+      args?: Subset<T, SeverityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SeverityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Severity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SeverityAggregateArgs>(args: Subset<T, SeverityAggregateArgs>): Prisma.PrismaPromise<GetSeverityAggregateType<T>>
+
+    /**
+     * Group by Severity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeverityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SeverityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SeverityGroupByArgs['orderBy'] }
+        : { orderBy?: SeverityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SeverityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSeverityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Severity model
+   */
+  readonly fields: SeverityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Severity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SeverityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    scamType<T extends ScamTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScamTypeDefaultArgs<ExtArgs>>): Prisma__ScamTypeClient<$Result.GetResult<Prisma.$ScamTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Severity model
+   */
+  interface SeverityFieldRefs {
+    readonly id: FieldRef<"Severity", 'String'>
+    readonly scamTypeId: FieldRef<"Severity", 'String'>
+    readonly country: FieldRef<"Severity", 'String'>
+    readonly region: FieldRef<"Severity", 'String'>
+    readonly city: FieldRef<"Severity", 'String'>
+    readonly score: FieldRef<"Severity", 'Int'>
+    readonly level: FieldRef<"Severity", 'String'>
+    readonly updatedAt: FieldRef<"Severity", 'DateTime'>
+    readonly createdAt: FieldRef<"Severity", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Severity findUnique
+   */
+  export type SeverityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter, which Severity to fetch.
+     */
+    where: SeverityWhereUniqueInput
+  }
+
+  /**
+   * Severity findUniqueOrThrow
+   */
+  export type SeverityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter, which Severity to fetch.
+     */
+    where: SeverityWhereUniqueInput
+  }
+
+  /**
+   * Severity findFirst
+   */
+  export type SeverityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter, which Severity to fetch.
+     */
+    where?: SeverityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Severities to fetch.
+     */
+    orderBy?: SeverityOrderByWithRelationInput | SeverityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Severities.
+     */
+    cursor?: SeverityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Severities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Severities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Severities.
+     */
+    distinct?: SeverityScalarFieldEnum | SeverityScalarFieldEnum[]
+  }
+
+  /**
+   * Severity findFirstOrThrow
+   */
+  export type SeverityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter, which Severity to fetch.
+     */
+    where?: SeverityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Severities to fetch.
+     */
+    orderBy?: SeverityOrderByWithRelationInput | SeverityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Severities.
+     */
+    cursor?: SeverityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Severities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Severities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Severities.
+     */
+    distinct?: SeverityScalarFieldEnum | SeverityScalarFieldEnum[]
+  }
+
+  /**
+   * Severity findMany
+   */
+  export type SeverityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter, which Severities to fetch.
+     */
+    where?: SeverityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Severities to fetch.
+     */
+    orderBy?: SeverityOrderByWithRelationInput | SeverityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Severities.
+     */
+    cursor?: SeverityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Severities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Severities.
+     */
+    skip?: number
+    distinct?: SeverityScalarFieldEnum | SeverityScalarFieldEnum[]
+  }
+
+  /**
+   * Severity create
+   */
+  export type SeverityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Severity.
+     */
+    data: XOR<SeverityCreateInput, SeverityUncheckedCreateInput>
+  }
+
+  /**
+   * Severity createMany
+   */
+  export type SeverityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Severities.
+     */
+    data: SeverityCreateManyInput | SeverityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Severity createManyAndReturn
+   */
+  export type SeverityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * The data used to create many Severities.
+     */
+    data: SeverityCreateManyInput | SeverityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Severity update
+   */
+  export type SeverityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Severity.
+     */
+    data: XOR<SeverityUpdateInput, SeverityUncheckedUpdateInput>
+    /**
+     * Choose, which Severity to update.
+     */
+    where: SeverityWhereUniqueInput
+  }
+
+  /**
+   * Severity updateMany
+   */
+  export type SeverityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Severities.
+     */
+    data: XOR<SeverityUpdateManyMutationInput, SeverityUncheckedUpdateManyInput>
+    /**
+     * Filter which Severities to update
+     */
+    where?: SeverityWhereInput
+    /**
+     * Limit how many Severities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Severity updateManyAndReturn
+   */
+  export type SeverityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * The data used to update Severities.
+     */
+    data: XOR<SeverityUpdateManyMutationInput, SeverityUncheckedUpdateManyInput>
+    /**
+     * Filter which Severities to update
+     */
+    where?: SeverityWhereInput
+    /**
+     * Limit how many Severities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Severity upsert
+   */
+  export type SeverityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Severity to update in case it exists.
+     */
+    where: SeverityWhereUniqueInput
+    /**
+     * In case the Severity found by the `where` argument doesn't exist, create a new Severity with this data.
+     */
+    create: XOR<SeverityCreateInput, SeverityUncheckedCreateInput>
+    /**
+     * In case the Severity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SeverityUpdateInput, SeverityUncheckedUpdateInput>
+  }
+
+  /**
+   * Severity delete
+   */
+  export type SeverityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
+    /**
+     * Filter which Severity to delete.
+     */
+    where: SeverityWhereUniqueInput
+  }
+
+  /**
+   * Severity deleteMany
+   */
+  export type SeverityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Severities to delete
+     */
+    where?: SeverityWhereInput
+    /**
+     * Limit how many Severities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Severity without action
+   */
+  export type SeverityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Severity
+     */
+    select?: SeveritySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Severity
+     */
+    omit?: SeverityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeverityInclude<ExtArgs> | null
   }
 
 
@@ -22990,6 +24262,21 @@ export namespace Prisma {
   export type ScamTypeScalarFieldEnum = (typeof ScamTypeScalarFieldEnum)[keyof typeof ScamTypeScalarFieldEnum]
 
 
+  export const SeverityScalarFieldEnum: {
+    id: 'id',
+    scamTypeId: 'scamTypeId',
+    country: 'country',
+    region: 'region',
+    city: 'city',
+    score: 'score',
+    level: 'level',
+    updatedAt: 'updatedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type SeverityScalarFieldEnum = (typeof SeverityScalarFieldEnum)[keyof typeof SeverityScalarFieldEnum]
+
+
   export const FlagScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
@@ -23800,6 +25087,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeListRelationFilter
     postLinks?: EducationPostScamTypeListRelationFilter
     reports?: ScamReportListRelationFilter
+    severityRecords?: SeverityListRelationFilter
   }
 
   export type ScamTypeOrderByWithRelationInput = {
@@ -23814,6 +25102,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeOrderByRelationAggregateInput
     postLinks?: EducationPostScamTypeOrderByRelationAggregateInput
     reports?: ScamReportOrderByRelationAggregateInput
+    severityRecords?: SeverityOrderByRelationAggregateInput
   }
 
   export type ScamTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -23831,6 +25120,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeListRelationFilter
     postLinks?: EducationPostScamTypeListRelationFilter
     reports?: ScamReportListRelationFilter
+    severityRecords?: SeverityListRelationFilter
   }, "id" | "name">
 
   export type ScamTypeOrderByWithAggregationInput = {
@@ -23859,6 +25149,83 @@ export namespace Prisma {
     isUserCreated?: BoolWithAggregatesFilter<"ScamType"> | boolean
     moderatedAt?: DateTimeNullableWithAggregatesFilter<"ScamType"> | Date | string | null
     moderatedBy?: StringNullableWithAggregatesFilter<"ScamType"> | string | null
+  }
+
+  export type SeverityWhereInput = {
+    AND?: SeverityWhereInput | SeverityWhereInput[]
+    OR?: SeverityWhereInput[]
+    NOT?: SeverityWhereInput | SeverityWhereInput[]
+    id?: StringFilter<"Severity"> | string
+    scamTypeId?: StringFilter<"Severity"> | string
+    country?: StringNullableFilter<"Severity"> | string | null
+    region?: StringNullableFilter<"Severity"> | string | null
+    city?: StringNullableFilter<"Severity"> | string | null
+    score?: IntFilter<"Severity"> | number
+    level?: StringFilter<"Severity"> | string
+    updatedAt?: DateTimeFilter<"Severity"> | Date | string
+    createdAt?: DateTimeFilter<"Severity"> | Date | string
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }
+
+  export type SeverityOrderByWithRelationInput = {
+    id?: SortOrder
+    scamTypeId?: SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    score?: SortOrder
+    level?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    scamType?: ScamTypeOrderByWithRelationInput
+  }
+
+  export type SeverityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SeverityWhereInput | SeverityWhereInput[]
+    OR?: SeverityWhereInput[]
+    NOT?: SeverityWhereInput | SeverityWhereInput[]
+    scamTypeId?: StringFilter<"Severity"> | string
+    country?: StringNullableFilter<"Severity"> | string | null
+    region?: StringNullableFilter<"Severity"> | string | null
+    city?: StringNullableFilter<"Severity"> | string | null
+    score?: IntFilter<"Severity"> | number
+    level?: StringFilter<"Severity"> | string
+    updatedAt?: DateTimeFilter<"Severity"> | Date | string
+    createdAt?: DateTimeFilter<"Severity"> | Date | string
+    scamType?: XOR<ScamTypeScalarRelationFilter, ScamTypeWhereInput>
+  }, "id">
+
+  export type SeverityOrderByWithAggregationInput = {
+    id?: SortOrder
+    scamTypeId?: SortOrder
+    country?: SortOrderInput | SortOrder
+    region?: SortOrderInput | SortOrder
+    city?: SortOrderInput | SortOrder
+    score?: SortOrder
+    level?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: SeverityCountOrderByAggregateInput
+    _avg?: SeverityAvgOrderByAggregateInput
+    _max?: SeverityMaxOrderByAggregateInput
+    _min?: SeverityMinOrderByAggregateInput
+    _sum?: SeveritySumOrderByAggregateInput
+  }
+
+  export type SeverityScalarWhereWithAggregatesInput = {
+    AND?: SeverityScalarWhereWithAggregatesInput | SeverityScalarWhereWithAggregatesInput[]
+    OR?: SeverityScalarWhereWithAggregatesInput[]
+    NOT?: SeverityScalarWhereWithAggregatesInput | SeverityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Severity"> | string
+    scamTypeId?: StringWithAggregatesFilter<"Severity"> | string
+    country?: StringNullableWithAggregatesFilter<"Severity"> | string | null
+    region?: StringNullableWithAggregatesFilter<"Severity"> | string | null
+    city?: StringNullableWithAggregatesFilter<"Severity"> | string | null
+    score?: IntWithAggregatesFilter<"Severity"> | number
+    level?: StringWithAggregatesFilter<"Severity"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Severity"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Severity"> | Date | string
   }
 
   export type FlagWhereInput = {
@@ -25132,6 +26499,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateInput = {
@@ -25146,6 +26514,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUpdateInput = {
@@ -25160,6 +26529,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateInput = {
@@ -25174,6 +26544,7 @@ export namespace Prisma {
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeCreateManyInput = {
@@ -25207,6 +26578,89 @@ export namespace Prisma {
     isUserCreated?: BoolFieldUpdateOperationsInput | boolean
     moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SeverityCreateInput = {
+    id?: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    scamType: ScamTypeCreateNestedOneWithoutSeverityRecordsInput
+  }
+
+  export type SeverityUncheckedCreateInput = {
+    id?: string
+    scamTypeId: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SeverityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    scamType?: ScamTypeUpdateOneRequiredWithoutSeverityRecordsNestedInput
+  }
+
+  export type SeverityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeverityCreateManyInput = {
+    id?: string
+    scamTypeId: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SeverityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeverityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scamTypeId?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FlagCreateInput = {
@@ -26583,6 +28037,12 @@ export namespace Prisma {
     none?: ScamReportWhereInput
   }
 
+  export type SeverityListRelationFilter = {
+    every?: SeverityWhereInput
+    some?: SeverityWhereInput
+    none?: SeverityWhereInput
+  }
+
   export type ContactScamTypeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -26592,6 +28052,10 @@ export namespace Prisma {
   }
 
   export type ScamReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SeverityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26640,6 +28104,55 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type ScamTypeScalarRelationFilter = {
+    is?: ScamTypeWhereInput
+    isNot?: ScamTypeWhereInput
+  }
+
+  export type SeverityCountOrderByAggregateInput = {
+    id?: SortOrder
+    scamTypeId?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    score?: SortOrder
+    level?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SeverityAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type SeverityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    scamTypeId?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    score?: SortOrder
+    level?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SeverityMinOrderByAggregateInput = {
+    id?: SortOrder
+    scamTypeId?: SortOrder
+    country?: SortOrder
+    region?: SortOrder
+    city?: SortOrder
+    score?: SortOrder
+    level?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SeveritySumOrderByAggregateInput = {
+    score?: SortOrder
   }
 
   export type FlagReportIdUserIdCompoundUniqueInput = {
@@ -26940,11 +28453,6 @@ export namespace Prisma {
   export type PostTagMinOrderByAggregateInput = {
     postId?: SortOrder
     tagId?: SortOrder
-  }
-
-  export type ScamTypeScalarRelationFilter = {
-    is?: ScamTypeWhereInput
-    isNot?: ScamTypeWhereInput
   }
 
   export type EducationPostScamTypePostIdScamTypeIdCompoundUniqueInput = {
@@ -27437,6 +28945,13 @@ export namespace Prisma {
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
   }
 
+  export type SeverityCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput> | SeverityCreateWithoutScamTypeInput[] | SeverityUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: SeverityCreateOrConnectWithoutScamTypeInput | SeverityCreateOrConnectWithoutScamTypeInput[]
+    createMany?: SeverityCreateManyScamTypeInputEnvelope
+    connect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+  }
+
   export type ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput = {
     create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
@@ -27456,6 +28971,13 @@ export namespace Prisma {
     connectOrCreate?: ScamReportCreateOrConnectWithoutScamTypeInput | ScamReportCreateOrConnectWithoutScamTypeInput[]
     createMany?: ScamReportCreateManyScamTypeInputEnvelope
     connect?: ScamReportWhereUniqueInput | ScamReportWhereUniqueInput[]
+  }
+
+  export type SeverityUncheckedCreateNestedManyWithoutScamTypeInput = {
+    create?: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput> | SeverityCreateWithoutScamTypeInput[] | SeverityUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: SeverityCreateOrConnectWithoutScamTypeInput | SeverityCreateOrConnectWithoutScamTypeInput[]
+    createMany?: SeverityCreateManyScamTypeInputEnvelope
+    connect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -27504,6 +29026,20 @@ export namespace Prisma {
     deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
   }
 
+  export type SeverityUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput> | SeverityCreateWithoutScamTypeInput[] | SeverityUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: SeverityCreateOrConnectWithoutScamTypeInput | SeverityCreateOrConnectWithoutScamTypeInput[]
+    upsert?: SeverityUpsertWithWhereUniqueWithoutScamTypeInput | SeverityUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: SeverityCreateManyScamTypeInputEnvelope
+    set?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    disconnect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    delete?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    connect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    update?: SeverityUpdateWithWhereUniqueWithoutScamTypeInput | SeverityUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: SeverityUpdateManyWithWhereWithoutScamTypeInput | SeverityUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: SeverityScalarWhereInput | SeverityScalarWhereInput[]
+  }
+
   export type ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput = {
     create?: XOR<ContactScamTypeCreateWithoutScamTypeInput, ContactScamTypeUncheckedCreateWithoutScamTypeInput> | ContactScamTypeCreateWithoutScamTypeInput[] | ContactScamTypeUncheckedCreateWithoutScamTypeInput[]
     connectOrCreate?: ContactScamTypeCreateOrConnectWithoutScamTypeInput | ContactScamTypeCreateOrConnectWithoutScamTypeInput[]
@@ -27544,6 +29080,34 @@ export namespace Prisma {
     update?: ScamReportUpdateWithWhereUniqueWithoutScamTypeInput | ScamReportUpdateWithWhereUniqueWithoutScamTypeInput[]
     updateMany?: ScamReportUpdateManyWithWhereWithoutScamTypeInput | ScamReportUpdateManyWithWhereWithoutScamTypeInput[]
     deleteMany?: ScamReportScalarWhereInput | ScamReportScalarWhereInput[]
+  }
+
+  export type SeverityUncheckedUpdateManyWithoutScamTypeNestedInput = {
+    create?: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput> | SeverityCreateWithoutScamTypeInput[] | SeverityUncheckedCreateWithoutScamTypeInput[]
+    connectOrCreate?: SeverityCreateOrConnectWithoutScamTypeInput | SeverityCreateOrConnectWithoutScamTypeInput[]
+    upsert?: SeverityUpsertWithWhereUniqueWithoutScamTypeInput | SeverityUpsertWithWhereUniqueWithoutScamTypeInput[]
+    createMany?: SeverityCreateManyScamTypeInputEnvelope
+    set?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    disconnect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    delete?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    connect?: SeverityWhereUniqueInput | SeverityWhereUniqueInput[]
+    update?: SeverityUpdateWithWhereUniqueWithoutScamTypeInput | SeverityUpdateWithWhereUniqueWithoutScamTypeInput[]
+    updateMany?: SeverityUpdateManyWithWhereWithoutScamTypeInput | SeverityUpdateManyWithWhereWithoutScamTypeInput[]
+    deleteMany?: SeverityScalarWhereInput | SeverityScalarWhereInput[]
+  }
+
+  export type ScamTypeCreateNestedOneWithoutSeverityRecordsInput = {
+    create?: XOR<ScamTypeCreateWithoutSeverityRecordsInput, ScamTypeUncheckedCreateWithoutSeverityRecordsInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutSeverityRecordsInput
+    connect?: ScamTypeWhereUniqueInput
+  }
+
+  export type ScamTypeUpdateOneRequiredWithoutSeverityRecordsNestedInput = {
+    create?: XOR<ScamTypeCreateWithoutSeverityRecordsInput, ScamTypeUncheckedCreateWithoutSeverityRecordsInput>
+    connectOrCreate?: ScamTypeCreateOrConnectWithoutSeverityRecordsInput
+    upsert?: ScamTypeUpsertWithoutSeverityRecordsInput
+    connect?: ScamTypeWhereUniqueInput
+    update?: XOR<XOR<ScamTypeUpdateToOneWithWhereWithoutSeverityRecordsInput, ScamTypeUpdateWithoutSeverityRecordsInput>, ScamTypeUncheckedUpdateWithoutSeverityRecordsInput>
   }
 
   export type ScamReportCreateNestedOneWithoutFlagsInput = {
@@ -28516,6 +30080,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutReportsInput = {
@@ -28529,6 +30094,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutReportsInput = {
@@ -28635,6 +30201,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutReportsInput = {
@@ -28648,6 +30215,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type VoteUpsertWithWhereUniqueWithoutReportInput = {
@@ -29272,6 +30840,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SeverityCreateWithoutScamTypeInput = {
+    id?: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SeverityUncheckedCreateWithoutScamTypeInput = {
+    id?: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type SeverityCreateOrConnectWithoutScamTypeInput = {
+    where: SeverityWhereUniqueInput
+    create: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type SeverityCreateManyScamTypeInputEnvelope = {
+    data: SeverityCreateManyScamTypeInput | SeverityCreateManyScamTypeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContactScamTypeUpsertWithWhereUniqueWithoutScamTypeInput = {
     where: ContactScamTypeWhereUniqueInput
     update: XOR<ContactScamTypeUpdateWithoutScamTypeInput, ContactScamTypeUncheckedUpdateWithoutScamTypeInput>
@@ -29362,6 +30962,109 @@ export namespace Prisma {
     evidence?: StringNullableFilter<"ScamReport"> | string | null
     scamTypeId?: StringNullableFilter<"ScamReport"> | string | null
     source?: StringNullableFilter<"ScamReport"> | string | null
+  }
+
+  export type SeverityUpsertWithWhereUniqueWithoutScamTypeInput = {
+    where: SeverityWhereUniqueInput
+    update: XOR<SeverityUpdateWithoutScamTypeInput, SeverityUncheckedUpdateWithoutScamTypeInput>
+    create: XOR<SeverityCreateWithoutScamTypeInput, SeverityUncheckedCreateWithoutScamTypeInput>
+  }
+
+  export type SeverityUpdateWithWhereUniqueWithoutScamTypeInput = {
+    where: SeverityWhereUniqueInput
+    data: XOR<SeverityUpdateWithoutScamTypeInput, SeverityUncheckedUpdateWithoutScamTypeInput>
+  }
+
+  export type SeverityUpdateManyWithWhereWithoutScamTypeInput = {
+    where: SeverityScalarWhereInput
+    data: XOR<SeverityUpdateManyMutationInput, SeverityUncheckedUpdateManyWithoutScamTypeInput>
+  }
+
+  export type SeverityScalarWhereInput = {
+    AND?: SeverityScalarWhereInput | SeverityScalarWhereInput[]
+    OR?: SeverityScalarWhereInput[]
+    NOT?: SeverityScalarWhereInput | SeverityScalarWhereInput[]
+    id?: StringFilter<"Severity"> | string
+    scamTypeId?: StringFilter<"Severity"> | string
+    country?: StringNullableFilter<"Severity"> | string | null
+    region?: StringNullableFilter<"Severity"> | string | null
+    city?: StringNullableFilter<"Severity"> | string | null
+    score?: IntFilter<"Severity"> | number
+    level?: StringFilter<"Severity"> | string
+    updatedAt?: DateTimeFilter<"Severity"> | Date | string
+    createdAt?: DateTimeFilter<"Severity"> | Date | string
+  }
+
+  export type ScamTypeCreateWithoutSeverityRecordsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeUncheckedCreateWithoutSeverityRecordsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    createdBy?: string | null
+    isApproved?: boolean
+    isUserCreated?: boolean
+    moderatedAt?: Date | string | null
+    moderatedBy?: string | null
+    contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
+    reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+  }
+
+  export type ScamTypeCreateOrConnectWithoutSeverityRecordsInput = {
+    where: ScamTypeWhereUniqueInput
+    create: XOR<ScamTypeCreateWithoutSeverityRecordsInput, ScamTypeUncheckedCreateWithoutSeverityRecordsInput>
+  }
+
+  export type ScamTypeUpsertWithoutSeverityRecordsInput = {
+    update: XOR<ScamTypeUpdateWithoutSeverityRecordsInput, ScamTypeUncheckedUpdateWithoutSeverityRecordsInput>
+    create: XOR<ScamTypeCreateWithoutSeverityRecordsInput, ScamTypeUncheckedCreateWithoutSeverityRecordsInput>
+    where?: ScamTypeWhereInput
+  }
+
+  export type ScamTypeUpdateToOneWithWhereWithoutSeverityRecordsInput = {
+    where?: ScamTypeWhereInput
+    data: XOR<ScamTypeUpdateWithoutSeverityRecordsInput, ScamTypeUncheckedUpdateWithoutSeverityRecordsInput>
+  }
+
+  export type ScamTypeUpdateWithoutSeverityRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+  }
+
+  export type ScamTypeUncheckedUpdateWithoutSeverityRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    isApproved?: BoolFieldUpdateOperationsInput | boolean
+    isUserCreated?: BoolFieldUpdateOperationsInput | boolean
+    moderatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
+    reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamReportCreateWithoutFlagsInput = {
@@ -30196,6 +31899,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     contactLinks?: ContactScamTypeCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutPostLinksInput = {
@@ -30209,6 +31913,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     contactLinks?: ContactScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutPostLinksInput = {
@@ -30301,6 +32006,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     contactLinks?: ContactScamTypeUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutPostLinksInput = {
@@ -30314,6 +32020,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     contactLinks?: ContactScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ContactScamTypeCreateWithoutContactInput = {
@@ -30446,6 +32153,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     postLinks?: EducationPostScamTypeCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeUncheckedCreateWithoutContactLinksInput = {
@@ -30459,6 +32167,7 @@ export namespace Prisma {
     moderatedBy?: string | null
     postLinks?: EducationPostScamTypeUncheckedCreateNestedManyWithoutScamTypeInput
     reports?: ScamReportUncheckedCreateNestedManyWithoutScamTypeInput
+    severityRecords?: SeverityUncheckedCreateNestedManyWithoutScamTypeInput
   }
 
   export type ScamTypeCreateOrConnectWithoutContactLinksInput = {
@@ -30545,6 +32254,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     postLinks?: EducationPostScamTypeUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ScamTypeUncheckedUpdateWithoutContactLinksInput = {
@@ -30558,6 +32268,7 @@ export namespace Prisma {
     moderatedBy?: NullableStringFieldUpdateOperationsInput | string | null
     postLinks?: EducationPostScamTypeUncheckedUpdateManyWithoutScamTypeNestedInput
     reports?: ScamReportUncheckedUpdateManyWithoutScamTypeNestedInput
+    severityRecords?: SeverityUncheckedUpdateManyWithoutScamTypeNestedInput
   }
 
   export type ContactCreateWithoutTagsInput = {
@@ -30860,6 +32571,17 @@ export namespace Prisma {
     source?: string | null
   }
 
+  export type SeverityCreateManyScamTypeInput = {
+    id?: string
+    country?: string | null
+    region?: string | null
+    city?: string | null
+    score: number
+    level: string
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
   export type ContactScamTypeUpdateWithoutScamTypeInput = {
     contact?: ContactUpdateOneRequiredWithoutScamTypesNestedInput
   }
@@ -30960,6 +32682,39 @@ export namespace Prisma {
     screenshots?: NullableStringFieldUpdateOperationsInput | string | null
     evidence?: NullableStringFieldUpdateOperationsInput | string | null
     source?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SeverityUpdateWithoutScamTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeverityUncheckedUpdateWithoutScamTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeverityUncheckedUpdateManyWithoutScamTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    score?: IntFieldUpdateOperationsInput | number
+    level?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentCreateManyUserInput = {

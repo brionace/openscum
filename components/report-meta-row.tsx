@@ -3,7 +3,7 @@ import { ScamReport } from "@/lib/types";
 import { formatDistanceToNow } from "@/lib/date-utils";
 import { getSeverity } from "@/lib/utils";
 import { SeverityBulletin } from "@/components/severity-bulletin";
-import { MapPin, Calendar } from "lucide-react";
+import { LocateFixed, Calendar } from "lucide-react";
 
 interface ReportMetaRowProps {
   report: ScamReport;
@@ -30,7 +30,7 @@ export function ReportMetaRow({ report }: ReportMetaRowProps) {
         )} */}
         {report.source && (
           <div className="flex items-center gap-1">
-            <MapPin className="h-4 w-4" />
+            <LocateFixed className="h-4 w-4" />
             <span
               // className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded font-semibold"
               title={`Source: ${report.source}`}

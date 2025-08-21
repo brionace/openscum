@@ -32,6 +32,31 @@ export function getSeverity(
   return undefined;
 }
 
+export type Severity = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
+
+export const SEVERITY_META: Record<
+  Severity,
+  { title: string; description: string }
+> = {
+  LOW: {
+    title: "Low",
+    description: "Few reports recently. Stay aware and verify before engaging.",
+  },
+  MEDIUM: {
+    title: "Elevated",
+    description: "Reports are increasing. Exercise extra caution.",
+  },
+  HIGH: {
+    title: "High",
+    description:
+      "Significant recent activity. Avoid interacting where possible.",
+  },
+  CRITICAL: {
+    title: "Critical",
+    description: "Major surge detected. Known active scam—do not engage.",
+  },
+};
+
 // --- Automated scam report scoring and filtering ---
 const BAD_WORDS = [
   "test",

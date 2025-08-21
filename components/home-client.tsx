@@ -11,6 +11,8 @@ import { TrendingBar } from "@/components/trending-bar";
 import { ReportCard } from "@/components/report-card";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { ReportFilters } from "./report-filters";
+import { countryCity } from "@/lib/country";
 
 // Lazy load heavy components
 const QuickReportButton = lazy(() =>
@@ -28,6 +30,29 @@ interface HomeClientProps {
   initialHasMore: boolean;
   outcomeTypes: OutcomeType[];
 }
+
+interface Option {
+  id: string;
+  name: string;
+}
+
+const rawLocations = countryCity();
+const allLocations = rawLocations.flatMap(({ name, cities }) =>
+  name
+    ? [
+        { id: name, name: name }, // Country only
+        ...(Array.isArray(cities)
+          ? cities.map((city, index) => ({
+              id: `${city}-${name}-${index}`,
+              name: `${city}, ${name}`,
+            }))
+          : []),
+      ]
+    : []
+);
+const uniqueLocations = Array.from(
+  new Map(allLocations.map((loc) => [loc.id, loc])).values()
+);
 
 export function HomeClient({
   initialReports,
@@ -53,6 +78,26 @@ export function HomeClient({
     [id: string]: boolean;
   }>({});
   const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+  const [filterValues, setFilterValues] = useState<{
+    scamType?: { id: string; name: string } | null;
+    location?: { id: string; name: string } | null;
+    severity?: { id: string; name: string } | null;
+  }>({});
+
+  // NEW: Options for filters (replace with API calls if needed)
+  const [scamTypes, setScamTypes] = useState<{ id: string; name: string }[]>(
+    []
+  );
+  const [locations, setLocations] = useState<Option[]>([]);
+  const [filteredLocations, setFilteredLocations] = useState<Option[]>([]);
+
+  const [severities, setSeverities] = useState<{ id: string; name: string }[]>([
+    { id: "low", name: "Low" },
+    { id: "medium", name: "Medium" },
+    { id: "high", name: "High" },
+    { id: "critical", name: "Critical" },
+  ]);
 
   // Fetch paginated reports
   const loadMoreReports = async () => {
@@ -130,6 +175,23 @@ export function HomeClient({
     // Listen for hash changes
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    // Example: fetch scam types from API
+    fetch("/api/scam-types")
+      .then((res) => res.json())
+      .then((types) =>
+        setScamTypes(types.map((t: any) => ({ id: t.id, name: t.name })))
+      );
+    // Example: fetch locations from reports or API
+    // fetch("/api/locations")
+    //   .then((res) => res.json())
+    //   .then((locs) =>
+    //     setLocations(locs.map((l: any) => ({ id: l.id, name: l.name })))
+    //   );
+    setLocations(uniqueLocations);
+    setFilteredLocations(uniqueLocations.slice(0, 10)); // Show first 10 initially
   }, []);
 
   const loadStats = async () => {
@@ -270,6 +332,13 @@ export function HomeClient({
     }
   };
 
+  const handleSearchLocation = (query: string) => {
+    const q = query.toLowerCase();
+    setFilteredLocations(
+      locations.filter((loc) => loc.name.toLowerCase().includes(q)).slice(0, 10) // Only show top 10 matches
+    );
+  };
+
   // Auto-refresh mechanism to check for new posts every 30 seconds
   useEffect(() => {
     const refreshInterval = setInterval(async () => {
@@ -314,6 +383,21 @@ export function HomeClient({
         )}
         <main className="space-y-8">
           {/* <TrendingBar /> */}
+
+          <ReportFilters
+            scamTypes={scamTypes}
+            locations={filteredLocations}
+            severities={severities}
+            value={filterValues}
+            onChange={setFilterValues}
+            onSearchType={(q) => {
+              // Optionally implement search for scam types
+            }}
+            onSearchLocation={handleSearchLocation}
+            onSearchSeverity={(q) => {
+              // Optionally implement search for severities
+            }}
+          />
 
           <div className="space-y-6">
             {/* <div className="flex justify-between items-center">

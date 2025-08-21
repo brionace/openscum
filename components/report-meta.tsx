@@ -58,6 +58,25 @@ export function ReportMeta({
         )}
       </div> */}
       <div className="flex items-center gap-3 text-xs">
+        {/* Vote Button */}
+        {onVote && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            onClick={() => onVote?.("helpful")}
+            aria-label="Thumbs up"
+            disabled={voting}
+          >
+            <ThumbsUp className="h-3 w-3 mr-1" />
+            {votes !== undefined
+              ? votes
+              : report._count && typeof report._count?.votes === "number"
+              ? report._count.votes
+              : 0}
+          </Button>
+        )}
+
         {/* Flag Button */}
         {onFlag && (
           <Button
@@ -92,23 +111,6 @@ export function ReportMeta({
             )}
           </Button>
         )}
-
-        {/* Vote Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="shrink-0"
-          onClick={() => onVote?.("helpful")}
-          aria-label="Thumbs up"
-          disabled={voting}
-        >
-          <ThumbsUp className="h-3 w-3 mr-1" />
-          {votes !== undefined
-            ? votes
-            : report._count && typeof report._count?.votes === "number"
-            ? report._count.votes
-            : 0}
-        </Button>
 
         {/* Share Button */}
         {onShare && (

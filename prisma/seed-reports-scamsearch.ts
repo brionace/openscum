@@ -5,7 +5,7 @@ import compareTwoStrings from "string-similarity-js";
 
 const API_TOKEN = "m8wkplbego3r0dq7sxhvt1a5fc2jz6";
 const BASE_URL = "https://scamsearch.io/api/search-with-wild";
-const DEFAULT_SEARCH = "sextortion"; //
+const DEFAULT_SEARCH = "romance";
 
 // Configurable query params
 const config = {

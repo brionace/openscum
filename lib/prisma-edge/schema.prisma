@@ -113,20 +113,36 @@ model AIScamReport {
 }
 
 model ScamType {
-  id            String                  @id @default(cuid())
-  name          String                  @unique
-  createdAt     DateTime                @default(now())
-  createdBy     String?
-  isApproved    Boolean                 @default(false)
-  isUserCreated Boolean                 @default(false)
-  moderatedAt   DateTime?
-  moderatedBy   String?
-  contactLinks  ContactScamType[]
-  postLinks     EducationPostScamType[]
-  reports       ScamReport[]
+  id              String                  @id @default(cuid())
+  name            String                  @unique
+  createdAt       DateTime                @default(now())
+  createdBy       String?
+  isApproved      Boolean                 @default(false)
+  isUserCreated   Boolean                 @default(false)
+  moderatedAt     DateTime?
+  moderatedBy     String?
+  contactLinks    ContactScamType[]
+  postLinks       EducationPostScamType[]
+  reports         ScamReport[]
+  severityRecords Severity[]
 
   @@index([isApproved])
   @@index([isUserCreated])
+}
+
+model Severity {
+  id         String   @id @default(cuid())
+  scamTypeId String
+  scamType   ScamType @relation(fields: [scamTypeId], references: [id])
+  country    String? // ISO code
+  region     String?
+  city       String?
+  score      Int // Severity score (e.g., 1-100)
+  level      String // "LOW", "MEDIUM", "HIGH", "CRITICAL"
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
+
+  @@index([scamTypeId, country, region, city])
 }
 
 model Flag {
