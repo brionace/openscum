@@ -11,12 +11,12 @@ export type ReportFiltersProps = {
   locations?: Option[];
   severities?: Option[];
   value?: {
-    scamType?: Option | null;
+    scamType?: Option[]; // multi-select
     location?: Option | null;
     severity?: Option | null;
   };
   onChange: (value: {
-    scamType?: Option | null;
+    scamType?: Option[];
     location?: Option | null;
     severity?: Option | null;
   }) => void;
@@ -42,11 +42,11 @@ export function ReportFilters({
       {/* Filter summary */}
       <div className="flex justify-between items-center">
         <div className="flex gap-2 flex-wrap">
-          {value?.scamType && (
-            <Badge variant="outline" className="text-xs">
-              {value.scamType.name}
+          {value?.scamType?.map((type) => (
+            <Badge key={type.id} variant="outline" className="text-xs">
+              {type.name}
             </Badge>
-          )}
+          ))}
           {value?.location && (
             <Badge variant="outline" className="text-xs">
               {value.location.name}
@@ -75,18 +75,22 @@ export function ReportFilters({
         <div className="flex flex-col lg:flex-row gap-4 items-center flex-wrap mt-6">
           <TypeDropdown
             label="Scam Type"
-            value={value?.scamType ?? null}
+            value={value?.scamType ?? []}
             onChange={(scamType) => {
-              if (Array.isArray(scamType)) {
-                onChange({ ...value, scamType: scamType[0] ?? null });
-              } else {
-                onChange({ ...value, scamType });
-              }
+              onChange({
+                ...value,
+                scamType: Array.isArray(scamType)
+                  ? scamType
+                  : scamType
+                  ? [scamType]
+                  : [],
+              });
             }}
             options={scamTypes ?? []}
             onSearch={onSearchType ?? (() => {})}
             placeholder="Search scam type..."
             showAllOnFocus
+            multi={true}
           />
           <TypeDropdown
             label="Location"

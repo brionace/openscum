@@ -214,6 +214,8 @@ async function main() {
     "Counterfeit Goods",
     "Counterfeit Tickets",
     "Counterfeit Documents",
+    "Sextortion",
+    "Sex Exploitation",
     "Other (not on the list)",
   ];
 

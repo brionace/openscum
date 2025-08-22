@@ -163,22 +163,26 @@ export function ReportCard({
 
   return (
     <Card
-      onClick={() => onCommentsClick?.(report.id)}
-      className={`w-full border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-0 hover:cursor-pointer ${
+      className={`w-full border-b-0 border-t-0 border-l-0 border-right-0 lg:border shadow-none lg:shadow-sm rounded-none lg:rounded-lg lg:border-l-0 ${
         severityBLColors[
           (report.severity as keyof typeof severityBLColors) || "LOW"
         ]
-      } hover:lg:shadow-lg transition-shadow`}
+      } transition-shadow`}
     >
       <CardHeader className="flex flex-row items-end justify-between gap-3 p-3 pt-6">
         <ReportMetaRow report={report} />
       </CardHeader>
 
       <CardContent className="space-y-4 p-3">
-        <p className="mb-4 line-clamp-3 break-all">{report.description}</p>
+        <div
+          onClick={() => onCommentsClick?.(report.id)}
+          className="hover:cursor-pointer"
+        >
+          <p className="mb-4 line-clamp-3 break-all">{report.description}</p>
 
-        {/* Details Section (scammerDetails, outcome, severity) */}
-        <ReportDetails severity={severityValue} compact />
+          {/* Details Section (scammerDetails, outcome, severity) */}
+          <ReportDetails severity={severityValue} compact />
+        </div>
 
         {/* Meta Information */}
         <ReportMeta

@@ -80,19 +80,18 @@ export function HomeClient({
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   const [filterValues, setFilterValues] = useState<{
-    scamType?: { id: string; name: string } | null;
-    location?: { id: string; name: string } | null;
-    severity?: { id: string; name: string } | null;
+    scamType?: Option[]; // multi-select
+    location?: Option | null;
+    severity?: Option | null;
   }>({});
 
   // NEW: Options for filters (replace with API calls if needed)
-  const [scamTypes, setScamTypes] = useState<{ id: string; name: string }[]>(
-    []
-  );
+  const [scamTypes, setScamTypes] = useState<Option[]>([]);
+  const [filteredScamTypes, setFilteredScamTypes] = useState<Option[]>([]);
   const [locations, setLocations] = useState<Option[]>([]);
   const [filteredLocations, setFilteredLocations] = useState<Option[]>([]);
 
-  const [severities, setSeverities] = useState<{ id: string; name: string }[]>([
+  const [severities, setSeverities] = useState<Option[]>([
     { id: "low", name: "Low" },
     { id: "medium", name: "Medium" },
     { id: "high", name: "High" },
@@ -181,15 +180,14 @@ export function HomeClient({
     // Example: fetch scam types from API
     fetch("/api/scam-types")
       .then((res) => res.json())
-      .then((types) =>
-        setScamTypes(types.map((t: any) => ({ id: t.id, name: t.name })))
-      );
-    // Example: fetch locations from reports or API
-    // fetch("/api/locations")
-    //   .then((res) => res.json())
-    //   .then((locs) =>
-    //     setLocations(locs.map((l: any) => ({ id: l.id, name: l.name })))
-    //   );
+      .then((types) => {
+        const scamTypeOptions = types.map((t: any) => ({
+          id: t.id,
+          name: t.name,
+        }));
+        setScamTypes(scamTypeOptions);
+        setFilteredScamTypes(scamTypeOptions.slice(0, 10)); // Show first 10 initially
+      });
     setLocations(uniqueLocations);
     setFilteredLocations(uniqueLocations.slice(0, 10)); // Show first 10 initially
   }, []);
@@ -332,6 +330,15 @@ export function HomeClient({
     }
   };
 
+  const handleSearchType = (query: string) => {
+    const q = query.toLowerCase();
+    setFilteredScamTypes(
+      scamTypes
+        .filter((type) => type.name.toLowerCase().includes(q))
+        .slice(0, 10)
+    );
+  };
+
   const handleSearchLocation = (query: string) => {
     const q = query.toLowerCase();
     setFilteredLocations(
@@ -384,20 +391,18 @@ export function HomeClient({
         <main className="space-y-8">
           {/* <TrendingBar /> */}
 
-          <ReportFilters
-            scamTypes={scamTypes}
+          {/* <ReportFilters
+            scamTypes={filteredScamTypes}
             locations={filteredLocations}
             severities={severities}
             value={filterValues}
             onChange={setFilterValues}
-            onSearchType={(q) => {
-              // Optionally implement search for scam types
-            }}
+            onSearchType={handleSearchType}
             onSearchLocation={handleSearchLocation}
             onSearchSeverity={(q) => {
               // Optionally implement search for severities
             }}
-          />
+          /> */}
 
           <div className="space-y-6">
             {/* <div className="flex justify-between items-center">
